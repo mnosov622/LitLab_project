@@ -31,7 +31,8 @@ code {
 }
 
 .navbar {
-  background-color: #09b0d2;
+  background-color: #fff;
+  box-shadow: 0 5px 5px 0px rgba(0, 0, 0, 0.1);
 }
 
 .logo {

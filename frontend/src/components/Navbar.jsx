@@ -12,18 +12,26 @@ const Navbar = () => {
             <img className="logo" src={logo} alt="logo" />
           </Link>
         </div>
-        <div className="col-6">
+        <div className="col-4">
           <form action="">
-            <input
-              type="text"
-              className="w-50 rounded "
-              placeholder="Search for your favourite course..."
-            />
+            <div class="input-group">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Search for your favourite courses"
+                aria-label="Search for your favourite courses"
+              ></input>
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button">
+                  <i class="bi bi-search"></i>
+                </button>
+              </div>
+            </div>
           </form>
         </div>
-        <div className="col">
+        <div className="col offset-2">
           <Link to="login" className="">
-            <button className="justify-content-end btn btn-light">
+            <button className="justify-content-end btn btn-secondary">
               Log in
             </button>
           </Link>
