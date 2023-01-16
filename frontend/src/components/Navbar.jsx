@@ -5,7 +5,7 @@ import logo from "../assets/logo.png";
 
 const Navbar = () => {
   return (
-    <nav className="navbar">
+    <nav className="navbar fixed-top">
       <div className="row container-fluid">
         <div className="col-4">
           <Link to="/" className="">

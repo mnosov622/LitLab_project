@@ -12,7 +12,8 @@ body {
   font-family: "Outfit", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #fff;
+  min-height: 100%;
+  width: 100%;
 }
 
 a {
@@ -37,4 +38,10 @@ code {
 
 .logo {
   width: 4em;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
 }
