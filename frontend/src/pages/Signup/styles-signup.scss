@@ -1,0 +1,48 @@
+.font{
+    font-size: 100px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: 200;
+    text-align: center;
+    padding-top: 100px;
+}
+
+.lcfont{
+    font-size: 35px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    margin-bottom: 100px;
+    
+}
+
+.center {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.btn1 {
+    background-color: plum;
+    color: maroon;
+    font-size: 40px;
+    margin-right: 40px;
+    padding: 10px 60px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn2 {
+    background-color: plum;
+    color: maroon;
+    font-size: 40px;
+    padding: 10px 60px;
+    border-radius: 5px;
+    margin-left:40px;
+    cursor: pointer;
+}
+
+.img2 {
+    text-align:right;
+    justify-content: right;
+    align-items: right;
+    margin: auto;
+    width: 100%;
+}
