@@ -14,6 +14,7 @@ import styles from "./styles-signup.scss";
 const Signup = () => {
   return (
     <>
+    
       <div>
         <img
           className="img3"
@@ -65,6 +66,7 @@ const Signup = () => {
           style={{ width: "300px" }}
         />
       </div>
+      
     </>
   );
 };

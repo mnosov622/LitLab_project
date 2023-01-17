@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 const CreatorSignup = () => {
   return (
     <>
+      <div className="borber"> 
       <Container>
         <Row className="justify-content-md-center">
           <Col>
@@ -79,6 +80,7 @@ const CreatorSignup = () => {
           </Col>
         </Row>
       </Container>
+      </div>
     </>
   );
 };
