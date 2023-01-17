@@ -7,6 +7,7 @@ import Col from 'react-bootstrap/Col';
 import img1 from "../../assets/signup-page-img1.png";
 import img2 from "../../assets/signup-page-img2.png";
 import img3 from "../../assets/signup-page-img3.png";
+import img4 from "../../assets/signup-page-img4.png";
 import { Link } from "react-router-dom";
 import styles from "./styles-signup.scss"
 
@@ -16,7 +17,9 @@ const Signup = () => {
       
       <div>
         <img className="img3" src={img3} alt="No Img3" style={{ width: '200px', }}/>
+        <img className="img4" src={img4} alt="No Img4" style={{ width: '200px', }}/>
       </div>
+
       <div className="font">Welcome To LitLab</div>
       <div className="lcfont" >Want to become Learner or Creator ?</div>
           <div className="center">

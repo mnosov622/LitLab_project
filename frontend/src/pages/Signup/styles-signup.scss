@@ -3,7 +3,7 @@
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-weight: 200;
     text-align: center;
-    padding-top: 100px;
+    
 }
 
 .lcfont{
@@ -16,7 +16,7 @@
 
 .center {
     text-align: center;
-    margin-top: 50px;
+    margin-top: 40px;
 }
 
 .btn1 {
@@ -39,10 +39,24 @@
     cursor: pointer;
 }
 
-.img2 {
-    text-align:right;
-    justify-content: right;
-    align-items: right;
-    margin: auto;
+.img1 {
     width: 100%;
+    padding-right: 100px;
+    margin-right: 330px;
+}
+
+.img2 {
+    width: 100%;
+    padding-left: 100px;
+    margin-left: 350px;
+}
+
+.img3 {
+    width: 100%;
+    margin-right: 400px;
+}
+
+.img4 {
+    width: 100%;
+    margin-left: 450px;
 }
