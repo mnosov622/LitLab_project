@@ -5,6 +5,8 @@ import Home from "./pages/Home/Home";
 import Footer from "./components/Footer";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import NotFound from "./pages/NotFound";
+import AllCourses from "./pages/AllCourses/AllCourses";
 function App() {
   return (
     <>
@@ -14,6 +16,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/all-courses" element={<AllCourses />} />
+          <Route path="*" exact={true} element={<NotFound />} />
         </Routes>
       </Container>
       {/* <Footer /> */}

@@ -7,12 +7,15 @@ const Navbar = () => {
   return (
     <nav className="navbar fixed-top">
       <div className="row container-fluid">
-        <div className="col-4">
+        <div className="col">
           <Link to="/" className="">
             <img className="logo" src={logo} alt="logo" />
           </Link>
         </div>
-        <div className="col-4">
+        <div className="col-2">
+          <Link to="all-courses">Explore All Courses</Link>
+        </div>
+        <div className="offset-1 col-4">
           <form action="">
             <div class="input-group">
               <input
