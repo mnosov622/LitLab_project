@@ -9,6 +9,7 @@ import CourseCard from "../../components/CourseCards/CourseCard";
 import javascriptTeacher from "../../assets/javascript-teacher.jpg";
 import teacher1 from "../../assets/teacher-1.jpg";
 import influenceTeacher from "../../assets/influence-teacher.jpg";
+import CourseCategoryCard from "../../components/CourseCategoryCard/CourseCategoryCard";
 
 const Home = () => {
   return (
@@ -97,6 +98,23 @@ const Home = () => {
               />
             </div>
           </div>
+        </div>
+        <div className="row mt-5">
+          <div className="col-md-12">
+            <p className="fs-1 text-center">Courses you can explore today</p>
+          </div>
+        </div>
+        <div className="col-md-3 mt-2 category">
+          <CourseCategoryCard name="Computer Science" courseCount="153" />
+        </div>
+        <div className="col-md-3 mt-2 category">
+          <CourseCategoryCard name="Language Learning" courseCount="57" />
+        </div>
+        <div className="col-md-3 mt-2 category">
+          <CourseCategoryCard name="Psychology" courseCount="188" />
+        </div>
+        <div className="col-md-3 mt-2 category">
+          <CourseCategoryCard name="Personal Development" courseCount="133" />
         </div>
       </div>
     </>
