@@ -25,6 +25,7 @@ const LearnerSignup = () => {
               </div>
             </Col>
             <Col className="form">
+              <h2>Create an account to get started</h2>
               <Form>
                 <Form.Group className="mb-3" controlId="formBasicName">
                   <Form.Label className="fonts">Full Name</Form.Label>

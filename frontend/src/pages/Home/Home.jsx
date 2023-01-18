@@ -10,6 +10,11 @@ import javascriptTeacher from "../../assets/javascript-teacher.jpg";
 import teacher1 from "../../assets/teacher-1.jpg";
 import influenceTeacher from "../../assets/influence-teacher.jpg";
 import CourseCategoryCard from "../../components/CourseCategoryCard/CourseCategoryCard";
+import reviewImage1 from "../../assets/review-image1.jpg";
+import reviewImage2 from "../../assets/review-image2.jpg";
+import reviewImage3 from "../../assets/review-image3.jpg";
+import ReviewCard from "../../components/ReviewCard/ReviewCard";
+import teacher2 from "../../assets/teacher2.jpg";
 
 const Home = () => {
   return (
@@ -101,7 +106,9 @@ const Home = () => {
         </div>
         <div className="row mt-5">
           <div className="col-md-12">
-            <p className="fs-1 text-center">Courses you can explore today</p>
+            <p className="fs-1 text-center mb-5">
+              Courses you can explore today
+            </p>
           </div>
         </div>
         <div className="col-md-3 mt-2 category">
@@ -115,6 +122,54 @@ const Home = () => {
         </div>
         <div className="col-md-3 mt-2 category">
           <CourseCategoryCard name="Personal Development" courseCount="133" />
+        </div>
+      </div>
+      <div className="row mt-5">
+        <div className="col-md-12 text-center fs-1 mt-5">
+          What people say about us
+        </div>
+      </div>
+      <div className="row text-center border-bottom">
+        <div className="col-md-4 ">
+          <ReviewCard
+            image={reviewImage1}
+            name="Linda Marlen"
+            review="The experience that I got through the computer science course can't
+            be measured. During the course I built a lot of confidence that
+            helped me to find my dream job."
+          />
+        </div>
+        <div className="col-md-4">
+          <ReviewCard
+            image={reviewImage3}
+            name="Jack Robertson"
+            review="LitLab helped to change my career. As most of the students, after graduation I didn't know exactly where to go, but thanks to this platform I found things that I love, learnt valuable skills and met like-minded people."
+          />
+        </div>
+        <div className="col-md-4">
+          <ReviewCard
+            image={reviewImage2}
+            name="Melisa Thurman "
+            review="I love the way they teach you at LitLab. Each course has different level of experience you need to have before you start. Tons of courses for your development."
+          />
+        </div>
+      </div>
+
+      <div className="row mt-5 d-flex align-items-center mb-5">
+        <div className="col-md-6 mt-5">
+          <img className="w-100 rounded" src={teacher2} alt="Teacher" />
+        </div>
+        <div className="offset-1 col-md-5 mt-5 ">
+          <p className="mt-2 fs-1 text-primary">Stand out from the crowd</p>
+          <p className="fs-2">
+            Complete courses, get certificate and provide value at the market
+            today.
+          </p>
+          <Link to="/learner-signup">
+            <button className="btn btn-lg btn-primary mt-5">
+              Get personalized experience
+            </button>
+          </Link>
         </div>
       </div>
     </>

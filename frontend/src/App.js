@@ -14,7 +14,7 @@ function App() {
   return (
     <>
       <Navbar />
-      <Container style={{ marginTop: "100px" }}>
+      <Container style={{ marginTop: "100px", marginBottom: "100px" }}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/learner-signup" element={<LearnerSignup />} />
@@ -25,7 +25,7 @@ function App() {
           <Route path="*" exact={true} element={<NotFound />} />
         </Routes>
       </Container>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 }
