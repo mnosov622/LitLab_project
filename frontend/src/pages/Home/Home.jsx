@@ -30,16 +30,18 @@ const Home = () => {
             </p>
             <div className="row">
               <div className="col-4">
-                <Link to="signup" className="">
+                <Link to="/learner-signup" className="">
                   <button className="btn btn-lg btn-primary w-100">
                     Start Learning
                   </button>
                 </Link>
               </div>
               <div className="col-6">
-                <button className="btn btn-lg btn-outline-primary">
-                  Become content creator
-                </button>
+                <Link to="/creator-signup" className="">
+                  <button className="btn btn-lg btn-outline-primary">
+                    Become content creator
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
@@ -104,21 +106,12 @@ const Home = () => {
               />
             </div>
           </div>
-          <div className="row">
-            <div className="col-md-4">
-              <CourseCard
-                name="Build Full Stack Application with Angular and Node JS"
-                image={fullStackTeacher}
-                price="24$/month"
-                teacherName="Aaron Nester"
-              />
-            </div>
-          </div>
         </div>
         <div className="row mt-5">
           <div className="col-md-12">
             <p className="fs-1 text-center mb-5">
-              Courses you can explore today
+              Courses you can explore{" "}
+              <snap className={styles.gradientColor}> today</snap>
             </p>
           </div>
         </div>

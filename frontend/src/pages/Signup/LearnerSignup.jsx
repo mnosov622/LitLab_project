@@ -4,51 +4,70 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import img from "../../assets/learner.png";
 import { Link } from "react-router-dom";
 // import styles from "./styles-login.scss"
+import student from "../../assets/student.png";
 
 const LearnerSignup = () => {
   return (
     <>
-      <div className="borber">
+      <div className="mt-5">
         <Container>
           <Row className="justify-content-md-center">
             <Col>
               <div>
                 <img
                   className="img"
-                  src={img}
+                  src={student}
                   alt="Login In"
-                  style={{ width: "650px" }}
+                  style={{ width: "30em" }}
                 />
               </div>
             </Col>
-            <Col className="form">
-              <h2>Create an account to get started</h2>
+            <Col className="form mt-5">
+              <h2 className="mb-3 fs-2">Create an account to get started</h2>
               <Form>
-                <Form.Group className="mb-3" controlId="formBasicName">
-                  <Form.Label className="fonts">Full Name</Form.Label>
-                  <Form.Control type="Name" placeholder="Enter Name" />
-                </Form.Group>
+                <div class="form-floating mb-3">
+                  <input
+                    type="name"
+                    class="form-control"
+                    id="floatingName"
+                    placeholder="name@example.com"
+                    autoFocus
+                  />
+                  <label for="floatingName">Full Name</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="floatingEmail"
+                    placeholder="Email"
+                  />
+                  <label for="floatingEmail">Email Address</label>
+                </div>
 
-                <Form.Group className="mb-3" controlId="formBasicEmail">
-                  <Form.Label className="fonts">Email address</Form.Label>
-                  <Form.Control type="email" placeholder="Enter email" />
-                </Form.Group>
-
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                  <Form.Label className="fonts">Password</Form.Label>
-                  <Form.Control type="password" placeholder="Password" />
-                </Form.Group>
-
-                <Form.Group className="mb-3" controlId="formBasicRepassword">
-                  <Form.Label className="fonts">Re-enter Password</Form.Label>
-                  <Form.Control type="password" placeholder="Password" />
-                </Form.Group>
+                <div class="form-floating mb-3">
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="floatingPassword"
+                    placeholder="Password"
+                  />
+                  <label for="floatingPassword">Password</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="floatingReEnterPassword"
+                    placeholder="Password"
+                  />
+                  <label for="floatingReEnterPassword">Re-enter password</label>
+                </div>
 
                 <Button
-                  className="btn btn3 btn-primary btn-lg"
+                  className="btn btn3 btn-primary btn-lg mb-3"
                   variant="primary"
                   type="submit"
                 >

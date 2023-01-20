@@ -9,6 +9,7 @@ import NotFound from "./pages/NotFound";
 import AllCourses from "./pages/AllCourses/AllCourses";
 import CreatorSignup from "./pages/Signup/CreatorSignup";
 import LearnerSignup from "./pages/Signup/LearnerSignup";
+import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/creator-signup" element={<CreatorSignup />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/all-courses" element={<AllCourses />} />
           <Route path="*" exact={true} element={<NotFound />} />
         </Routes>

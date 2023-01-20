@@ -9,18 +9,19 @@ import img2 from "../../assets/signup-page-img2.png";
 import img3 from "../../assets/signup-page-img3.png";
 import img4 from "../../assets/signup-page-img4.png";
 import { Link } from "react-router-dom";
-import styles from "./styles-signup.scss";
 
 const Signup = () => {
   return (
     <>
+      <div className="text-center fs-1 text-light bg-secondary rounded">
+        Welcome To LitLab
+      </div>
       <div className="d-flex align-items-center justify-content-between">
         <img src={img3} alt="Studying" style={{ width: "200px" }} />
         <img src={img4} alt="Studying" style={{ width: "200px" }} />
       </div>
 
-      <div className="text-center fs-1">Welcome To LitLab</div>
-      <div className="text-center mb-5 fs-2">
+      <div className="text-center mb-5 fs-1 ">
         Want to become Learner or Content Creator ?
       </div>
       <div className="text-center d-flex w-50 mx-auto justify-content-evenly">
