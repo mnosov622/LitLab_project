@@ -14,37 +14,28 @@ import styles from "./styles-signup.scss";
 const Signup = () => {
   return (
     <>
-    
-      <div>
-        <img
-          className="img3"
-          src={img3}
-          alt="No Img3"
-          style={{ width: "200px" }}
-        />
-        <img
-          className="img4"
-          src={img4}
-          alt="No Img4"
-          style={{ width: "200px" }}
-        />
+      <div className="d-flex align-items-center justify-content-between">
+        <img src={img3} alt="Studying" style={{ width: "200px" }} />
+        <img src={img4} alt="Studying" style={{ width: "200px" }} />
       </div>
 
-      <div className="font">Welcome To LitLab</div>
-      <div className="lcfont">Want to become Learner or Creator ?</div>
-      <div className="center">
-        <Link to="/learner-signup" className="">
+      <div className="text-center fs-1">Welcome To LitLab</div>
+      <div className="text-center mb-5 fs-2">
+        Want to become Learner or Content Creator ?
+      </div>
+      <div className="text-center d-flex w-50 mx-auto justify-content-evenly">
+        <Link to="/learner-signup">
           <Button
-            className="btn btn1 btn-primary"
+            className="btn btn-primary fs-1 mr-auto btn-lg"
             variant="primary"
             type="submit"
           >
             Learner
           </Button>
         </Link>
-        <Link to="/creator-signup" className="">
+        <Link to="/creator-signup">
           <Button
-            className="btn btn2 btn-primary"
+            className="btn btn-lg btn-primary fs-1"
             variant="primary"
             type="submit"
           >
@@ -52,21 +43,10 @@ const Signup = () => {
           </Button>
         </Link>
       </div>
-      <div>
-        <img
-          className="img1"
-          src={img1}
-          alt="No Img1"
-          style={{ width: "300px" }}
-        />
-        <img
-          className="img2"
-          src={img2}
-          alt="No img2"
-          style={{ width: "300px" }}
-        />
+      <div className="d-flex align-items-center justify-content-between">
+        <img src={img1} alt="Studying" style={{ width: "200px" }} />
+        <img src={img2} alt="Studying" style={{ width: "200px" }} />
       </div>
-      
     </>
   );
 };

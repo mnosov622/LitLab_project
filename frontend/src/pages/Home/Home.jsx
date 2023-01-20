@@ -15,6 +15,7 @@ import reviewImage2 from "../../assets/review-image2.jpg";
 import reviewImage3 from "../../assets/review-image3.jpg";
 import ReviewCard from "../../components/ReviewCard/ReviewCard";
 import teacher2 from "../../assets/teacher2.jpg";
+import fullStackTeacher from "../../assets/Full-stack-teacher.jpg";
 
 const Home = () => {
   return (
@@ -100,6 +101,16 @@ const Home = () => {
                 image={influenceTeacher}
                 price="22$/month"
                 teacherName="Mark Forgheit"
+              />
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-md-4">
+              <CourseCard
+                name="Build Full Stack Application with Angular and Node JS"
+                image={fullStackTeacher}
+                price="24$/month"
+                teacherName="Aaron Nester"
               />
             </div>
           </div>
