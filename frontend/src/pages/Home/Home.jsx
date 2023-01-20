@@ -111,7 +111,7 @@ const Home = () => {
           <div className="col-md-12">
             <p className="fs-1 text-center mb-5">
               Courses you can explore{" "}
-              <snap className={styles.gradientColor}> today</snap>
+              <span className={styles.gradientColor}> today</span>
             </p>
           </div>
         </div>
