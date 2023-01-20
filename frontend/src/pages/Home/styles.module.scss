@@ -16,3 +16,10 @@
 .social-proof {
   margin-top: 200px !important;
 }
+
+.gradientColor {
+  background: #0d6efd;
+  background: linear-gradient(to right, 0%, #4d6bcf 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
