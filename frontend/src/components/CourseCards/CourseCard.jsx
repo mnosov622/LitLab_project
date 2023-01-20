@@ -6,18 +6,18 @@ import styles from "./styles.module.scss";
 const CourseCard = ({ name, image, price, teacherName }) => {
   return (
     <>
-      <div class="card w-100 mb-5">
+      <div className="card w-100 mb-5">
         <Link to="course/:id">
           <div className={styles.card}>
             <img
               src={image}
-              class="card-img-top img-fluid"
+              className="card-img-top img-fluid"
               alt="Teacher for the course"
             ></img>
-            <div class="card-body">
-              <h5 class="card-title">{name}</h5>
-              <p class="card-text fs-5">
-                <i class="bi bi-person"></i> {teacherName}
+            <div className="card-body">
+              <h5 className="card-title">{name}</h5>
+              <p className="card-text fs-5">
+                <i className="bi bi-person"></i> {teacherName}
               </p>
               <p className="bg-light border rounded text-center mt-4">
                 {price}

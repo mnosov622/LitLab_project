@@ -9,6 +9,7 @@ import login from "../../assets/login.png";
 import { GoogleLogin } from "react-google-login";
 import { gapi } from "gapi-script";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const Login = () => {
   const onSuccess = (res) => {
@@ -30,6 +31,8 @@ const Login = () => {
     };
     gapi.load("client:auth2", initClient);
   });
+
+  const loggedIn = useSelector((state) => state.loggedIn);
 
   return (
     <>

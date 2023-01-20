@@ -19,16 +19,16 @@ const Navbar = () => {
             </div>
             <div className="offset-1 col-4">
               <form action="">
-                <div class="input-group">
+                <div className="input-group">
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     placeholder="Search for your favourite courses"
                     aria-label="Search for your favourite courses"
                   ></input>
-                  <div class="input-group-append">
-                    <button class="btn btn-outline-secondary" type="button">
-                      <i class="bi bi-search"></i>
+                  <div className="input-group-append">
+                    <button className="btn btn-outline-secondary" type="button">
+                      <i className="bi bi-search"></i>
                     </button>
                   </div>
                 </div>
