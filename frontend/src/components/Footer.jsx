@@ -11,7 +11,7 @@ const Footer = () => {
         <footer className="mt-5 position-relative">
           <div className="row mt-5 p-2">
             <div className="col-md-3">
-              <p className="fs-5 fw-bold">Courses</p>
+              <p className="fs-5 fw-bold">LitLab</p>
               <Link to="#about">
                 <p className="">About us</p>
               </Link>
@@ -23,17 +23,32 @@ const Footer = () => {
               </Link>
             </div>
             <div className="col-md-3">
-              <p className="fs-5 fw-bold">Content Creator</p>
+              <p className="fs-5 fw-bold">Community</p>
               <Link to="/creator-signup">
-                <p className="">Become content creator</p>
+                <p className="">Content creator</p>
+              </Link>
+              <Link to="/learner-signup">
+                <p className="">Learner</p>
+              </Link>
+              <Link to="/">
+                <p className="">Blog</p>
               </Link>
             </div>
             <div className="col-md-3">
               <p className="fs-5 fw-bold">More</p>
-              <Link to="/creator-signup">
+              <Link to="/">
                 <p className="">Help</p>
               </Link>
-              <Link to="/creator-signup">
+              <Link to="/">
+                <p className="">Terms</p>
+              </Link>
+              <Link to="/">
+                <p className="">Privacy Policy</p>
+              </Link>
+              <Link to="/">
+                <p className="">Contact Us</p>
+              </Link>
+              <Link to="/">
                 <p className="">Most popular questions</p>
               </Link>
             </div>
