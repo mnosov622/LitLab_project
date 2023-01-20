@@ -6,22 +6,35 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { Link } from "react-router-dom";
 import login from "../../assets/login.png";
+import { GoogleLogin } from "react-google-login";
+import { gapi } from "gapi-script";
+import { useEffect } from "react";
 
 const Login = () => {
+  const onSuccess = (res) => {
+    console.log("success:", res);
+  };
+  const onFailure = (err) => {
+    console.log("failed:", err);
+  };
+
+  //TODO: Add client ID from google cloud
+  const clientId = "1234";
+
+  useEffect(() => {
+    const initClient = () => {
+      gapi.client.init({
+        clientId: clientId,
+        scope: "",
+      });
+    };
+    gapi.load("client:auth2", initClient);
+  });
+
   return (
     <>
       <Container>
         <Row className="justify-content-md-center  mx-auto">
-          {/* <Col>
-            <div className="mt-5 d-flex justify-content-center align-items-center">
-              <img
-                className=""
-                src={login}
-                alt="Login In"
-                style={{ width: "20em" }}
-              />
-            </div>
-          </Col> */}
           <Col className="form mt-5 ">
             <Form className="mx-auto w-50">
               <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -46,8 +59,20 @@ const Login = () => {
                 variant="primary"
                 type="submit"
               >
-                Log In
+                Sign in
               </Button>
+
+              <p className="fs-3 ml-5">or</p>
+              <GoogleLogin
+                clientId={clientId}
+                buttonText="Sign in with Google"
+                onSuccess={onSuccess}
+                onFailure={onFailure}
+                cookiePolicy={"single_host_origin"}
+                isSignedIn={true}
+                className="mb-3"
+              />
+
               <p>
                 New to LitLab ?<Link to="/signup"> Sign Up</Link>
               </p>
