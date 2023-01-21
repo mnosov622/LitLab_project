@@ -9,18 +9,23 @@ import login from "../../assets/login.png";
 import { GoogleLogin } from "react-google-login";
 import { gapi } from "gapi-script";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { logIn } from "../../store/actions";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const onSuccess = (res) => {
-    console.log("success:", res);
+    console.log("success:", res.profileObj);
+    // navigate("/");
   };
   const onFailure = (err) => {
     console.log("failed:", err);
   };
 
   //TODO: Add client ID from google cloud
-  const clientId = "1234";
+  const clientId = process.env.REACT_APP_GOOGLE_LOGIN_CLIENT_ID;
 
   useEffect(() => {
     const initClient = () => {

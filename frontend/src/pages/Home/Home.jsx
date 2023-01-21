@@ -16,6 +16,7 @@ import reviewImage3 from "../../assets/review-image3.jpg";
 import ReviewCard from "../../components/ReviewCard/ReviewCard";
 import teacher2 from "../../assets/teacher2.jpg";
 import fullStackTeacher from "../../assets/Full-stack-teacher.jpg";
+import { useSelector } from "react-redux";
 
 const Home = () => {
   return (

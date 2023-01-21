@@ -7,6 +7,7 @@ import Col from "react-bootstrap/Col";
 import img from "../../assets/creator.png";
 import { Link } from "react-router-dom";
 import creator from "../../assets/creator1.png";
+import reCAPTCHA from "react-google-recaptcha";
 
 const CreatorSignup = () => {
   return (
@@ -86,6 +87,7 @@ const CreatorSignup = () => {
                 />
                 <label for="floatingEducation">Education</label>
               </div>
+              {/* <reCAPTCHA sitekey={process.env.REACT_APP_CAPTCHA_SITE_KEY} /> */}
 
               <Link to="/" className="">
                 <Button
