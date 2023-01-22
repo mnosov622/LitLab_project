@@ -25,20 +25,20 @@ const Navbar = () => {
 
   return (
     <nav className="navbar navbar-expand-md fixed-top">
-      <div className="row container-fluid ">
-        <div className=" row">
-          <ul className="navbar-nav d-flex align-items-center">
+      <div className="row container-fluid">
+        <div className="row">
+          <ul className=" d-flex align-items-center">
             <div className="col">
               <Link to="/" className="">
                 <img className="logo" src={logo} alt="logo" />
               </Link>
             </div>
-            <div className="col-2">
+            <div className="col-2 all-courses ">
               <Link to="all-courses">Explore All Courses</Link>
             </div>
-            <div className="offset-1 col-4">
+            <div className="col-md-4">
               <form action="">
-                <div className="input-group">
+                <div className="input-group search">
                   <input
                     type="text"
                     className="form-control"
@@ -59,8 +59,8 @@ const Navbar = () => {
                   <ul className="options">
                     {data &&
                       data.map((item) => (
-                        <Link to="/">
-                          <li key={item.id} className="item">
+                        <Link to="/" key={item.id}>
+                          <li className="item">
                             {item.name}
                             <p className="text-muted mt-1 mb-0">
                               By {item.instructor}
@@ -73,7 +73,7 @@ const Navbar = () => {
               </form>
             </div>
             {loggedInAsLearner ? (
-              <div className="col offset-2">
+              <div className="col">
                 <Link to="login" className="">
                   <button className="justify-content-end btn btn-secondary">
                     Log out
@@ -82,14 +82,14 @@ const Navbar = () => {
               </div>
             ) : (
               <>
-                <div className="col offset-2">
+                <div className="col text-end">
                   <Link to="login" className="">
                     <button className="justify-content-end btn btn-secondary">
                       Log in
                     </button>
                   </Link>
                 </div>
-                <div className="col">
+                <div className="col text-center">
                   <Link to="signup" className="">
                     <button className="btn btn-primary">Sign up</button>
                   </Link>

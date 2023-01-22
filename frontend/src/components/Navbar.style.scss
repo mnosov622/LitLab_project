@@ -13,6 +13,9 @@
   text-transform: capitalize;
 }
 
-.hl {
-  background: #ffc600;
+@media screen and (max-width: 796px) {
+  .search,
+  .all-courses {
+    display: none;
+  }
 }
