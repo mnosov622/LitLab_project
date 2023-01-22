@@ -2,21 +2,20 @@ import React from "react";
 import "./LearnerDashboard.scss";
 import logo from "../../assets/logo.png";
 import profile from "../../assets/influence-teacher.jpg";
+import { Link, Outlet } from "react-router-dom";
 
 const LearnerDashboard = () => {
   return (
     <div className="">
       <div className="h-100 side-menu position-absolute bottom-0 h-100">
         <div className="container d-flex flex-column align-items-center">
-          <div className="">
-            <img
-              style={{ width: "40%", marginLeft: "33%" }}
-              src={logo}
-              alt="LitLab logo"
-            />
-          </div>
-          <div className="nav d-flex flex-column mt-5 fs-4">
-            <li className="mb-3">My courses</li>
+          <div
+            className="nav d-flex flex-column fs-4"
+            style={{ marginTop: "50%" }}
+          >
+            <Link to="/courses" className="mb-3">
+              My courses
+            </Link>
             <li className="mb-3">My Cart</li>
             <li className="mb-3">Analytics</li>
 
@@ -28,6 +27,7 @@ const LearnerDashboard = () => {
         </div>
       </div>
       <div className="content pl-5 ">Main Content</div>
+      <Outlet />
     </div>
   );
 };
