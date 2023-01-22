@@ -12,26 +12,41 @@ import LearnerSignup from "./pages/Signup/LearnerSignup";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 import LearnerDashboard from "./pages/LearnerDashboard/LearnerDashboard";
 import CreatorDashboard from "./pages/CreatorDashboard/CreatorDashboard";
+import { useState } from "react";
 
 function App() {
+  //TODO: If user is logged In show personal dashboard page,
+
+  // const [loggedInAsLearner, setLoggedInAsLearner] = useState(true);
+
   return (
     <>
-      <Navbar />
-      <Container style={{ marginTop: "100px", marginBottom: "100px" }}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/learner-signup" element={<LearnerSignup />} />
-          <Route path="/creator-signup" element={<CreatorSignup />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/all-courses" element={<AllCourses />} />
-          <Route path="/learner-dashboard" element={<LearnerDashboard />} />
-          <Route path="/creator-dashboard" element={<CreatorDashboard />} />
-          <Route path="*" exact={true} element={<NotFound />} />
-        </Routes>
-      </Container>
-      <Footer />
+      {/* {loggedInAsLearner ? (
+        <>
+          <Navbar />
+          <Routes>
+            <Route path="/" element={<LearnerDashboard />} />
+          </Routes>
+        </>
+      ) : ( */}
+      <>
+        <Navbar />
+        <Container style={{ marginTop: "100px", marginBottom: "100px" }}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/learner-signup" element={<LearnerSignup />} />
+            <Route path="/creator-signup" element={<CreatorSignup />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/all-courses" element={<AllCourses />} />
+            <Route path="/creator-dashboard" element={<CreatorDashboard />} />
+            <Route path="*" exact={true} element={<NotFound />} />
+          </Routes>
+        </Container>
+        <Footer />
+      </>
+      {/* )} */}
     </>
   );
 }

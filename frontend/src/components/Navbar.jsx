@@ -6,11 +6,14 @@ import courses from "../fakeData/courses.json";
 import { getOptions } from "../utils/getOptions";
 import { useState } from "react";
 import "./Navbar.style.scss";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [search, setSearch] = useState("");
   const [data, setData] = useState("");
   const [showList, setShowList] = useState(true);
+  const loggedInAsLearner = useSelector((state) => state.loggedInAsLearner);
+  console.log("LOGGED IN AS LEARNER", loggedInAsLearner);
 
   const displayOptions = () => {
     const options = getOptions(search, courses);
@@ -69,18 +72,30 @@ const Navbar = () => {
                 )}
               </form>
             </div>
-            <div className="col offset-2">
-              <Link to="login" className="">
-                <button className="justify-content-end btn btn-secondary">
-                  Log in
-                </button>
-              </Link>
-            </div>
-            <div className="col">
-              <Link to="signup" className="">
-                <button className="btn btn-primary">Sign up</button>
-              </Link>
-            </div>
+            {loggedInAsLearner ? (
+              <div className="col offset-2">
+                <Link to="login" className="">
+                  <button className="justify-content-end btn btn-secondary">
+                    Log out
+                  </button>
+                </Link>
+              </div>
+            ) : (
+              <>
+                <div className="col offset-2">
+                  <Link to="login" className="">
+                    <button className="justify-content-end btn btn-secondary">
+                      Log in
+                    </button>
+                  </Link>
+                </div>
+                <div className="col">
+                  <Link to="signup" className="">
+                    <button className="btn btn-primary">Sign up</button>
+                  </Link>
+                </div>
+              </>
+            )}
           </ul>
         </div>
       </div>
