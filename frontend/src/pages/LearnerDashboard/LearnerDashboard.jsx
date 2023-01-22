@@ -34,7 +34,9 @@ const LearnerDashboard = () => {
           </div>
         </div>
       </div>
-      <div className="content pl-5 ">Main Content</div>
+      <div className="position-absolute" style={{ left: "20%", top: "15%" }}>
+        <div className="">Main Content</div>
+      </div>
       <Outlet />
     </div>
   );
