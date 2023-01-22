@@ -10,17 +10,25 @@ const LearnerDashboard = () => {
       <div className="h-100 side-menu position-absolute bottom-0 h-100">
         <div className="container d-flex flex-column align-items-center">
           <div
-            className="nav d-flex flex-column fs-4"
-            style={{ marginTop: "50%" }}
+            className="nav d-flex flex-column fs-4 position-fixed"
+            style={{ marginTop: "50%", bottom: "55%" }}
           >
-            <Link to="/courses" className="mb-3">
+            <Link to="/courses" className="mb-3 dashboard-item">
               My courses
             </Link>
-            <li className="mb-3">My Cart</li>
-            <li className="mb-3">Analytics</li>
+            <Link to="/courses" className="mb-3 dashboard-item">
+              My Cart
+            </Link>
+            <Link to="/courses" className="mb-3 dashboard-item">
+              Analytics
+            </Link>
 
             <div className="profile mt-5">
-              <img className="rounded-circle w-25" src={profile} alt="" />
+              <img
+                className="rounded-circle w-25"
+                src={profile}
+                alt="Profile"
+              />
               <span className="profile-name">Mark</span>
             </div>
           </div>
