@@ -24,7 +24,6 @@ const Login = () => {
     console.log("failed:", err);
   };
 
-  //TODO: Add client ID from google cloud
   const clientId = process.env.REACT_APP_GOOGLE_LOGIN_CLIENT_ID;
 
   useEffect(() => {

@@ -2,8 +2,24 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import logo from "../assets/logo.png";
+import courses from "../fakeData/courses.json";
+import { getOptions } from "../utils/getOptions";
+import { useState } from "react";
+import "./Navbar.style.scss";
 
 const Navbar = () => {
+  const [search, setSearch] = useState("");
+  const [data, setData] = useState("");
+  const [showList, setShowList] = useState(true);
+
+  const displayOptions = () => {
+    const options = getOptions(search, courses);
+    setData(options);
+  };
+  const searchForCourses = () => {
+    displayOptions();
+  };
+
   return (
     <nav className="navbar navbar-expand-md fixed-top">
       <div className="row container-fluid ">
@@ -25,6 +41,10 @@ const Navbar = () => {
                     className="form-control"
                     placeholder="Search for your favourite courses"
                     aria-label="Search for your favourite courses"
+                    onKeyUp={searchForCourses}
+                    onChange={(e) => setSearch(e.target.value)}
+                    onFocus={() => setShowList(true)}
+                    onBlur={() => setShowList(false)}
                   ></input>
                   <div className="input-group-append">
                     <button className="btn btn-outline-secondary" type="button">
@@ -32,6 +52,21 @@ const Navbar = () => {
                     </button>
                   </div>
                 </div>
+                {showList && (
+                  <ul className="options">
+                    {data &&
+                      data.map((item) => (
+                        <Link to="/">
+                          <li key={item.id} className="item">
+                            {item.name}
+                            <p className="text-muted mt-1 mb-0">
+                              By {item.instructor}
+                            </p>
+                          </li>
+                        </Link>
+                      ))}
+                  </ul>
+                )}
               </form>
             </div>
             <div className="col offset-2">

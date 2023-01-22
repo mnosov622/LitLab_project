@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "React - The Complete Guide",
+    "instructor": "Simona Gareth",
+    "price": "19"
+  },
+  {
+    "id": 2,
+    "name": "Javascript - From Zero to Hero",
+    "instructor": "Kyle Thompson",
+    "price": "25"
+  },
+  {
+    "id": 3,
+    "name": "Influence - Psychology of Persuasion",
+    "instructor": "Mark Forgheit",
+    "price": "22"
+  },
+  {
+    "id": 4,
+    "name": "Influence2 - Psychology of Persuasion",
+    "instructor": "Mark Forgheit",
+    "price": "22"
+  },
+  {
+    "id": 5,
+    "name": "Master your communication skills",
+    "instructor": "Albert Nicholas",
+    "price": "18"
+  }
+]
