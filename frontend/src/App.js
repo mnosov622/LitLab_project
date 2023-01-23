@@ -18,7 +18,7 @@ import LearnerCourses from "./pages/LearnerCourses/LearnerCourses";
 function App() {
   //TODO: If user is logged In show personal dashboard page,
 
-  const [loggedInAsLearner, setLoggedInAsLearner] = useState(true);
+  const [loggedInAsLearner, setLoggedInAsLearner] = useState(false);
 
   return (
     <>
