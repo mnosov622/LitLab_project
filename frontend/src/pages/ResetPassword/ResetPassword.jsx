@@ -44,23 +44,19 @@ const Login = () => {
         <Row className="justify-content-md-center  mx-auto">
           <Col className="form mt-5 ">
             <Form className="mx-auto w-50">
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label className="fs-3">Enter Email</Form.Label>
-                <Form.Control
-                  type="email"
-                  placeholder="Email"
-                  autoFocus
-                />
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Label className="fs-3">Current Password</Form.Label>
+                <Form.Control type="password" placeholder="Current Password" />
               </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Label className="fs-3">Confirm Email</Form.Label>
-                <Form.Control
-                  type="email"
-                  placeholder="Email"
-                  autoFocus
-                />
+              <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Label className="fs-3">New Password</Form.Label>
+                <Form.Control type="password" placeholder="New Password" />
               </Form.Group>
-              <Button className="btn btn3 btn-primary btn-lg mb-3" variant="primary" type="submit">Send Link</Button>
+              <Form.Group className="mb-3" controlId="formBasicPassword">
+                <Form.Label className="fs-3">Renter Password</Form.Label>
+                <Form.Control type="password" placeholder="Renter Password" />
+              </Form.Group>
+              <Button className="btn btn3 btn-primary btn-lg mb-3" variant="primary" type="submit">Reset Password</Button>
             </Form>
           </Col>
         </Row>
