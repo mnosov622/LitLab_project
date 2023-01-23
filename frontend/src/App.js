@@ -12,6 +12,7 @@ import LearnerSignup from "./pages/Signup/LearnerSignup";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 import LearnerDashboard from "./pages/LearnerDashboard/LearnerDashboard";
 import CreatorDashboard from "./pages/CreatorDashboard/CreatorDashboard";
+import CreatorInformation from "./pages/CreatorInformation/CreatorInformation";
 import { useState } from "react";
 import LearnerCourses from "./pages/LearnerCourses/LearnerCourses";
 
@@ -44,6 +45,7 @@ function App() {
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/all-courses" element={<AllCourses />} />
               <Route path="/creator-dashboard" element={<CreatorDashboard />} />
+              <Route path="/creator-info" element={<CreatorInformation />} />
               <Route path="*" exact={true} element={<NotFound />} />
             </Routes>
           </Container>

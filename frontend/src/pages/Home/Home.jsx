@@ -43,6 +43,11 @@ const Home = () => {
                     Become content creator
                   </button>
                 </Link>
+                <Link to="/creator-info" className="">
+                  <button className="btn btn-lg btn-outline-primary">
+                    Creator information
+                  </button>
+                </Link>
               </div>
             </div>
           </div>
