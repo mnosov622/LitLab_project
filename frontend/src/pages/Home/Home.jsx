@@ -43,11 +43,13 @@ const Home = () => {
                     Become content creator
                   </button>
                 </Link>
-                <Link to="/creator-info" className="">
+                {/* Creator Information page 
+                if you want to see just uncomment the below line */}
+                {/* <Link to="/creator-info" className="">
                   <button className="btn btn-lg btn-outline-primary">
                     Creator information
                   </button>
-                </Link>
+                </Link> */}
               </div>
             </div>
           </div>
