@@ -21,6 +21,8 @@ import { useSelector } from "react-redux";
 const Home = () => {
   const courses = useSelector((state) => state.coursesReducer);
 
+  const cart = useSelector((state) => state.cartReducer);
+  console.log("CART", cart);
   return (
     <>
       <div className="row">

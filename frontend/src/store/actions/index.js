@@ -14,3 +14,8 @@ export const Allcourses = (object) => ({
   type: "STORE_OBJECT",
   payload: object,
 });
+
+export const addToCart = (object) => ({
+  type: "ADD_ITEM",
+  payload: object,
+});

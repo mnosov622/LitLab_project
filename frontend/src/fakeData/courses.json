@@ -1,11 +1,5 @@
 [
   {
-    "id": 1,
-    "name": "React - The Complete Guide",
-    "instructor": "Simona Gareth",
-    "price": "19"
-  },
-  {
     "id": 2,
     "name": "Javascript - From Zero to Hero",
     "instructor": "Kyle Thompson",
