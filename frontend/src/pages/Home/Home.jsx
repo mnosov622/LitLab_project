@@ -19,6 +19,8 @@ import fullStackTeacher from "../../assets/Full-stack-teacher.jpg";
 import { useSelector } from "react-redux";
 
 const Home = () => {
+  const courses = useSelector((state) => state.coursesReducer);
+
   return (
     <>
       <div className="row">

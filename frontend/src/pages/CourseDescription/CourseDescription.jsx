@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import courseImage from "../../assets/courseImage.jpg";
 // import starIcon from "../../assets/star.svg";

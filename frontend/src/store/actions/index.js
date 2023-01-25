@@ -9,3 +9,8 @@ export const logInAsLearner = () => {
     type: "LOGIN_AS_LEARNER",
   };
 };
+
+export const Allcourses = (object) => ({
+  type: "STORE_OBJECT",
+  payload: object,
+});
