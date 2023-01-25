@@ -1,17 +1,33 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import courseImage from "../../assets/courseImage.jpg";
 // import starIcon from "../../assets/star.svg";
 import learningImage from "../../assets/learning.png";
 import "./CourseDescription.scss";
 import { useParams } from "react-router-dom";
+import { addToCart } from "../../store/actions";
+import { useState } from "react";
+import { useEffect } from "react";
 
 const CourseDescription = () => {
   const { id } = useParams();
   const courses = useSelector((state) => state.coursesReducer);
-  console.log("ALL COURSES", courses);
   const singleCourse = courses.find((course) => course.id === Number(id));
+  const cart = useSelector((state) => state.cartReducer);
+  const [cartItem, setCartItem] = useState(cart);
+
+  const dispatch = useDispatch();
+
+  //TODO: Add all items from object to the cart
+  const addCourse = (item) => {
+    // setCartItem((prevItems) => [...prevItems, singleCourse.id]);
+    // console.log(cartItem);
+    // dispatch(
+    //   addToCart([...cart, { id: singleCourse?.id, name: singleCourse?.name }])
+    // );
+    // console.log("CURRENT CART", cart);
+  };
 
   return (
     <>
@@ -108,7 +124,10 @@ const CourseDescription = () => {
               width={"100%"}
             />
             <div className="buttons d-flex flex-column">
-              <button className="btn btn-outline-primary btn-lg mt-3">
+              <button
+                className="btn btn-outline-primary btn-lg mt-3"
+                onClick={addCourse}
+              >
                 Add to Cart
               </button>
               <button className="btn btn-primary btn-lg mt-3">Buy now</button>
