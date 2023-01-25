@@ -16,16 +16,14 @@ const CourseDescription = () => {
   const singleCourse = courses.find((course) => course.id === Number(id));
   const cart = useSelector((state) => state.cartReducer);
   const [cartItem, setCartItem] = useState(cart);
+  console.log("ALL CART", cart);
 
   const dispatch = useDispatch();
 
   //TODO: Add all items from object to the cart
   const addCourse = (item) => {
-    // setCartItem((prevItems) => [...prevItems, singleCourse.id]);
-    // console.log(cartItem);
-    // dispatch(
-    //   addToCart([...cart, { id: singleCourse?.id, name: singleCourse?.name }])
-    // );
+    dispatch(addToCart({ id: singleCourse.id, name: singleCourse.name }));
+    console.log("UPDATED CART IS", cart);
     // console.log("CURRENT CART", cart);
   };
 
