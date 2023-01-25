@@ -87,6 +87,7 @@ const Home = () => {
             <div className="col-md-4">
               <CourseCard
                 name="React - The complete Guide"
+                id="1"
                 image={teacher1}
                 price="19$/month"
                 teacherName="Simona Gareth"
@@ -95,6 +96,7 @@ const Home = () => {
             <div className="col-md-4">
               <CourseCard
                 name="Javascript - From Zero to Hero"
+                id="2"
                 image={javascriptTeacher}
                 price="25$/month"
                 teacherName="Kyle Thompson"
@@ -103,6 +105,7 @@ const Home = () => {
             <div className="col-md-4">
               <CourseCard
                 name="Influence - Psychology of Persuasion"
+                id="3"
                 image={influenceTeacher}
                 price="22$/month"
                 teacherName="Mark Forgheit"

@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import CourseCard from "../../components/CourseCards/CourseCard";
 import { Allcourses } from "../../store/actions";
 
 const AllCourses = () => {
@@ -7,7 +8,22 @@ const AllCourses = () => {
   const courses = useSelector((state) => state.coursesReducer);
   console.log(courses);
 
-  return <div>AllCourses</div>;
+  return (
+    <div className="row">
+      {courses.map((course) => (
+        <div className="col-md-4">
+          <CourseCard
+            key={course.id}
+            id={course.id}
+            name={course.name}
+            //  image={teacher1}
+            price={course.price}
+            teacherName={course.instructor}
+          />
+        </div>
+      ))}
+    </div>
+  );
 };
 
 export default AllCourses;

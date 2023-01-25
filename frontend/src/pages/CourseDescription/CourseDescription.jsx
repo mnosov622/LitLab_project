@@ -5,16 +5,20 @@ import courseImage from "../../assets/courseImage.jpg";
 // import starIcon from "../../assets/star.svg";
 import learningImage from "../../assets/learning.png";
 import "./CourseDescription.scss";
+import { useParams } from "react-router-dom";
 
 const CourseDescription = () => {
+  const { id } = useParams();
+  const courses = useSelector((state) => state.coursesReducer);
+  console.log("ALL COURSES", courses);
+  const singleCourse = courses.find((course) => course.id === Number(id));
+
   return (
     <>
       <div className="bg-light p-3 shadow rounded">
         <div className="row container text-dark">
           <div className="col-lg-8 fs-1 ">
-            <p className="fw-bold">
-              Full Stack development with Angular and Node
-            </p>
+            <p className="fw-bold">{singleCourse.name}</p>
             <p className="fs-5 mt-2">
               Learn how to create modern web applications and host them to
               google cloud

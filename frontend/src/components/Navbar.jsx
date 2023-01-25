@@ -13,7 +13,8 @@ const Navbar = () => {
   const [data, setData] = useState("");
   const [showList, setShowList] = useState(true);
   const loggedInAsLearner = useSelector((state) => state.loggedInAsLearner);
-  console.log("LOGGED IN AS LEARNER", loggedInAsLearner);
+  const courses = useSelector((state) => state.coursesReducer);
+  console.log(courses);
 
   const displayOptions = () => {
     const options = getOptions(search, courses);
@@ -59,7 +60,7 @@ const Navbar = () => {
                   <ul className="options">
                     {data &&
                       data.map((item) => (
-                        <Link to="/" key={item.id}>
+                        <Link to={`/course/${item.id}`} key={item.id}>
                           <li className="item">
                             {item.name}
                             <p className="text-muted mt-1 mb-0">

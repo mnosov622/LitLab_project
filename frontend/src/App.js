@@ -47,7 +47,7 @@ function App() {
               <Route path="/all-courses" element={<AllCourses />} />
               <Route path="/creator-dashboard" element={<CreatorDashboard />} />
               <Route path="/creator-info" element={<CreatorInformation />} />
-              <Route path="/course" element={<CourseDescription />} />
+              <Route path="/course/:id" element={<CourseDescription />} />
               <Route path="*" exact={true} element={<NotFound />} />
             </Routes>
           </Container>
