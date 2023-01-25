@@ -432,6 +432,28 @@ const CourseDescription = () => {
           </div>
         </div>
       </div>
+
+      <div className="row mt-5">
+        <div className="mx-auto col-md-8">
+          <p className="fs-3 fw-bold">Course Description</p>
+          <p className="course-description">
+            The Full Stack development with Angular and Node course is a
+            comprehensive training program designed to teach developers how to
+            build dynamic web applications using Angular and Node.js. The course
+            covers a wide range of topics, including front-end development with
+            Angular, back-end development with Node.js, and working with
+            databases and RESTful web services. Students will learn how to use
+            Angular to create rich, interactive user interfaces, and how to use
+            Node.js to build powerful back-end systems that can handle large
+            amounts of data and traffic. The course also covers best practices
+            for building scalable and maintainable web applications, as well as
+            tips and tricks for debugging and troubleshooting common issues. By
+            the end of the course, students will have the skills and knowledge
+            needed to build full-featured web applications using Angular and
+            Node.js.
+          </p>
+        </div>
+      </div>
     </>
   );
 };
