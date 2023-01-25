@@ -111,7 +111,7 @@ const CourseDescription = () => {
               Created by:&nbsp;
               <Link to="/creator-info">
                 <span className="fw-bold text-decoration-underline">
-                  Mark Zuckenberg
+                  {singleCourse.instructor}
                 </span>
               </Link>
             </p>
@@ -476,6 +476,36 @@ const CourseDescription = () => {
             needed to build full-featured web applications using Angular and
             Node.js.
           </p>
+        </div>
+      </div>
+
+      <div className="row mt-5">
+        <div className="mx-auto col-md-8">
+          <p className="fw-bold fs-2">Instructor</p>
+          <p className="text-underline text-primary fw-bold fs-2">
+            {singleCourse.instructor}
+          </p>
+          <div className="profile d-flex justify-content-center justify-content-between row">
+            <img src={""} alt="Instructor profile" className="col-md-4" />
+            <p className="col-md-8 creator-description">
+              Meet Mike, a highly experienced and skilled educator in the field
+              of computer science. With over 10 years of experience in the
+              industry, Mike has a wealth of knowledge and expertise to share
+              with students. Mike has a passion for teaching and a dedication to
+              helping students succeed. He has a proven track record of helping
+              students achieve their goals and reach their full potential. Mike
+              has a unique teaching style that is both engaging and informative,
+              making complex subjects easy to understand. Mike has a diverse
+              background, with experience in software development and data
+              structures and algorithms. This diversity has allowed him to bring
+              a well-rounded perspective to the classroom, making him an ideal
+              instructor for those looking to learn about computer science. He's
+              an expert in the latest technologies and best practices, and his
+              classes are always up-to-date and relevant. Whether you're a
+              beginner or an experienced professional, Mike's classes will help
+              you take your skills to the next level.
+            </p>
+          </div>
         </div>
       </div>
     </>
