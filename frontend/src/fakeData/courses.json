@@ -28,5 +28,60 @@
     "name": "Master your communication skills",
     "instructor": "Albert Nicholas",
     "price": "18"
+  },
+  {
+    "id": 6,
+    "name": "Introduction to Python",
+    "instructor": "John Smith",
+    "price": 200
+  },
+  {
+    "id": 7,
+    "name": "Advanced JavaScript",
+    "instructor": "Jane Doe",
+    "price": 250
+  },
+  {
+    "id": 8,
+    "name": "Data Structure and Algorithm",
+    "instructor": "Mike",
+    "price": 300
+  },
+  {
+    "id": 9,
+    "name": "Machine Learning with Python",
+    "instructor": "Alex",
+    "price": 350
+  },
+  {
+    "id": 10,
+    "name": "Web Development with React",
+    "instructor": "Chris",
+    "price": 400
+  },
+  {
+    "id": 11,
+    "name": "Data Analysis with R",
+    "instructor": "Bob Johnson",
+    "price": 450
+  },
+  {
+    "id": 12,
+    "name": "Data Visualization with D3.js",
+    "instructor": "Kim",
+    "price": 500
+  },
+  {
+    "id": 13,
+    "name": "Cloud Computing with Azure",
+    "instructor": "Marry",
+    "price": 550
+  },
+  { "id": 14, "name": "IoT with Arduino", "instructor": "Nancy", "price": 600 },
+  {
+    "id": 15,
+    "name": "Blockchain with Ethereum",
+    "instructor": "Frank",
+    "price": 650
   }
 ]
