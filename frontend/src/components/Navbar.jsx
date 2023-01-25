@@ -49,11 +49,11 @@ const Navbar = () => {
                     onFocus={() => setShowList(true)}
                     onBlur={() => setShowList(false)}
                   ></input>
-                  <div className="input-group-append">
+                  {/* <div className="input-group-append">
                     <button className="btn btn-outline-secondary" type="button">
                       <i className="bi bi-search"></i>
                     </button>
-                  </div>
+                  </div> */}
                 </div>
                 {showList && (
                   <ul className="options">
