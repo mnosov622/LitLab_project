@@ -19,3 +19,8 @@ export const addToCart = (object) => ({
   type: "ADD_ITEM",
   payload: object,
 });
+
+export const buyNowItem = (object) => ({
+  type: "BUY_NOW",
+  payload: object,
+});

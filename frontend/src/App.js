@@ -16,6 +16,7 @@ import CreatorInformation from "./pages/CreatorInformation/CreatorInformation";
 import { useState } from "react";
 import LearnerCourses from "./pages/LearnerCourses/LearnerCourses";
 import CourseDescription from "./pages/CourseDescription/CourseDescription";
+import Payment from "./pages/Payment/Payment";
 
 function App() {
   //TODO: If user is logged In show personal dashboard page,
@@ -48,6 +49,7 @@ function App() {
               <Route path="/creator-dashboard" element={<CreatorDashboard />} />
               <Route path="/creator-info" element={<CreatorInformation />} />
               <Route path="/course/:id" element={<CourseDescription />} />
+              <Route path="/payment" element={<Payment />} />
               <Route path="*" exact={true} element={<NotFound />} />
             </Routes>
           </Container>

@@ -6,25 +6,55 @@ import courseImage from "../../assets/courseImage.jpg";
 import learningImage from "../../assets/learning.png";
 import "./CourseDescription.scss";
 import { useParams } from "react-router-dom";
-import { addToCart } from "../../store/actions";
+import { addToCart, buyNowItem } from "../../store/actions";
 import { useState } from "react";
-import { useEffect } from "react";
+import { useAlert, positions } from "react-alert";
 
 const CourseDescription = () => {
+  const alert = useAlert();
+
   const { id } = useParams();
+  const dispatch = useDispatch();
   const courses = useSelector((state) => state.coursesReducer);
   const singleCourse = courses.find((course) => course.id === Number(id));
   const cart = useSelector((state) => state.cartReducer);
-  const [cartItem, setCartItem] = useState(cart);
-  console.log("ALL CART", cart);
+  const itemToBuy = useSelector((state) => state.buyCourseReducer);
 
-  const dispatch = useDispatch();
+  const [cartItem, setCartItem] = useState(cart);
+  const [buy, setBuy] = useState(itemToBuy);
+
+  console.log("CURRENT CART", cart);
+  console.log("Item that you want to buy", itemToBuy);
 
   //TODO: Add all items from object to the cart
-  const addCourse = (item) => {
-    dispatch(addToCart({ id: singleCourse.id, name: singleCourse.name }));
-    console.log("UPDATED CART IS", cart);
-    // console.log("CURRENT CART", cart);
+  const addCourse = () => {
+    const newItem = {
+      id: singleCourse?.id,
+      name: singleCourse?.name,
+    };
+    // alert.show("Course added");
+    alert.success("Item added to cart", {
+      position: positions.BOTTOM_RIGHT,
+      timeout: 2000, // custom timeout just for this one alert
+      onOpen: () => {
+        console.log("hey");
+      }, // callback that will be executed after this alert open
+      onClose: () => {
+        console.log("closed");
+      }, // callback that will be executed after this alert is removed
+    });
+    dispatch(addToCart(newItem));
+  };
+
+  const buyNow = () => {
+    const newItem = {
+      id: singleCourse?.id,
+      name: singleCourse?.name,
+      courseImage: singleCourse?.courseImage,
+    };
+    dispatch(buyNowItem(newItem));
+    localStorage.setItem("Item_to_buy", JSON.stringify(newItem));
+    window.location.href = "/payment";
   };
 
   return (
@@ -128,7 +158,9 @@ const CourseDescription = () => {
               >
                 Add to Cart
               </button>
-              <button className="btn btn-primary btn-lg mt-3">Buy now</button>
+              <button className="btn btn-primary btn-lg mt-3" onClick={buyNow}>
+                Buy now
+              </button>
             </div>
           </div>
         </div>
