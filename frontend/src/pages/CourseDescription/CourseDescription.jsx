@@ -31,25 +31,34 @@ const CourseDescription = () => {
   const loggedIn = useSelector((state) => state.loggedInAsLearner);
 
   const itemsInCart = useSelector((state) => state.increaseItemsAmount);
-  console.log("ITEMS IN TEH CART", itemsInCart);
 
   //TODO: Add all items from object to the cart
-  const addCourse = () => {
-    const newItem = {
-      id: singleCourse?.id,
-      name: singleCourse?.name,
-      instructor: singleCourse?.instructor,
-      courseImage: singleCourse.courseImageURL,
-      price: singleCourse.price,
-    };
+  const addCourseToCart = () => {
+    //Checking if added item exists in cart, if so, then show error, otherwise add item to cart
+    const existingItem = cart.find((item) => item.id === singleCourse.id);
 
-    alert.success("Item added to cart", {
-      position: positions.BOTTOM_RIGHT,
-      timeout: 2000, // custom timeout just for this one alert
-    });
-    dispatch(addToCart(newItem));
-    dispatch(itemsAmount());
-    console.log("AMOUNT Of items", itemsAmount);
+    if (!existingItem) {
+      const newItem = {
+        id: singleCourse?.id,
+        name: singleCourse?.name,
+        instructor: singleCourse?.instructor,
+        courseImage: singleCourse.courseImageURL,
+        price: singleCourse.price,
+      };
+
+      alert.success("Item added to cart", {
+        position: positions.BOTTOM_RIGHT,
+        timeout: 2000, // custom timeout just for this one alert
+      });
+      dispatch(addToCart(newItem));
+      dispatch(itemsAmount());
+      console.log("AMOUNT Of items", itemsAmount);
+    } else {
+      alert.error("Item exists in cart", {
+        position: positions.BOTTOM_RIGHT,
+        timeout: 2000, // custom timeout just for this one alert
+      });
+    }
   };
 
   const buyNow = () => {
@@ -62,7 +71,9 @@ const CourseDescription = () => {
       const newItem = {
         id: singleCourse?.id,
         name: singleCourse?.name,
-        courseImage: singleCourse?.courseImage,
+        instructor: singleCourse?.instructor,
+        courseImage: singleCourse.courseImageURL,
+        price: singleCourse.price,
       };
       dispatch(buyNowItem(newItem));
       localStorage.setItem("Item_to_buy", JSON.stringify(newItem));
@@ -165,7 +176,7 @@ const CourseDescription = () => {
             <div className="buttons d-flex flex-column">
               <button
                 className="btn btn-outline-primary btn-lg mt-3"
-                onClick={addCourse}
+                onClick={addCourseToCart}
               >
                 Add to Cart
               </button>
@@ -501,33 +512,24 @@ const CourseDescription = () => {
       <div className="row mt-5">
         <div className="mx-auto col-md-8">
           <p className="fs-3 fw-bold">Course Description</p>
-          <p className="course-description">
-            The Full Stack development with Angular and Node course is a
-            comprehensive training program designed to teach developers how to
-            build dynamic web applications using Angular and Node.js. The course
-            covers a wide range of topics, including front-end development with
-            Angular, back-end development with Node.js, and working with
-            databases and RESTful web services. Students will learn how to use
-            Angular to create rich, interactive user interfaces, and how to use
-            Node.js to build powerful back-end systems that can handle large
-            amounts of data and traffic. The course also covers best practices
-            for building scalable and maintainable web applications, as well as
-            tips and tricks for debugging and troubleshooting common issues. By
-            the end of the course, students will have the skills and knowledge
-            needed to build full-featured web applications using Angular and
-            Node.js.
-          </p>
+          <p className="course-description">{singleCourse.longDescription}</p>
         </div>
       </div>
 
       <div className="row mt-5">
         <div className="mx-auto col-md-8">
           <p className="fw-bold fs-2">Instructor</p>
-          <p className="text-underline text-primary fw-bold fs-2">
-            {singleCourse.instructor}
-          </p>
+
           <div className="profile d-flex justify-content-center justify-content-between row">
-            <img src={""} alt="Instructor profile" className="col-md-4" />
+            <p className="text-underline text-primary fw-bold fs-2">
+              {singleCourse.instructor}
+            </p>
+            <img
+              src={singleCourse.instructorImageURL}
+              alt="Instructor profile"
+              className="col-md-4 instructor-image"
+            />
+
             <p className="col-md-8 creator-description">
               Meet Mike, a highly experienced and skilled educator in the field
               of computer science. With over 10 years of experience in the

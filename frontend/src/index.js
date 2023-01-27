@@ -9,6 +9,7 @@ import { createStore } from "redux";
 import { allReducers } from "./store/reducers/allReducers";
 import { Provider } from "react-redux";
 import { transitions, positions, Provider as AlertProvider } from "react-alert";
+import AlertTemplate from "react-alert-template-basic";
 
 const options = {
   // you can also just use 'bottom center'
@@ -24,9 +25,11 @@ const store = createStore(
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
-const AlertTemplate = ({ message }) => (
-  <div className="alert blue-bg">{message}</div>
-);
+//TODO: Customize alerts
+
+// const AlertTemplate = ({ message }) => (
+//   <div className="alert blue-bg">{message}</div>
+// );
 
 // store.subscribe((store) => console.log(store.getState()));
 

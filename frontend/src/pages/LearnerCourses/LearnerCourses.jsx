@@ -10,10 +10,16 @@ const LearnerCourses = () => {
 
   return (
     <>
-      <div className="bg-light shadow text-center p-2 fs-2">
+      <div className="bg-light shadow text-center p-2 fs-2 mb-4">
         <p>My Courses</p>
       </div>
-      <CourseCard name={item.name} price={item.price} />
+      <CourseCard
+        cardSmall
+        name={item.name}
+        price={item.price}
+        image={item.courseImage}
+        teacherName={item.instructor}
+      />
     </>
   );
 };

@@ -46,6 +46,7 @@ function App() {
               <Route path="/analytics" element={<Analytics />} />
             </Routes>
           </Container>
+          <Footer />
         </>
       ) : (
         <>

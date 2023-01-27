@@ -96,15 +96,15 @@ const Navbar = () => {
           </div>
           {loggedInAsLearner ? (
             <div className="col-md-6 d-flex align-items-baseline">
-              <Link to="/" className="dashboard-item">
+              <Link to="/" className="dashboard-item fs-5">
                 My courses
               </Link>
-              <Link to="/cart" className="dashboard-item cart">
+              <Link to="/cart" className="dashboard-item cart fs-5">
                 My Cart
                 <span className="amount">{amountIfItems}</span>
               </Link>
 
-              <Link to="/analytics" className="dashboard-item">
+              <Link to="/analytics" className="dashboard-item fs-5">
                 Analytics
               </Link>
 

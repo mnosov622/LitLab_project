@@ -5,7 +5,7 @@ const CourseCategoryCard = ({ name, courseCount }) => {
   return (
     <>
       <div className={styles.category}>
-        <div className="card">
+        <div className="card" style={{ width: "320px", height: "100px" }}>
           <div className="card-body">
             <h5 className="card-title">{name}</h5>
             {/* Dynamic amount of courses to be added later */}

@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 const Payment = () => {
   const courseToBuy = localStorage.getItem("Item_to_buy");
   const course = JSON.parse(courseToBuy);
+  console.log("COURSE TO BUY", course);
 
   const pay = () => {
     //do magic
@@ -42,7 +43,7 @@ const Payment = () => {
           />
           <div className="col-md-8">
             <p className="fs-4 text-primary">{course.name}</p>
-            <p>{course.price ?? 120}$</p>
+            <p className="fs-4">Price: {course.price ?? 120}$</p>
           </div>
         </div>
       </div>

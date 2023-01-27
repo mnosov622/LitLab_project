@@ -7,8 +7,7 @@ import "./CourseCard.scss";
 const CourseCard = ({ name, image, price, teacherName, id, cardSmall }) => {
   return (
     <>
-      {/* <div className="row"> */}
-      <div className={cardSmall ? "w-25 mb-5" : "w-100 mb-5"}>
+      <div className={cardSmall ? "w-25 mb-5 col-md-6" : "w-100 mb-5"}>
         <Link to={`/course/${id}`}>
           <div className="card-item">
             <img
@@ -28,7 +27,6 @@ const CourseCard = ({ name, image, price, teacherName, id, cardSmall }) => {
           </div>
         </Link>
       </div>
-      {/* </div> */}
     </>
   );
 };

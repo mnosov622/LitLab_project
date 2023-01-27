@@ -11,15 +11,17 @@ const Cart = () => {
       <div className="bg-light shadow text-center p-2 fs-2 mb-5">
         <p>Shopping cart</p>
       </div>
-      {cart.map((item) => (
-        <CourseCard
-          cardSmall
-          name={item.name}
-          teacherName={item.instructor}
-          image={item.courseImage}
-          price={item.price}
-        />
-      ))}
+      <div className="row">
+        {cart.map((item) => (
+          <CourseCard
+            cardSmall
+            name={item.name}
+            teacherName={item.instructor}
+            image={item.courseImage}
+            price={item.price}
+          />
+        ))}
+      </div>
     </>
   );
 };
