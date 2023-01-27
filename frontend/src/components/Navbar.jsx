@@ -18,6 +18,8 @@ const Navbar = () => {
 
   const loggedInAsLearner = useSelector((state) => state.loggedInAsLearner);
   const courses = useSelector((state) => state.coursesReducer);
+  const amountIfItems = useSelector((state) => state.increaseItemsAmount);
+
   console.log(courses);
 
   const displayOptions = () => {
@@ -97,8 +99,9 @@ const Navbar = () => {
               <Link to="/" className="dashboard-item">
                 My courses
               </Link>
-              <Link to="/cart" className="dashboard-item">
+              <Link to="/cart" className="dashboard-item cart">
                 My Cart
+                <span className="amount">{amountIfItems}</span>
               </Link>
 
               <Link to="/analytics" className="dashboard-item">

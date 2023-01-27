@@ -24,3 +24,7 @@ export const buyNowItem = (object) => ({
   type: "BUY_NOW",
   payload: object,
 });
+
+export const itemsAmount = () => ({
+  type: "ITEMS_AMOUNT",
+});

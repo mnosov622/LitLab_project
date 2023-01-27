@@ -20,7 +20,7 @@ const AllCourses = () => {
               key={course.id}
               id={course.id}
               name={course.name}
-              //  image={teacher1}
+              image={course.courseImageURL}
               price={course.price}
               teacherName={course.instructor}
             />

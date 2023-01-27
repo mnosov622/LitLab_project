@@ -12,7 +12,13 @@ const Cart = () => {
         <p>Shopping cart</p>
       </div>
       {cart.map((item) => (
-        <CourseCard name={item.name} teacherName={item.instructor} />
+        <CourseCard
+          cardSmall
+          name={item.name}
+          teacherName={item.instructor}
+          image={item.courseImage}
+          price={item.price}
+        />
       ))}
     </>
   );

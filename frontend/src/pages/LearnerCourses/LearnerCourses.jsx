@@ -13,7 +13,7 @@ const LearnerCourses = () => {
       <div className="bg-light shadow text-center p-2 fs-2">
         <p>My Courses</p>
       </div>
-      <CourseCard name={item.name} />
+      <CourseCard name={item.name} price={item.price} />
     </>
   );
 };

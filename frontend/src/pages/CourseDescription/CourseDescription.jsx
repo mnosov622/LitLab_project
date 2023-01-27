@@ -10,6 +10,8 @@ import { addToCart, buyNowItem } from "../../store/actions";
 import { useState } from "react";
 import { useAlert, positions } from "react-alert";
 import { loggedInAsLearner } from "../../store/reducers/loginAsLearner";
+import { itemsAmount } from "../../store/actions";
+import { increaseItemsAmount } from "../../store/reducers/itemsAmount";
 
 const CourseDescription = () => {
   const alert = useAlert();
@@ -28,26 +30,26 @@ const CourseDescription = () => {
   //Get log in state
   const loggedIn = useSelector((state) => state.loggedInAsLearner);
 
+  const itemsInCart = useSelector((state) => state.increaseItemsAmount);
+  console.log("ITEMS IN TEH CART", itemsInCart);
+
   //TODO: Add all items from object to the cart
   const addCourse = () => {
     const newItem = {
       id: singleCourse?.id,
       name: singleCourse?.name,
       instructor: singleCourse?.instructor,
+      courseImage: singleCourse.courseImageURL,
+      price: singleCourse.price,
     };
 
-    // alert.show("Course added");
     alert.success("Item added to cart", {
       position: positions.BOTTOM_RIGHT,
       timeout: 2000, // custom timeout just for this one alert
-      onOpen: () => {
-        console.log("hey");
-      }, // callback that will be executed after this alert open
-      onClose: () => {
-        console.log("closed");
-      }, // callback that will be executed after this alert is removed
     });
     dispatch(addToCart(newItem));
+    dispatch(itemsAmount());
+    console.log("AMOUNT Of items", itemsAmount);
   };
 
   const buyNow = () => {
@@ -74,10 +76,7 @@ const CourseDescription = () => {
         <div className="row container text-dark">
           <div className="col-lg-8 fs-1 ">
             <p className="fw-bold">{singleCourse.name}</p>
-            <p className="fs-5 mt-2">
-              Learn how to create modern web applications and host them to
-              google cloud
-            </p>
+            <p className="fs-5 mt-2">{singleCourse.shortDescription}</p>
             <div className="row ">
               <div className="col-md-6 d-flex align-items-center">
                 <span className="fs-5">Rating:</span>
@@ -144,7 +143,8 @@ const CourseDescription = () => {
               </div>
             </div>
             <p className="fs-5 mt-3">
-              Enrollments: <span className="fw-bold">190,225</span>
+              Enrollments:{" "}
+              <span className="fw-bold">{singleCourse.enrollments}</span>
             </p>
             <p className="fs-5 mt-3">
               Created by:&nbsp;
@@ -158,7 +158,7 @@ const CourseDescription = () => {
           <div className="col-lg-4">
             <img
               className="rounded"
-              src={courseImage}
+              src={singleCourse.courseImageURL}
               alt="Course"
               width={"100%"}
             />
