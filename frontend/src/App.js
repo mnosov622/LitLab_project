@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logInAsLearner } from "./store/actions";
 import Cart from "./pages/Cart/Cart";
 import Analytics from "./pages/Analytics/Analytics";
+import Help from "./pages/Help/Help";
 
 function App() {
   //TODO: If user is logged In show personal dashboard page,
@@ -44,6 +45,7 @@ function App() {
               <Route path="/payment" element={<Payment />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/analytics" element={<Analytics />} />
+              <Route path="/help" element={<Help />} />
             </Routes>
           </Container>
           <Footer />
@@ -63,7 +65,7 @@ function App() {
               <Route path="/creator-dashboard" element={<CreatorDashboard />} />
               <Route path="/creator-info" element={<CreatorInformation />} />
               <Route path="/course/:id" element={<CourseDescription />} />
-
+              <Route path="/help" element={<Help />} />
               <Route path="*" exact={true} element={<NotFound />} />
             </Routes>
           </Container>
