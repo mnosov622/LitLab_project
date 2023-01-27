@@ -15,11 +15,11 @@ const LearnerCourses = () => {
       </div>
       <CourseCard
         cardSmall
-        name={item.name}
-        price={item.price}
-        image={item.courseImage}
-        teacherName={item.instructor}
-        id={item.id}
+        name={item?.name}
+        price={item?.price}
+        image={item?.courseImage}
+        teacherName={item?.instructor}
+        id={item?.id}
       />
     </>
   );

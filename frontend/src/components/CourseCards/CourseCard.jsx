@@ -18,7 +18,7 @@ const CourseCard = ({
     <>
       <div className={cardSmall ? "w-25 mb-5 col-md-6" : "w-100 mb-5"}>
         <Link to={`/course/${id}`}>
-          <div className="card-item">
+          <div className="card-item border">
             {courseImage ? (
               <img
                 src={courseImage}
