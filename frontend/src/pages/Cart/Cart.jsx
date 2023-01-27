@@ -8,6 +8,7 @@ const Cart = () => {
   const cart = useSelector((state) => state.cartReducer);
   console.log("CURRENT CART", cart);
 
+  const goToCheckout = () => {};
   return (
     <>
       <div className="bg-light shadow text-center p-2 fs-2 mb-5">
@@ -39,7 +40,7 @@ const Cart = () => {
           ))}
           <div className="wrapper text-center mb-5">
             <Link to="/payment">
-              <button className="btn btn-primary btn-lg">
+              <button className="btn btn-primary btn-lg" onClick={goToCheckout}>
                 Proceed to checkout
               </button>
             </Link>

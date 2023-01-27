@@ -36,14 +36,14 @@ const Payment = () => {
         <p className="fs-3 fw-bold">Order details</p>
         <div className="row">
           <img
-            src={course.courseImage}
+            src={course?.courseImage}
             alt="Course"
             width={"20%"}
             className="rounded col-md-4"
           />
           <div className="col-md-8">
-            <p className="fs-4 text-primary">{course.name}</p>
-            <p className="fs-4">Price: {course.price ?? 120}$</p>
+            <p className="fs-4 text-primary">{course?.name}</p>
+            <p className="fs-4">Price: {course?.price ?? 120}$</p>
           </div>
         </div>
       </div>
