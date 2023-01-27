@@ -46,6 +46,10 @@ function App() {
               <Route path="/cart" element={<Cart />} />
               <Route path="/analytics" element={<Analytics />} />
               <Route path="/help" element={<Help />} />
+              <Route
+                path="/course/*"
+                element={<div>We couldn't find it</div>}
+              />
             </Routes>
           </Container>
           <Footer />

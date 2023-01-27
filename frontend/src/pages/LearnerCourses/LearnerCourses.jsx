@@ -19,6 +19,7 @@ const LearnerCourses = () => {
         price={item.price}
         image={item.courseImage}
         teacherName={item.instructor}
+        id={item.id}
       />
     </>
   );

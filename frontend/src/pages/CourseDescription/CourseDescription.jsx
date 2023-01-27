@@ -155,7 +155,10 @@ const CourseDescription = () => {
             </div>
             <p className="fs-5 mt-3">
               Enrollments:{" "}
-              <span className="fw-bold">{singleCourse.enrollments}</span>
+              <span className="fw-bold">
+                {singleCourse.enrollments}
+                <i class="bi bi-people" style={{ marginLeft: "5px" }}></i>
+              </span>
             </p>
             <p className="fs-5 mt-3">
               Created by:&nbsp;

@@ -67,6 +67,7 @@ const CreatorInformation = () => {
               price={course.price}
               courseImage={course.courseImageURL}
               id={course.id}
+              rating={course.rating}
             />
           ))}
           {/* <div className="col-md">
