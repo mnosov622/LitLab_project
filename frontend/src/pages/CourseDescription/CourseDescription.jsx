@@ -159,7 +159,7 @@ const CourseDescription = () => {
             </p>
             <p className="fs-5 mt-3">
               Created by:&nbsp;
-              <Link to="/creator-info">
+              <Link to={`/creator/${singleCourse.instructorId}`}>
                 <span className="fw-bold text-decoration-underline">
                   {singleCourse.instructor}
                 </span>

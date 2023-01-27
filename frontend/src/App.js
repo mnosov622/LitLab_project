@@ -41,7 +41,7 @@ function App() {
               <Route path="/all-courses" element={<AllCourses />} />
               <Route path="/course/:id" element={<CourseDescription />} />
               <Route path="/login" element={<Login />} />
-              <Route path="/creator-info" element={<CreatorInformation />} />
+              <Route path="/creator/:id" element={<CreatorInformation />} />
               <Route path="/payment" element={<Payment />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/analytics" element={<Analytics />} />
@@ -63,7 +63,7 @@ function App() {
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/all-courses" element={<AllCourses />} />
               <Route path="/creator-dashboard" element={<CreatorDashboard />} />
-              <Route path="/creator-info" element={<CreatorInformation />} />
+              <Route path="/creator/:id" element={<CreatorInformation />} />
               <Route path="/course/:id" element={<CourseDescription />} />
               <Route path="/help" element={<Help />} />
               <Route path="*" exact={true} element={<NotFound />} />

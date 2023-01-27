@@ -6,17 +6,34 @@ import javascriptTeacher from "../../assets/javascript-teacher.jpg";
 import teacher1 from "../../assets/teacher-1.jpg";
 import influenceTeacher from "../../assets/influence-teacher.jpg";
 import CourseCard from "../../components/CourseCards/CourseCard";
+import { Link, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const CreatorInformation = () => {
+  const { id } = useParams();
+  const courses = useSelector((state) => state.coursesReducer);
+  console.log("ALL COURSES", courses);
+  const instructor = courses.find((c) => c.instructorId === Number(id));
+
+  const instructorCourses = courses.filter(
+    (c) => c.instructorId === Number(id)
+  );
+  console.log("INSTRUCTOR COURSES", instructorCourses);
   return (
     <Container>
       <div className="divlayout">
         <Row className="topLine">
           <Col xs={12} md={3}>
-            <Image className="img" src={Img} roundedCircle />
+            <Image
+              className="img"
+              src={instructor.instructorImageURL}
+              roundedCircle
+            />
           </Col>
           <Col xs={12} md={9}>
-            <div className="creatorName text-primary">Creator Name</div>
+            <div className="creatorName text-primary">
+              {instructor.instructor}
+            </div>
             <div className="creatorInformation">Computer Science Professor</div>
           </Col>
         </Row>
@@ -42,7 +59,17 @@ const CreatorInformation = () => {
         </Row>
         <div className="coursetitle">Courses</div>
         <div className="row">
-          <div className="col-md">
+          {instructorCourses.map((course) => (
+            <CourseCard
+              key={course.id}
+              cardSmall
+              name={course.name}
+              price={course.price}
+              courseImage={course.courseImageURL}
+              id={course.id}
+            />
+          ))}
+          {/* <div className="col-md">
             <CourseCard
               name="React - The complete Guide"
               image={teacher1}
@@ -73,7 +100,7 @@ const CreatorInformation = () => {
               price="22$"
               teacherName="Mark Forgheit"
             />
-          </div>
+          </div> */}
         </div>
       </div>
     </Container>
