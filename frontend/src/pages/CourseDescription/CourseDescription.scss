@@ -1,0 +1,19 @@
+ul {
+  * + * {
+    margin-top: 20px;
+  }
+}
+
+li {
+  font-size: 18px;
+}
+
+.accordion-button {
+  font-size: 20px;
+}
+
+.course-description,
+.creator-description {
+  line-height: 180%;
+  font-size: 20px;
+}

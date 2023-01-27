@@ -1,10 +1,26 @@
+.divlayout{
+    margin: auto;
+    width: 1000px;
+    height: auto;
+}
+.img {
+    width: 300px;
+    height: auto;
+}
+
 .topLine {
     padding-top: 30px;
 }
 
 .creatorName {
-    font-size: 30px;
+    font-size: 35px;
     font-weight: 500;
+    padding-left: 60px;
+}
+
+.creatorInformation{
+    font-size: 15px;
+    padding-left: 60px;
 }
 
 .middleLine {
@@ -12,8 +28,14 @@
 }
 
 .titleInfo {
-    font-size: 20px;
+    font-size: 25px;
     font-weight: 300;
+}
+
+.coursetitle{
+    font-size: 25px;
+    font-weight: 300;
+    margin-bottom: 20px;
 }
 
 .aboutInfo {

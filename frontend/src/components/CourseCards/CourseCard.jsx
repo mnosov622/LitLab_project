@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import teacher1 from "../../assets/teacher-1.jpg";
 import styles from "./styles.module.scss";
 
-const CourseCard = ({ name, image, price, teacherName }) => {
+const CourseCard = ({ name, image, price, teacherName, id }) => {
   return (
     <>
       <div className="card w-100 mb-5">
-        <Link to="course/:id">
+        <Link to={`/course/${id}`}>
           <div className={styles.card}>
             <img
               src={image}

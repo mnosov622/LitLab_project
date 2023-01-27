@@ -19,6 +19,10 @@ import fullStackTeacher from "../../assets/Full-stack-teacher.jpg";
 import { useSelector } from "react-redux";
 
 const Home = () => {
+  const courses = useSelector((state) => state.coursesReducer);
+
+  const cart = useSelector((state) => state.cartReducer);
+  console.log("CART", cart);
   return (
     <>
       <div className="row">
@@ -41,11 +45,6 @@ const Home = () => {
                 <Link to="/creator-signup" className="">
                   <button className="btn btn-lg btn-outline-primary">
                     Become content creator
-                  </button>
-                </Link>
-                <Link to="/creator-info" className="">
-                  <button className="btn btn-lg btn-outline-primary">
-                    Creator information
                   </button>
                 </Link>
               </div>
@@ -90,6 +89,7 @@ const Home = () => {
             <div className="col-md-4">
               <CourseCard
                 name="React - The complete Guide"
+                id="1"
                 image={teacher1}
                 price="19$/month"
                 teacherName="Simona Gareth"
@@ -98,6 +98,7 @@ const Home = () => {
             <div className="col-md-4">
               <CourseCard
                 name="Javascript - From Zero to Hero"
+                id="2"
                 image={javascriptTeacher}
                 price="25$/month"
                 teacherName="Kyle Thompson"
@@ -106,6 +107,7 @@ const Home = () => {
             <div className="col-md-4">
               <CourseCard
                 name="Influence - Psychology of Persuasion"
+                id="3"
                 image={influenceTeacher}
                 price="22$/month"
                 teacherName="Mark Forgheit"

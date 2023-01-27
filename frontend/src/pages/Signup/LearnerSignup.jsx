@@ -7,8 +7,11 @@ import Col from "react-bootstrap/Col";
 import { Link } from "react-router-dom";
 // import styles from "./styles-login.scss"
 import student from "../../assets/student.png";
+import ReCAPTCHA from "react-google-recaptcha";
+import { useRef } from 'react';
 
 const LearnerSignup = () => {
+  const captchaRef = useRef(null)
   return (
     <>
       <div className="mt-5">
@@ -65,6 +68,9 @@ const LearnerSignup = () => {
                   />
                   <label for="floatingReEnterPassword">Re-enter password</label>
                 </div>
+
+                <ReCAPTCHA sitekey = {process.env.REACT_APP_CAPTCHA_SITE_KEY}
+              ref={captchaRef} />
 
                 <Button
                   className="btn btn3 btn-primary btn-lg mb-3"
