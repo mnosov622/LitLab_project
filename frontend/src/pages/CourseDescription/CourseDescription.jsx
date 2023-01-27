@@ -77,7 +77,6 @@ const CourseDescription = () => {
       };
       dispatch(buyNowItem(newItem));
       localStorage.setItem("Item_to_buy", JSON.stringify(newItem));
-      window.location.href = "/payment";
     }
   };
 
@@ -183,9 +182,14 @@ const CourseDescription = () => {
               >
                 Add to Cart
               </button>
-              <button className="btn btn-primary btn-lg mt-3" onClick={buyNow}>
+              <Link
+                to="/payment"
+                className="btn btn-primary btn-lg mt-3"
+                role="button"
+                onClick={buyNow}
+              >
                 Buy now
-              </button>
+              </Link>
             </div>
           </div>
         </div>
