@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import CourseCard from "../../components/CourseCards/CourseCard";
 
 const Payment = () => {
@@ -9,10 +9,14 @@ const Payment = () => {
   console.log("COURSE TO BUY", course);
   const currentCart = useSelector((state) => state.cartReducer);
   console.log("CURRENT CART", currentCart);
+  const myCourses = useSelector((state) => state.boughtCoursesReducer);
 
   const pay = () => {
     //do magic
-    window.location.href = "/";
+    // window.location.href = "/";
+    // console.log("CoURSE THAT I WANT TO BUYY", myCourses);
+    console.log("COURSE TO APPEAR ON DASHBODRD", currentCart);
+    localStorage.setItem("Item_to_buy", JSON.stringify(currentCart));
   };
 
   if (course) {
@@ -64,9 +68,9 @@ const Payment = () => {
             <p className="fs-3">
               Total: <span>120$</span>
             </p>
-            <button className="btn btn-primary btn-lg w-100" onClick={pay}>
+            <Link to="/" className="btn btn-primary btn-lg w-100" role="button">
               Pay
-            </button>
+            </Link>
           </div>
         </div>
       </>
@@ -125,9 +129,9 @@ const Payment = () => {
         <p className="fs-3">
           Total: <span>120$</span>
         </p>
-        <button className="btn btn-primary btn-lg w-100" onClick={pay}>
+        <Link to="/" className="btn btn-primary btn-lg w-100" onClick={pay}>
           Pay
-        </button>
+        </Link>
       </div>
     </div>
   );

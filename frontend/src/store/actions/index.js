@@ -28,3 +28,8 @@ export const buyNowItem = (object) => ({
 export const itemsAmount = () => ({
   type: "ITEMS_AMOUNT",
 });
+
+export const myCourses = (object) => ({
+  type: "UPDATE_COURSES",
+  payload: object,
+});

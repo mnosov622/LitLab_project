@@ -3,7 +3,7 @@ import "./LearnerDashboard.scss";
 import logo from "../../assets/logo.png";
 import profile from "../../assets/influence-teacher.jpg";
 import { Link, Outlet } from "react-router-dom";
-
+import { useSelector } from "react-redux";
 const LearnerDashboard = () => {
   return (
     <div className="">
