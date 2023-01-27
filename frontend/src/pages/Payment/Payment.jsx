@@ -1,4 +1,6 @@
 import React from "react";
+import { useEffect } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import CourseCard from "../../components/CourseCards/CourseCard";
@@ -9,12 +11,20 @@ const Payment = () => {
   console.log("COURSE TO BUY", course);
   const currentCart = useSelector((state) => state.cartReducer);
   console.log("CURRENT CART", currentCart);
-  const myCourses = useSelector((state) => state.boughtCoursesReducer);
+
+  const [totalAmount, setTotalAmount] = useState(0);
+
+  useEffect(() => {
+    if (currentCart.length > 1) {
+      const prices = currentCart.map((item) => Number(item.price));
+      const pricesTotal = prices.reduce((sum, item) => sum + item, 0);
+      setTotalAmount(pricesTotal);
+    }
+  }, [currentCart, course]);
 
   const pay = () => {
     //do magic
     // window.location.href = "/";
-    // console.log("CoURSE THAT I WANT TO BUYY", myCourses);
     console.log("COURSE TO APPEAR ON DASHBODRD", currentCart);
     localStorage.setItem("Item_to_buy", JSON.stringify(currentCart));
   };
@@ -66,7 +76,7 @@ const Payment = () => {
           </div>
           <div className="p-4 col-md-6 h-100 bg-light shadow">
             <p className="fs-3">
-              Total: <span>120$</span>
+              Total: <span>{course.price}$</span>
             </p>
             <Link to="/" className="btn btn-primary btn-lg w-100" role="button">
               Pay
@@ -127,7 +137,7 @@ const Payment = () => {
       </div>
       <div className="p-4 col-md-6 h-100 bg-light shadow">
         <p className="fs-3">
-          Total: <span>120$</span>
+          Total: <span>{totalAmount}$</span>
         </p>
         <Link to="/" className="btn btn-primary btn-lg w-100" onClick={pay}>
           Pay
