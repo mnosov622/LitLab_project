@@ -9,22 +9,24 @@ import { useParams } from "react-router-dom";
 import { addToCart, buyNowItem } from "../../store/actions";
 import { useState } from "react";
 import { useAlert, positions } from "react-alert";
+import { loggedInAsLearner } from "../../store/reducers/loginAsLearner";
 
 const CourseDescription = () => {
   const alert = useAlert();
-
   const { id } = useParams();
   const dispatch = useDispatch();
   const courses = useSelector((state) => state.coursesReducer);
   const singleCourse = courses.find((course) => course.id === Number(id));
   const cart = useSelector((state) => state.cartReducer);
   const itemToBuy = useSelector((state) => state.buyCourseReducer);
-
   const [cartItem, setCartItem] = useState(cart);
   const [buy, setBuy] = useState(itemToBuy);
 
   console.log("CURRENT CART", cart);
   console.log("Item that you want to buy", itemToBuy);
+
+  //Get log in state
+  const loggedIn = useSelector((state) => state.loggedInAsLearner);
 
   //TODO: Add all items from object to the cart
   const addCourse = () => {
@@ -32,6 +34,7 @@ const CourseDescription = () => {
       id: singleCourse?.id,
       name: singleCourse?.name,
     };
+
     // alert.show("Course added");
     alert.success("Item added to cart", {
       position: positions.BOTTOM_RIGHT,
@@ -47,14 +50,21 @@ const CourseDescription = () => {
   };
 
   const buyNow = () => {
-    const newItem = {
-      id: singleCourse?.id,
-      name: singleCourse?.name,
-      courseImage: singleCourse?.courseImage,
-    };
-    dispatch(buyNowItem(newItem));
-    localStorage.setItem("Item_to_buy", JSON.stringify(newItem));
-    window.location.href = "/payment";
+    console.log("LOGIN STATE", loggedIn);
+
+    if (!loggedIn) {
+      console.log("YOU ARE NOT LOGGED IN");
+      window.location.href = "/login";
+    } else {
+      const newItem = {
+        id: singleCourse?.id,
+        name: singleCourse?.name,
+        courseImage: singleCourse?.courseImage,
+      };
+      dispatch(buyNowItem(newItem));
+      localStorage.setItem("Item_to_buy", JSON.stringify(newItem));
+      window.location.href = "/payment";
+    }
   };
 
   return (

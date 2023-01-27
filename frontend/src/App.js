@@ -17,22 +17,31 @@ import { useState } from "react";
 import LearnerCourses from "./pages/LearnerCourses/LearnerCourses";
 import CourseDescription from "./pages/CourseDescription/CourseDescription";
 import Payment from "./pages/Payment/Payment";
+import { useDispatch, useSelector } from "react-redux";
+import { logInAsLearner } from "./store/actions";
 
 function App() {
   //TODO: If user is logged In show personal dashboard page,
 
-  const [loggedInAsLearner, setLoggedInAsLearner] = useState(false);
+  const logInAsLearner = useSelector((state) => state.loggedInAsLearner);
+  console.log("LOGGED IN AS LEARNER", logInAsLearner);
+  console.log(logInAsLearner);
 
   return (
     <>
-      {loggedInAsLearner ? (
+      {logInAsLearner ? (
         <>
           <Navbar />
-          <Routes>
-            <Route path="/" element={<LearnerDashboard />}>
+          <Container>
+            <Routes>
+              <Route path="/" element={<LearnerDashboard />} />
               <Route path="courses" element={<LearnerCourses />} />
-            </Route>
-          </Routes>
+              <Route path="/all-courses" element={<AllCourses />} />
+              <Route path="/course/:id" element={<CourseDescription />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/creator-info" element={<CreatorInformation />} />
+            </Routes>
+          </Container>
         </>
       ) : (
         <>
