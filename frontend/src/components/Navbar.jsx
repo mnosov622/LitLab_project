@@ -94,19 +94,20 @@ const Navbar = () => {
           </div>
           {loggedInAsLearner ? (
             <div className="col-md-6 d-flex align-items-baseline">
-              <Link to="/courses" className="dashboard-item">
+              <Link to="/" className="dashboard-item">
                 My courses
               </Link>
-              <Link to="/courses" className="dashboard-item">
+              <Link to="/cart" className="dashboard-item">
                 My Cart
               </Link>
-              <Link to="/courses" className="dashboard-item">
+
+              <Link to="/analytics" className="dashboard-item">
                 Analytics
               </Link>
 
               <div className="offset-1 col-md-2 mt-4">
                 <button
-                  className="justify-content-end btn btn-secondary"
+                  className="justify-content-end btn btn-primary"
                   onClick={logOut}
                 >
                   Log out

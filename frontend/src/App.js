@@ -19,6 +19,8 @@ import CourseDescription from "./pages/CourseDescription/CourseDescription";
 import Payment from "./pages/Payment/Payment";
 import { useDispatch, useSelector } from "react-redux";
 import { logInAsLearner } from "./store/actions";
+import Cart from "./pages/Cart/Cart";
+import Analytics from "./pages/Analytics/Analytics";
 
 function App() {
   //TODO: If user is logged In show personal dashboard page,
@@ -34,12 +36,14 @@ function App() {
           <Navbar />
           <Container>
             <Routes>
-              <Route path="/" element={<LearnerDashboard />} />
-              <Route path="courses" element={<LearnerCourses />} />
+              <Route path="/" element={<LearnerCourses />} />
               <Route path="/all-courses" element={<AllCourses />} />
               <Route path="/course/:id" element={<CourseDescription />} />
               <Route path="/login" element={<Login />} />
               <Route path="/creator-info" element={<CreatorInformation />} />
+              <Route path="/payment" element={<Payment />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/analytics" element={<Analytics />} />
             </Routes>
           </Container>
         </>
@@ -58,7 +62,7 @@ function App() {
               <Route path="/creator-dashboard" element={<CreatorDashboard />} />
               <Route path="/creator-info" element={<CreatorInformation />} />
               <Route path="/course/:id" element={<CourseDescription />} />
-              <Route path="/payment" element={<Payment />} />
+
               <Route path="*" exact={true} element={<NotFound />} />
             </Routes>
           </Container>

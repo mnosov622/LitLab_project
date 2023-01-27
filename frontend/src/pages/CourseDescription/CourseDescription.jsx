@@ -33,6 +33,7 @@ const CourseDescription = () => {
     const newItem = {
       id: singleCourse?.id,
       name: singleCourse?.name,
+      instructor: singleCourse?.instructor,
     };
 
     // alert.show("Course added");

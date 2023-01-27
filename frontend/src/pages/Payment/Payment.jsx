@@ -6,6 +6,10 @@ const Payment = () => {
   const courseToBuy = localStorage.getItem("Item_to_buy");
   const course = JSON.parse(courseToBuy);
 
+  const pay = () => {
+    //do magic
+    window.location.href = "/";
+  };
   return (
     <div className="row">
       <div className=" col-md-6 fs-1">
@@ -46,7 +50,9 @@ const Payment = () => {
         <p className="fs-3">
           Total: <span>120$</span>
         </p>
-        <button className="btn btn-primary btn-lg w-100">Pay</button>
+        <button className="btn btn-primary btn-lg w-100" onClick={pay}>
+          Pay
+        </button>
       </div>
     </div>
   );
