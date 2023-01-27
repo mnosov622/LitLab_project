@@ -1,82 +1,98 @@
 [
   {
+    "id": 1,
+    "name": "React - The Complete Guide",
+    "instructor": "Simona Gareth",
+    "price": "25",
+    "rating":5,
+    "enrollments":500,
+    "shortDescription": "Learn React by building Full stack application",
+    "longDescription": "React is a JavaScript library for building user interfaces. It was developed by Facebook and is now maintained by Facebook and a community of individual developers and companies. React allows developers to build reusable UI components and manage the state of an application in a way that makes it easy to reason about and debug. It also integrates well with other libraries and frameworks, such as Redux for state management and React Router for client-side routing. React is widely used in web development and has been used to build many popular websites and web applications, such as Facebook, Instagram, and Airbnb.",
+    "courseImageURL": "https://images.unsplash.com/photo-1587620962725-abab7fe55159?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1331&q=80",
+    "instructorImageURL": "https://media.istockphoto.com/id/855341578/photo/creativity-checked.jpg?b=1&s=170667a&w=0&k=20&c=NHeyPIHEWmztch-Hb9wVZ1VNwIdQvOFsayk8HTz4XCg="
+  },
+  {
     "id": 2,
     "name": "Javascript - From Zero to Hero",
-    "instructor": "Kyle Thompson",
-    "price": "25",
-    "courseImage": "https://images.unsplash.com/photo-1587620962725-abab7fe55159?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1331&q=80"
+    "instructor": "Murray Thompson",
+    "price": "30",
+    "rating":4.8,
+    "enrollments":320,
+    "shortDescription": "Learn basics of Javascript and its core frameworks",
+    "longDescription": "JavaScript is a programming language that is primarily used to create interactive front-end web applications and dynamic web content. It can also be used on the back-end through technologies like Node.js. JavaScript is a high-level, interpreted programming language that is considered to be one of the three core technologies of the World Wide Web, along with HTML and CSS. JavaScript is used to make web pages more interactive, responsive, and dynamic by allowing developers to add complex user interactions, animations, and other effects to web pages. It can also be used to create web-based games, mobile apps, and desktop apps using frameworks like React Native, AngularJS, and Vue.js. It is often used in conjunction with other web development technologies to create full-stack web applications.",
+    "courseImageURL":"https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png",
+    "instructorImageURL": "https://media.istockphoto.com/id/1128666909/es/foto/retrato-de-profesor-sonriente-en-el-anfiteatro.jpg?s=612x612&w=0&k=20&c=NHJUh5HkLhTo-La7TcKEDJ01dOOH4kVYHXL4zSQZPf0="
   },
   {
     "id": 3,
     "name": "Influence - Psychology of Persuasion",
-    "instructor": "Mark Forgheit",
-    "price": "22"
+    "instructor": "Marc Williamson",
+    "price": "20",
+    "rating":5,
+    "enrollments":200,
+    "shortDescription": "Learn psychology of persuasion in the comfort of home",
+    "longDescription": "The psychology of persuasion refers to the study of how people are influenced by various factors, such as communication, social influence, and cognitive processes, to change their attitudes, beliefs, or behaviors. It is a broad field that encompasses many different theories and approaches, including social psychology, cognitive psychology, and behavioral psychology.",
+    "courseImageURL":"https://cdn.shopify.com/s/files/1/0070/7032/files/persuasion_20psychology.jpg?v=1671103727",
+    "instructorImageURL": "https://media.istockphoto.com/id/1278976696/es/foto/hombre-maduro-profesor-de-pie-en-clase.jpg?s=612x612&w=0&k=20&c=1jZHwAzoTv9LC_mRFY8i6Ny62a0E5ES7Y26rk47x4K8="
   },
   {
     "id": 4,
-    "name": "Influence2 - Psychology of Persuasion",
-    "instructor": "Mark Forgheit",
-    "price": "22"
+    "name": "Financial Markets",
+    "instructor": "Anya Selafinkov",
+    "price": "40",
+    "rating":4.5,
+    "enrollments":150,
+    "shortDescription": "Ace in finance with our short haul course",
+    "longDescription": "Financial market studies involve analyzing and understanding the performance and behavior of financial markets, such as stock markets, bond markets, and commodity markets. This can include studying the movements and trends of different securities and assets, as well as the economic and political factors that influence market performance.",
+    "courseImageURL":"https://imageio.forbes.com/specials-images/imageserve/6354154d5e097d68cc4360ba/Picture-shows-green-graph-line-in-front-of-quotation-board/960x0.jpg?format=jpg&width=960",
+    "instructorImageURL": "https://media.istockphoto.com/id/1223604450/es/foto/profesor-alegre-comunicarse-con-los-alumnos-a-trav%C3%A9s-de-videollamada.jpg?s=612x612&w=0&k=20&c=DZOPMMkdVFFgcaJFSyvQ884ca2Ytw_8WlAEd-LxMi4k="
   },
   {
     "id": 5,
     "name": "Master your communication skills",
     "instructor": "Albert Nicholas",
-    "price": "18"
+    "price": "15",
+    "rating":5,
+    "enrollments":1200,
+    "shortDescription": "Develop your communication skills with our communication course.",
+    "longDescription": "Communication is the process of exchanging information, ideas, and messages through various forms of media, such as spoken or written language, nonverbal cues, and visual aids. It is a fundamental aspect of human interaction and is essential for building and maintaining relationships, as well as achieving personal and professional goals.",
+    "courseImageURL":"https://leverageedublog.s3.ap-south-1.amazonaws.com/blog/wp-content/uploads/2020/05/08140736/Modes-of-Communication.png",
+    "instructorImageURL": "https://media.istockphoto.com/id/1089058072/es/foto/maestro-adultos-posando-en-la-pizarra.jpg?s=612x612&w=0&k=20&c=u4_XDwfEBeXzCRUrriiTKI14r8Z6JqHCD959SYVnTcY="
   },
   {
     "id": 6,
-    "name": "Introduction to Python",
-    "instructor": "John Smith",
-    "price": 200
+    "name": "Introduction to Statistics",
+    "instructor": "Lin Song",
+    "price": "30",
+    "rating":4.3,
+    "enrollments":200,
+    "shortDescription": "Learn statistics with one of the best courses around",
+    "longDescription": "Statistics is a branch of mathematics that deals with the collection, analysis, interpretation, presentation, and organization of data. It is used to make sense of large sets of data and to draw conclusions about a population based on a sample of data.Statistics is a widely used field in many areas, such as social science, medicine, engineering, business, and many others. It plays a key role in data analysis, decision making, forecasting, and scientific research. It's important to note that statistical analysis is not just about crunching numbers, but it also involves using critical thinking and understanding the context of the data in order to draw valid conclusions.",
+    "courseImageURL":"https://i.ytimg.com/vi/GUQJ7zMoSCM/maxresdefault.jpg",
+    "instructorImageURL": "https://media.istockphoto.com/id/174750129/es/foto/industrial-presentaci%C3%B3n-en-pizarra-acr%C3%ADlica.jpg?s=612x612&w=0&k=20&c=K3jQQzeJRSEngsfDPSbhmB6GYZvRdUQ4Fn4O95anims="
   },
   {
     "id": 7,
-    "name": "Advanced JavaScript",
-    "instructor": "Jane Doe",
-    "price": 250
+    "name": "Intermediate Python",
+    "instructor": "Ali Gatie",
+    "price": "30",
+    "rating":4.9,
+    "enrollments":450,
+    "shortDescription": "Ace in Python with our Python and AI specialized course",
+    "longDescription": "Python is a widely-used, high-level programming language that is known for its readability, simplicity, and flexibility. It was first released in 1991 by Guido van Rossum and has since become one of the most popular programming languages in the world.",
+    "courseImageURL":"https://sllearnengine.blob.core.windows.net/material-images/d678df55e77b4a849bc35ac34d0ef45e-Python%20For%20Beginners.png",
+    "instructorImageURL": "https://media.istockphoto.com/id/675926198/es/foto/gerente-hombre-tomando-notas-en-la-oficina-en-casa.jpg?s=612x612&w=0&k=20&c=FG25PsKRnQWrdsNUpMvqIJXDzoCrfcqwSo_0RsvU8sA="
   },
   {
     "id": 8,
-    "name": "Data Structure and Algorithm",
-    "instructor": "Mike",
-    "price": 300
-  },
-  {
-    "id": 9,
-    "name": "Machine Learning with Python",
-    "instructor": "Alex",
-    "price": 350
-  },
-  {
-    "id": 10,
-    "name": "Web Development with React",
-    "instructor": "Chris",
-    "price": 400
-  },
-  {
-    "id": 11,
-    "name": "Data Analysis with R",
-    "instructor": "Bob Johnson",
-    "price": 450
-  },
-  {
-    "id": 12,
-    "name": "Data Visualization with D3.js",
-    "instructor": "Kim",
-    "price": 500
-  },
-  {
-    "id": 13,
-    "name": "Cloud Computing with Azure",
-    "instructor": "Marry",
-    "price": 550
-  },
-  { "id": 14, "name": "IoT with Arduino", "instructor": "Nancy", "price": 600 },
-  {
-    "id": 15,
-    "name": "Blockchain with Ethereum",
-    "instructor": "Frank",
-    "price": 650
+    "name": "Coversational Spanish",
+    "instructor": "Ana Belen Perez",
+    "price": "35",
+    "rating":5,
+    "enrollments":150,
+    "shortDescription": "Learn to converse in spanish from an effective course.",
+    "longDescription": "Spanish is a Romance language that originated in the Iberian Peninsula and is now spoken by over 460 million people worldwide. It is the official language in Spain and 21 countries in the Americas, as well as an official language in the United Nations and the European Union",
+    "courseImageURL":"https://edge.mondly.com/blog/wp-content/uploads/2020/07/spanish-numbers.jpg",
+    "instructorImageURL": "https://media.istockphoto.com/id/511026368/es/foto/matem%C3%A1ticas-profesor-en-pizarra-f%C3%B3rmula-de-la-escritura.jpg?s=612x612&w=0&k=20&c=kd2bZqjpL2zJgUM23nTL8TJN8uB7JIYgXlpErQ4pCkk="
   }
 ]
