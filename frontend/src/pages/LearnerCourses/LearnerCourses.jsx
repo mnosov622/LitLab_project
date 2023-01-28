@@ -36,6 +36,7 @@ const LearnerCourses = () => {
         </div>
         <div className="">
           <CourseCard
+            linkToCourseView
             cardSmall
             name={items?.name}
             price={items?.price}

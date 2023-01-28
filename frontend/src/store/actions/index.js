@@ -10,6 +10,11 @@ export const logInAsLearner = () => {
   };
 };
 
+export const logInAsCreator = () => {
+  return {
+    type: "LOGIN_AS_CREATOR",
+  };
+};
 export const Allcourses = (object) => ({
   type: "STORE_OBJECT",
   payload: object,
