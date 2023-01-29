@@ -4,6 +4,11 @@ const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
+//MongoDB
+const MongoClient = require("mongodb").MongoClient;
+const mongoose = require("mongoose");
+const url = "mongodb+srv://max:LitLab@cluster0.qnyvkxl.mongodb.net";
+
 //Using fake data for now
 const users = [
   {
@@ -20,6 +25,18 @@ const users = [
   },
 ];
 
+MongoClient.connect(url, { useUnifiedTopology: true }, function (err, db) {
+  if (err) throw err;
+  var dbo = db.db("users");
+  dbo
+    .collection("users")
+    .find({})
+    .toArray(function (err, result) {
+      if (err) throw err;
+      console.log("ALL USERS", result);
+      db.close();
+    });
+});
 const secret = "superSecret";
 
 app.use(
@@ -47,16 +64,6 @@ app.post("/login", (req, res) => {
   } else {
     res.status(401).send({ message: "Invalid credentials" });
   }
-
-  // const token = jwt.sign({ id: user.id }, "secret", { expiresIn: "1h" });
-  // res.json({ token });
-
-  // if (email !== "learner@gmail.com") {
-  //   res.send("Login failed").status(404);
-  // } else if (email === "learner@gmail.com") {
-  //   res.status(200).send("Please proceed");
-  // }
-  // res.json({ message: "Input received" });
 });
 
 app.listen(8000, () => console.log("Server is up on port 8000"));
