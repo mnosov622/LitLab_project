@@ -69,7 +69,11 @@ app.post("/login", (req, res) => {
         ) {
           return res.status(401).json({ message: "Incorrect credentials" });
         }
-        res.status(200).send({ user });
+        const payload = { id: user.id, email: user.email };
+        const token = jwt.sign(payload, secret, { expiresIn: "2h" });
+
+        res.status(200).send({ user, token });
+
         db.close();
       });
   });
