@@ -1,14 +1,20 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import CourseCard from "../../components/CourseCards/CourseCard";
 import empty from "../../assets/no-courses.gif";
 import { Link } from "react-router-dom";
+import { myCourses } from "../../store/actions";
 
 const Cart = () => {
   const cart = useSelector((state) => state.cartReducer);
   console.log("CURRENT CART", cart);
+  const dispatch = useDispatch();
+  const AllCourses = useSelector((state) => state.boughtCoursesReducer);
 
-  const goToCheckout = () => {};
+  const goToCheckout = () => {
+    localStorage.removeItem("Item_to_buy");
+    // dispatch(myCourses(cart));
+  };
   return (
     <>
       <div className="bg-light shadow text-center p-2 fs-2 mb-5">

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
@@ -10,11 +10,21 @@ import { GoogleLogin } from "react-google-login";
 import { gapi } from "gapi-script";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { logIn } from "../../store/actions";
+import { logIn, logInAsCreator, logInAsLearner } from "../../store/actions";
 import { useNavigate } from "react-router-dom";
+import { Bars, Oval } from "react-loader-spinner";
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [noAccountError, setNoAccountError] = useState(false);
+  const [wrongCredentials, setWrongCredentials] = useState(false);
+  const loggedInAsLearner = useSelector((state) => state.loggedInAsLearner);
+  const loggedInAsCreator = useSelector((state) => state.creatorLogin);
+  const [showLoader, setShowLoader] = useState(false);
+
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const onSuccess = (res) => {
     console.log("success:", res.profileObj);
@@ -36,26 +46,98 @@ const Login = () => {
     gapi.load("client:auth2", initClient);
   });
 
-  const loggedIn = useSelector((state) => state.loggedIn);
+  const handleSubmit = async (e) => {
+    setShowLoader(true);
+    console.log(email, password);
+    e.preventDefault();
 
+    try {
+      const response = await fetch("http://localhost:8000/login", {
+        method: "POST",
+        body: JSON.stringify({ email, password }),
+        headers: { "Content-Type": "application/json" },
+      });
+
+      console.log(response);
+
+      if (response.status === 200) {
+        const data = await response.json();
+        console.log(data.user, data.token);
+        if (data.user) localStorage.setItem("token", data.token);
+        setNoAccountError(false);
+        setWrongCredentials(false);
+        if (data?.user?.isLearner) {
+          dispatch(logInAsLearner());
+          navigate("/");
+        } else {
+          dispatch(logInAsCreator());
+          navigate("/");
+        }
+      } else if (response.status === 404) {
+        console.log("You don't have an acoount");
+        setNoAccountError(true);
+        setWrongCredentials(false);
+      } else {
+        setWrongCredentials(true);
+        setNoAccountError(false);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+
+    setShowLoader(false);
+  };
   return (
     <>
       <Container>
         <Row className="justify-content-md-center  mx-auto">
           <Col className="form mt-5 ">
-            <Form className="mx-auto w-50">
+            <Form
+              className="mx-auto w-50"
+              action="/login"
+              method="POST"
+              onSubmit={handleSubmit}
+            >
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label className="fs-3">Email address</Form.Label>
-                <Form.Control
+                <input
                   type="email"
                   placeholder="Enter email"
                   autoFocus
+                  name="email"
+                  value={email}
+                  className="form-control"
+                  required
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label className="fs-3">Password</Form.Label>
-                <Form.Control type="password" placeholder="Password" />
+                <input
+                  className="form-control"
+                  type="password"
+                  placeholder="Password"
+                  name="password"
+                  value={password}
+                  required
+                  onChange={(e) => setPassword(e.target.value)}
+                />
               </Form.Group>
+              {wrongCredentials && (
+                <div class="text-center text-danger">
+                  Wrong Email Or Password
+                </div>
+              )}
+              {noAccountError && (
+                <div class="text-center text-danger">
+                  You don't have an account,{" "}
+                  <Link to="/signup" className="text-decoration-underline">
+                    create it
+                  </Link>{" "}
+                  first
+                </div>
+              )}
+
               <Form.Group className="mb-3" controlId="formBasicCheckbox">
                 <Link to="/forgot-password" className="text-muted">
                   Forgot Password?
@@ -66,7 +148,19 @@ const Login = () => {
                 variant="primary"
                 type="submit"
               >
-                Sign in
+                {showLoader ? (
+                  <Bars
+                    height="30"
+                    width="55"
+                    color="#fff"
+                    ariaLabel="bars-loading"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    visible={true}
+                  />
+                ) : (
+                  <span>Sign in</span>
+                )}
               </Button>
 
               <p className="fs-3 ml-5">or</p>

@@ -5,6 +5,7 @@ import { coursesReducer } from "./courses";
 import { cartReducer } from "./addToCart";
 import { buyCourseReducer } from "./buyCourseNow";
 import { increaseItemsAmount } from "./itemsAmount";
+import { creatorLogin } from "./creatorLogin";
 
 export const allReducers = combineReducers({
   loggedIn,
@@ -13,4 +14,5 @@ export const allReducers = combineReducers({
   cartReducer,
   buyCourseReducer,
   increaseItemsAmount,
+  creatorLogin,
 });

@@ -10,7 +10,6 @@ import AllCourses from "./pages/AllCourses/AllCourses";
 import CreatorSignup from "./pages/Signup/CreatorSignup";
 import LearnerSignup from "./pages/Signup/LearnerSignup";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
-import LearnerDashboard from "./pages/LearnerDashboard/LearnerDashboard";
 import CreatorDashboard from "./pages/CreatorDashboard/CreatorDashboard";
 import CreatorInformation from "./pages/CreatorInformation/CreatorInformation";
 import { useState } from "react";
@@ -22,13 +21,34 @@ import { logInAsLearner } from "./store/actions";
 import Cart from "./pages/Cart/Cart";
 import Analytics from "./pages/Analytics/Analytics";
 import Help from "./pages/Help/Help";
+import CreatorAnalytics from "./pages/CreatorDashboard/Analytics/CreatorAnalytics";
+import CourseView from "./pages/CourseView/CourseView";
+import CourseUpload from "./pages/CreatorDashboard/CourseUpload/CourseUpload";
 
 function App() {
   //TODO: If user is logged In show personal dashboard page,
 
   const logInAsLearner = useSelector((state) => state.loggedInAsLearner);
-  console.log("LOGGED IN AS LEARNER", logInAsLearner);
-  console.log(logInAsLearner);
+  // console.log("LOGGED IN AS LEARNER", logInAsLearner);
+  // console.log(logInAsLearner);
+  const loginAsCreator = useSelector((state) => state.creatorLogin);
+  console.log("Creator is logged in ", loginAsCreator);
+
+  if (loginAsCreator) {
+    return (
+      <>
+        <Navbar />
+        <Container style={{ marginTop: "100px", marginBottom: "100px" }}>
+          <Routes>
+            <Route path="/" element={<CreatorDashboard />} />
+            <Route path="/analytics" element={<CreatorAnalytics />} />
+            <Route path="/upload" element={<CourseUpload />} />
+          </Routes>
+        </Container>
+        <Footer />
+      </>
+    );
+  }
 
   return (
     <>
@@ -40,6 +60,7 @@ function App() {
               <Route path="/" element={<LearnerCourses />} />
               <Route path="/all-courses" element={<AllCourses />} />
               <Route path="/course/:id" element={<CourseDescription />} />
+              <Route path="/course-view/:id" element={<CourseView />} />
               <Route path="/login" element={<Login />} />
               <Route path="/creator/:id" element={<CreatorInformation />} />
               <Route path="/payment" element={<Payment />} />

@@ -1,4 +1,4 @@
-export const loggedInAsLearner = (state = true, action) => {
+export const loggedInAsLearner = (state = false, action) => {
   switch (action.type) {
     case "LOGIN_AS_LEARNER":
       return !state;

@@ -10,6 +10,11 @@ export const logInAsLearner = () => {
   };
 };
 
+export const logInAsCreator = () => {
+  return {
+    type: "LOGIN_AS_CREATOR",
+  };
+};
 export const Allcourses = (object) => ({
   type: "STORE_OBJECT",
   payload: object,
@@ -27,4 +32,9 @@ export const buyNowItem = (object) => ({
 
 export const itemsAmount = () => ({
   type: "ITEMS_AMOUNT",
+});
+
+export const myCourses = (object) => ({
+  type: "UPDATE_COURSES",
+  payload: object,
 });

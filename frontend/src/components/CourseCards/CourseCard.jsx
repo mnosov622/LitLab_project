@@ -1,7 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import teacher1 from "../../assets/teacher-1.jpg";
-// import styles from "./styles.module.scss";
 import "./CourseCard.scss";
 
 const CourseCard = ({
@@ -13,11 +11,13 @@ const CourseCard = ({
   cardSmall,
   courseImage,
   rating,
+  linkToCourseView,
+  contentCreatorCard,
 }) => {
   return (
     <>
       <div className={cardSmall ? "w-25 mb-5 col-md-6" : "w-100 mb-5"}>
-        <Link to={`/course/${id}`}>
+        <Link to={linkToCourseView ? `/course-view/${id}` : `/course/${id}`}>
           <div className="card-item border">
             {courseImage ? (
               <img
