@@ -53,17 +53,26 @@ app.post("/register", (req, res) => {});
 
 app.post("/login", (req, res) => {
   const { email, password } = req.body;
-  const user = users.find((u) => u.email === email);
-  console.log("user", user);
-  if (!user) {
-    res.status(404).send("You don't have an account");
-  } else if (user.password === password && user.email === email) {
-    const payload = { id: user.id, email: user.email };
-    const token = jwt.sign(payload, secret, { expiresIn: "2h" });
-    res.status(200).send({ token, user });
-  } else {
-    res.status(401).send({ message: "Invalid credentials" });
-  }
+  MongoClient.connect(url, { useUnifiedTopology: true }, function (err, db) {
+    if (err) throw err;
+    var dbo = db.db("users");
+    dbo
+      .collection("users")
+      .findOne({ email: req.body.email }, function (err, user) {
+        if (err) throw err;
+        if (!user) {
+          return res.status(404).json({ message: "User not found" });
+        }
+        if (
+          user.password !== req.body.password ||
+          user.email !== req.body.email
+        ) {
+          return res.status(401).json({ message: "Incorrect credentials" });
+        }
+        res.status(200).send({ user });
+        db.close();
+      });
+  });
 });
 
 app.listen(8000, () => console.log("Server is up on port 8000"));
