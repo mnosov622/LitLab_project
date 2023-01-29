@@ -1,4 +1,4 @@
-export const creatorLogin = (state = true, action) => {
+export const creatorLogin = (state = false, action) => {
   switch (action.type) {
     case "LOGIN_AS_CREATOR":
       return !state;

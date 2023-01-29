@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import logo from "../assets/logo.png";
 import courses from "../fakeData/courses.json";
@@ -16,6 +16,7 @@ const Navbar = () => {
   const [data, setData] = useState("");
   const [showList, setShowList] = useState(true);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const loggedInAsLearner = useSelector((state) => state.loggedInAsLearner);
   const loginAsCreator = useSelector((state) => state.creatorLogin);
@@ -37,8 +38,13 @@ const Navbar = () => {
   };
 
   const logOut = () => {
-    dispatch(logInAsLearner());
-    dispatch(logInAsCreator());
+    if (loggedInAsLearner) {
+      dispatch(logInAsLearner());
+    } else {
+      dispatch(logInAsCreator());
+    }
+    // dispatch(logInAsCreator());
+    navigate("/");
   };
 
   return (
@@ -56,9 +62,12 @@ const Navbar = () => {
               <img className="logo" src={logo} alt="logo" />
             </Link>
           </div>
-          <div className="col-2 all-courses mt-4">
-            <Link to="all-courses">Explore All Courses</Link>
-          </div>
+          {!loginAsCreator && (
+            <div className="col-2 all-courses mt-4">
+              <Link to="all-courses">Explore All Courses</Link>
+            </div>
+          )}
+
           <div className="col-md-3">
             <form action="">
               <div className="input-group search">
