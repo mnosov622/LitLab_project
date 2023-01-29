@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import login from "../../assets/login.png";
 import { GoogleLogin } from "react-google-login";
 import { gapi } from "gapi-script";
@@ -22,9 +22,12 @@ const Login = () => {
   const loggedInAsLearner = useSelector((state) => state.loggedInAsLearner);
   const loggedInAsCreator = useSelector((state) => state.creatorLogin);
   const [showLoader, setShowLoader] = useState(false);
+  const [uknownError, setUnknownError] = useState(false);
+  const [signedUp, setSignedUp] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  // console.log("signed up", state && state?.signedUp);
 
   const onSuccess = (res) => {
     console.log("success:", res.profileObj);
@@ -82,13 +85,18 @@ const Login = () => {
         setNoAccountError(false);
       }
     } catch (error) {
-      console.error(error);
+      console.error("There has been an error, try again", error);
     }
 
     setShowLoader(false);
   };
   return (
     <>
+      {signedUp && (
+        <p className="fs-5 text-center text-success">
+          You have successfully signed up
+        </p>
+      )}
       <Container>
         <Row className="justify-content-md-center  mx-auto">
           <Col className="form mt-5 ">

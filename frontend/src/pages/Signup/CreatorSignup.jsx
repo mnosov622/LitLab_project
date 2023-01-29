@@ -9,9 +9,27 @@ import { Link } from "react-router-dom";
 import creator from "../../assets/creator1.png";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useRef } from "react";
+import { useState } from "react";
 
 const CreatorSignup = () => {
   const captchaRef = useRef(null);
+
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [reEnterPassword, setReEnterPassword] = useState("");
+
+  const handleSignup = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("https://localhost:8000/register", {
+        method: "POST",
+        body: JSON.stringify(),
+      });
+    } catch (e) {}
+  };
+
   return (
     <>
       <Container>
@@ -28,7 +46,7 @@ const CreatorSignup = () => {
           </Col>
           <Col className="form mt-5 ">
             <h2 className="fs-2 mb-3">Create an account to get started</h2>
-            <Form>
+            <Form onSubmit={handleSignup}>
               <div class="form-floating mb-3">
                 <input
                   type="name"
@@ -36,6 +54,8 @@ const CreatorSignup = () => {
                   id="floatingName"
                   placeholder="Name"
                   autoFocus
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                 />
                 <label for="floatingName">Full Name</label>
               </div>
@@ -46,6 +66,8 @@ const CreatorSignup = () => {
                   class="form-control"
                   id="floatingEmail"
                   placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
                 <label for="floatingEmail">Email Address</label>
               </div>
@@ -56,6 +78,8 @@ const CreatorSignup = () => {
                   class="form-control"
                   id="floatingPassword"
                   placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
                 <label for="floatingPassword">Password</label>
               </div>
