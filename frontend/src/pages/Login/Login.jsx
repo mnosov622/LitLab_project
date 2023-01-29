@@ -12,7 +12,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logIn, logInAsCreator, logInAsLearner } from "../../store/actions";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { Bars, Oval } from "react-loader-spinner";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -21,6 +21,7 @@ const Login = () => {
   const [wrongCredentials, setWrongCredentials] = useState(false);
   const loggedInAsLearner = useSelector((state) => state.loggedInAsLearner);
   const loggedInAsCreator = useSelector((state) => state.creatorLogin);
+  const [showLoader, setShowLoader] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -46,8 +47,10 @@ const Login = () => {
   });
 
   const handleSubmit = async (e) => {
+    setShowLoader(true);
     console.log(email, password);
     e.preventDefault();
+
     try {
       const response = await fetch("http://localhost:8000/login", {
         method: "POST",
@@ -81,6 +84,8 @@ const Login = () => {
     } catch (error) {
       console.error(error);
     }
+
+    setShowLoader(false);
   };
   return (
     <>
@@ -143,7 +148,19 @@ const Login = () => {
                 variant="primary"
                 type="submit"
               >
-                Sign in
+                {showLoader ? (
+                  <Bars
+                    height="30"
+                    width="55"
+                    color="#fff"
+                    ariaLabel="bars-loading"
+                    wrapperStyle={{}}
+                    wrapperClass=""
+                    visible={true}
+                  />
+                ) : (
+                  <span>Sign in</span>
+                )}
               </Button>
 
               <p className="fs-3 ml-5">or</p>
