@@ -14,7 +14,7 @@ const users = [
   },
   {
     id: 2,
-    name: "creator@gmail.com",
+    email: "creator@gmail.com",
     password: "demo123",
     isCreator: true,
   },

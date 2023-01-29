@@ -66,6 +66,9 @@ const Login = () => {
         if (data?.user?.isLearner) {
           dispatch(logInAsLearner());
           navigate("/");
+        } else {
+          dispatch(logInAsCreator());
+          navigate("/");
         }
       } else if (response.status === 404) {
         console.log("You don't have an acoount");
