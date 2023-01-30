@@ -1,16 +1,20 @@
 const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const url = "mongodb+srv://max:LitLab@cluster0.qnyvkxl.mongodb.net/users";
 
-const UsersSchema = new Schema({
-  id: { type: Number, required: true },
-  description: { type: String, required: true },
-  email: { type: String, required: true },
+mongoose
+  .connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log("Successfully connected to MongoDB."))
+  .catch((err) => console.error("Error connecting to MongoDB:", err));
+
+const userSchema = new mongoose.Schema({
+  email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  isLearner: { type: Boolean },
-  isCreator: { type: Boolean },
+  name: { type: String, required: true },
+  isLearner: { type: Boolean, required: false },
+  isCreator: { type: Boolean, required: false },
 });
 
-const User = mongoose.model("users", UsersSchema);
+const User = mongoose.model("users", userSchema, "users");
 
 module.exports = {
   User,

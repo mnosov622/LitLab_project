@@ -10,7 +10,6 @@ const MongoClient = require("mongodb").MongoClient;
 const mongoose = require("mongoose");
 const { User } = require("./models");
 const url = "mongodb+srv://max:LitLab@cluster0.qnyvkxl.mongodb.net";
-
 const secret = "superSecret";
 
 app.use(
@@ -182,21 +181,31 @@ app.get("/users", (req, res) => {
 });
 
 app.get("/users/:id", (req, res) => {
-  const userId = new ObjectId(req.params.id);
+  User.findById(req.params.id)
+    .then((user) => {
+      if (!user) {
+        res.status(404).json({ message: "User not found" });
+      } else {
+        res.json(user);
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({ message: err.message });
+    });
+});
+
+app.get("/creator-courses/:id", (req, res) => {
   MongoClient.connect(
     url,
     { useNewUrlParser: true, useUnifiedTopology: true },
     function (err, client) {
       if (err) throw err;
       const db = client.db("users");
-      db.collection("users")
-        .findOne({ _id: userId })
-        .then((user) => {
-          if (!user) {
-            res.status(404).json({ message: "User not found" });
-          } else {
-            res.json(user);
-          }
+      db.collection("creator-courses")
+        .find({})
+        .toArray((err, users) => {
+          if (err) throw err;
+          res.json(users);
           client.close();
         });
     }

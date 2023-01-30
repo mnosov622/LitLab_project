@@ -3,21 +3,34 @@ import { useEffect } from "react";
 import CourseCard from "../../components/CourseCards/CourseCard";
 import CreatorCourseCard from "../../components/CreatorCourseCard/CreatorCourseCard";
 import jwtDecode from "jwt-decode";
+import { useState } from "react";
 
 const CreatorDashboard = () => {
+  const [courses, setCourses] = useState([]);
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     const decoded = jwtDecode(token);
     const userId = decoded.id;
+    console.log(userId);
 
-    fetch(`http://localhost:8000/users/${userId}`)
-      .then((response) => {
-        response.json();
-      })
-      .then((data) => {
-        console.log(data);
-      });
-  });
+    //List of courses for certain creator, get by user id from the token
+    try {
+      fetch(`http://localhost:8000/creator-courses/${userId}`)
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          console.log("Data received from server:", data);
+          setCourses((data) => {
+            console.log("Courses after state update:", data);
+            return data;
+          });
+        });
+    } catch (e) {
+      console.log("Something went wrong", e);
+    }
+  }, []);
 
   return (
     <>
