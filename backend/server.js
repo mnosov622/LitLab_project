@@ -3,6 +3,7 @@ const app = express();
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const ObjectId = require("mongodb").ObjectId;
 
 //MongoDB
 const MongoClient = require("mongodb").MongoClient;
@@ -137,7 +138,7 @@ app.post("/login", (req, res) => {
           return res.status(401).json({ message: "Incorrect credentials" });
         }
         const payload = {
-          id: user.id,
+          id: user._id,
           email: user.email,
           isLearner: user?.isLearner,
           isCreator: user?.isCreator,
@@ -174,6 +175,28 @@ app.get("/users", (req, res) => {
         .toArray((err, users) => {
           if (err) throw err;
           res.json(users);
+          client.close();
+        });
+    }
+  );
+});
+
+app.get("/users/:id", (req, res) => {
+  const userId = new ObjectId(req.params.id);
+  MongoClient.connect(
+    url,
+    { useNewUrlParser: true, useUnifiedTopology: true },
+    function (err, client) {
+      if (err) throw err;
+      const db = client.db("users");
+      db.collection("users")
+        .findOne({ _id: userId })
+        .then((user) => {
+          if (!user) {
+            res.status(404).json({ message: "User not found" });
+          } else {
+            res.json(user);
+          }
           client.close();
         });
     }

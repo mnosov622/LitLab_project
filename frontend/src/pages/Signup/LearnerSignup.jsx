@@ -43,7 +43,7 @@ const LearnerSignup = () => {
         });
         console.log(response);
         if (response.status === 200) {
-          navigate("/login");
+          navigate("/login", { state: { success: true } });
           setUserExists(false);
         } else if (response.status === 409) {
           setUserExists(true);

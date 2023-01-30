@@ -24,13 +24,22 @@ const Login = () => {
   const [showLoader, setShowLoader] = useState(false);
   const [uknownError, setUnknownError] = useState(false);
   const [signedUp, setSignedUp] = useState(false);
+  const [userLoggedIn, setUserLoggedIn] = useState(true);
 
   const navigate = useNavigate();
+  const { state } = useLocation();
   const dispatch = useDispatch();
-  // console.log("signed up", state && state?.signedUp);
+
+  useEffect(() => {
+    // if (!state?.loggedIn) {
+    //   setUserLoggedIn(false);
+    // }
+    if (state?.success) {
+      setSignedUp(true);
+    }
+  }, []);
 
   const onSuccess = (res) => {
-    console.log("success:", res.profileObj);
     // navigate("/");
   };
   const onFailure = (err) => {
@@ -38,16 +47,6 @@ const Login = () => {
   };
 
   const clientId = process.env.REACT_APP_GOOGLE_LOGIN_CLIENT_ID;
-
-  useEffect(() => {
-    const initClient = () => {
-      gapi.client.init({
-        clientId: clientId,
-        scope: "",
-      });
-    };
-    gapi.load("client:auth2", initClient);
-  });
 
   const handleSubmit = async (e) => {
     setShowLoader(true);
@@ -96,6 +95,10 @@ const Login = () => {
         <p className="fs-5 text-center text-success">
           You have successfully signed up
         </p>
+      )}
+
+      {!userLoggedIn && (
+        <p className="fs-5 text-center text-danger">Please log in first</p>
       )}
       <Container>
         <Row className="justify-content-md-center  mx-auto">

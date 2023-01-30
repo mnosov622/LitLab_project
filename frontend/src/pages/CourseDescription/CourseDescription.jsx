@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import courseImage from "../../assets/courseImage.jpg";
 // import starIcon from "../../assets/star.svg";
 import learningImage from "../../assets/learning.png";
@@ -17,6 +17,7 @@ const CourseDescription = () => {
   const alert = useAlert();
   const { id } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const courses = useSelector((state) => state.coursesReducer);
   const singleCourse = courses.find((course) => course.id === Number(id));
   const cart = useSelector((state) => state.cartReducer);
@@ -29,7 +30,6 @@ const CourseDescription = () => {
 
   //Get log in state
   const loggedIn = useSelector((state) => state.loggedInAsLearner);
-
   const itemsInCart = useSelector((state) => state.increaseItemsAmount);
 
   //TODO: Add all items from object to the cart
@@ -65,8 +65,7 @@ const CourseDescription = () => {
     console.log("LOGIN STATE", loggedIn);
 
     if (!loggedIn) {
-      console.log("YOU ARE NOT LOGGED IN");
-      window.location.href = "/login";
+      return navigate("/login", { state: { loggedIn: false } });
     } else {
       const newItem = {
         id: singleCourse?.id,
@@ -182,14 +181,9 @@ const CourseDescription = () => {
               >
                 Add to Cart
               </button>
-              <Link
-                to="/payment"
-                className="btn btn-primary btn-lg mt-3"
-                role="button"
-                onClick={buyNow}
-              >
+              <button className="btn btn-primary btn-lg mt-3" onClick={buyNow}>
                 Buy now
-              </Link>
+              </button>
             </div>
           </div>
         </div>
