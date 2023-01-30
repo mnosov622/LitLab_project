@@ -136,7 +136,12 @@ app.post("/login", (req, res) => {
         if (!match || user.email !== req.body.email) {
           return res.status(401).json({ message: "Incorrect credentials" });
         }
-        const payload = { id: user.id, email: user.email };
+        const payload = {
+          id: user.id,
+          email: user.email,
+          isLearner: user?.isLearner,
+          isCreator: user?.isCreator,
+        };
         const token = jwt.sign(payload, secret, { expiresIn: "2h" });
 
         res.status(200).send({ user, token });
@@ -169,6 +174,28 @@ app.get("/users", (req, res) => {
         .toArray((err, users) => {
           if (err) throw err;
           res.json(users);
+          client.close();
+        });
+    }
+  );
+});
+
+app.post("/buy", (req, res) => {
+  const user = req.body._id;
+  console.log("user is", user);
+
+  MongoClient.connect(
+    url,
+    { useNewUrlParser: true, useUnifiedTopology: true },
+    function (err, client) {
+      if (err) throw err;
+      const db = client.db("users");
+      db.collection("users")
+        .find({})
+        .toArray((err, users) => {
+          if (err) throw err;
+          const user = users.find((u) => u.id === req.body._id);
+          console.log("user is", user);
           client.close();
         });
     }

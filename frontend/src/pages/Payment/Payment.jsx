@@ -22,11 +22,19 @@ const Payment = () => {
     }
   }, [currentCart, course]);
 
-  const pay = () => {
+  const pay = async () => {
     //do magic
     // window.location.href = "/";
     console.log("COURSE TO APPEAR ON DASHBODRD", currentCart);
     localStorage.setItem("Item_to_buy", JSON.stringify(currentCart));
+
+    const response = await fetch("http://localhost:8000/buy", {
+      method: "POST",
+      body: JSON.stringify({ courseToBuy }),
+      headers: { "Content-Type": "application-json" },
+    });
+
+    console.log(response);
   };
 
   if (course) {
@@ -139,9 +147,9 @@ const Payment = () => {
         <p className="fs-3">
           Total: <span>{totalAmount}$</span>
         </p>
-        <Link to="/" className="btn btn-primary btn-lg w-100" onClick={pay}>
+        <button className="btn btn-primary btn-lg w-100" onClick={pay}>
           Pay
-        </Link>
+        </button>
       </div>
     </div>
   );

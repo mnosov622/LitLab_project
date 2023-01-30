@@ -87,6 +87,7 @@ const CreatorSignup = () => {
                   class="form-control"
                   id="floatingName"
                   placeholder="Name"
+                  required
                   autoFocus
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -100,6 +101,7 @@ const CreatorSignup = () => {
                   class="form-control"
                   id="floatingEmail"
                   placeholder="Email"
+                  required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -112,6 +114,7 @@ const CreatorSignup = () => {
                   class="form-control"
                   id="floatingPassword"
                   placeholder="Password"
+                  required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -124,6 +127,7 @@ const CreatorSignup = () => {
                   class="form-control"
                   id="floatingReEnterPassword"
                   placeholder="Password"
+                  required
                   value={reEnterPassword}
                   onChange={(e) => setReEnterPassword(e.target.value)}
                   onKeyUp={handlePasswordMatch}
@@ -140,6 +144,7 @@ const CreatorSignup = () => {
                   class="form-control"
                   id="floatingSubject"
                   placeholder="Subject"
+                  required
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
                 />
@@ -152,6 +157,7 @@ const CreatorSignup = () => {
                   class="form-control"
                   id="floatingEducation"
                   placeholder="Education"
+                  required
                   value={education}
                   onChange={(e) => setEducation(e.target.value)}
                 />

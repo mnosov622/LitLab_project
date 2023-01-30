@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logInAsLearner } from "../store/actions";
 import { loggedIn } from "../store/reducers/login";
 import { logInAsCreator } from "../store/actions/index";
+import jwtDecode from "jwt-decode";
 
 const Navbar = () => {
   const [search, setSearch] = useState("");
@@ -38,12 +39,8 @@ const Navbar = () => {
   };
 
   const logOut = () => {
-    if (loggedInAsLearner) {
-      dispatch(logInAsLearner());
-    } else {
-      dispatch(logInAsCreator());
-    }
-    // dispatch(logInAsCreator());
+    localStorage.removeItem("token");
+    window.location.reload();
     navigate("/");
   };
 
