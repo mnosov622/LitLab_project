@@ -52,7 +52,7 @@ const LearnerCourses = () => {
               price={course?.price}
               image={course?.courseImage}
               teacherName={course?.instructor}
-              id={course?._id}
+              id={course?.id}
             />
           ))}
         </div>

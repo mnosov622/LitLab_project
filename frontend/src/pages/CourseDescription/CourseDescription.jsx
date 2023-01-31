@@ -62,27 +62,40 @@ const CourseDescription = () => {
   };
 
   const buyNow = async () => {
+    localStorage.removeItem("item_to_buy");
     console.log("LOGIN STATE", loggedIn);
 
     if (!loggedIn) {
       return navigate("/login", { state: { loggedIn: false } });
     } else {
-      const token = localStorage.getItem("token");
-
-      const response = await fetch("http://localhost:8000/buy-course", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-        body: JSON.stringify({
-          courseId: singleCourse?.id,
-          name: singleCourse?.name,
-          instructor: singleCourse?.instructor,
-          courseImage: singleCourse.courseImageURL,
+      localStorage.setItem(
+        "item_to_buy",
+        JSON.stringify({
+          id: singleCourse.id,
+          name: singleCourse.name,
           price: singleCourse.price,
-        }),
-      });
+          instructor: singleCourse.instructor,
+          image: singleCourse.courseImageURL,
+        })
+      );
+      navigate("/payment");
+      // const itemToBuy = useSelector((state) => state.buyCourseReducer);
+      // const token = localStorage.getItem("token");
+
+      // const response = await fetch("http://localhost:8000/buy-course", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     Authorization: token,
+      //   },
+      //   body: JSON.stringify({
+      //     courseId: singleCourse?.id,
+      //     name: singleCourse?.name,
+      //     instructor: singleCourse?.instructor,
+      //     courseImage: singleCourse.courseImageURL,
+      //     price: singleCourse.price,
+      //   }),
+      // });
     }
   };
 
