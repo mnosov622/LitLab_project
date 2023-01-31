@@ -212,26 +212,58 @@ app.get("/creator-courses/:id", (req, res) => {
   );
 });
 
-app.post("/buy", (req, res) => {
-  const user = req.body._id;
-  console.log("user is", user);
+app.post("/buy-course", (req, res) => {
+  const token = req.headers.authorization;
+  console.log("TOKEn", token);
+  const decoded = jwt.verify(token, secret);
+  const userId = decoded.id;
 
-  MongoClient.connect(
-    url,
-    { useNewUrlParser: true, useUnifiedTopology: true },
-    function (err, client) {
-      if (err) throw err;
-      const db = client.db("users");
-      db.collection("users")
-        .find({})
-        .toArray((err, users) => {
-          if (err) throw err;
-          const user = users.find((u) => u.id === req.body._id);
-          console.log("user is", user);
-          client.close();
-        });
+  console.log("user id is", userId);
+
+  MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
+    if (err) {
+      console.error(err);
+      return;
     }
-  );
+
+    const db = client.db("users");
+    const users = db.collection("users");
+
+    users.findOne({ _id: new ObjectId(userId) }, (err, user) => {
+      if (err) {
+        console.error(err);
+        client.close();
+        return;
+      }
+
+      if (!user.courses) {
+        user.courses = [];
+      }
+
+      // Add the course to the user's courses list
+      user.courses.push({
+        id: req.body.courseId,
+        courseName: req.body.name,
+        instructor: req.body.instructor,
+        courseImage: req.body.courseImage,
+        price: req.body.price,
+      });
+
+      // Update the user document in the database
+      users.updateOne(
+        { _id: user._id },
+        { $set: { courses: user.courses } },
+        (err) => {
+          if (err) {
+            console.error(err);
+          }
+          client.close();
+          res.send({ success: true });
+          console.log("added course");
+        }
+      );
+    });
+  });
 });
 
 app.listen(8000, () => console.log("Server is up on port 8000"));

@@ -3,60 +3,82 @@ import CourseCard from "../../components/CourseCards/CourseCard";
 import empty from "../../assets/no-courses.gif";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import jwtDecode from "jwt-decode";
+import { useState } from "react";
+import { Oval } from "react-loader-spinner";
 
 const LearnerCourses = () => {
-  const boughtItem = localStorage.getItem("Item_to_buy");
-  const items = JSON.parse(boughtItem);
+  const [courses, setCourses] = useState([]);
+  const [loader, setLoader] = useState(true);
+  const token = localStorage.getItem("token");
+  const decoded = jwtDecode(token);
+  const userId = decoded.id;
+  console.log("user id", userId);
 
-  if (localStorage.getItem("Item_to_buy") === null) {
-    return (
-      <>
-        <p className="mt-5">
-          <div className="text-center mb-5">
-            <p className="fs-3">There are no courses yet...</p>
-            <img src={empty} alt="No courses" className="ml-auto mb-5" />
-            <div className="wrapper">
-              <Link to="/all-courses">
-                <button className="btn btn-primary btn-lg">
-                  Explore all courses
-                </button>
-              </Link>
-            </div>
-          </div>{" "}
-        </p>
-      </>
-    );
-  }
+  useEffect(() => {
+    setLoader(true);
+    fetch(`http://localhost:8000/users/${userId}`)
+      .then((response) => response.json())
+      .then((data) => setCourses(data.courses));
+    setLoader(false);
+  }, []);
 
-  if (items.length === undefined) {
+  if (courses.length > 0) {
     return (
       <>
         <div className="bg-light shadow text-center p-2 fs-2 mb-4">
           <p>My Courses</p>
         </div>
-        <div className="">
-          <CourseCard
-            linkToCourseView
-            cardSmall
-            name={items?.name}
-            price={items?.price}
-            image={items?.courseImage}
-            teacherName={items?.instructor}
-            id={items?.id}
-          />
+        <div className="row">
+          {loader && (
+            <Oval
+              height={80}
+              width={80}
+              color="#4fa94d"
+              wrapperStyle={{}}
+              wrapperClass=""
+              visible={true}
+              ariaLabel="oval-loading"
+              secondaryColor="#4fa94d"
+              strokeWidth={2}
+              strokeWidthSecondary={2}
+            />
+          )}
+          {courses.map((course) => (
+            <CourseCard
+              linkToCourseView
+              cardSmall
+              name={course?.courseName}
+              price={course?.price}
+              image={course?.courseImage}
+              teacherName={course?.instructor}
+              id={course?._id}
+            />
+          ))}
         </div>
       </>
     );
   }
 
-  return (
-    <>
-      <div className="bg-light shadow text-center p-2 fs-2 mb-4">
-        <p>My Courses</p>
-      </div>
-      {!items ? (
-        <p>
+  if (courses.length === 0) {
+    return (
+      <>
+        <p className="mt-5">
           <div className="text-center mb-5">
+            {loader && (
+              <Oval
+                height={80}
+                width={80}
+                color="#4fa94d"
+                wrapperStyle={{}}
+                wrapperClass=""
+                visible={true}
+                ariaLabel="oval-loading"
+                secondaryColor="#4fa94d"
+                strokeWidth={2}
+                strokeWidthSecondary={2}
+              />
+            )}
             <p className="fs-3">There are no courses yet...</p>
             <img src={empty} alt="No courses" className="ml-auto mb-5" />
             <div className="wrapper">
@@ -68,24 +90,9 @@ const LearnerCourses = () => {
             </div>
           </div>{" "}
         </p>
-      ) : (
-        <>
-          <div className="row">
-            {items.map((item) => (
-              <CourseCard
-                cardSmall
-                name={item?.name}
-                price={item?.price}
-                image={item?.courseImage}
-                teacherName={item?.instructor}
-                id={item?.id}
-              />
-            ))}
-          </div>
-        </>
-      )}
-    </>
-  );
+      </>
+    );
+  }
 };
 
 export default LearnerCourses;

@@ -61,21 +61,28 @@ const CourseDescription = () => {
     }
   };
 
-  const buyNow = () => {
+  const buyNow = async () => {
     console.log("LOGIN STATE", loggedIn);
 
     if (!loggedIn) {
       return navigate("/login", { state: { loggedIn: false } });
     } else {
-      const newItem = {
-        id: singleCourse?.id,
-        name: singleCourse?.name,
-        instructor: singleCourse?.instructor,
-        courseImage: singleCourse.courseImageURL,
-        price: singleCourse.price,
-      };
-      dispatch(buyNowItem(newItem));
-      localStorage.setItem("Item_to_buy", JSON.stringify(newItem));
+      const token = localStorage.getItem("token");
+
+      const response = await fetch("http://localhost:8000/buy-course", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+        body: JSON.stringify({
+          courseId: singleCourse?.id,
+          name: singleCourse?.name,
+          instructor: singleCourse?.instructor,
+          courseImage: singleCourse.courseImageURL,
+          price: singleCourse.price,
+        }),
+      });
     }
   };
 
