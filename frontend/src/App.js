@@ -1,5 +1,5 @@
 import Navbar from "./components/Navbar";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { Container } from "react-bootstrap";
 import Home from "./pages/Home/Home";
 import Footer from "./components/Footer";
@@ -12,29 +12,48 @@ import LearnerSignup from "./pages/Signup/LearnerSignup";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 import CreatorDashboard from "./pages/CreatorDashboard/CreatorDashboard";
 import CreatorInformation from "./pages/CreatorInformation/CreatorInformation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LearnerCourses from "./pages/LearnerCourses/LearnerCourses";
 import CourseDescription from "./pages/CourseDescription/CourseDescription";
 import Payment from "./pages/Payment/Payment";
 import { useDispatch, useSelector } from "react-redux";
-import { logInAsLearner } from "./store/actions";
+import { logInAsCreator, logInAsLearner } from "./store/actions";
+
 import Cart from "./pages/Cart/Cart";
 import Analytics from "./pages/Analytics/Analytics";
 import Help from "./pages/Help/Help";
 import CreatorAnalytics from "./pages/CreatorDashboard/Analytics/CreatorAnalytics";
 import CourseView from "./pages/CourseView/CourseView";
 import CourseUpload from "./pages/CreatorDashboard/CourseUpload/CourseUpload";
+import jwtDecode from "jwt-decode";
 
 function App() {
-  //TODO: If user is logged In show personal dashboard page,
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const logInAsLearner = useSelector((state) => state.loggedInAsLearner);
+  const loggedInAsLearner = useSelector((state) => state.loggedInAsLearner);
   // console.log("LOGGED IN AS LEARNER", logInAsLearner);
   // console.log(logInAsLearner);
-  const loginAsCreator = useSelector((state) => state.creatorLogin);
-  console.log("Creator is logged in ", loginAsCreator);
+  const loggedInAsCreator = useSelector((state) => state.creatorLogin);
+  console.log("Creator is logged in ", loggedInAsCreator);
 
-  if (loginAsCreator) {
+  useEffect(() => {
+    if (localStorage.getItem("token") === null) {
+      return navigate("/");
+    }
+    const token = localStorage.getItem("token");
+    console.log("TOKEN is", token);
+    const decoded = jwtDecode(token);
+    if (token) {
+      if (decoded?.isLearner) {
+        dispatch(logInAsLearner());
+      } else if (decoded?.isCreator) {
+        dispatch(logInAsCreator());
+      }
+    }
+  }, []);
+
+  if (loggedInAsCreator) {
     return (
       <>
         <Navbar />
@@ -52,7 +71,7 @@ function App() {
 
   return (
     <>
-      {logInAsLearner ? (
+      {loggedInAsLearner ? (
         <>
           <Navbar />
           <Container>

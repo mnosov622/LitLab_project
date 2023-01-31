@@ -1,18 +1,24 @@
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
+import { useAlert, positions } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import CourseCard from "../../components/CourseCards/CourseCard";
 
 const Payment = () => {
-  const courseToBuy = localStorage.getItem("Item_to_buy");
-  const course = JSON.parse(courseToBuy);
-  console.log("COURSE TO BUY", course);
+  //TODO: Add sockets, so that user don't have to refresh page when he buys the course
+
+  const alert = useAlert();
+
+  const navigate = useNavigate();
   const currentCart = useSelector((state) => state.cartReducer);
   console.log("CURRENT CART", currentCart);
 
   const [totalAmount, setTotalAmount] = useState(0);
+  const token = localStorage.getItem("token");
+  const item = localStorage.getItem("item_to_buy");
+  const item_to_buy = JSON.parse(item);
 
   useEffect(() => {
     if (currentCart.length > 1) {
@@ -20,16 +26,36 @@ const Payment = () => {
       const pricesTotal = prices.reduce((sum, item) => sum + item, 0);
       setTotalAmount(pricesTotal);
     }
-  }, [currentCart, course]);
+  }, []);
 
-  const pay = () => {
-    //do magic
-    // window.location.href = "/";
-    console.log("COURSE TO APPEAR ON DASHBODRD", currentCart);
-    localStorage.setItem("Item_to_buy", JSON.stringify(currentCart));
+  const pay = async () => {
+    try {
+      fetch("http://localhost:8000/buy-course", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: token,
+        },
+        body: JSON.stringify({
+          courseId: item_to_buy?.id,
+          name: item_to_buy?.name,
+          instructor: item_to_buy?.instructor,
+          courseImage: item_to_buy.image,
+          price: item_to_buy.price,
+        }),
+      });
+      alert.success("Course was succesfully purchased", {
+        position: positions.BOTTOM_RIGHT,
+        timeout: 2000, // custom timeout just for this one alert
+      });
+      navigate("/");
+      // window.location.reload();
+    } catch (e) {
+      console.log("An error occured", e);
+    }
   };
 
-  if (course) {
+  if (item_to_buy) {
     return (
       <>
         <div className="row">
@@ -66,21 +92,21 @@ const Payment = () => {
                 <p className="fs-4">Price: {course?.price ?? 120}$</p>
               </div> */}
               <CourseCard
-                name={course.name}
-                price={course.price}
-                image={course.courseImage}
-                teacherName={course.instructor}
-                id={course.id}
+                name={item_to_buy.name}
+                price={item_to_buy.price}
+                image={item_to_buy.image}
+                teacherName={item_to_buy.instructor}
+                id={item_to_buy.id}
               />
             </div>
           </div>
           <div className="p-4 col-md-6 h-100 bg-light shadow">
             <p className="fs-3">
-              Total: <span>{course.price}$</span>
+              Total: <span>{item_to_buy.price}$</span>
             </p>
-            <Link to="/" className="btn btn-primary btn-lg w-100" role="button">
+            <button className="btn btn-primary btn-lg w-100" onClick={pay}>
               Pay
-            </Link>
+            </button>
           </div>
         </div>
       </>
@@ -123,14 +149,14 @@ const Payment = () => {
         ) : (
           <div className="row">
             <img
-              src={course?.courseImage}
+              src={item_to_buy?.courseImage}
               alt="Course"
               width={"20%"}
               className="rounded col-md-4"
             />
             <div className="col-md-8">
-              <p className="fs-4 text-primary">{course?.name}</p>
-              <p className="fs-4">Price: {course?.price ?? 120}$</p>
+              <p className="fs-4 text-primary">{item_to_buy?.name}</p>
+              <p className="fs-4">Price: {item_to_buy?.price ?? 120}$</p>
             </div>
           </div>
         )}
@@ -139,9 +165,9 @@ const Payment = () => {
         <p className="fs-3">
           Total: <span>{totalAmount}$</span>
         </p>
-        <Link to="/" className="btn btn-primary btn-lg w-100" onClick={pay}>
+        <button className="btn btn-primary btn-lg w-100" onClick={pay}>
           Pay
-        </Link>
+        </button>
       </div>
     </div>
   );

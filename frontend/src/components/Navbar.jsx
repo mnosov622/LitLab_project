@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { logInAsLearner } from "../store/actions";
 import { loggedIn } from "../store/reducers/login";
 import { logInAsCreator } from "../store/actions/index";
+import jwtDecode from "jwt-decode";
+import { useEffect } from "react";
 
 const Navbar = () => {
   const [search, setSearch] = useState("");
@@ -38,12 +40,8 @@ const Navbar = () => {
   };
 
   const logOut = () => {
-    if (loggedInAsLearner) {
-      dispatch(logInAsLearner());
-    } else {
-      dispatch(logInAsCreator());
-    }
-    // dispatch(logInAsCreator());
+    localStorage.removeItem("token");
+    window.location.reload();
     navigate("/");
   };
 
@@ -63,8 +61,8 @@ const Navbar = () => {
             </Link>
           </div>
           {!loginAsCreator && (
-            <div className="col-2 all-courses mt-4">
-              <Link to="all-courses">Explore All Courses</Link>
+            <div className="col-md-2 all-courses mt-4 fs-5">
+              <Link to="all-courses ">Explore All Courses</Link>
             </div>
           )}
 
@@ -112,7 +110,7 @@ const Navbar = () => {
             </form>
           </div>
           {loggedInAsLearner ? (
-            <div className="col-md-6 d-flex align-items-baseline justify-content-between">
+            <div className="col-md-6 d-flex align-items-baseline justify-content-around">
               <Link to="/" className="dashboard-item fs-5">
                 My courses
               </Link>
@@ -121,13 +119,9 @@ const Navbar = () => {
                 <span className="amount">{amountIfItems}</span>
               </Link>
 
-              <Link to="/analytics" className="dashboard-item fs-5">
-                Analytics
-              </Link>
-
               <div className="offset-1 col-md-2 mt-4">
                 <button
-                  className="justify-content-end btn btn-primary"
+                  className="justify-content-end btn btn-dark"
                   onClick={logOut}
                 >
                   Log out

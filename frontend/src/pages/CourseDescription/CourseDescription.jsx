@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import courseImage from "../../assets/courseImage.jpg";
 // import starIcon from "../../assets/star.svg";
 import learningImage from "../../assets/learning.png";
@@ -17,6 +17,7 @@ const CourseDescription = () => {
   const alert = useAlert();
   const { id } = useParams();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const courses = useSelector((state) => state.coursesReducer);
   const singleCourse = courses.find((course) => course.id === Number(id));
   const cart = useSelector((state) => state.cartReducer);
@@ -29,7 +30,6 @@ const CourseDescription = () => {
 
   //Get log in state
   const loggedIn = useSelector((state) => state.loggedInAsLearner);
-
   const itemsInCart = useSelector((state) => state.increaseItemsAmount);
 
   //TODO: Add all items from object to the cart
@@ -61,22 +61,41 @@ const CourseDescription = () => {
     }
   };
 
-  const buyNow = () => {
+  const buyNow = async () => {
+    localStorage.removeItem("item_to_buy");
     console.log("LOGIN STATE", loggedIn);
 
     if (!loggedIn) {
-      console.log("YOU ARE NOT LOGGED IN");
-      window.location.href = "/login";
+      return navigate("/login", { state: { loggedIn: false } });
     } else {
-      const newItem = {
-        id: singleCourse?.id,
-        name: singleCourse?.name,
-        instructor: singleCourse?.instructor,
-        courseImage: singleCourse.courseImageURL,
-        price: singleCourse.price,
-      };
-      dispatch(buyNowItem(newItem));
-      localStorage.setItem("Item_to_buy", JSON.stringify(newItem));
+      localStorage.setItem(
+        "item_to_buy",
+        JSON.stringify({
+          id: singleCourse.id,
+          name: singleCourse.name,
+          price: singleCourse.price,
+          instructor: singleCourse.instructor,
+          image: singleCourse.courseImageURL,
+        })
+      );
+      navigate("/payment");
+      // const itemToBuy = useSelector((state) => state.buyCourseReducer);
+      // const token = localStorage.getItem("token");
+
+      // const response = await fetch("http://localhost:8000/buy-course", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     Authorization: token,
+      //   },
+      //   body: JSON.stringify({
+      //     courseId: singleCourse?.id,
+      //     name: singleCourse?.name,
+      //     instructor: singleCourse?.instructor,
+      //     courseImage: singleCourse.courseImageURL,
+      //     price: singleCourse.price,
+      //   }),
+      // });
     }
   };
 
@@ -182,14 +201,9 @@ const CourseDescription = () => {
               >
                 Add to Cart
               </button>
-              <Link
-                to="/payment"
-                className="btn btn-primary btn-lg mt-3"
-                role="button"
-                onClick={buyNow}
-              >
+              <button className="btn btn-primary btn-lg mt-3" onClick={buyNow}>
                 Buy now
-              </Link>
+              </button>
             </div>
           </div>
         </div>

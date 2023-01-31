@@ -12,6 +12,7 @@
     "longDescription": "React is a JavaScript library for building user interfaces. It was developed by Facebook and is now maintained by Facebook and a community of individual developers and companies. React allows developers to build reusable UI components and manage the state of an application in a way that makes it easy to reason about and debug. It also integrates well with other libraries and frameworks, such as Redux for state management and React Router for client-side routing. React is widely used in web development and has been used to build many popular websites and web applications, such as Facebook, Instagram, and Airbnb.",
     "courseImageURL": "https://images.unsplash.com/photo-1587620962725-abab7fe55159?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1331&q=80",
     "instructorImageURL": "https://media.istockphoto.com/id/855341578/photo/creativity-checked.jpg?b=1&s=170667a&w=0&k=20&c=NHeyPIHEWmztch-Hb9wVZ1VNwIdQvOFsayk8HTz4XCg=",
+    "instructoDescription": "Teacher with 20 years of experience",
     "pointsToLearn": [
       { "point1": "basics of angular" },
       { "point2": "how to build server-side app" },
@@ -20,7 +21,20 @@
     "pointsSummary": "By the end of this course, you will have a solid understanding of how to build full-stack web applications with Angular and Node and be well-prepared to take on your next web development project.",
     "courseContent": [
       { "week1": ["item1", "item2", "item3"] },
-      { "week2": ["item1", "item2", "item3"] }
+      { "week2": ["item1", "item2", "item3"] },
+      { "week3": ["item1", "item2", "item3"] }
+    ],
+    "test": [
+      {
+        "question1": "What is an array",
+        "options": ["A,B,C,D"],
+        "correctAnswer": "A"
+      },
+      {
+        "question1": "Javascript method to find a length",
+        "options": ["A,B,C,D"],
+        "correctAnswer": "B"
+      }
     ]
   },
   {
