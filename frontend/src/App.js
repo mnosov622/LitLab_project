@@ -26,6 +26,7 @@ import CreatorAnalytics from "./pages/CreatorDashboard/Analytics/CreatorAnalytic
 import CourseView from "./pages/CourseView/CourseView";
 import CourseUpload from "./pages/CreatorDashboard/CourseUpload/CourseUpload";
 import jwtDecode from "jwt-decode";
+import Test from "./pages/Test/Test";
 
 function App() {
   const dispatch = useDispatch();
@@ -83,8 +84,8 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/creator/:id" element={<CreatorInformation />} />
               <Route path="/payment" element={<Payment />} />
+              <Route path="/test/:id" element={<Test />} />
               <Route path="/cart" element={<Cart />} />
-              <Route path="/analytics" element={<Analytics />} />
               <Route path="/help" element={<Help />} />
               <Route
                 path="/course/*"

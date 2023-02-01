@@ -1,22 +1,53 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import jsCourseVideo from "../../assets/videos/js-course.mp4";
 import { Player, BigPlayButton } from "video-react";
+import { useState } from "react";
+import { useRef } from "react";
 
 const CourseView = () => {
   const { id } = useParams();
+  const [isFinished, setIsFinished] = useState(false);
+  const videoRef = useRef(null);
+
   const courses = useSelector((state) => state.coursesReducer);
   const singleCourse = courses.find((c) => c.id === Number(id));
   console.log("SINGLE COURS$E", singleCourse);
+
+  const handleEnded = () => {
+    setIsFinished(true);
+    console.log("video is done");
+  };
+
   return (
     <>
       <div className="bg-light shadow text-center p-2 fs-2 mb-4">
-        <p>{singleCourse?.name}</p>
+        <p>
+          {singleCourse?.name}
+          &nbsp;&nbsp;<i class="bi bi-person-video3"></i>
+        </p>
       </div>
       <div className="row mb-5">
         <div className="col-md-6">
-          <video src={jsCourseVideo} controls width={"100%"}></video>
+          <video
+            src={jsCourseVideo}
+            controls
+            width={"100%"}
+            onEnded={handleEnded}
+          ></video>
+          <p className="fs-5 text-center mt-3">
+            Once you watch the course, you will be able to do a test &nbsp;
+            <i class="bi bi-chevron-double-down"></i>
+          </p>
+          <Link
+            to={`/test/${singleCourse.id}`}
+            className={`btn btn-primary btn-lg ${
+              !isFinished && "disabled"
+            } d-block mx-auto w-50`}
+          >
+            Complete test
+          </Link>
         </div>
         <div className="col-md-6">
           <p className="fs-1 text-center ">Course Content</p>

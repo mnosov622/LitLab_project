@@ -561,14 +561,14 @@
     ],
     "test": [
       {
-        "question1": "What is the purpose of data visualization?",
-        "options": ["A,B,C,D"],
+        "question": "What is the purpose of data visualization?",
+        "options": ["A", "B", "C", "D"],
         "correctAnswer": "B"
       },
       {
-        "question2": "Which data visualization tool is best for creating interactive visualizations?",
-        "options": ["Tableau, Power BI, D3.js, Matplotlib"],
-        "correctAnswer": "A"
+        "question": "Which data visualization tool is best for creating interactive visualizations?",
+        "options": ["Tableau", "Power BI", "D3.js", "Matplotlib"],
+        "correctAnswer": "Tableau"
       }
     ]
   },

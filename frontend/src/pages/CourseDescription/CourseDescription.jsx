@@ -59,10 +59,6 @@ const CourseDescription = () => {
         console.log("DATA", data);
         setLearnerCourses(data.courses);
         learnerCourses.map((course) => {
-          // if (course.id === id) {
-          //   console.log("user owns this course");
-          // }
-          // return 0;
           if (course.id === Number(id)) {
             setHasCourse(true);
           }
