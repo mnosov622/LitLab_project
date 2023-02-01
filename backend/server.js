@@ -8,7 +8,9 @@ const ObjectId = require("mongodb").ObjectId;
 //MongoDB
 const MongoClient = require("mongodb").MongoClient;
 const mongoose = require("mongoose");
-const { User } = require("./models");
+const { User } = require("./models/users");
+// const { Course } = require("./models/courses");
+
 const url = "mongodb+srv://max:LitLab@cluster0.qnyvkxl.mongodb.net";
 const secret = "superSecret";
 
@@ -152,14 +154,21 @@ app.post("/login", (req, res) => {
 });
 
 app.get("/courses", (req, res) => {
-  Course.find({})
-    .then((courses) => {
-      res.json(courses);
-      console.log(courses);
-    })
-    .catch((err) =>
-      res.status(400).json({ message: "Error retrieving courses", error: err })
-    );
+  MongoClient.connect(
+    url,
+    { useNewUrlParser: true, useUnifiedTopology: true },
+    function (err, client) {
+      if (err) throw err;
+      const db = client.db("courses");
+      db.collection("courses")
+        .find({})
+        .toArray((err, users) => {
+          if (err) throw err;
+          res.json(users);
+          client.close();
+        });
+    }
+  );
 });
 
 app.get("/users", (req, res) => {

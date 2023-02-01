@@ -1,33 +1,61 @@
 import React from "react";
+import { useState } from "react";
+import { useEffect } from "react";
+import { Oval } from "react-loader-spinner";
 import { useDispatch, useSelector } from "react-redux";
 import CourseCard from "../../components/CourseCards/CourseCard";
 import { Allcourses } from "../../store/actions";
 import { loggedInAsLearner } from "../../store/reducers/loginAsLearner";
+import "./AllCourses.scss";
 
 const AllCourses = () => {
-  //you can find all the courses in this variable
-  const courses = useSelector((state) => state.coursesReducer);
-  console.log(courses);
-  const loggedIn = useSelector((state) => state.loggedInAsLearner);
-  console.log("USER is", loggedIn);
+  const [courses, setCourses] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(true);
+    fetch("http://localhost:8000/courses")
+      .then((response) => response.json())
+      .then((data) => {
+        setCourses(data);
+        setLoading(false);
+      });
+  }, []);
 
   return (
-    <>
-      <div className="row">
-        {courses.map((course) => (
-          <div className="col-md-4 mt-2">
-            <CourseCard
-              key={course.id}
-              id={course.id}
-              name={course.name}
-              image={course.courseImageURL}
-              price={course.price}
-              teacherName={course.instructor}
-            />
+    <div className={loading && "bottom"}>
+      {loading ? (
+        <Oval
+          height={80}
+          width={80}
+          color="#0d6efd"
+          wrapperStyle={{ position: "absolute", left: "50%", top: "40%" }}
+          wrapperClass=""
+          visible={true}
+          ariaLabel="oval-loading"
+          secondaryColor="#0d6efd"
+          strokeWidth={2}
+          strokeWidthSecondary={2}
+        />
+      ) : (
+        <>
+          <div className="row">
+            {courses.map((course) => (
+              <div className="col-md-4 mt-2">
+                <CourseCard
+                  key={course.id}
+                  id={course.id}
+                  name={course.name}
+                  image={course.courseImageURL}
+                  price={course.price}
+                  teacherName={course.instructor}
+                />
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-    </>
+        </>
+      )}
+    </div>
   );
 };
 
