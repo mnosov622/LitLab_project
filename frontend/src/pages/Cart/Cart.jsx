@@ -12,7 +12,9 @@ const Cart = () => {
   const AllCourses = useSelector((state) => state.boughtCoursesReducer);
 
   const goToCheckout = () => {
-    localStorage.removeItem("Item_to_buy");
+    localStorage.removeItem("item_to_buy");
+    localStorage.setItem("item_to_buy", JSON.stringify(cart));
+
     // dispatch(myCourses(cart));
   };
   return (

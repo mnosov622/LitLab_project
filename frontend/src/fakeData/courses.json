@@ -14,9 +14,9 @@
     "instructorImageURL": "https://media.istockphoto.com/id/855341578/photo/creativity-checked.jpg?b=1&s=170667a&w=0&k=20&c=NHeyPIHEWmztch-Hb9wVZ1VNwIdQvOFsayk8HTz4XCg=",
     "instructoDescription": "Teacher with 20 years of experience",
     "pointsToLearn": [
-      { "point1": "basics of angular" },
-      { "point2": "how to build server-side app" },
-      { "point3": "How to use mongoDB" }
+      { "point": "basics of angular" },
+      { "point": "how to build server-side app" },
+      { "point": "How to use mongoDB" }
     ],
     "pointsSummary": "By the end of this course, you will have a solid understanding of how to build full-stack web applications with Angular and Node and be well-prepared to take on your next web development project.",
     "courseContent": [
@@ -50,30 +50,48 @@
     "longDescription": "Javascript is a high-level, interpreted programming language that is used to add interactivity and other dynamic elements to websites. This course will teach you the basics of Javascript and how to use it to build complex web applications. By the end of this course, you will be able to write and implement Javascript code with confidence.",
     "courseImageURL": "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png",
     "instructorImageURL": "https://media.istockphoto.com/id/1128666909/es/foto/retrato-de-profesor-sonriente-en-el-anfiteatro.jpg?s=612x612&w=0&k=20&c=NHJUh5HkLhTo-La7TcKEDJ01dOOH4kVYHXL4zSQZPf0=",
-     "instructorDescription": "Web development expert with 10 years of experience",
+    "instructorDescription": "Web development expert with 10 years of experience",
     "pointsToLearn": [
-    { "point1": "Introduction to Javascript" },
-    { "point2": "Variables and data types in Javascript" },
-    { "point3": "Control structures and loops in Javascript" },
-    { "point4": "Functions and objects in Javascript" }
+      { "point": "Introduction to Javascript" },
+      { "point": "Variables and data types in Javascript" },
+      { "point": "Control structures and loops in Javascript" },
+      { "point": "Functions and objects in Javascript" }
     ],
     "pointsSummary": "By the end of this course, you will have a comprehensive understanding of Javascript and the ability to build and implement complex web applications using the language.",
     "courseContent": [
-    { "week1": ["Overview of Javascript", "Basic syntax and data types", "Variables and data types"] },
-    { "week2": ["Control structures and loops", "Arrays and objects in Javascript", "Functions in Javascript"] },
-    { "week3": ["Building and implementing web applications", "Debugging and testing in Javascript", "Demo of a web application built with Javascript"] }
+      {
+        "week1": [
+          "Overview of Javascript",
+          "Basic syntax and data types",
+          "Variables and data types"
+        ]
+      },
+      {
+        "week2": [
+          "Control structures and loops",
+          "Arrays and objects in Javascript",
+          "Functions in Javascript"
+        ]
+      },
+      {
+        "week3": [
+          "Building and implementing web applications",
+          "Debugging and testing in Javascript",
+          "Demo of a web application built with Javascript"
+        ]
+      }
     ],
     "test": [
-    {
-    "question1": "What is Javascript used for?",
-    "options": ["A,B,C,D"],
-    "correctAnswer": "A"
-    },
-    {
-    "question2": "Which data type is not supported in Javascript?",
-    "options": ["String, Number, Boolean, Binary"],
-    "correctAnswer": "D"
-    }
+      {
+        "question1": "What is Javascript used for?",
+        "options": ["A,B,C,D"],
+        "correctAnswer": "A"
+      },
+      {
+        "question2": "Which data type is not supported in Javascript?",
+        "options": ["String, Number, Boolean, Binary"],
+        "correctAnswer": "D"
+      }
     ]
   },
   {
@@ -91,28 +109,48 @@
     "instructorImageURL": "https://media.istockphoto.com/id/1278976696/es/foto/hombre-maduro-profesor-de-pie-en-clase.jpg?s=612x612&w=0&k=20&c=1jZHwAzoTv9LC_mRFY8i6Ny62a0E5ES7Y26rk47x4K8=",
     "instructorDescription": "Renowned psychologist and expert in the field of influence and persuasion",
     "pointsToLearn": [
-    { "point1": "Introduction to the psychology of influence" },
-    { "point2": "The tactics and strategies of influencers" },
-    { "point3": "How to recognize and resist influence" },
-    { "point4": "How to use influence and persuasion in your personal and professional life" }
+      { "point": "Introduction to the psychology of influence" },
+      { "point": "The tactics and strategies of influencers" },
+      { "point": "How to recognize and resist influence" },
+      {
+        "point": "How to use influence and persuasion in your personal and professional life"
+      }
     ],
     "pointsSummary": "By the end of this course, you will have a comprehensive understanding of the psychology of influence and the ability to apply these principles in your personal and professional life.",
     "courseContent": [
-    { "week1": ["Overview of the psychology of influence", "The principles of influence and persuasion", "The tactics and strategies of influencers"] },
-    { "week2": ["How to recognize and resist influence", "The dark side of influence", "The ethics of influence"] },
-    { "week3": ["How to use influence and persuasion in your personal and professional life", "Case studies of successful influencers", "Developing your own influence and persuasion strategy"] }
+      {
+        "week1": [
+          "Overview of the psychology of influence",
+          "The principles of influence and persuasion",
+          "The tactics and strategies of influencers"
+        ]
+      },
+      {
+        "week2": [
+          "How to recognize and resist influence",
+          "The dark side of influence",
+          "The ethics of influence"
+        ]
+      },
+      {
+        "week3": [
+          "How to use influence and persuasion in your personal and professional life",
+          "Case studies of successful influencers",
+          "Developing your own influence and persuasion strategy"
+        ]
+      }
     ],
     "test": [
-    {
-    "question1": "What is the psychology of influence?",
-    "options": ["A,B,C,D"],
-    "correctAnswer": "C"
-    },
-    {
-    "question2": "What are the tactics and strategies used by influencers?",
-    "options": ["A,B,C,D"],
-    "correctAnswer": "B"
-    }
+      {
+        "question1": "What is the psychology of influence?",
+        "options": ["A,B,C,D"],
+        "correctAnswer": "C"
+      },
+      {
+        "question2": "What are the tactics and strategies used by influencers?",
+        "options": ["A,B,C,D"],
+        "correctAnswer": "B"
+      }
     ]
   },
   {
@@ -130,28 +168,46 @@
     "instructorImageURL": "https://media.istockphoto.com/id/1223604450/es/foto/profesor-alegre-comunicarse-con-los-alumnos-a-trav%C3%A9s-de-videollamada.jpg?s=612x612&w=0&k=20&c=DZOPMMkdVFFgcaJFSyvQ884ca2Ytw_8WlAEd-LxMi4k=",
     "instructorDescription": "Finance expert with over 10 years of experience in financial markets",
     "pointsToLearn": [
-    { "point1": "Introduction to financial markets" },
-    { "point2": "Types of financial markets" },
-    { "point3": "Tools and techniques used by professionals" },
-    { "point4": "Risk management in financial markets" }
+      { "point": "Introduction to financial markets" },
+      { "point": "Types of financial markets" },
+      { "point": "Tools and techniques used by professionals" },
+      { "point": "Risk management in financial markets" }
     ],
     "pointsSummary": "By the end of this course, you will have a comprehensive understanding of financial markets, including the different types of markets, and the tools and techniques used by professionals to navigate these markets.",
     "courseContent": [
-    { "week1": ["Overview of financial markets", "Benefits of financial markets", "Types of financial markets"] },
-    { "week2": ["Financial instruments", "Bonds and stocks", "Derivatives and futures"] },
-    { "week3": ["Tools used by professionals", "Risk management strategies", "Case study analysis"] }
+      {
+        "week1": [
+          "Overview of financial markets",
+          "Benefits of financial markets",
+          "Types of financial markets"
+        ]
+      },
+      {
+        "week2": [
+          "Financial instruments",
+          "Bonds and stocks",
+          "Derivatives and futures"
+        ]
+      },
+      {
+        "week3": [
+          "Tools used by professionals",
+          "Risk management strategies",
+          "Case study analysis"
+        ]
+      }
     ],
     "test": [
-    {
-    "question1": "What is a financial market?",
-    "options": ["A,B,C,D"],
-    "correctAnswer": "B"
-    },
-    {
-    "question2": "Which financial instrument is considered a long-term investment?",
-    "options": ["Bonds, Stocks, Derivatives, Futures"],
-    "correctAnswer": "A"
-    }
+      {
+        "question1": "What is a financial market?",
+        "options": ["A,B,C,D"],
+        "correctAnswer": "B"
+      },
+      {
+        "question2": "Which financial instrument is considered a long-term investment?",
+        "options": ["Bonds, Stocks, Derivatives, Futures"],
+        "correctAnswer": "A"
+      }
     ]
   },
   {
@@ -169,28 +225,46 @@
     "instructorImageURL": "https://media.istockphoto.com/id/1089058072/es/foto/maestro-adultos-posando-en-la-pizarra.jpg?s=612x612&w=0&k=20&c=u4_XDwfEBeXzCRUrriiTKI14r8Z6JqHCD959SYVnTcY=",
     "instructorDescription": "Communication specialist with 10 years of experience in corporate training",
     "pointsToLearn": [
-    { "point1": "Introduction to effective communication" },
-    { "point2": "Active listening techniques" },
-    { "point3": "Articulating thoughts clearly" },
-    { "point4": "Understanding the perspective of others" }
+      { "point": "Introduction to effective communication" },
+      { "point": "Active listening techniques" },
+      { "point": "Articulating thoughts clearly" },
+      { "point": "Understanding the perspective of others" }
     ],
     "pointsSummary": "By the end of this course, you will have a comprehensive understanding of effective communication and the skills to communicate effectively in any situation.",
     "courseContent": [
-    { "week1": ["The importance of effective communication", "Active listening techniques", "Articulating thoughts clearly"] },
-    { "week2": ["Understanding the perspective of others", "Handling difficult conversations", "Building rapport with others"] },
-    { "week3": ["Public speaking tips", "Conflict resolution techniques", "Effective communication in the workplace"] }
+      {
+        "week1": [
+          "The importance of effective communication",
+          "Active listening techniques",
+          "Articulating thoughts clearly"
+        ]
+      },
+      {
+        "week2": [
+          "Understanding the perspective of others",
+          "Handling difficult conversations",
+          "Building rapport with others"
+        ]
+      },
+      {
+        "week3": [
+          "Public speaking tips",
+          "Conflict resolution techniques",
+          "Effective communication in the workplace"
+        ]
+      }
     ],
     "test": [
-    {
-    "question1": "What is effective communication?",
-    "options": ["A,B,C,D"],
-    "correctAnswer": "B"
-    },
-    {
-    "question2": "What is the importance of active listening in effective communication?",
-    "options": ["A,B,C,D"],
-    "correctAnswer": "C"
-    }
+      {
+        "question1": "What is effective communication?",
+        "options": ["A,B,C,D"],
+        "correctAnswer": "B"
+      },
+      {
+        "question2": "What is the importance of active listening in effective communication?",
+        "options": ["A,B,C,D"],
+        "correctAnswer": "C"
+      }
     ]
   },
   {
@@ -208,28 +282,56 @@
     "instructorImageURL": "https://media.istockphoto.com/id/174750129/es/foto/industrial-presentaci%C3%B3n-en-pizarra-acr%C3%ADlica.jpg?s=612x612&w=0&k=20&c=K3jQQzeJRSEngsfDPSbhmB6GYZvRdUQ4Fn4O95anims=",
     "instructorDescription": "Passionate statistician with 10 years of experience in data analysis",
     "pointsToLearn": [
-    { "point1": "Introduction to probability" },
-    { "point2": "Distributions and their properties" },
-    { "point3": "Hypothesis testing and hypothesis tests" },
-    { "point4": "Regression analysis and correlation" }
+      { "point": "Introduction to probability" },
+      { "point": "Distributions and their properties" },
+      { "point": "Hypothesis testing and hypothesis tests" },
+      { "point": "Regression analysis and correlation" }
     ],
     "pointsSummary": "By the end of this course, you will have a comprehensive understanding of statistics and the ability to apply it to real-world problems. You will be able to use your knowledge to make informed decisions based on data.",
     "courseContent": [
-    { "week1": ["Overview of statistics", "Introduction to probability", "Random variables and their distributions"] },
-    { "week2": ["Probability distributions", "Introduction to hypothesis testing", "Examples of hypothesis tests"] },
-    { "week3": ["Regression analysis", "Correlation", "Using statistics in real-world problems"] }
+      {
+        "week1": [
+          "Overview of statistics",
+          "Introduction to probability",
+          "Random variables and their distributions"
+        ]
+      },
+      {
+        "week2": [
+          "Probability distributions",
+          "Introduction to hypothesis testing",
+          "Examples of hypothesis tests"
+        ]
+      },
+      {
+        "week3": [
+          "Regression analysis",
+          "Correlation",
+          "Using statistics in real-world problems"
+        ]
+      }
     ],
     "test": [
-    {
-    "question1": "What is statistics concerned with?",
-    "options": ["Collecting data", "Analyzing data", "Interpreting data", "All of the above"],
-    "correctAnswer": "D"
-    },
-    {
-    "question2": "What is hypothesis testing used for?",
-    "options": ["Making predictions", "Testing theories", "Drawing conclusions from data", "All of the above"],
-    "correctAnswer": "B"
-    }
+      {
+        "question1": "What is statistics concerned with?",
+        "options": [
+          "Collecting data",
+          "Analyzing data",
+          "Interpreting data",
+          "All of the above"
+        ],
+        "correctAnswer": "D"
+      },
+      {
+        "question2": "What is hypothesis testing used for?",
+        "options": [
+          "Making predictions",
+          "Testing theories",
+          "Drawing conclusions from data",
+          "All of the above"
+        ],
+        "correctAnswer": "B"
+      }
     ]
   },
   {
@@ -247,28 +349,50 @@
     "instructorImageURL": "https://media.istockphoto.com/id/675926198/es/foto/gerente-hombre-tomando-notas-en-la-oficina-en-casa.jpg?s=612x612&w=0&k=20&c=FG25PsKRnQWrdsNUpMvqIJXDzoCrfcqwSo_0RsvU8sA=",
     "instructorDescription": "Experienced Python developer with 10 years of experience",
     "pointsToLearn": [
-    { "point1": "Advanced concepts in Python" },
-    { "point2": "Decorators and generators" },
-    { "point3": "Exception handling and debugging" },
-    { "point4": "Best practices for efficient and maintainable code" }
+      { "point": "Advanced concepts in Python" },
+      { "point": "Decorators and generators" },
+      { "point": "Exception handling and debugging" },
+      { "point": "Best practices for efficient and maintainable code" }
     ],
     "pointsSummary": "By the end of this course, you will have a comprehensive understanding of intermediate Python concepts and best practices, and will be able to write complex Python applications with ease.",
     "courseContent": [
-    { "week1": ["Overview of advanced concepts in Python", "Decorators and generators", "Exception handling and debugging"] },
-    { "week2": ["Best practices for efficient and maintainable code", "Project 1: Decorator application", "Project 2: Generator application"] },
-    { "week3": ["Project 3: Exception handling in a complex application", "Final thoughts and conclusion"] }
+      {
+        "week1": [
+          "Overview of advanced concepts in Python",
+          "Decorators and generators",
+          "Exception handling and debugging"
+        ]
+      },
+      {
+        "week2": [
+          "Best practices for efficient and maintainable code",
+          "Project 1: Decorator application",
+          "Project 2: Generator application"
+        ]
+      },
+      {
+        "week3": [
+          "Project 3: Exception handling in a complex application",
+          "Final thoughts and conclusion"
+        ]
+      }
     ],
     "test": [
-    {
-    "question1": "What is a decorator in Python?",
-    "options": ["A,B,C,D"],
-    "correctAnswer": "A"
-    },
-    {
-    "question2": "What is the purpose of exception handling in Python?",
-    "options": ["To handle errors gracefully and prevent the program from crashing", "To debug the program", "To improve the performance of the program", "None of the above"],
-    "correctAnswer": "A"
-    }
+      {
+        "question1": "What is a decorator in Python?",
+        "options": ["A,B,C,D"],
+        "correctAnswer": "A"
+      },
+      {
+        "question2": "What is the purpose of exception handling in Python?",
+        "options": [
+          "To handle errors gracefully and prevent the program from crashing",
+          "To debug the program",
+          "To improve the performance of the program",
+          "None of the above"
+        ],
+        "correctAnswer": "A"
+      }
     ]
   },
   {
@@ -286,28 +410,48 @@
     "instructorImageURL": "https://media.istockphoto.com/id/511026368/es/foto/matem%C3%A1ticas-profesor-en-pizarra-f%C3%B3rmula-de-la-escritura.jpg?s=612x612&w=0&k=20&c=kd2bZqjpL2zJgUM23nTL8TJN8uB7JIYgXlpErQ4pCkk=",
     "instructorDescription": "Native Spanish speaker with 10 years of experience teaching the language",
     "pointsToLearn": [
-    { "point1": "Introduction to Spanish pronunciation and grammar" },
-    { "point2": "Basic Spanish vocabulary for everyday situations" },
-    { "point3": "Conversation practice with the instructor and other students" },
-    { "point4": "Tips for speaking Spanish with confidence" }
+      { "point": "Introduction to Spanish pronunciation and grammar" },
+      { "point": "Basic Spanish vocabulary for everyday situations" },
+      {
+        "point": "Conversation practice with the instructor and other students"
+      },
+      { "point": "Tips for speaking Spanish with confidence" }
     ],
     "pointsSummary": "By the end of this course, you will have a solid foundation in conversational Spanish and the ability to engage in basic conversations in the language.",
     "courseContent": [
-    { "week1": ["Pronunciation and grammar", "Greetings and introductions", "Describing yourself and others"] },
-    { "week2": ["Numbers and time", "At the restaurant", "Shopping for essentials"] },
-    { "week3": ["Traveling in Spanish speaking countries", "Making plans with friends", "Practice speaking with real-life scenarios"] }
+      {
+        "week1": [
+          "Pronunciation and grammar",
+          "Greetings and introductions",
+          "Describing yourself and others"
+        ]
+      },
+      {
+        "week2": [
+          "Numbers and time",
+          "At the restaurant",
+          "Shopping for essentials"
+        ]
+      },
+      {
+        "week3": [
+          "Traveling in Spanish speaking countries",
+          "Making plans with friends",
+          "Practice speaking with real-life scenarios"
+        ]
+      }
     ],
     "test": [
-    {
-    "question1": "¿Cómo se dice 'hello' en español?",
-    "options": ["Hola, Buenas dias, Adiós, Gracias"],
-    "correctAnswer": "A"
-    },
-    {
-    "question2": "¿Cuál es la forma correcta de decir 'thank you' en español?",
-    "options": ["Gracias, Gracias mucho, Muchas gracias, Gracias muy"],
-    "correctAnswer": "A"
-    }
+      {
+        "question1": "¿Cómo se dice 'hello' en español?",
+        "options": ["Hola, Buenas dias, Adiós, Gracias"],
+        "correctAnswer": "A"
+      },
+      {
+        "question2": "¿Cuál es la forma correcta de decir 'thank you' en español?",
+        "options": ["Gracias, Gracias mucho, Muchas gracias, Gracias muy"],
+        "correctAnswer": "A"
+      }
     ]
   },
   {
@@ -325,28 +469,50 @@
     "instructorImageURL": "https://cee.mit.edu/wp-content/uploads/2021/10/LBourouibaPicture.jpg",
     "instructorDescription": "Leading AI expert with 20 years of experience",
     "pointsToLearn": [
-    { "point1": "Introduction to artificial intelligence" },
-    { "point2": "Types of AI systems" },
-    { "point3": "Building machine learning models" },
-    { "point4": "Computer vision and natural language processing applications" }
+      { "point": "Introduction to artificial intelligence" },
+      { "point": "Types of AI systems" },
+      { "point": "Building machine learning models" },
+      {
+        "point": "Computer vision and natural language processing applications"
+      }
     ],
     "pointsSummary": "By the end of this course, you will have a comprehensive understanding of artificial intelligence and the ability to create intelligent systems using machine learning, computer vision, and natural language processing.",
     "courseContent": [
-    { "week1": ["Overview of artificial intelligence", "Types of AI systems", "Introduction to machine learning"] },
-    { "week2": ["Building machine learning models", "Supervised and unsupervised learning", "Introduction to computer vision"] },
-    { "week3": ["Computer vision applications", "Introduction to natural language processing", "Natural language processing applications"] }
+      {
+        "week1": [
+          "Overview of artificial intelligence",
+          "Types of AI systems",
+          "Introduction to machine learning"
+        ]
+      },
+      {
+        "week2": [
+          "Building machine learning models",
+          "Supervised and unsupervised learning",
+          "Introduction to computer vision"
+        ]
+      },
+      {
+        "week3": [
+          "Computer vision applications",
+          "Introduction to natural language processing",
+          "Natural language processing applications"
+        ]
+      }
     ],
     "test": [
-    {
-    "question1": "What is artificial intelligence?",
-    "options": ["A,B,C,D"],
-    "correctAnswer": "B"
-    },
-    {
-    "question2": "Which type of learning is used to predict outcomes?",
-    "options": ["Supervised learning, Unsupervised learning, Reinforcement learning, Deep learning"],
-    "correctAnswer": "A"
-    }
+      {
+        "question1": "What is artificial intelligence?",
+        "options": ["A,B,C,D"],
+        "correctAnswer": "B"
+      },
+      {
+        "question2": "Which type of learning is used to predict outcomes?",
+        "options": [
+          "Supervised learning, Unsupervised learning, Reinforcement learning, Deep learning"
+        ],
+        "correctAnswer": "A"
+      }
     ]
   },
   {
@@ -364,28 +530,46 @@
     "instructorImageURL": "https://csi.eng.ua.edu/wp-content/uploads/sites/4/2021/03/Song-Wei-800x1000-1.jpg",
     "instructorDescription": "Data visualization expert with 10 years of experience",
     "pointsToLearn": [
-    { "point1": "Introduction to data visualization" },
-    { "point2": "Data visualization design principles" },
-    { "point3": "Creating charts and graphs using popular tools" },
-    { "point4": "Best practices for visualizing data" }
+      { "point": "Introduction to data visualization" },
+      { "point": "Data visualization design principles" },
+      { "point": "Creating charts and graphs using popular tools" },
+      { "point": "Best practices for visualizing data" }
     ],
     "pointsSummary": "By the end of this course, you will have a strong understanding of the principles of data visualization and the skills to create beautiful and impactful visualizations for your data.",
     "courseContent": [
-    { "week1": ["Overview of data visualization", "Why data visualization is important", "Data visualization design principles"] },
-    { "week2": ["Introduction to popular data visualization tools", "Creating charts and graphs", "Data visualization best practices"] },
-    { "week3": ["Demo of a data visualization project", "Tips for presenting visualizations", "Real-world applications of data visualization"] }
+      {
+        "week1": [
+          "Overview of data visualization",
+          "Why data visualization is important",
+          "Data visualization design principles"
+        ]
+      },
+      {
+        "week2": [
+          "Introduction to popular data visualization tools",
+          "Creating charts and graphs",
+          "Data visualization best practices"
+        ]
+      },
+      {
+        "week3": [
+          "Demo of a data visualization project",
+          "Tips for presenting visualizations",
+          "Real-world applications of data visualization"
+        ]
+      }
     ],
     "test": [
-    {
-    "question1": "What is the purpose of data visualization?",
-    "options": ["A,B,C,D"],
-    "correctAnswer": "B"
-    },
-    {
-    "question2": "Which data visualization tool is best for creating interactive visualizations?",
-    "options": ["Tableau, Power BI, D3.js, Matplotlib"],
-    "correctAnswer": "A"
-    }
+      {
+        "question1": "What is the purpose of data visualization?",
+        "options": ["A,B,C,D"],
+        "correctAnswer": "B"
+      },
+      {
+        "question2": "Which data visualization tool is best for creating interactive visualizations?",
+        "options": ["Tableau, Power BI, D3.js, Matplotlib"],
+        "correctAnswer": "A"
+      }
     ]
   },
   {
@@ -403,28 +587,46 @@
     "instructorImageURL": "https://srg.mit.edu/wp-content/uploads/sites/56/2022/04/mahesh-300x300.jpg",
     "instructorDescription": "Cloud computing expert with 15 years of experience",
     "pointsToLearn": [
-    { "point1": "Introduction to cloud computing" },
-    { "point2": "Comparison of different cloud platforms" },
-    { "point3": "Building scalable applications using the cloud" },
-    { "point4": "Cloud security best practices" }
+      { "point": "Introduction to cloud computing" },
+      { "point": "Comparison of different cloud platforms" },
+      { "point": "Building scalable applications using the cloud" },
+      { "point": "Cloud security best practices" }
     ],
     "pointsSummary": "By the end of this course, you will have a comprehensive understanding of cloud computing and the ability to build and deploy scalable and secure applications using the cloud.",
     "courseContent": [
-    { "week1": ["Overview of cloud computing", "Benefits of cloud computing", "Types of cloud computing"] },
-    { "week2": ["Cloud platforms comparison", "Introduction to AWS", "Introduction to Azure"] },
-    { "week3": ["Building scalable applications", "Best practices for cloud security", "Demo of a cloud application"] }
+      {
+        "week1": [
+          "Overview of cloud computing",
+          "Benefits of cloud computing",
+          "Types of cloud computing"
+        ]
+      },
+      {
+        "week2": [
+          "Cloud platforms comparison",
+          "Introduction to AWS",
+          "Introduction to Azure"
+        ]
+      },
+      {
+        "week3": [
+          "Building scalable applications",
+          "Best practices for cloud security",
+          "Demo of a cloud application"
+        ]
+      }
     ],
     "test": [
-    {
-    "question1": "What is cloud computing?",
-    "options": ["A,B,C,D"],
-    "correctAnswer": "C"
-    },
-    {
-    "question2": "Which cloud platform is most widely used?",
-    "options": ["AWS, Azure, Google Cloud, IBM Cloud"],
-    "correctAnswer": "A"
-    }
+      {
+        "question1": "What is cloud computing?",
+        "options": ["A,B,C,D"],
+        "correctAnswer": "C"
+      },
+      {
+        "question2": "Which cloud platform is most widely used?",
+        "options": ["AWS, Azure, Google Cloud, IBM Cloud"],
+        "correctAnswer": "A"
+      }
     ]
   },
   {
@@ -442,27 +644,50 @@
     "instructorImageURL": "https://www.cbre.com/-/media/project/cbre/shared-site/headshots/micheal-palmer-752x752.jpg",
     "instructorDescription": "Cybersecurity expert with 10 years of experience",
     "pointsToLearn": [
-    { "point1": "fundamentals of network security" },
-    { "point2": "data protection and encryption" },
-    { "point3": "risk management and incident response" }
+      { "point": "fundamentals of network security" },
+      { "point": "data protection and encryption" },
+      { "point": "risk management and incident response" }
     ],
     "pointsSummary": "By the end of this course, you will have a good understanding of the basics of cybersecurity and be able to protect your digital life from potential threats.",
     "courseContent": [
-    { "week1": ["Introduction to Cybersecurity", "Network security fundamentals", "Data protection and encryption"] },
-    { "week2": ["Risk management", "Incident response", "Cybersecurity in the workplace"] },
-    { "week3": ["Advanced topics in cybersecurity", "Hands-on cybersecurity exercise", "Final exam"] }
+      {
+        "week": [
+          "Introduction to Cybersecurity",
+          "Network security fundamentals",
+          "Data protection and encryption"
+        ]
+      },
+      {
+        "week": [
+          "Risk management",
+          "Incident response",
+          "Cybersecurity in the workplace"
+        ]
+      },
+      {
+        "week": [
+          "Advanced topics in cybersecurity",
+          "Hands-on cybersecurity exercise",
+          "Final exam"
+        ]
+      }
     ],
     "test": [
-    {
-    "question1": "What is the main goal of cybersecurity?",
-    "options": ["A. To increase digital security", "B. To make internet faster", "C. To increase online privacy", "D. None of the above"],
-    "correctAnswer": "A"
-    },
-    {
-    "question2": "Which of the following is NOT a common cybersecurity threat?",
-    "options": ["A. Malware", "B. Phishing", "C. Rainbow", "D. Ransomware"],
-    "correctAnswer": "C"
-    }
+      {
+        "question1": "What is the main goal of cybersecurity?",
+        "options": [
+          "A. To increase digital security",
+          "B. To make internet faster",
+          "C. To increase online privacy",
+          "D. None of the above"
+        ],
+        "correctAnswer": "A"
+      },
+      {
+        "question2": "Which of the following is NOT a common cybersecurity threat?",
+        "options": ["A. Malware", "B. Phishing", "C. Rainbow", "D. Ransomware"],
+        "correctAnswer": "C"
+      }
     ]
   },
   {
@@ -480,28 +705,51 @@
     "instructorImageURL": "https://www.queensu.ca/alumni/sites/default/files/styles/hero/public/img/story/Michelle%20Searle%20pic%20HERO_0.jpg?itok=JWSeKdCx",
     "instructorDescription": "Business Intelligence expert with 10 years of experience",
     "pointsToLearn": [
-    { "point1": "Introduction to Business Intelligence" },
-    { "point2": "Data analysis techniques" },
-    { "point3": "Building interactive dashboards and visualizations" },
-    { "point4": "Data-driven decision making" }
+      { "point": "Introduction to Business Intelligence" },
+      { "point": "Data analysis techniques" },
+      { "point": "Building interactive dashboards and visualizations" },
+      { "point": "Data-driven decision making" }
     ],
     "pointsSummary": "By the end of this course, you will have a comprehensive understanding of business intelligence and the ability to make data-driven decisions using the latest tools and techniques.",
     "courseContent": [
-    { "week1": ["Overview of Business Intelligence", "Benefits of Business Intelligence", "Data analysis techniques"] },
-    { "week2": ["Building interactive dashboards", "Data visualization best practices", "Demo of a business intelligence dashboard"] },
-    { "week3": ["Data-driven decision making", "Case studies in business intelligence", "Future trends in Business Intelligence"] }
+      {
+        "week1": [
+          "Overview of Business Intelligence",
+          "Benefits of Business Intelligence",
+          "Data analysis techniques"
+        ]
+      },
+      {
+        "week2": [
+          "Building interactive dashboards",
+          "Data visualization best practices",
+          "Demo of a business intelligence dashboard"
+        ]
+      },
+      {
+        "week3": [
+          "Data-driven decision making",
+          "Case studies in business intelligence",
+          "Future trends in Business Intelligence"
+        ]
+      }
     ],
     "test": [
-    {
-    "question1": "What is Business Intelligence?",
-    "options": ["A,B,C,D"],
-    "correctAnswer": "C"
-    },
-    {
-    "question2": "What is the purpose of Business Intelligence?",
-    "options": ["To make data-driven decisions", "To store data", "To manipulate data", "To visualize data"],
-    "correctAnswer": "A"
-    }
+      {
+        "question1": "What is Business Intelligence?",
+        "options": ["A,B,C,D"],
+        "correctAnswer": "C"
+      },
+      {
+        "question2": "What is the purpose of Business Intelligence?",
+        "options": [
+          "To make data-driven decisions",
+          "To store data",
+          "To manipulate data",
+          "To visualize data"
+        ],
+        "correctAnswer": "A"
+      }
     ]
   },
   {
@@ -519,28 +767,51 @@
     "instructorImageURL": "https://images.unsplash.com/photo-1573496799652-408c2ac9fe98?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80",
     "instructorDescription": "Digital marketing expert with 10 years of experience",
     "pointsToLearn": [
-    { "point1": "Introduction to digital marketing" },
-    { "point2": "Developing a digital marketing strategy" },
-    { "point3": "Using search engines to reach your audience" },
-    { "point4": "Social media marketing and advertising" }
+      { "point": "Introduction to digital marketing" },
+      { "point": "Developing a digital marketing strategy" },
+      { "point": "Using search engines to reach your audience" },
+      { "point": "Social media marketing and advertising" }
     ],
     "pointsSummary": "By the end of this course, you will have a comprehensive understanding of digital marketing and the skills to promote your business effectively online.",
     "courseContent": [
-    { "week1": ["Overview of digital marketing", "Developing a digital marketing plan", "Search engine optimization"] },
-    { "week2": ["Paid search advertising", "Social media marketing", "Email marketing"] },
-    { "week3": ["Content marketing", "Influencer marketing", "Measurement and optimization"] }
+      {
+        "week1": [
+          "Overview of digital marketing",
+          "Developing a digital marketing plan",
+          "Search engine optimization"
+        ]
+      },
+      {
+        "week2": [
+          "Paid search advertising",
+          "Social media marketing",
+          "Email marketing"
+        ]
+      },
+      {
+        "week3": [
+          "Content marketing",
+          "Influencer marketing",
+          "Measurement and optimization"
+        ]
+      }
     ],
     "test": [
-    {
-    "question1": "What is digital marketing?",
-    "options": ["A,B,C,D"],
-    "correctAnswer": "A"
-    },
-    {
-    "question2": "What is the purpose of search engine optimization (SEO)?",
-    "options": ["To increase website traffic", "To decrease website traffic", "To maintain website traffic", "To block website traffic"],
-    "correctAnswer": "A"
-    }
+      {
+        "question1": "What is digital marketing?",
+        "options": ["A,B,C,D"],
+        "correctAnswer": "A"
+      },
+      {
+        "question2": "What is the purpose of search engine optimization (SEO)?",
+        "options": [
+          "To increase website traffic",
+          "To decrease website traffic",
+          "To maintain website traffic",
+          "To block website traffic"
+        ],
+        "correctAnswer": "A"
+      }
     ]
   },
   {
@@ -558,28 +829,48 @@
     "instructorImageURL": "https://images.unsplash.com/photo-1664382951821-8151535191e5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
     "instructorDescription": "Blockchain Expert with 10 years of experience",
     "pointsToLearn": [
-    { "point1": "Introduction to blockchain technology" },
-    { "point2": "Setting up a blockchain network" },
-    { "point3": "Building smart contracts" },
-    { "point4": "Developing decentralized applications" }
+      { "point": "Introduction to blockchain technology" },
+      { "point": "Setting up a blockchain network" },
+      { "point": "Building smart contracts" },
+      { "point": "Developing decentralized applications" }
     ],
     "pointsSummary": "By the end of this course, you will have a comprehensive understanding of blockchain technology and the ability to build decentralized applications.",
     "courseContent": [
-    { "week1": ["Overview of blockchain technology", "History of blockchain", "Understanding the basics of blockchain"] },
-    { "week2": ["Setting up a blockchain network", "Introduction to consensus algorithms", "Introduction to smart contracts"] },
-    { "week3": ["Building smart contracts", "Developing decentralized applications", "Demo of a decentralized application"] }
+      {
+        "week1": [
+          "Overview of blockchain technology",
+          "History of blockchain",
+          "Understanding the basics of blockchain"
+        ]
+      },
+      {
+        "week2": [
+          "Setting up a blockchain network",
+          "Introduction to consensus algorithms",
+          "Introduction to smart contracts"
+        ]
+      },
+      {
+        "week3": [
+          "Building smart contracts",
+          "Developing decentralized applications",
+          "Demo of a decentralized application"
+        ]
+      }
     ],
     "test": [
-    {
-    "question1": "What is blockchain technology?",
-    "options": ["A,B,C,D"],
-    "correctAnswer": "C"
-    },
-    {
-    "question2": "What is the main use of blockchain technology?",
-    "options": ["Cryptocurrencies, Decentralized applications, Digital signatures, Secure data storage"],
-    "correctAnswer": "B"
-    }
+      {
+        "question1": "What is blockchain technology?",
+        "options": ["A,B,C,D"],
+        "correctAnswer": "C"
+      },
+      {
+        "question2": "What is the main use of blockchain technology?",
+        "options": [
+          "Cryptocurrencies, Decentralized applications, Digital signatures, Secure data storage"
+        ],
+        "correctAnswer": "B"
+      }
     ]
   }
 ]

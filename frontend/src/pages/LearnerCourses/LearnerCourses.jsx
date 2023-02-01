@@ -23,6 +23,40 @@ const LearnerCourses = () => {
     setLoader(false);
   }, []);
 
+  if (!courses) {
+    return (
+      <>
+        <p className="mt-5">
+          <div className="text-center mb-5">
+            {loader && (
+              <Oval
+                height={80}
+                width={80}
+                color="#4fa94d"
+                wrapperStyle={{}}
+                wrapperClass=""
+                visible={true}
+                ariaLabel="oval-loading"
+                secondaryColor="#4fa94d"
+                strokeWidth={2}
+                strokeWidthSecondary={2}
+              />
+            )}
+            <p className="fs-3">There are no courses yet...</p>
+            <img src={empty} alt="No courses" className="ml-auto mb-5" />
+            <div className="wrapper">
+              <Link to="/all-courses">
+                <button className="btn btn-primary btn-lg">
+                  Explore all courses
+                </button>
+              </Link>
+            </div>
+          </div>{" "}
+        </p>
+      </>
+    );
+  }
+
   if (courses.length > 0) {
     return (
       <>
@@ -56,40 +90,6 @@ const LearnerCourses = () => {
             />
           ))}
         </div>
-      </>
-    );
-  }
-
-  if (courses.length === 0) {
-    return (
-      <>
-        <p className="mt-5">
-          <div className="text-center mb-5">
-            {loader && (
-              <Oval
-                height={80}
-                width={80}
-                color="#4fa94d"
-                wrapperStyle={{}}
-                wrapperClass=""
-                visible={true}
-                ariaLabel="oval-loading"
-                secondaryColor="#4fa94d"
-                strokeWidth={2}
-                strokeWidthSecondary={2}
-              />
-            )}
-            <p className="fs-3">There are no courses yet...</p>
-            <img src={empty} alt="No courses" className="ml-auto mb-5" />
-            <div className="wrapper">
-              <Link to="/all-courses">
-                <button className="btn btn-primary btn-lg">
-                  Explore all courses
-                </button>
-              </Link>
-            </div>
-          </div>{" "}
-        </p>
       </>
     );
   }

@@ -171,6 +171,26 @@ app.get("/courses", (req, res) => {
   );
 });
 
+app.get("/courses/:id", (req, res) => {
+  MongoClient.connect(url, { useUnifiedTopology: true }, function (err, db) {
+    if (err) throw err;
+    var dbo = db.db("courses");
+    dbo
+      .collection("courses")
+      .findOne({ id: Number(req.params.id) }, async function (err, course) {
+        if (err) throw err;
+        if (!course) {
+          return res
+            .status(404)
+            .json({ message: "Course not found", id: req.params.id });
+        }
+
+        res.status(200).send({ course });
+        db.close();
+      });
+  });
+});
+
 app.get("/users", (req, res) => {
   MongoClient.connect(
     url,
@@ -203,23 +223,23 @@ app.get("/users/:id", (req, res) => {
     });
 });
 
-app.get("/creator-courses/:id", (req, res) => {
-  MongoClient.connect(
-    url,
-    { useNewUrlParser: true, useUnifiedTopology: true },
-    function (err, client) {
-      if (err) throw err;
-      const db = client.db("users");
-      db.collection("creator-courses")
-        .find({})
-        .toArray((err, users) => {
-          if (err) throw err;
-          res.json(users);
-          client.close();
-        });
-    }
-  );
-});
+// app.get("/creator-courses/:id", (req, res) => {
+//   MongoClient.connect(
+//     url,
+//     { useNewUrlParser: true, useUnifiedTopology: true },
+//     function (err, client) {
+//       if (err) throw err;
+//       const db = client.db("users");
+//       db.collection("creator-courses")
+//         .find({})
+//         .toArray((err, users) => {
+//           if (err) throw err;
+//           res.json(users);
+//           client.close();
+//         });
+//     }
+//   );
+// });
 
 app.post("/buy-course", (req, res) => {
   const token = req.headers.authorization;
