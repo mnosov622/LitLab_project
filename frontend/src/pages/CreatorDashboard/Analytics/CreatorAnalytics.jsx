@@ -15,7 +15,7 @@ const CreatorAnalytics = () => {
       "September",
       "October",
       "November",
-      "December"
+      "December",
     ],
     datasets: [
       {
@@ -25,9 +25,9 @@ const CreatorAnalytics = () => {
         borderWidth: 1,
         hoverBackgroundColor: "rgba(255, 99, 132, 0.4)",
         hoverBorderColor: "rgba(255, 99, 132, 1)",
-        data: [65, 59, 80, 81, 56, 55, 40, 45, 67, 23, 12, 56]
-      }
-    ]
+        data: [65, 59, 80, 81, 56, 55, 40, 45, 67, 23, 12, 56],
+      },
+    ],
   });
 
   return (
@@ -37,7 +37,7 @@ const CreatorAnalytics = () => {
         width={100}
         height={50}
         options={{
-          maintainAspectRatio: false
+          maintainAspectRatio: false,
         }}
       />
     </div>

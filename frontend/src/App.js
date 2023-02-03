@@ -64,6 +64,7 @@ function App() {
             <Route path="/" element={<CreatorDashboard />} />
             <Route path="/analytics" element={<CreatorAnalytics />} />
             <Route path="/upload" element={<CourseUpload />} />
+            <Route path="/contact-us" element={<ContactUs />} />
           </Routes>
         </Container>
         <Footer />
@@ -88,7 +89,7 @@ function App() {
               <Route path="/test/:id" element={<Test />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/help" element={<Help />} />
-              <Route path="/contactus" element={<ContactUs />} />
+              <Route path="/contact-us" element={<ContactUs />} />
               <Route
                 path="/course/*"
                 element={<div>We couldn't find it</div>}
@@ -113,7 +114,7 @@ function App() {
               <Route path="/creator/:id" element={<CreatorInformation />} />
               <Route path="/course/:id" element={<CourseDescription />} />
               <Route path="/help" element={<Help />} />
-              <Route path="/contactus" element={<ContactUs />} />
+              <Route path="/contact-us" element={<ContactUs />} />
               <Route path="*" exact={true} element={<NotFound />} />
             </Routes>
           </Container>
