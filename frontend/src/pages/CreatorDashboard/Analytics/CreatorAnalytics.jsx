@@ -44,7 +44,7 @@ const EnrollmentChart = () => {
       <YAxis />
       <Tooltip />
       <Legend />
-      <Bar dataKey='enrolled' fill='#8884d8' />
+      <Bar dataKey='enrolled' fill='#0d6efd' />
     </BarChart>
   );
 };
@@ -62,7 +62,7 @@ const EarningsChart = () => {
       <YAxis />
       <Tooltip />
       <Legend />
-      <Bar dataKey='earnings' fill='#82ca9d' />
+      <Bar dataKey='earnings' fill='#0d6efd' />
     </BarChart>
   );
 };
