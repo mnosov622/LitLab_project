@@ -24,6 +24,7 @@
       { "week2": ["item1", "item2", "item3"] },
       { "week3": ["item1", "item2", "item3"] }
     ],
+    "video":"https://player.vimeo.com/video/277300571?h=f143889cd6&title=0&byline=0&portrait=0",
     "test": [
       {
         "question1": "What is an array",
@@ -81,6 +82,7 @@
         ]
       }
     ],
+    "video":"https://player.vimeo.com/video/20142036?h=e80cd54128",
     "test": [
       {
         "question1": "What is Javascript used for?",
@@ -140,6 +142,7 @@
         ]
       }
     ],
+    "video":"https://player.vimeo.com/video/123205124?h=1882b9fdd5",
     "test": [
       {
         "question1": "What is the psychology of influence?",
@@ -197,6 +200,7 @@
         ]
       }
     ],
+    "video":"https://player.vimeo.com/video/730289390?h=462a664906&color=FBAD27&title=0&byline=0&portrait=0",
     "test": [
       {
         "question1": "What is a financial market?",
@@ -254,6 +258,7 @@
         ]
       }
     ],
+    "video":"https://player.vimeo.com/video/483628867?h=ad7ee14024",
     "test": [
       {
         "question1": "What is effective communication?",
@@ -311,6 +316,7 @@
         ]
       }
     ],
+    "video":"https://player.vimeo.com/video/348033?h=7cf2bee414&color=ffffff&title=0&byline=0&portrait=0",
     "test": [
       {
         "question1": "What is statistics concerned with?",
@@ -377,6 +383,7 @@
         ]
       }
     ],
+    "video":"https://player.vimeo.com/video/29903598?h=ee3bd2aee6&title=0&byline=0&portrait=0",
     "test": [
       {
         "question1": "What is a decorator in Python?",
@@ -441,6 +448,7 @@
         ]
       }
     ],
+    "video":"https://player.vimeo.com/video/115308169?h=414f89bdfe",
     "test": [
       {
         "question1": "¿Cómo se dice 'hello' en español?",
@@ -483,6 +491,7 @@
           "Overview of artificial intelligence",
           "Types of AI systems",
           "Introduction to machine learning"
+          
         ]
       },
       {
@@ -500,6 +509,7 @@
         ]
       }
     ],
+    "video":"https://player.vimeo.com/video/282496707?h=9dacac48cf",
     "test": [
       {
         "question1": "What is artificial intelligence?",
@@ -559,6 +569,7 @@
         ]
       }
     ],
+    "video":"https://player.vimeo.com/video/30144927?h=2f60a58aee&title=0&byline=0&portrait=0",
     "test": [
       {
         "question1": "What is the purpose of data visualization?",
@@ -575,7 +586,7 @@
   {
     "id": 11,
     "name": "Cloud Computing - The Complete Guide",
-    "instructor": "Mahesh Kumar",
+    "instructor": "Ramirez Joaqin",
     "instructorId": 11,
     "instructorBio": "Meet Mahesh, a seasoned cloud computing expert with 15 years of experience",
     "price": "30",
@@ -616,6 +627,7 @@
         ]
       }
     ],
+    "video":"https://player.vimeo.com/video/65581921?h=f8bf11ebfb",
     "test": [
       {
         "question1": "What is cloud computing?",
@@ -672,6 +684,7 @@
         ]
       }
     ],
+    "video":"https://player.vimeo.com/video/245101847?h=ff46074338&title=0&byline=0&portrait=0",
     "test": [
       {
         "question1": "What is the main goal of cybersecurity?",
@@ -734,6 +747,7 @@
         ]
       }
     ],
+    "video":"https://player.vimeo.com/video/116082214?h=71edc224eb" ,
     "test": [
       {
         "question1": "What is Business Intelligence?",
@@ -796,6 +810,7 @@
         ]
       }
     ],
+    "video":"https://player.vimeo.com/video/145965485?h=d0340b4c24",
     "test": [
       {
         "question1": "What is digital marketing?",
@@ -858,6 +873,7 @@
         ]
       }
     ],
+    "video":"https://player.vimeo.com/video/240231149?h=a69504b26c",
     "test": [
       {
         "question1": "What is blockchain technology?",
