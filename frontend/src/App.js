@@ -27,6 +27,8 @@ import CourseView from "./pages/CourseView/CourseView";
 import CourseUpload from "./pages/CreatorDashboard/CourseUpload/CourseUpload";
 import jwtDecode from "jwt-decode";
 import ContactUs from "./pages/ContactUs/ContactUs";
+import Test from "./pages/Test/Test";
+import Certificate from "./pages/Certificate/Certificate";
 
 function App() {
   const dispatch = useDispatch();
@@ -63,6 +65,7 @@ function App() {
             <Route path="/" element={<CreatorDashboard />} />
             <Route path="/analytics" element={<CreatorAnalytics />} />
             <Route path="/upload" element={<CourseUpload />} />
+            <Route path="/contact-us" element={<ContactUs />} />
           </Routes>
         </Container>
         <Footer />
@@ -84,10 +87,14 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/creator/:id" element={<CreatorInformation />} />
               <Route path="/payment" element={<Payment />} />
+              <Route path="/test/:id" element={<Test />} />
               <Route path="/cart" element={<Cart />} />
-              <Route path="/analytics" element={<Analytics />} />
               <Route path="/help" element={<Help />} />
-              <Route path="/contactus" element={<ContactUs />} />
+              <Route path="/contact-us" element={<ContactUs />} />
+              <Route
+                path="/course/:id/certificate/:id"
+                element={<Certificate />}
+              />
               <Route
                 path="/course/*"
                 element={<div>We couldn't find it</div>}
@@ -112,7 +119,7 @@ function App() {
               <Route path="/creator/:id" element={<CreatorInformation />} />
               <Route path="/course/:id" element={<CourseDescription />} />
               <Route path="/help" element={<Help />} />
-              <Route path="/contactus" element={<ContactUs />} />
+              <Route path="/contact-us" element={<ContactUs />} />
               <Route path="*" exact={true} element={<NotFound />} />
             </Routes>
           </Container>

@@ -20,19 +20,20 @@
     ],
     "pointsSummary": "By the end of this course, you will have a solid understanding of how to build full-stack web applications with Angular and Node and be well-prepared to take on your next web development project.",
     "courseContent": [
-      { "week1": ["item1", "item2", "item3"] },
-      { "week2": ["item1", "item2", "item3"] },
-      { "week3": ["item1", "item2", "item3"] }
+      { "week": ["item1", "item2", "item3"] },
+      { "week": ["item1", "item2", "item3"] },
+      { "week": ["item1", "item2", "item3"] }
     ],
+    "video":"https://player.vimeo.com/video/277300571?h=f143889cd6&title=0&byline=0&portrait=0",
     "test": [
       {
-        "question1": "What is an array",
-        "options": ["A,B,C,D"],
+        "question": "What is an array",
+        "options": ["A", "B", "C", "D"],
         "correctAnswer": "A"
       },
       {
-        "question1": "Javascript method to find a length",
-        "options": ["A,B,C,D"],
+        "question": "Javascript method to find a length",
+        "options": ["A", "B", "C", "D"],
         "correctAnswer": "B"
       }
     ]
@@ -60,37 +61,38 @@
     "pointsSummary": "By the end of this course, you will have a comprehensive understanding of Javascript and the ability to build and implement complex web applications using the language.",
     "courseContent": [
       {
-        "week1": [
+        "week": [
           "Overview of Javascript",
           "Basic syntax and data types",
           "Variables and data types"
         ]
       },
       {
-        "week2": [
+        "week": [
           "Control structures and loops",
           "Arrays and objects in Javascript",
           "Functions in Javascript"
         ]
       },
       {
-        "week3": [
+        "week": [
           "Building and implementing web applications",
           "Debugging and testing in Javascript",
           "Demo of a web application built with Javascript"
         ]
       }
     ],
+    "video":"https://player.vimeo.com/video/20142036?h=e80cd54128",
     "test": [
       {
-        "question1": "What is Javascript used for?",
-        "options": ["A,B,C,D"],
+        "question": "What is Javascript used for?",
+        "options": ["A", "B", "C", "D"],
         "correctAnswer": "A"
       },
       {
-        "question2": "Which data type is not supported in Javascript?",
-        "options": ["String, Number, Boolean, Binary"],
-        "correctAnswer": "D"
+        "question": "Which data type is not supported in Javascript?",
+        "options": ["String", "Number", "Boolean", "Binary"],
+        "correctAnswer": "Binary"
       }
     ]
   },
@@ -119,36 +121,37 @@
     "pointsSummary": "By the end of this course, you will have a comprehensive understanding of the psychology of influence and the ability to apply these principles in your personal and professional life.",
     "courseContent": [
       {
-        "week1": [
+        "week": [
           "Overview of the psychology of influence",
           "The principles of influence and persuasion",
           "The tactics and strategies of influencers"
         ]
       },
       {
-        "week2": [
+        "week": [
           "How to recognize and resist influence",
           "The dark side of influence",
           "The ethics of influence"
         ]
       },
       {
-        "week3": [
+        "week": [
           "How to use influence and persuasion in your personal and professional life",
           "Case studies of successful influencers",
           "Developing your own influence and persuasion strategy"
         ]
       }
     ],
+    "video":"https://player.vimeo.com/video/123205124?h=1882b9fdd5",
     "test": [
       {
-        "question1": "What is the psychology of influence?",
-        "options": ["A,B,C,D"],
+        "question": "What is the psychology of influence?",
+        "options": ["A", "B", "C", "D"],
         "correctAnswer": "C"
       },
       {
-        "question2": "What are the tactics and strategies used by influencers?",
-        "options": ["A,B,C,D"],
+        "question": "What are the tactics and strategies used by influencers?",
+        "options": ["A", "B", "C", "D"],
         "correctAnswer": "B"
       }
     ]
@@ -176,37 +179,38 @@
     "pointsSummary": "By the end of this course, you will have a comprehensive understanding of financial markets, including the different types of markets, and the tools and techniques used by professionals to navigate these markets.",
     "courseContent": [
       {
-        "week1": [
+        "week": [
           "Overview of financial markets",
           "Benefits of financial markets",
           "Types of financial markets"
         ]
       },
       {
-        "week2": [
+        "week": [
           "Financial instruments",
           "Bonds and stocks",
           "Derivatives and futures"
         ]
       },
       {
-        "week3": [
+        "week": [
           "Tools used by professionals",
           "Risk management strategies",
           "Case study analysis"
         ]
       }
     ],
+    "video":"https://player.vimeo.com/video/730289390?h=462a664906&color=FBAD27&title=0&byline=0&portrait=0",
     "test": [
       {
-        "question1": "What is a financial market?",
-        "options": ["A,B,C,D"],
+        "question": "What is a financial market?",
+        "options": ["A", "B", "C", "D"],
         "correctAnswer": "B"
       },
       {
-        "question2": "Which financial instrument is considered a long-term investment?",
-        "options": ["Bonds, Stocks, Derivatives, Futures"],
-        "correctAnswer": "A"
+        "question": "Which financial instrument is considered a long-term investment?",
+        "options": ["Bonds", "Stocks", "Derivatives", "Futures"],
+        "correctAnswer": "Bonds"
       }
     ]
   },
@@ -233,36 +237,37 @@
     "pointsSummary": "By the end of this course, you will have a comprehensive understanding of effective communication and the skills to communicate effectively in any situation.",
     "courseContent": [
       {
-        "week1": [
+        "week": [
           "The importance of effective communication",
           "Active listening techniques",
           "Articulating thoughts clearly"
         ]
       },
       {
-        "week2": [
+        "week": [
           "Understanding the perspective of others",
           "Handling difficult conversations",
           "Building rapport with others"
         ]
       },
       {
-        "week3": [
+        "week": [
           "Public speaking tips",
           "Conflict resolution techniques",
           "Effective communication in the workplace"
         ]
       }
     ],
+    "video":"https://player.vimeo.com/video/483628867?h=ad7ee14024",
     "test": [
       {
-        "question1": "What is effective communication?",
-        "options": ["A,B,C,D"],
+        "question": "What is effective communication?",
+        "options": ["A", "B", "C", "D"],
         "correctAnswer": "B"
       },
       {
-        "question2": "What is the importance of active listening in effective communication?",
-        "options": ["A,B,C,D"],
+        "question": "What is the importance of active listening in effective communication?",
+        "options": ["A", "B", "C", "D"],
         "correctAnswer": "C"
       }
     ]
@@ -290,47 +295,48 @@
     "pointsSummary": "By the end of this course, you will have a comprehensive understanding of statistics and the ability to apply it to real-world problems. You will be able to use your knowledge to make informed decisions based on data.",
     "courseContent": [
       {
-        "week1": [
+        "week": [
           "Overview of statistics",
           "Introduction to probability",
           "Random variables and their distributions"
         ]
       },
       {
-        "week2": [
+        "week": [
           "Probability distributions",
           "Introduction to hypothesis testing",
           "Examples of hypothesis tests"
         ]
       },
       {
-        "week3": [
+        "week": [
           "Regression analysis",
           "Correlation",
           "Using statistics in real-world problems"
         ]
       }
     ],
+    "video":"https://player.vimeo.com/video/348033?h=7cf2bee414&color=ffffff&title=0&byline=0&portrait=0",
     "test": [
       {
-        "question1": "What is statistics concerned with?",
+        "question": "What is statistics concerned with?",
         "options": [
           "Collecting data",
           "Analyzing data",
           "Interpreting data",
           "All of the above"
         ],
-        "correctAnswer": "D"
+        "correctAnswer": "All of the above"
       },
       {
-        "question2": "What is hypothesis testing used for?",
+        "question": "What is hypothesis testing used for?",
         "options": [
           "Making predictions",
           "Testing theories",
           "Drawing conclusions from data",
           "All of the above"
         ],
-        "correctAnswer": "B"
+        "correctAnswer": "Testing theories"
       }
     ]
   },
@@ -357,41 +363,42 @@
     "pointsSummary": "By the end of this course, you will have a comprehensive understanding of intermediate Python concepts and best practices, and will be able to write complex Python applications with ease.",
     "courseContent": [
       {
-        "week1": [
+        "week": [
           "Overview of advanced concepts in Python",
           "Decorators and generators",
           "Exception handling and debugging"
         ]
       },
       {
-        "week2": [
+        "week": [
           "Best practices for efficient and maintainable code",
           "Project 1: Decorator application",
           "Project 2: Generator application"
         ]
       },
       {
-        "week3": [
+        "week": [
           "Project 3: Exception handling in a complex application",
           "Final thoughts and conclusion"
         ]
       }
     ],
+    "video":"https://player.vimeo.com/video/29903598?h=ee3bd2aee6&title=0&byline=0&portrait=0",
     "test": [
       {
-        "question1": "What is a decorator in Python?",
-        "options": ["A,B,C,D"],
+        "question": "What is a decorator in Python?",
+        "options": ["A", "B", "C", "D"],
         "correctAnswer": "A"
       },
       {
-        "question2": "What is the purpose of exception handling in Python?",
+        "question": "What is the purpose of exception handling in Python?",
         "options": [
           "To handle errors gracefully and prevent the program from crashing",
           "To debug the program",
           "To improve the performance of the program",
           "None of the above"
         ],
-        "correctAnswer": "A"
+        "correctAnswer": "To handle errors gracefully and prevent the program from crashing"
       }
     ]
   },
@@ -420,37 +427,43 @@
     "pointsSummary": "By the end of this course, you will have a solid foundation in conversational Spanish and the ability to engage in basic conversations in the language.",
     "courseContent": [
       {
-        "week1": [
+        "week": [
           "Pronunciation and grammar",
           "Greetings and introductions",
           "Describing yourself and others"
         ]
       },
       {
-        "week2": [
+        "week": [
           "Numbers and time",
           "At the restaurant",
           "Shopping for essentials"
         ]
       },
       {
-        "week3": [
+        "week": [
           "Traveling in Spanish speaking countries",
           "Making plans with friends",
           "Practice speaking with real-life scenarios"
         ]
       }
     ],
+    "video":"https://player.vimeo.com/video/115308169?h=414f89bdfe",
     "test": [
       {
-        "question1": "¿Cómo se dice 'hello' en español?",
-        "options": ["Hola, Buenas dias, Adiós, Gracias"],
-        "correctAnswer": "A"
+        "question": "¿Cómo se dice 'hello' en español?",
+        "options": ["Hola", "Buenas dias", "Adiós", "Gracias"],
+        "correctAnswer": "Hola"
       },
       {
-        "question2": "¿Cuál es la forma correcta de decir 'thank you' en español?",
-        "options": ["Gracias, Gracias mucho, Muchas gracias, Gracias muy"],
-        "correctAnswer": "A"
+        "question": "¿Cuál es la forma correcta de decir 'thank you' en español?",
+        "options": [
+          "Gracias",
+          "Gracias mucho",
+          "Muchas gracias",
+          "Gracias muy"
+        ],
+        "correctAnswer": "Gracias"
       }
     ]
   },
@@ -479,39 +492,44 @@
     "pointsSummary": "By the end of this course, you will have a comprehensive understanding of artificial intelligence and the ability to create intelligent systems using machine learning, computer vision, and natural language processing.",
     "courseContent": [
       {
-        "week1": [
+        "week": [
           "Overview of artificial intelligence",
           "Types of AI systems",
           "Introduction to machine learning"
+          
         ]
       },
       {
-        "week2": [
+        "week": [
           "Building machine learning models",
           "Supervised and unsupervised learning",
           "Introduction to computer vision"
         ]
       },
       {
-        "week3": [
+        "week": [
           "Computer vision applications",
           "Introduction to natural language processing",
           "Natural language processing applications"
         ]
       }
     ],
+    "video":"https://player.vimeo.com/video/282496707?h=9dacac48cf",
     "test": [
       {
-        "question1": "What is artificial intelligence?",
-        "options": ["A,B,C,D"],
+        "question": "What is artificial intelligence?",
+        "options": ["A", "B", "C", "D"],
         "correctAnswer": "B"
       },
       {
-        "question2": "Which type of learning is used to predict outcomes?",
+        "question": "Which type of learning is used to predict outcomes?",
         "options": [
-          "Supervised learning, Unsupervised learning, Reinforcement learning, Deep learning"
+          "Supervised learning",
+          "Unsupervised learning",
+          "Reinforcement learning",
+          "Deep learning"
         ],
-        "correctAnswer": "A"
+        "correctAnswer": "Supervised learning"
       }
     ]
   },
@@ -538,44 +556,45 @@
     "pointsSummary": "By the end of this course, you will have a strong understanding of the principles of data visualization and the skills to create beautiful and impactful visualizations for your data.",
     "courseContent": [
       {
-        "week1": [
+        "week": [
           "Overview of data visualization",
           "Why data visualization is important",
           "Data visualization design principles"
         ]
       },
       {
-        "week2": [
+        "week": [
           "Introduction to popular data visualization tools",
           "Creating charts and graphs",
           "Data visualization best practices"
         ]
       },
       {
-        "week3": [
+        "week": [
           "Demo of a data visualization project",
           "Tips for presenting visualizations",
           "Real-world applications of data visualization"
         ]
       }
     ],
+    "video":"https://player.vimeo.com/video/30144927?h=2f60a58aee&title=0&byline=0&portrait=0",
     "test": [
       {
-        "question1": "What is the purpose of data visualization?",
-        "options": ["A,B,C,D"],
+        "question": "What is the purpose of data visualization?",
+        "options": ["A", "B", "C", "D"],
         "correctAnswer": "B"
       },
       {
-        "question2": "Which data visualization tool is best for creating interactive visualizations?",
-        "options": ["Tableau, Power BI, D3.js, Matplotlib"],
-        "correctAnswer": "A"
+        "question": "Which data visualization tool is best for creating interactive visualizations?",
+        "options": ["Tableau", "Power BI", "D3.js", "Matplotlib"],
+        "correctAnswer": "Tableau"
       }
     ]
   },
   {
     "id": 11,
     "name": "Cloud Computing - The Complete Guide",
-    "instructor": "Mahesh Kumar",
+    "instructor": "Ramirez Joaqin",
     "instructorId": 11,
     "instructorBio": "Meet Mahesh, a seasoned cloud computing expert with 15 years of experience",
     "price": "30",
@@ -595,37 +614,38 @@
     "pointsSummary": "By the end of this course, you will have a comprehensive understanding of cloud computing and the ability to build and deploy scalable and secure applications using the cloud.",
     "courseContent": [
       {
-        "week1": [
+        "week": [
           "Overview of cloud computing",
           "Benefits of cloud computing",
           "Types of cloud computing"
         ]
       },
       {
-        "week2": [
+        "week": [
           "Cloud platforms comparison",
           "Introduction to AWS",
           "Introduction to Azure"
         ]
       },
       {
-        "week3": [
+        "week": [
           "Building scalable applications",
           "Best practices for cloud security",
           "Demo of a cloud application"
         ]
       }
     ],
+    "video":"https://player.vimeo.com/video/65581921?h=f8bf11ebfb",
     "test": [
       {
-        "question1": "What is cloud computing?",
-        "options": ["A,B,C,D"],
+        "question": "What is cloud computing?",
+        "options": ["A", "B", "C", "D"],
         "correctAnswer": "C"
       },
       {
-        "question2": "Which cloud platform is most widely used?",
-        "options": ["AWS, Azure, Google Cloud, IBM Cloud"],
-        "correctAnswer": "A"
+        "question": "Which cloud platform is most widely used?",
+        "options": ["AWS", "Azure", "Google Cloud", "IBM Cloud"],
+        "correctAnswer": "AWS"
       }
     ]
   },
@@ -672,21 +692,22 @@
         ]
       }
     ],
+    "video":"https://player.vimeo.com/video/245101847?h=ff46074338&title=0&byline=0&portrait=0",
     "test": [
       {
-        "question1": "What is the main goal of cybersecurity?",
+        "question": "What is the main goal of cybersecurity?",
         "options": [
-          "A. To increase digital security",
-          "B. To make internet faster",
-          "C. To increase online privacy",
-          "D. None of the above"
+          "To increase digital security",
+          "To make internet faster",
+          "To increase online privacy",
+          "None of the above"
         ],
-        "correctAnswer": "A"
+        "correctAnswer": "To increase digital security"
       },
       {
-        "question2": "Which of the following is NOT a common cybersecurity threat?",
-        "options": ["A. Malware", "B. Phishing", "C. Rainbow", "D. Ransomware"],
-        "correctAnswer": "C"
+        "question": "Which of the following is NOT a common cybersecurity threat?",
+        "options": ["Malware", "Phishing", "Rainbow", "Ransomware"],
+        "correctAnswer": "Rainbow"
       }
     ]
   },
@@ -713,42 +734,43 @@
     "pointsSummary": "By the end of this course, you will have a comprehensive understanding of business intelligence and the ability to make data-driven decisions using the latest tools and techniques.",
     "courseContent": [
       {
-        "week1": [
+        "week": [
           "Overview of Business Intelligence",
           "Benefits of Business Intelligence",
           "Data analysis techniques"
         ]
       },
       {
-        "week2": [
+        "week": [
           "Building interactive dashboards",
           "Data visualization best practices",
           "Demo of a business intelligence dashboard"
         ]
       },
       {
-        "week3": [
+        "week": [
           "Data-driven decision making",
           "Case studies in business intelligence",
           "Future trends in Business Intelligence"
         ]
       }
     ],
+    "video":"https://player.vimeo.com/video/116082214?h=71edc224eb" ,
     "test": [
       {
-        "question1": "What is Business Intelligence?",
-        "options": ["A,B,C,D"],
+        "question": "What is Business Intelligence?",
+        "options": ["A", "B", "C", "D"],
         "correctAnswer": "C"
       },
       {
-        "question2": "What is the purpose of Business Intelligence?",
+        "question": "What is the purpose of Business Intelligence?",
         "options": [
           "To make data-driven decisions",
           "To store data",
           "To manipulate data",
           "To visualize data"
         ],
-        "correctAnswer": "A"
+        "correctAnswer": "To make data-driven decisions"
       }
     ]
   },
@@ -775,42 +797,43 @@
     "pointsSummary": "By the end of this course, you will have a comprehensive understanding of digital marketing and the skills to promote your business effectively online.",
     "courseContent": [
       {
-        "week1": [
+        "week": [
           "Overview of digital marketing",
           "Developing a digital marketing plan",
           "Search engine optimization"
         ]
       },
       {
-        "week2": [
+        "week": [
           "Paid search advertising",
           "Social media marketing",
           "Email marketing"
         ]
       },
       {
-        "week3": [
+        "week": [
           "Content marketing",
           "Influencer marketing",
           "Measurement and optimization"
         ]
       }
     ],
+    "video":"https://player.vimeo.com/video/145965485?h=d0340b4c24",
     "test": [
       {
-        "question1": "What is digital marketing?",
-        "options": ["A,B,C,D"],
+        "question": "What is digital marketing?",
+        "options": ["A", "B", "C", "D"],
         "correctAnswer": "A"
       },
       {
-        "question2": "What is the purpose of search engine optimization (SEO)?",
+        "question": "What is the purpose of search engine optimization (SEO)?",
         "options": [
           "To increase website traffic",
           "To decrease website traffic",
           "To maintain website traffic",
           "To block website traffic"
         ],
-        "correctAnswer": "A"
+        "correctAnswer": "To increase website traffic"
       }
     ]
   },
@@ -837,39 +860,43 @@
     "pointsSummary": "By the end of this course, you will have a comprehensive understanding of blockchain technology and the ability to build decentralized applications.",
     "courseContent": [
       {
-        "week1": [
+        "week": [
           "Overview of blockchain technology",
           "History of blockchain",
           "Understanding the basics of blockchain"
         ]
       },
       {
-        "week2": [
+        "week": [
           "Setting up a blockchain network",
           "Introduction to consensus algorithms",
           "Introduction to smart contracts"
         ]
       },
       {
-        "week3": [
+        "week": [
           "Building smart contracts",
           "Developing decentralized applications",
           "Demo of a decentralized application"
         ]
       }
     ],
+    "video":"https://player.vimeo.com/video/240231149?h=a69504b26c",
     "test": [
       {
-        "question1": "What is blockchain technology?",
-        "options": ["A,B,C,D"],
+        "question": "What is blockchain technology?",
+        "options": ["A", "B", "C", "D"],
         "correctAnswer": "C"
       },
       {
-        "question2": "What is the main use of blockchain technology?",
+        "question": "What is the main use of blockchain technology?",
         "options": [
-          "Cryptocurrencies, Decentralized applications, Digital signatures, Secure data storage"
+          "Cryptocurrencies",
+          "Decentralized applications",
+          "Digital signatures",
+          "Secure data storage"
         ],
-        "correctAnswer": "B"
+        "correctAnswer": "Decentralized applications"
       }
     ]
   }
