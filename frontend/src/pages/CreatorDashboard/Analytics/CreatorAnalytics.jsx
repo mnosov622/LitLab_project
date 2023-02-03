@@ -8,8 +8,9 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+import "./Charts.css";
 
-const data = [
+const enrollmentData = [
   { month: "Jan", enrolled: 50 },
   { month: "Feb", enrolled: 60 },
   { month: "Mar", enrolled: 55 },
@@ -24,22 +25,64 @@ const data = [
   { month: "Dec", enrolled: 55 },
 ];
 
-const CreatorAnalytics = () => {
+const earningsData = [
+  { month: "Jan", earnings: 5000 },
+  { month: "Feb", earnings: 6000 },
+  { month: "Mar", earnings: 5500 },
+  { month: "Apr", earnings: 7500 },
+  { month: "May", earnings: 9000 },
+  { month: "Jun", earnings: 8500 },
+  { month: "Jul", earnings: 8000 },
+  { month: "Aug", earnings: 6500 },
+  { month: "Sep", earnings: 7000 },
+  { month: "Oct", earnings: 7500 },
+  { month: "Nov", earnings: 6000 },
+  { month: "Dec", earnings: 5500 },
+];
+
+const EnrollmentChart = () => {
   return (
     <BarChart
-      width={500}
-      height={300}
-      data={data}
+      width={650}
+      height={350}
+      data={enrollmentData}
       margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
     >
       <CartesianGrid strokeDasharray="3 3" />
       <XAxis dataKey="month" />
-      <YAxis />
+      <YAxis type="number" />
       <Tooltip />
       <Legend />
-      <Bar dataKey="enrolled" fill="#8884d8" />
+      <Bar dataKey="enrolled" fill="#0d6efd" />
     </BarChart>
   );
 };
 
-export default CreatorAnalytics;
+const EarningsChart = () => {
+  return (
+    <BarChart
+      width={650}
+      height={350}
+      data={earningsData}
+      margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+    >
+      <CartesianGrid strokeDasharray="3 3" />
+      <XAxis dataKey="month" />
+      <YAxis type="number" />
+      <Tooltip />
+      <Legend />
+      <Bar dataKey="earnings" fill="#0d6efd" />
+    </BarChart>
+  );
+};
+
+const Charts = () => {
+  return (
+    <div className="charts-container">
+      <EnrollmentChart />
+      <EarningsChart />
+    </div>
+  );
+};
+
+export default Charts;
