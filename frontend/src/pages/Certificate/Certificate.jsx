@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useState } from "react";
 import { useRef } from "react";
-import signature from "../../assets/certificate-signature.png";
+import signature from "/LitLab_project/frontend/src/assets/certificate-signature.png";
+import "./Certificate.scss";
+import congrats from "/LitLab_project/frontend/src/assets/congrats1.png";
 
 const Certificate = () => {
   const elementRef = useRef(null);
+  const [date, setDate] = useState("");
 
+  useEffect(() => {
+    let today = new Date();
+    let date =
+      today.getMonth() + 1 + "/" + today.getDate() + "/" + today.getFullYear();
+    console.log(date);
+    setDate(date);
+  }, []);
   const handleDownload = () => {
     const element = elementRef.current;
     const signatureImg = `<img src="${signature}" alt="Signature" width="12%"/>`;
@@ -32,11 +43,15 @@ const Certificate = () => {
   };
   return (
     <>
-      <div className="container mt-5 mb-5" ref={elementRef}>
+      <div
+        className="container mt-5 mb-5 certificate position-relative border p-3 border-dark rounded w-75"
+        ref={elementRef}
+      >
         <h1 className="text-center font-weight-bold">
-          Certificate of Completion
+          Certificate of Completion &nbsp;
+          <i class="bi bi-patch-check text-primary"></i>
         </h1>
-        <p className="text-center mt-3">
+        <p className="text-center mt-3 fs-4">
           This is to certify that
           <br />
           <br />
@@ -49,17 +64,25 @@ const Certificate = () => {
           <br />
           with flying colors.
         </p>
-        <p className="text-center mt-3">Date: 01/01/2023</p>
+        <p className="text-center mt-3 fs-5">Date: {date}</p>
         <p className="text-center mt-3">
           <img src={signature} alt="Signature" width={"12%"} />
           <br />
           <br />
-          <strong>Instructor</strong>
+          <p className="fs-5 fw-bold">Instructor: Mark Hovers</p>
         </p>
+        <img
+          src={congrats}
+          alt="Congratulations"
+          width={"15%"}
+          className="congrats position-absolute"
+        />
       </div>
-      <button onClick={handleDownload} className="btn btn-primary mx-auto">
-        Download Certificate
-      </button>
+      <div className="button-wrapper text-center mb-5">
+        <button onClick={handleDownload} className="btn btn-primary btn-lg">
+          Download Certificate
+        </button>
+      </div>
     </>
   );
 };
