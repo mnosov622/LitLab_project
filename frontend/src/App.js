@@ -28,6 +28,7 @@ import CourseUpload from "./pages/CreatorDashboard/CourseUpload/CourseUpload";
 import jwtDecode from "jwt-decode";
 import ContactUs from "./pages/ContactUs/ContactUs";
 import Test from "./pages/Test/Test";
+import Certificate from "./pages/Certificate/Certificate";
 
 function App() {
   const dispatch = useDispatch();
@@ -90,6 +91,10 @@ function App() {
               <Route path="/cart" element={<Cart />} />
               <Route path="/help" element={<Help />} />
               <Route path="/contact-us" element={<ContactUs />} />
+              <Route
+                path="/course/:id/certificate/:id"
+                element={<Certificate />}
+              />
               <Route
                 path="/course/*"
                 element={<div>We couldn't find it</div>}

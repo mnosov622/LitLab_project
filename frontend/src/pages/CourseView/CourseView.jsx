@@ -51,7 +51,20 @@ const CourseView = () => {
         </div>
         <div className="col-md-6">
           <p className="fs-1 text-center ">Course Content</p>
-          <div class="accordion" id="accordionExample">
+          {singleCourse.courseContent &&
+            singleCourse.courseContent.map((content, index) => (
+              <p key={index} className="week">
+                <h3 className="text-primary">Week {index + 1}</h3>
+                <ul>
+                  {content.week.map((week, i) => (
+                    <li key={i} className="week-item">
+                      {week}
+                    </li>
+                  ))}
+                </ul>
+              </p>
+            ))}
+          {/* <div class="accordion" id="accordionExample">
             <div class="accordion-item">
               <h2 class="accordion-header" id="headingOne">
                 <button
@@ -228,7 +241,7 @@ const CourseView = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </>
