@@ -49,6 +49,10 @@ const CourseDescription = () => {
   }, []);
 
   useEffect(() => {
+    if (localStorage.getItem("token") === null) {
+      return navigate("/login");
+    }
+
     const token = localStorage.getItem("token");
     const decoded = jwtDecode(token);
     const userId = decoded.id;

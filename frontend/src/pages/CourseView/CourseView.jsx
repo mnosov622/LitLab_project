@@ -1,8 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
-import jsCourseVideo from "../../assets/videos/js-course.mp4";
-import { Player, BigPlayButton } from "video-react";
 import { useState } from "react";
 import { useRef } from "react";
 
@@ -20,6 +18,19 @@ const CourseView = () => {
     console.log("video is done");
   };
 
+  useEffect(() => {
+    window.addEventListener("message", (e) => {
+      console.log("data", e.data);
+      if (e.data === "videoEnded") {
+        handleEnded();
+        console.log("vide endede");
+      }
+    });
+    return () => {
+      window.removeEventListener("message", handleEnded);
+    };
+  }, []);
+
   return (
     <>
       <div className="bg-light shadow text-center p-2 fs-2 mb-4">
@@ -30,21 +41,43 @@ const CourseView = () => {
       </div>
       <div className="row mb-5">
         <div className="col-md-6">
-          <video
-            src={jsCourseVideo}
+          {singleCourse.video && (
+            <iframe
+              ref={videoRef}
+              width="560"
+              height="315"
+              title="video"
+              src={singleCourse.video}
+              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            >
+              <video onEnded="window.parent.postMessage('videoEnded', '*')"></video>
+            </iframe>
+          )}
+
+          {/* <video
+            src={}
             controls
             width={"100%"}
             onEnded={handleEnded}
-          ></video>
+          ></video> */}
+
           <p className="fs-5 text-center mt-3">
             Once you watch the course, you will be able to do a test &nbsp;
             <i class="bi bi-chevron-double-down"></i>
           </p>
-          <Link
+
+          {/* <Link
             to={`/test/${singleCourse.id}`}
             className={`btn btn-primary btn-lg ${
               !isFinished && "disabled"
             } d-block mx-auto w-50`}
+          >
+            Complete test
+          </Link> */}
+          <Link
+            to={`/test/${singleCourse.id}`}
+            className={`btn btn-primary btn-lg d-block mx-auto w-50`}
           >
             Complete test
           </Link>
