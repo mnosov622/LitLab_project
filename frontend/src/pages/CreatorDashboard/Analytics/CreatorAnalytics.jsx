@@ -1,5 +1,14 @@
 import React from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from 'recharts';
+import './Charts.css';
 
 const enrollmentData = [
   { month: 'Jan', enrolled: 50 },
@@ -13,7 +22,7 @@ const enrollmentData = [
   { month: 'Sep', enrolled: 70 },
   { month: 'Oct', enrolled: 75 },
   { month: 'Nov', enrolled: 60 },
-  { month: 'Dec', enrolled: 55 }
+  { month: 'Dec', enrolled: 55 },
 ];
 
 const earningsData = [
@@ -28,20 +37,20 @@ const earningsData = [
   { month: 'Sep', earnings: 7000 },
   { month: 'Oct', earnings: 7500 },
   { month: 'Nov', earnings: 6000 },
-  { month: 'Dec', earnings: 5500 }
+  { month: 'Dec', earnings: 5500 },
 ];
 
 const EnrollmentChart = () => {
   return (
     <BarChart
-      width={500}
-      height={300}
+      width={650}
+      height={350}
       data={enrollmentData}
       margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
     >
       <CartesianGrid strokeDasharray='3 3' />
       <XAxis dataKey='month' />
-      <YAxis />
+      <YAxis type='number' />
       <Tooltip />
       <Legend />
       <Bar dataKey='enrolled' fill='#0d6efd' />
@@ -52,14 +61,14 @@ const EnrollmentChart = () => {
 const EarningsChart = () => {
   return (
     <BarChart
-      width={500}
-      height={300}
+      width={650}
+      height={350}
       data={earningsData}
       margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
     >
       <CartesianGrid strokeDasharray='3 3' />
       <XAxis dataKey='month' />
-      <YAxis />
+      <YAxis type='number' />
       <Tooltip />
       <Legend />
       <Bar dataKey='earnings' fill='#0d6efd' />
@@ -69,10 +78,10 @@ const EarningsChart = () => {
 
 const Charts = () => {
   return (
-    <>
+    <div className='charts-container'>
       <EnrollmentChart />
       <EarningsChart />
-    </>
+    </div>
   );
 };
 
