@@ -71,6 +71,51 @@ app.post("/registerLearner", async (req, res) => {
   );
 });
 
+app.post("/register-with-google", async (req, res) => {
+  MongoClient.connect(
+    url,
+    { useNewUrlParser: true, useUnifiedTopology: true },
+    function (err, client) {
+      if (err) throw err;
+      const db = client.db("users");
+      db.collection("users")
+        .find({})
+        .toArray(async (err, users) => {
+          if (err) throw err;
+          const user = users.find((u) => u.email === req.body.email);
+          if (user) {
+            console.log("USER ALREADY EXISTS");
+            return res.status(409).send("User exists");
+          } else {
+            console.log("user doesn't exists");
+            MongoClient.connect(
+              url,
+              { useUnifiedTopology: true },
+              function (err, db) {
+                if (err) throw err;
+                const user = {
+                  name: req.body.name,
+                  email: req.body.email,
+                  token: req.body.token,
+                  isLearner: req?.body?.isLearner,
+                };
+                var dbo = db.db("users");
+                dbo.collection("users").insertOne(user, function (err, user) {
+                  if (err) throw err;
+
+                  console.log("user inserted", user);
+                  res.status(200).send({ user });
+                  db.close();
+                });
+              }
+            );
+          }
+          client.close();
+        });
+    }
+  );
+});
+
 app.post("/registerCreator", async (req, res) => {
   MongoClient.connect(
     url,
@@ -141,6 +186,39 @@ app.post("/login", (req, res) => {
         const payload = {
           id: user._id,
           email: user.email,
+          name: user.name,
+          isLearner: user?.isLearner,
+          isCreator: user?.isCreator,
+        };
+        const token = jwt.sign(payload, secret, { expiresIn: "2h" });
+
+        res.status(200).send({ user, token });
+
+        db.close();
+      });
+  });
+});
+
+app.post("/googleLogin", (req, res) => {
+  MongoClient.connect(url, { useUnifiedTopology: true }, function (err, db) {
+    if (err) throw err;
+    var dbo = db.db("users");
+    dbo
+      .collection("users")
+      .findOne({ email: req.body.email }, async function (err, user) {
+        if (err) throw err;
+        if (!user) {
+          return res.status(404).json({ message: "User not found" });
+        }
+
+        if (user.email !== req.body.email) {
+          return res.status(401).json({ message: "Incorrect credentials" });
+        }
+
+        const payload = {
+          id: user._id,
+          email: user.email,
+          name: user.name,
           isLearner: user?.isLearner,
           isCreator: user?.isCreator,
         };

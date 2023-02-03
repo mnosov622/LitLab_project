@@ -17,7 +17,7 @@ const Navbar = () => {
   const [search, setSearch] = useState("");
   const [data, setData] = useState("");
   const [showList, setShowList] = useState(true);
-  const dispatch = useDispatch();
+  const [name, setName] = useState("");
   const navigate = useNavigate();
 
   const loggedInAsLearner = useSelector((state) => state.loggedInAsLearner);
@@ -45,6 +45,15 @@ const Navbar = () => {
     navigate("/");
   };
 
+  const token = localStorage.getItem("token");
+  useEffect(() => {
+    if (localStorage.getItem("token") !== null) {
+      const decoded = jwtDecode(token);
+      console.log("decoded name", decoded.name);
+      setName(decoded.name);
+    }
+  }, [token]);
+
   return (
     <nav
       className={
@@ -66,51 +75,56 @@ const Navbar = () => {
             </div>
           )}
 
-          <div className="col-md-3">
-            <form action="">
-              <div className="input-group search">
-                <input
-                  type="text"
-                  className="form-control w-100 mt-4"
-                  placeholder="Search for your favourite courses"
-                  aria-label="Search for your favourite courses"
-                  onKeyUp={searchForCourses}
-                  onChange={(e) => setSearch(e.target.value)}
-                  onFocus={() => setShowList(true)}
-                  //To fix search remove this line
-                  onBlur={() => setShowList(false)}
-                ></input>
-                {/* <div className="input-group-append">
+          {loggedInAsLearner && (
+            <div className="col-md-3">
+              <form action="">
+                <div className="input-group search">
+                  <input
+                    type="text"
+                    className="form-control w-100 mt-4"
+                    placeholder="Search for your favourite courses"
+                    aria-label="Search for your favourite courses"
+                    onKeyUp={searchForCourses}
+                    onChange={(e) => setSearch(e.target.value)}
+                    onFocus={() => setShowList(true)}
+                    //To fix search remove this line
+                    onBlur={() => setShowList(false)}
+                  ></input>
+                  {/* <div className="input-group-append">
                     <button className="btn btn-outline-secondary" type="button">
                       <i className="bi bi-search"></i>
                     </button>
                   </div> */}
-              </div>
-              {showList && (
-                <ul className="options">
-                  {data &&
-                    data.map((item) => (
-                      <div className="">
-                        <Link
-                          to={`/course/${item.id}`}
-                          key={item.id}
-                          // onClick={setShowList(false)}
-                        >
-                          <li className="item">
-                            {item.name}
-                            <p className="text-muted mt-1 mb-0">
-                              By {item.instructor}
-                            </p>
-                          </li>
-                        </Link>
-                      </div>
-                    ))}
-                </ul>
-              )}
-            </form>
-          </div>
+                </div>
+                {showList && (
+                  <ul className="options">
+                    {data &&
+                      data.map((item) => (
+                        <div className="">
+                          <Link
+                            to={`/course/${item.id}`}
+                            key={item.id}
+                            // onClick={setShowList(false)}
+                          >
+                            <li className="item">
+                              {item.name}
+                              <p className="text-muted mt-1 mb-0">
+                                By {item.instructor}
+                              </p>
+                            </li>
+                          </Link>
+                        </div>
+                      ))}
+                  </ul>
+                )}
+              </form>
+            </div>
+          )}
           {loggedInAsLearner ? (
             <div className="col-md-6 d-flex align-items-baseline justify-content-around">
+              <p className="fs-5 text-black">
+                Welcome back, <span className="text-primary">{name}</span>
+              </p>
               <Link to="/" className="dashboard-item fs-5">
                 My courses
               </Link>
@@ -129,7 +143,10 @@ const Navbar = () => {
               </div>
             </div>
           ) : loginAsCreator ? (
-            <div className="col-md-6 d-flex align-items-baseline justify-content-between">
+            <div className="col-md-10 d-flex align-items-baseline justify-content-between">
+              <p className="fs-5 text-black">
+                Welcome back, <span className="text-primary">{name}</span>
+              </p>
               <Link to="/" className="dashboard-item fs-5">
                 My courses
               </Link>
@@ -152,7 +169,7 @@ const Navbar = () => {
             </div>
           ) : (
             <>
-              <div className="col text-end mt-4">
+              <div className="col-md-7 text-end mt-4">
                 <Link to="login" className="">
                   <button className="justify-content-end btn btn-secondary">
                     Log in

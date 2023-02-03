@@ -11,6 +11,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import { useRef } from "react";
 import { useState } from "react";
 import { Bars, Oval } from "react-loader-spinner";
+import GoogleLogin from "react-google-login";
 
 const LearnerSignup = () => {
   const captchaRef = useRef(null);
@@ -29,6 +30,43 @@ const LearnerSignup = () => {
     } else {
       setPasswordMatch(true);
     }
+  };
+
+  const onSuccess = async (res) => {
+    // navigate("/");
+    const { name, email } = res.profileObj;
+    console.log(name, email, res.accessToken);
+    console.log(res);
+
+    try {
+      const response = await fetch(
+        "http://localhost:8000/register-with-google",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            name,
+            email,
+            token: res.accessToken,
+            isLearner: true,
+          }),
+          headers: { "Content-Type": "application/json" },
+        }
+      );
+
+      if (response.status === 409) {
+        console.log("Existsd");
+        return setUserExists(true);
+      }
+      navigate("/login", { state: { success: true } });
+      setUserExists(false);
+    } catch (e) {
+      console.log("Unknown error", e);
+    }
+  };
+
+  const onFailure = (err) => {
+    console.log("failed:", err);
+    setUserExists(true);
   };
 
   const handleSignup = async (e) => {
@@ -141,7 +179,6 @@ const LearnerSignup = () => {
                   sitekey={process.env.REACT_APP_CAPTCHA_SITE_KEY}
                   ref={captchaRef}
                 />
-
                 <Button
                   className="btn btn3 btn-primary btn-lg mb-3"
                   variant="primary"
@@ -161,7 +198,20 @@ const LearnerSignup = () => {
                     <span>Sign Up</span>
                   )}
                 </Button>
-
+                <div>
+                  or
+                  <div className="mt-3">
+                    <GoogleLogin
+                      clientId={process.env.REACT_APP_GOOGLE_LOGIN_CLIENT_ID}
+                      buttonText="Sign up with Google"
+                      onSuccess={onSuccess}
+                      onFailure={onFailure}
+                      cookiePolicy={"single_host_origin"}
+                      isSignedIn={false}
+                      className="mb-3"
+                    />
+                  </div>
+                </div>
                 <Form.Group>
                   <Form.Label className="font2">
                     Already have account ?

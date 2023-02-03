@@ -39,8 +39,48 @@ const Login = () => {
     }
   }, []);
 
-  const onSuccess = (res) => {
-    // navigate("/");
+  const onSuccess = async (res) => {
+    setShowLoader(true);
+    console.log(res);
+    console.log(res.accessToken, res.profileObj.email);
+
+    try {
+      const response = await fetch("http://localhost:8000/googleLogin", {
+        method: "POST",
+        body: JSON.stringify({
+          email: res.profileObj.email,
+        }),
+        headers: { "Content-Type": "application/json" },
+      });
+
+      console.log(response);
+
+      if (response.status === 200) {
+        const data = await response.json();
+        console.log(data.user, data.token);
+        if (data.user) localStorage.setItem("token", data.token);
+        setNoAccountError(false);
+        setWrongCredentials(false);
+        if (data?.user?.isLearner) {
+          dispatch(logInAsLearner());
+          navigate("/");
+        } else {
+          dispatch(logInAsCreator());
+          navigate("/");
+        }
+      } else if (response.status === 404) {
+        console.log("You don't have an acoount");
+        setNoAccountError(true);
+        setWrongCredentials(false);
+      } else {
+        setWrongCredentials(true);
+        setNoAccountError(false);
+      }
+    } catch (error) {
+      console.error("There has been an error, try again", error);
+    }
+
+    setShowLoader(false);
   };
   const onFailure = (err) => {
     console.log("failed:", err);
@@ -181,7 +221,7 @@ const Login = () => {
                 onSuccess={onSuccess}
                 onFailure={onFailure}
                 cookiePolicy={"single_host_origin"}
-                isSignedIn={true}
+                isSignedIn={false}
                 className="mb-3"
               />
 
