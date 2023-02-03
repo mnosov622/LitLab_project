@@ -78,10 +78,15 @@ const EarningsChart = () => {
 
 const Charts = () => {
   return (
-    <div className="charts-container">
-      <EnrollmentChart />
-      <EarningsChart />
-    </div>
+    <>
+      <div className="bg-light shadow text-center p-2 fs-2 mb-5">
+        <p>My Analytics</p>
+      </div>
+      <div className="charts-container mb-5">
+        <EnrollmentChart />
+        <EarningsChart />
+      </div>
+    </>
   );
 };
 
