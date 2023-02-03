@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useRef } from "react";
-import signature from "/LitLab_project/frontend/src/assets/certificate-signature.png";
+import signature from "../../../src/assets/certificate-signature.png";
 import "./Certificate.scss";
-import congrats from "/LitLab_project/frontend/src/assets/congrats1.png";
+import congrats from "../../../src/assets/congrats.png";
 
 const Certificate = () => {
   const elementRef = useRef(null);
