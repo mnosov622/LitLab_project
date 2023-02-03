@@ -1,5 +1,4 @@
 import React from "react";
-import { useState } from "react";
 import {
   BarChart,
   Bar,
@@ -10,35 +9,22 @@ import {
   Legend,
 } from "recharts";
 
-const CreatorAnalytics = () => {
-  const [data, setData] = useState({
-    labels: [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ],
-    datasets: [
-      {
-        label: "Enrollments",
-        backgroundColor: "rgba(255, 99, 132, 0.2)",
-        borderColor: "rgba(255, 99, 132, 1)",
-        borderWidth: 1,
-        hoverBackgroundColor: "rgba(255, 99, 132, 0.4)",
-        hoverBorderColor: "rgba(255, 99, 132, 1)",
-        data: [65, 59, 80, 81, 56, 55, 40, 45, 67, 23, 12, 56],
-      },
-    ],
-  });
+const data = [
+  { month: "Jan", enrolled: 50 },
+  { month: "Feb", enrolled: 60 },
+  { month: "Mar", enrolled: 55 },
+  { month: "Apr", enrolled: 75 },
+  { month: "May", enrolled: 90 },
+  { month: "Jun", enrolled: 85 },
+  { month: "Jul", enrolled: 80 },
+  { month: "Aug", enrolled: 65 },
+  { month: "Sep", enrolled: 70 },
+  { month: "Oct", enrolled: 75 },
+  { month: "Nov", enrolled: 60 },
+  { month: "Dec", enrolled: 55 },
+];
 
+const CreatorAnalytics = () => {
   return (
     <BarChart
       width={500}
