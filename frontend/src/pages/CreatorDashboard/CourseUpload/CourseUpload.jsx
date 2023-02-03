@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import { useCallback } from "react";
 import { Button } from "react-bootstrap";
 import Dropzone from "react-dropzone";
@@ -27,6 +28,30 @@ const CourseUpload = () => {
     });
   }, []);
 
+  const [file, setFile] = useState(null);
+
+  const handleFileChange = (e) => {
+    setFile(e.target.files[0]);
+  };
+
+  const handleUpload = () => {
+    const formData = new FormData();
+    formData.append("video", file);
+
+    // Make a POST request to the Express server to handle the video upload
+    fetch("http://localhost/videos", {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("Video uploaded successfully!");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
   return (
     <div>
       <div className="bg-light shadow text-center p-2 fs-2 mb-4">
@@ -34,26 +59,7 @@ const CourseUpload = () => {
       </div>
       <div className="row">
         <div className="col-md-6">
-          <Dropzone onDrop={(acceptedFiles) => console.log(acceptedFiles)}>
-            {({ getRootProps, getInputProps }) => (
-              <section>
-                <div
-                  {...getRootProps()}
-                  className="shadow"
-                  style={{ width: "70%", height: "300px" }}
-                >
-                  <input {...getInputProps()} />
-                  <p className="fs-4 d-flex justify-content-center align-items-center mt-5 p-5 pb-3">
-                    Upload a file
-                  </p>
-                  <div className="upload-icon text-center">
-                    <i class="bi bi-upload fs-1"></i>
-                  </div>
-                  <p></p>
-                </div>
-              </section>
-            )}
-          </Dropzone>
+          <input type="file" onChange={handleFileChange} />
         </div>
 
         <div className="col-md-6">
@@ -66,7 +72,7 @@ const CourseUpload = () => {
                 placeholder="Name"
                 autoFocus
               />
-              <label for="floatingName">Course Name</label>
+              <label for="floatingName">Name</label>
             </div>
 
             <div class="form-floating mb-3">
@@ -76,17 +82,26 @@ const CourseUpload = () => {
                 id="floatingPrice"
                 placeholder="Price"
               />
-              <label for="floatingPrice">Course Price</label>
+              <label for="floatingPrice">Price</label>
             </div>
 
             <div class="form-floating mb-3">
               <input
-                type="name"
+                type="text"
                 class="form-control"
                 id="floatingDescription"
                 placeholder="Description"
               />
-              <label for="floatingDescription">Course Description</label>
+              <label for="floatingDescription">Short Description</label>
+            </div>
+            <div class="form-floating mb-3">
+              <input
+                type="text"
+                class="form-control"
+                id="floatingDescription"
+                placeholder="Description"
+              />
+              <label for="floatingDescription">Long Description</label>
             </div>
 
             <Button

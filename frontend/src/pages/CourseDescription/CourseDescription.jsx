@@ -59,10 +59,6 @@ const CourseDescription = () => {
         console.log("DATA", data);
         setLearnerCourses(data.courses);
         learnerCourses.map((course) => {
-          // if (course.id === id) {
-          //   console.log("user owns this course");
-          // }
-          // return 0;
           if (course.id === Number(id)) {
             setHasCourse(true);
           }
@@ -299,7 +295,22 @@ const CourseDescription = () => {
           <div className="row mt-5">
             <div className="mx-auto col-md-8">
               <p className="fs-3 fw-bold">Course Content</p>
-              <div class="accordion" id="accordionExample">
+
+              {course.courseContent &&
+                course.courseContent.map((content, index) => (
+                  <p key={index} className="week">
+                    <h3 className="text-primary">Week {index + 1}</h3>
+                    <ul>
+                      {content.week.map((week, i) => (
+                        <li key={i} className="week-item">
+                          {week}
+                        </li>
+                      ))}
+                    </ul>
+                  </p>
+                ))}
+
+              {/* <div class="accordion" id="accordionExample">
                 <div class="accordion-item">
                   <h2 class="accordion-header" id="headingOne">
                     <button
@@ -478,7 +489,7 @@ const CourseDescription = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
 
