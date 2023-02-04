@@ -30,13 +30,37 @@ const CourseUpload = () => {
     formData.append("price", priceRef.current.value);
     formData.append("shortDescription", shortDescr.current.value);
     formData.append("longDescription", longDescr.current.value);
-    console.log(image);
+
     const res = await fetch("http://localhost:8000/upload", {
       method: "POST",
       body: formData,
     });
     const data = await res.json();
-    console.log(data.filename);
+    console.log("data", data.video.originalname);
+    console.log("data", data.image.originalname);
+
+    const courseData = {
+      video: data.video.originalname,
+      image: data.image.originalname,
+      instructorEmail: decoded.email,
+      courseName: nameRef.current.value,
+      price: priceRef.current.value,
+      shortDescription: shortDescr.current.value,
+      longDescription: longDescr.current.value,
+      email: decoded.email,
+    };
+
+    console.log("data from client", courseData);
+
+    const response = await fetch("http://localhost:8000/courses", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(courseData),
+    });
+    const courses = await response.json();
+    console.log(courses);
   };
 
   const onChange = (e) => {

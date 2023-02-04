@@ -440,13 +440,15 @@ MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
             if (err) throw err;
             res.status(200).json({
               message: "Video uploaded successfully",
+              video: videoFile,
+              image: imageFile,
             });
           }
         );
       });
   });
 
-  app.get("/video/:filename", (req, res) => {
+  app.get("/videos/:filename", (req, res) => {
     bucket.find().toArray((err, files) => {
       console.log(files.map((file) => file.filename));
     });
@@ -473,6 +475,56 @@ app.get("/images/:filename", (req, res) => {
     const readStream = bucket.openDownloadStreamByName(req.params.filename);
     readStream.pipe(res);
   });
+});
+
+app.post("/courses", async (req, res) => {
+  try {
+    const {
+      email,
+      courseName,
+      price,
+      shortDescription,
+      longDescription,
+      video,
+      image,
+    } = req.body;
+
+    const client = new MongoClient(url, { useNewUrlParser: true });
+    await client.connect();
+
+    const latestCourse = await client
+      .db("courses")
+      .collection("courses")
+      .find()
+      .sort({ id: -1 })
+      .limit(1)
+      .toArray();
+
+    // Increment the id by 1
+    let id = latestCourse.length ? latestCourse[0].id + 1 : 15;
+
+    const course = {
+      id,
+      video,
+      image,
+      email,
+      courseName,
+      price,
+      shortDescription,
+      longDescription,
+    };
+
+    const result = await client
+      .db("courses")
+      .collection("courses")
+      .insertOne(course);
+
+    client.close();
+
+    res.status(201).json({ message: "Course added successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
 app.listen(8000, () => console.log("Server is up on port 8000"));
