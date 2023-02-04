@@ -6,9 +6,13 @@ import { Button } from "react-bootstrap";
 import Dropzone from "react-dropzone";
 import { useDropzone } from "react-dropzone";
 import { Form, Link } from "react-router-dom";
+import "./CourseUpload.scss";
 
 const CourseUpload = () => {
   const [video, setVideo] = useState(null);
+  const [image, setImage] = useState(null);
+  const [loading, setLoading] = useState(false);
+
   const token = localStorage.getItem("token");
   const decoded = jwtDecode(token);
   const nameRef = useRef();
@@ -26,85 +30,149 @@ const CourseUpload = () => {
     formData.append("shortDescription", shortDescr.current.value);
     formData.append("longDescription", longDescr.current.value);
 
-    const res = await fetch("http://localhost:8000/upload", {
+    const res1 = await fetch("http://localhost:8000/upload", {
       method: "POST",
       body: formData,
     });
-    const data = await res.json();
-    console.log(data.filename);
+    const data1 = await res1.json();
+    console.log(data1.filename);
+
+    setLoading(true);
+    const data2 = new FormData();
+    data2.append("file", image);
+    data2.append("upload_preset", "my_preset");
+
+    const res = await fetch(
+      "https://api.cloudinary.com/v1_1/<cloud_name>/image/upload",
+      {
+        method: "POST",
+        body: data2,
+      }
+    );
+    const file = await res.json();
+
+    const response = await fetch("http://localhost:5000/image/upload", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        imageUrl: file.secure_url,
+      }),
+    });
+    const result = await response.json();
+    setLoading(false);
   };
 
   const onChange = (e) => {
     setVideo(e.target.files[0]);
   };
 
+  const handleImageChange = (event) => {
+    setImage(event.target.files[0]);
+  };
+
+  const handleUpload = async () => {};
+
   return (
-    <div>
+    <form onSubmit={onSubmit}>
       <div className="bg-light shadow text-center p-2 fs-2 mb-4">
-        <p>Upload a course</p>
+        <p>My Courses</p>
       </div>
+
       <div className="row">
-        <form onSubmit={onSubmit}>
-          <div className="col-md-6">
-            <input type="file" onChange={onChange} />
+        <div className="col-md-6">
+          <div className="upload-item">
+            <p className="fs-2">Upload a course video</p>
+            <div class="input-container d-flex  justify-content-center align-items-center">
+              <p className="fs-4">
+                <i className="bi bi-upload fs-1"></i>
+              </p>
+              <input
+                type="file"
+                onChange={onChange}
+                required
+                id="video"
+                className="input-file"
+              />
+            </div>
+          </div>
+          <div className="upload-item">
+            <p className="fs-2">Upload a course image</p>
+            <div class="input-container d-flex  justify-content-center align-items-center">
+              <p className="fs-4">
+                <i className="bi bi-upload fs-1"></i>
+              </p>
+              <input
+                type="file"
+                onChange={handleImageChange}
+                required
+                id="photo"
+                className="input-file"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="col-md-6">
+          <div className="form-floating mb-3">
+            <input
+              required
+              ref={nameRef}
+              type="text"
+              className="form-control"
+              id="floatingName"
+              placeholder="Name"
+              autoFocus
+            />
+            <label for="floatingName">Name</label>
           </div>
 
-          <div className="col-md-6">
-            <div class="form-floating mb-3">
-              <input
-                ref={nameRef}
-                type="text"
-                class="form-control"
-                id="floatingName"
-                placeholder="Name"
-                autoFocus
-              />
-              <label for="floatingName">Name</label>
-            </div>
-
-            <div class="form-floating mb-3">
-              <input
-                ref={priceRef}
-                type="text"
-                class="form-control"
-                id="floatingPrice"
-                placeholder="Price"
-              />
-              <label for="floatingPrice">Price</label>
-            </div>
-
-            <div class="form-floating mb-3">
-              <input
-                ref={shortDescr}
-                type="text"
-                class="form-control"
-                id="floatingDescription"
-                placeholder="Description"
-              />
-              <label for="floatingDescription">Short Description</label>
-            </div>
-            <div class="form-floating mb-3">
-              <input
-                ref={longDescr}
-                type="text"
-                class="form-control"
-                id="floatingDescription"
-                placeholder="Description"
-              />
-              <label for="floatingDescription">Long Description</label>
-            </div>
-
-            <Button
-              className="btn btn-lg btn-primary mb-3"
-              variant="primary"
-              type="submit"
-            >
-              Create A Course
-            </Button>
+          <div className="form-floating mb-3">
+            <input
+              ref={priceRef}
+              type="text"
+              className="form-control"
+              id="floatingPrice"
+              placeholder="Price"
+              required
+            />
+            <label for="floatingPrice">Price</label>
           </div>
-        </form>
+
+          <div className="form-floating mb-3">
+            <input
+              ref={shortDescr}
+              type="text"
+              className="form-control"
+              id="floatingDescription"
+              placeholder="Description"
+              required
+            />
+            <label for="floatingDescription">Short Description</label>
+          </div>
+          <div className="form-floating mb-3">
+            <input
+              ref={longDescr}
+              type="text"
+              className="form-control"
+              id="floatingDescription"
+              placeholder="Description"
+              required
+            />
+            <label for="floatingDescription">Long Description</label>
+          </div>
+
+          <Button
+            className="btn btn-lg btn-primary mb-3"
+            variant="primary"
+            type="submit"
+          >
+            Create A Course
+          </Button>
+        </div>
       </div>
-    </div>
+    </form>
   );
 };
 

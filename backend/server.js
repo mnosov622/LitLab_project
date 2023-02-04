@@ -434,4 +434,19 @@ MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
   });
 });
 
+app.post("/imageUpload", async (req, res) => {
+  const client = new MongoClient(url, { useNewUrlParser: true });
+
+  try {
+    await client.connect();
+    const db = client.db("users");
+    const image = { imageUrl: req.body.imageUrl };
+    const result = await db.collection("images").insertOne(image);
+    res.send(result.ops[0]);
+  } catch (error) {
+    res.status(400).send(error);
+  } finally {
+    client.close();
+  }
+});
 app.listen(8000, () => console.log("Server is up on port 8000"));
