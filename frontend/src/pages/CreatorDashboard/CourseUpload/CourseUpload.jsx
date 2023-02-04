@@ -1,4 +1,5 @@
-import React from "react";
+import jwtDecode from "jwt-decode";
+import React, { useRef } from "react";
 import { useState } from "react";
 import { useCallback } from "react";
 import { Button } from "react-bootstrap";
@@ -7,50 +8,60 @@ import { useDropzone } from "react-dropzone";
 import { Form, Link } from "react-router-dom";
 
 const CourseUpload = () => {
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    accept: "video/*",
-    onDrop: (acceptedFiles) => {
-      // handle the dropped video files
-    },
-  });
+  const [video, setVideo] = useState(null);
+  const token = localStorage.getItem("token");
+  const decoded = jwtDecode(token);
+  const nameRef = useRef();
+  const priceRef = useRef();
+  const shortDescr = useRef();
+  const longDescr = useRef();
 
-  const onDrop = useCallback((acceptedFiles) => {
-    acceptedFiles.forEach((file) => {
-      const reader = new FileReader();
+  const onSubmit = async (e) => {
+    console.log("name", nameRef.current.value);
+    console.log("name", priceRef.current.value);
+    console.log("name", shortDescr.current.value);
+    console.log("name", longDescr.current.value);
 
-      reader.onabort = () => console.log("file reading was aborted");
-      reader.onerror = () => console.log("file reading has failed");
-      reader.onload = () => {
-        const binaryStr = reader.result;
-        console.log(binaryStr);
-      };
-      reader.readAsArrayBuffer(file);
-    });
-  }, []);
-
-  const [file, setFile] = useState(null);
-
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
-  };
-
-  const handleUpload = () => {
+    e.preventDefault();
     const formData = new FormData();
-    formData.append("video", file);
+    formData.append("video", video);
+    formData.append("email", decoded.email);
+    formData.append("courseName", nameRef.current.value);
+    formData.append("price", priceRef.current.value);
+    formData.append("shortDescription", shortDescr.current.value);
+    formData.append("longDescription", longDescr.current.value);
 
-    // Make a POST request to the Express server to handle the video upload
-    fetch("http://localhost/videos", {
+    // const data = {formData, email: decoded.email};
+
+    const res = await fetch("http://localhost:8000/upload", {
       method: "POST",
       body: formData,
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log("Video uploaded successfully!");
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    });
+    const data = await res.json();
+    console.log(data.filename);
   };
+
+  const onChange = (e) => {
+    setVideo(e.target.files[0]);
+  };
+
+  // const handleUpload = () => {
+  //   const formData = new FormData();
+  //   formData.append("video", file);
+
+  //   // Make a POST request to the Express server to handle the video upload
+  //   fetch("http://localhost/videos", {
+  //     method: "POST",
+  //     body: formData,
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       console.log("Video uploaded successfully!");
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // };
 
   return (
     <div>
@@ -58,14 +69,15 @@ const CourseUpload = () => {
         <p>Upload a course</p>
       </div>
       <div className="row">
-        <div className="col-md-6">
-          <input type="file" onChange={handleFileChange} />
-        </div>
+        <form onSubmit={onSubmit}>
+          <div className="col-md-6">
+            <input type="file" onChange={onChange} />
+          </div>
 
-        <div className="col-md-6">
-          <form>
+          <div className="col-md-6">
             <div class="form-floating mb-3">
               <input
+                ref={nameRef}
                 type="text"
                 class="form-control"
                 id="floatingName"
@@ -77,6 +89,7 @@ const CourseUpload = () => {
 
             <div class="form-floating mb-3">
               <input
+                ref={priceRef}
                 type="text"
                 class="form-control"
                 id="floatingPrice"
@@ -87,6 +100,7 @@ const CourseUpload = () => {
 
             <div class="form-floating mb-3">
               <input
+                ref={shortDescr}
                 type="text"
                 class="form-control"
                 id="floatingDescription"
@@ -96,6 +110,7 @@ const CourseUpload = () => {
             </div>
             <div class="form-floating mb-3">
               <input
+                ref={longDescr}
                 type="text"
                 class="form-control"
                 id="floatingDescription"
@@ -111,8 +126,8 @@ const CourseUpload = () => {
             >
               Create A Course
             </Button>
-          </form>
-        </div>
+          </div>
+        </form>
       </div>
     </div>
   );

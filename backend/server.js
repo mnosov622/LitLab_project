@@ -4,9 +4,13 @@ const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const ObjectId = require("mongodb").ObjectId;
+const gridfs = require("gridfs-stream");
+const multer = require("multer");
 
 //MongoDB
 const MongoClient = require("mongodb").MongoClient;
+const mongodb = require("mongodb");
+
 const mongoose = require("mongoose");
 const { User } = require("./models/users");
 // const { Course } = require("./models/courses");
@@ -370,6 +374,62 @@ app.post("/buy-course", (req, res) => {
         }
       );
     });
+  });
+});
+
+//not sure how it works yet, but it's magic, so don't touch it pleaseee
+MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
+  if (err) throw err;
+
+  const db = client.db("users");
+  const bucket = new mongodb.GridFSBucket(db);
+  const storage = new multer.memoryStorage();
+  const upload = multer({ storage });
+
+  app.post("/upload", upload.single("video"), (req, res) => {
+    const video = req.file;
+    const uploadStream = bucket.openUploadStream(video.originalname);
+
+    uploadStream.write(video.buffer);
+    uploadStream.end();
+
+    db.collection("users").updateOne(
+      { email: req.body.email },
+      {
+        $push: {
+          videos: {
+            filename: video.originalname,
+            courseName: req.body.courseName,
+            price: req.body.price,
+            shortDescription: req.body.shortDescription,
+            longDescription: req.body.longDescription,
+          },
+        },
+      },
+      (err) => {
+        if (err) throw err;
+        res.status(200).json({
+          message: "Video uploaded successfully",
+          filename: video.originalname,
+        });
+      }
+    );
+  });
+
+  app.get("/video/:filename", (req, res) => {
+    bucket.find().toArray((err, files) => {
+      console.log(files.map((file) => file.filename));
+    });
+
+    const downloadStream = bucket.openDownloadStreamByName(req.params.filename);
+
+    downloadStream.on("error", () => {
+      return res.status(404).json({ message: "Video not found" });
+    });
+
+    res.set("Content-Type", "video/mp4");
+
+    downloadStream.pipe(res);
   });
 });
 

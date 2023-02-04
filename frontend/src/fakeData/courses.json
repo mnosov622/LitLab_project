@@ -24,7 +24,7 @@
       { "week": ["item1", "item2", "item3"] },
       { "week": ["item1", "item2", "item3"] }
     ],
-    "video":"https://player.vimeo.com/video/277300571?h=f143889cd6&title=0&byline=0&portrait=0",
+    "video": "https://player.vimeo.com/video/277300571?h=f143889cd6&title=0&byline=0&portrait=0",
     "test": [
       {
         "question": "What is an array",
@@ -82,7 +82,7 @@
         ]
       }
     ],
-    "video":"https://player.vimeo.com/video/20142036?h=e80cd54128",
+    "video": "https://player.vimeo.com/video/20142036?h=e80cd54128",
     "test": [
       {
         "question": "What is Javascript used for?",
@@ -142,7 +142,7 @@
         ]
       }
     ],
-    "video":"https://player.vimeo.com/video/123205124?h=1882b9fdd5",
+    "video": "https://player.vimeo.com/video/123205124?h=1882b9fdd5",
     "test": [
       {
         "question": "What is the psychology of influence?",
@@ -200,7 +200,7 @@
         ]
       }
     ],
-    "video":"https://player.vimeo.com/video/730289390?h=462a664906&color=FBAD27&title=0&byline=0&portrait=0",
+    "video": "https://player.vimeo.com/video/730289390?h=462a664906&color=FBAD27&title=0&byline=0&portrait=0",
     "test": [
       {
         "question": "What is a financial market?",
@@ -258,7 +258,7 @@
         ]
       }
     ],
-    "video":"https://player.vimeo.com/video/483628867?h=ad7ee14024",
+    "video": "https://player.vimeo.com/video/483628867?h=ad7ee14024",
     "test": [
       {
         "question": "What is effective communication?",
@@ -316,7 +316,7 @@
         ]
       }
     ],
-    "video":"https://player.vimeo.com/video/348033?h=7cf2bee414&color=ffffff&title=0&byline=0&portrait=0",
+    "video": "https://player.vimeo.com/video/348033?h=7cf2bee414&color=ffffff&title=0&byline=0&portrait=0",
     "test": [
       {
         "question": "What is statistics concerned with?",
@@ -383,7 +383,7 @@
         ]
       }
     ],
-    "video":"https://player.vimeo.com/video/29903598?h=ee3bd2aee6&title=0&byline=0&portrait=0",
+    "video": "https://player.vimeo.com/video/29903598?h=ee3bd2aee6&title=0&byline=0&portrait=0",
     "test": [
       {
         "question": "What is a decorator in Python?",
@@ -448,7 +448,7 @@
         ]
       }
     ],
-    "video":"https://player.vimeo.com/video/115308169?h=414f89bdfe",
+    "video": "https://player.vimeo.com/video/115308169?h=414f89bdfe",
     "test": [
       {
         "question": "¿Cómo se dice 'hello' en español?",
@@ -496,7 +496,6 @@
           "Overview of artificial intelligence",
           "Types of AI systems",
           "Introduction to machine learning"
-          
         ]
       },
       {
@@ -514,7 +513,7 @@
         ]
       }
     ],
-    "video":"https://player.vimeo.com/video/282496707?h=9dacac48cf",
+    "video": "https://player.vimeo.com/video/282496707?h=9dacac48cf",
     "test": [
       {
         "question": "What is artificial intelligence?",
@@ -577,7 +576,7 @@
         ]
       }
     ],
-    "video":"https://player.vimeo.com/video/30144927?h=2f60a58aee&title=0&byline=0&portrait=0",
+    "video": "https://player.vimeo.com/video/30144927?h=2f60a58aee&title=0&byline=0&portrait=0",
     "test": [
       {
         "question": "What is the purpose of data visualization?",
@@ -635,7 +634,7 @@
         ]
       }
     ],
-    "video":"https://player.vimeo.com/video/65581921?h=f8bf11ebfb",
+    "video": "https://player.vimeo.com/video/65581921?h=f8bf11ebfb",
     "test": [
       {
         "question": "What is cloud computing?",
@@ -692,7 +691,7 @@
         ]
       }
     ],
-    "video":"https://player.vimeo.com/video/245101847?h=ff46074338&title=0&byline=0&portrait=0",
+    "video": "https://player.vimeo.com/video/245101847?h=ff46074338&title=0&byline=0&portrait=0",
     "test": [
       {
         "question": "What is the main goal of cybersecurity?",
@@ -755,7 +754,7 @@
         ]
       }
     ],
-    "video":"https://player.vimeo.com/video/116082214?h=71edc224eb" ,
+    "video": "https://player.vimeo.com/video/116082214?h=71edc224eb",
     "test": [
       {
         "question": "What is Business Intelligence?",
@@ -818,7 +817,7 @@
         ]
       }
     ],
-    "video":"https://player.vimeo.com/video/145965485?h=d0340b4c24",
+    "video": "https://player.vimeo.com/video/145965485?h=d0340b4c24",
     "test": [
       {
         "question": "What is digital marketing?",
@@ -881,7 +880,7 @@
         ]
       }
     ],
-    "video":"https://player.vimeo.com/video/240231149?h=a69504b26c",
+    "video": "https://player.vimeo.com/video/240231149?h=a69504b26c",
     "test": [
       {
         "question": "What is blockchain technology?",
