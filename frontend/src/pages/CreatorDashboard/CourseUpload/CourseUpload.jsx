@@ -17,11 +17,6 @@ const CourseUpload = () => {
   const longDescr = useRef();
 
   const onSubmit = async (e) => {
-    console.log("name", nameRef.current.value);
-    console.log("name", priceRef.current.value);
-    console.log("name", shortDescr.current.value);
-    console.log("name", longDescr.current.value);
-
     e.preventDefault();
     const formData = new FormData();
     formData.append("video", video);
@@ -30,8 +25,6 @@ const CourseUpload = () => {
     formData.append("price", priceRef.current.value);
     formData.append("shortDescription", shortDescr.current.value);
     formData.append("longDescription", longDescr.current.value);
-
-    // const data = {formData, email: decoded.email};
 
     const res = await fetch("http://localhost:8000/upload", {
       method: "POST",
@@ -44,24 +37,6 @@ const CourseUpload = () => {
   const onChange = (e) => {
     setVideo(e.target.files[0]);
   };
-
-  // const handleUpload = () => {
-  //   const formData = new FormData();
-  //   formData.append("video", file);
-
-  //   // Make a POST request to the Express server to handle the video upload
-  //   fetch("http://localhost/videos", {
-  //     method: "POST",
-  //     body: formData,
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       console.log("Video uploaded successfully!");
-  //     })
-  //     .catch((error) => {
-  //       console.error(error);
-  //     });
-  // };
 
   return (
     <div>

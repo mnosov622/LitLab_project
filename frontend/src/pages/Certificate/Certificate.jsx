@@ -49,7 +49,7 @@ const Certificate = () => {
       >
         <h1 className="text-center font-weight-bold">
           Certificate of Completion &nbsp;
-          <i class="bi bi-patch-check text-primary"></i>
+          <i className="bi bi-patch-check text-primary"></i>
         </h1>
         <p className="text-center mt-3 fs-4">
           This is to certify that

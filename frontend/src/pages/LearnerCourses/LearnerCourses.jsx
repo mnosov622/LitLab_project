@@ -80,6 +80,7 @@ const LearnerCourses = () => {
           )}
           {courses.map((course) => (
             <CourseCard
+              key={course.id}
               linkToCourseView
               cardSmall
               name={course?.courseName}

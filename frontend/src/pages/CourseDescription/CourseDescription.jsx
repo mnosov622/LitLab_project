@@ -62,11 +62,11 @@ const CourseDescription = () => {
       .then((data) => {
         console.log("DATA", data);
         setLearnerCourses(data.courses);
-        learnerCourses.map((course) => {
-          if (course.id === Number(id)) {
-            setHasCourse(true);
-          }
-        });
+        // learnerCourses.map((course) => {
+        //   if (course.id === Number(id)) {
+        //     setHasCourse(true);
+        //   }
+        // });
       });
   }, []);
   //TODO: Add all items from object to the cart
@@ -210,7 +210,10 @@ const CourseDescription = () => {
                   Enrollments:{" "}
                   <span className="fw-bold">
                     {course.enrollments}
-                    <i class="bi bi-people" style={{ marginLeft: "5px" }}></i>
+                    <i
+                      className="bi bi-people"
+                      style={{ marginLeft: "5px" }}
+                    ></i>
                   </span>
                 </p>
                 <p className="fs-5 mt-3">
@@ -270,6 +273,7 @@ const CourseDescription = () => {
                     {course.pointsToLearn &&
                       course.pointsToLearn.map((item) => (
                         <>
+                          key={item.id}
                           <div className="fs-1">
                             <span style={{ marginRight: "10px" }}>
                               <svg
@@ -314,11 +318,11 @@ const CourseDescription = () => {
                   </p>
                 ))}
 
-              {/* <div class="accordion" id="accordionExample">
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="headingOne">
+              {/* <div className="accordion" id="accordionExample">
+                <div className="accordion-item">
+                  <h2 className="accordion-header" id="headingOne">
                     <button
-                      class="accordion-button"
+                      className="accordion-button"
                       type="button"
                       data-bs-toggle="collapse"
                       data-bs-target="#collapseOne"
@@ -330,11 +334,11 @@ const CourseDescription = () => {
                   </h2>
                   <div
                     id="collapseOne"
-                    class="accordion-collapse collapse show"
+                    className="accordion-collapse collapse show"
                     aria-labelledby="headingOne"
                     data-bs-parent="#accordionExample"
                   >
-                    <div class="accordion-body">
+                    <div className="accordion-body">
                       <ul>
                         <li>Understanding the components of Angular</li>
                         <li>Setting up an Angular project</li>
@@ -343,10 +347,10 @@ const CourseDescription = () => {
                     </div>
                   </div>
                 </div>
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="headingTwo">
+                <div className="accordion-item">
+                  <h2 className="accordion-header" id="headingTwo">
                     <button
-                      class="accordion-button collapsed"
+                      className="accordion-button collapsed"
                       type="button"
                       data-bs-toggle="collapse"
                       data-bs-target="#collapseTwo"
@@ -358,11 +362,11 @@ const CourseDescription = () => {
                   </h2>
                   <div
                     id="collapseTwo"
-                    class="accordion-collapse collapse"
+                    className="accordion-collapse collapse"
                     aria-labelledby="headingTwo"
                     data-bs-parent="#accordionExample"
                   >
-                    <div class="accordion-body">
+                    <div className="accordion-body">
                       <ul>
                         <li>Understanding the basics of Node.js</li>
                         <li>Building a server-side application</li>
@@ -371,10 +375,10 @@ const CourseDescription = () => {
                     </div>
                   </div>
                 </div>
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="headingThree">
+                <div className="accordion-item">
+                  <h2 className="accordion-header" id="headingThree">
                     <button
-                      class="accordion-button collapsed"
+                      className="accordion-button collapsed"
                       type="button"
                       data-bs-toggle="collapse"
                       data-bs-target="#collapseThree"
@@ -386,11 +390,11 @@ const CourseDescription = () => {
                   </h2>
                   <div
                     id="collapseThree"
-                    class="accordion-collapse collapse"
+                    className="accordion-collapse collapse"
                     aria-labelledby="headingThree"
                     data-bs-parent="#accordionExample"
                   >
-                    <div class="accordion-body">
+                    <div className="accordion-body">
                       <ul>
                         <li>Understanding the basics of MongoDB</li>
                         <li>Integrating MongoDB with a Node.js application</li>
@@ -399,10 +403,10 @@ const CourseDescription = () => {
                     </div>
                   </div>
                 </div>
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="headingFour">
+                <div className="accordion-item">
+                  <h2 className="accordion-header" id="headingFour">
                     <button
-                      class="accordion-button collapsed"
+                      className="accordion-button collapsed"
                       type="button"
                       data-bs-toggle="collapse"
                       data-bs-target="#collapseFour"
@@ -414,11 +418,11 @@ const CourseDescription = () => {
                   </h2>
                   <div
                     id="collapseFour"
-                    class="accordion-collapse collapse"
+                    className="accordion-collapse collapse"
                     aria-labelledby="headingFour"
                     data-bs-parent="#accordionExample"
                   >
-                    <div class="accordion-body">
+                    <div className="accordion-body">
                       <ul>
                         <li>
                           Building a full-stack web application with Angular and
@@ -435,10 +439,10 @@ const CourseDescription = () => {
                     </div>
                   </div>
                 </div>
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="headingFive">
+                <div className="accordion-item">
+                  <h2 className="accordion-header" id="headingFive">
                     <button
-                      class="accordion-button collapsed"
+                      className="accordion-button collapsed"
                       type="button"
                       data-bs-toggle="collapse"
                       data-bs-target="#collapseFive"
@@ -450,11 +454,11 @@ const CourseDescription = () => {
                   </h2>
                   <div
                     id="collapseFive"
-                    class="accordion-collapse collapse"
+                    className="accordion-collapse collapse"
                     aria-labelledby="headingFive"
                     data-bs-parent="#accordionExample"
                   >
-                    <div class="accordion-body">
+                    <div className="accordion-body">
                       <ul>
                         <li>Creating reusable components</li>
                         <li>Best practices for building web applications</li>
@@ -464,10 +468,10 @@ const CourseDescription = () => {
                     </div>
                   </div>
                 </div>
-                <div class="accordion-item">
-                  <h2 class="accordion-header" id="headingSix">
+                <div className="accordion-item">
+                  <h2 className="accordion-header" id="headingSix">
                     <button
-                      class="accordion-button collapsed"
+                      className="accordion-button collapsed"
                       type="button"
                       data-bs-toggle="collapse"
                       data-bs-target="#collapseSix"
@@ -479,11 +483,11 @@ const CourseDescription = () => {
                   </h2>
                   <div
                     id="collapseSix"
-                    class="accordion-collapse collapse"
+                    className="accordion-collapse collapse"
                     aria-labelledby="headingSix"
                     data-bs-parent="#accordionExample"
                   >
-                    <div class="accordion-body">
+                    <div className="accordion-body">
                       <ul>
                         <li>
                           Building a final project utilizing all the knowledge

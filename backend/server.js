@@ -397,8 +397,9 @@ MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
       { email: req.body.email },
       {
         $push: {
-          videos: {
-            filename: video.originalname,
+          courses: {
+            id: { $inc: 1 },
+            video: video.originalname,
             courseName: req.body.courseName,
             price: req.body.price,
             shortDescription: req.body.shortDescription,

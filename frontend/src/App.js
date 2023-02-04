@@ -66,6 +66,7 @@ function App() {
             <Route path="/analytics" element={<CreatorAnalytics />} />
             <Route path="/upload" element={<CourseUpload />} />
             <Route path="/contact-us" element={<ContactUs />} />
+            <Route path="*" exact={true} element={<NotFound />} />
           </Routes>
         </Container>
         <Footer />
@@ -99,6 +100,7 @@ function App() {
                 path="/course/*"
                 element={<div>We couldn't find it</div>}
               />
+              <Route path="*" exact={true} element={<NotFound />} />
             </Routes>
           </Container>
           <Footer />

@@ -3,63 +3,63 @@ import React from "react";
 const ContactUs = () => {
   return (
     <>
-      <div class="container">
-        <div class="row justify-content-center">
-          <div class="col-md-6 text-center mb-5">
-            <h2 class="h1-responsive font-weight-bold text-center my-4">
+      <div className="container">
+        <div className="row justify-content-center">
+          <div className="col-md-6 text-center mb-5">
+            <h2 className="h1-responsive font-weight-bold text-center my-4">
               CONTACT US
             </h2>
           </div>
         </div>
-        <div class="row justify-content-center">
-          <div class="col-md-12">
-            <div class="wrapper">
-              <div class="row no-gutters">
-                <div class="col-lg-8 col-md-7 order-md-last d-flex align-items-stretch">
-                  <div class="contact-wrap">
+        <div className="row justify-content-center">
+          <div className="col-md-12">
+            <div className="wrapper">
+              <div className="row no-gutters">
+                <div className="col-lg-8 col-md-7 order-md-last d-flex align-items-stretch">
+                  <div className="contact-wrap">
                     <form
                       method="POST"
                       id="contactForm"
                       name="contactForm"
-                      class="contactForm"
+                      className="contactForm"
                     >
-                      <div class="row">
-                        <div class="col-md-12">
-                          <div class="form-group mb-3">
-                            <label class="label" for="name">
+                      <div className="row">
+                        <div className="col-md-12">
+                          <div className="form-group mb-3">
+                            <label className="label" for="name">
                               Full Name
                             </label>
                             <input
                               type="text"
-                              class="form-control"
+                              className="form-control"
                               name="name"
                               id="name"
                               placeholder="Name"
                             ></input>
                           </div>
                         </div>
-                        <div class="col-md-12">
-                          <div class="form-group mb-3">
-                            <label class="label" for="email">
+                        <div className="col-md-12">
+                          <div className="form-group mb-3">
+                            <label className="label" for="email">
                               Email Address
                             </label>
                             <input
                               type="email"
-                              class="form-control"
+                              className="form-control"
                               name="email"
                               id="email"
                               placeholder="Email"
                             ></input>
                           </div>
                         </div>
-                        <div class="col-md-12">
-                          <div class="form-group mb-3">
-                            <label class="label" for="subject">
+                        <div className="col-md-12">
+                          <div className="form-group mb-3">
+                            <label className="label" for="subject">
                               Subject
                             </label>
                             <input
                               type="text"
-                              class="form-control"
+                              className="form-control"
                               name="subject"
                               id="subject"
                               placeholder="Subject"
@@ -67,14 +67,14 @@ const ContactUs = () => {
                           </div>
                         </div>
 
-                        <div class="col-md-12">
-                          <div class="form-group">
-                            <label class="label" for="#">
+                        <div className="col-md-12">
+                          <div className="form-group">
+                            <label className="label" for="#">
                               Message
                             </label>
                             <textarea
                               name="message"
-                              class="form-control"
+                              className="form-control"
                               id="message"
                               cols="30"
                               rows="4"
@@ -82,14 +82,14 @@ const ContactUs = () => {
                             ></textarea>
                           </div>
                         </div>
-                        <div class="col-md-12">
-                          <div class="form-group mt-3">
+                        <div className="col-md-12">
+                          <div className="form-group mt-3">
                             <input
                               type="submit"
                               value="Contact Us"
-                              class="btn btn-primary btn-lg"
+                              className="btn btn-primary btn-lg"
                             ></input>
-                            <div class="submitting"></div>
+                            <div className="submitting"></div>
                           </div>
                         </div>
                       </div>
@@ -97,49 +97,49 @@ const ContactUs = () => {
                   </div>
                 </div>
 
-                <div class="col-lg-4 col-md-5 d-flex align-items-stretch  bg-dark">
-                  <div class="info-wrap w-100 p-md-5 p-4 text-light">
+                <div className="col-lg-4 col-md-5 d-flex align-items-stretch  bg-dark">
+                  <div className="info-wrap w-100 p-md-5 p-4 text-light">
                     <h3>Let's get in touch</h3>
-                    <p class="mb-4">
+                    <p className="mb-4">
                       We're open for any suggestion or just to have a chat.
                     </p>
-                    <div class="dbox w-100 d-flex align-items-start">
-                      <div class="icon d-flex align-items-center justify-content-center">
-                        <span class="fa fa-map-marker"></span>
+                    <div className="dbox w-100 d-flex align-items-start">
+                      <div className="icon d-flex align-items-center justify-content-center">
+                        <span className="fa fa-map-marker"></span>
                       </div>
-                      <div class="text pl-3">
+                      <div className="text pl-3">
                         <p>
                           <span>Address:</span> 198 West 21th Street, Suite 721
                           New York NY 10016
                         </p>
                       </div>
                     </div>
-                    <div class="dbox w-100 d-flex align-items-center">
-                      <div class="icon d-flex align-items-center justify-content-center">
-                        <span class="fa fa-phone"></span>
+                    <div className="dbox w-100 d-flex align-items-center">
+                      <div className="icon d-flex align-items-center justify-content-center">
+                        <span className="fa fa-phone"></span>
                       </div>
-                      <div class="text pl-3">
+                      <div className="text pl-3">
                         <p>
                           <span>Phone:</span>{" "}
                           <a href="tel://1234567920">+ 1235 2355 98</a>
                         </p>
                       </div>
                     </div>
-                    <div class="dbox w-100 d-flex align-items-center">
-                      <div class="icon d-flex align-items-center justify-content-center">
-                        <span class="fa fa-paper-plane"></span>
+                    <div className="dbox w-100 d-flex align-items-center">
+                      <div className="icon d-flex align-items-center justify-content-center">
+                        <span className="fa fa-paper-plane"></span>
                       </div>
-                      <div class="text pl-3">
+                      <div className="text pl-3">
                         <p>
                           <span>Email:</span> LitLab_Learning@gmail.com
                         </p>
                       </div>
                     </div>
-                    <div class="dbox w-100 d-flex align-items-center">
-                      <div class="icon d-flex align-items-center justify-content-center">
-                        <span class="fa fa-globe"></span>
+                    <div className="dbox w-100 d-flex align-items-center">
+                      <div className="icon d-flex align-items-center justify-content-center">
+                        <span className="fa fa-globe"></span>
                       </div>
-                      <div class="text pl-3">
+                      <div className="text pl-3">
                         <p>
                           <span>Website: </span> LitLabLearning.com
                         </p>

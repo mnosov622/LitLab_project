@@ -23,7 +23,7 @@ const AllCourses = () => {
   }, []);
 
   return (
-    <div className={loading && "bottom"}>
+    <div className={loading ? "bottom" : ""}>
       {loading ? (
         <Oval
           height={80}

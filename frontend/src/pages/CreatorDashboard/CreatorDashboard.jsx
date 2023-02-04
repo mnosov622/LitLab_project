@@ -11,25 +11,10 @@ const CreatorDashboard = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     const decoded = jwtDecode(token);
-    const userId = decoded.id;
-    console.log(userId);
+    const userEmail = decoded.email;
+    console.log(userEmail);
 
-    //List of courses for certain creator, get by user id from the token
-    try {
-      fetch(`http://localhost:8000/creator-courses/${userId}`)
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          console.log("Data received from server:", data);
-          setCourses((data) => {
-            console.log("Courses after state update:", data);
-            return data;
-          });
-        });
-    } catch (e) {
-      console.log("Something went wrong", e);
-    }
+    //get request to the user to find all courses for content creator
   }, []);
 
   return (
