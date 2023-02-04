@@ -9,6 +9,7 @@ const multer = require("multer");
 
 //MongoDB
 const MongoClient = require("mongodb").MongoClient;
+const { GridFSBucket } = require("mongodb");
 const mongodb = require("mongodb");
 
 const mongoose = require("mongoose");
@@ -386,35 +387,63 @@ MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
   const storage = new multer.memoryStorage();
   const upload = multer({ storage });
 
-  app.post("/upload", upload.single("video"), (req, res) => {
-    const video = req.file;
-    const uploadStream = bucket.openUploadStream(video.originalname);
+  app.post("/upload", upload.array("files"), (req, res) => {
+    const videoFile = req.files.find((file) =>
+      file.mimetype.startsWith("video/")
+    );
+    const imageFile = req.files.find((file) =>
+      file.mimetype.startsWith("image/")
+    );
 
-    uploadStream.write(video.buffer);
-    uploadStream.end();
+    // Upload the video file
+    const videoUploadStream = bucket.openUploadStream(videoFile.originalname);
+    videoUploadStream.write(videoFile.buffer);
+    videoUploadStream.end();
 
-    db.collection("users").updateOne(
-      { email: req.body.email },
-      {
-        $push: {
-          courses: {
-            id: { $inc: 1 },
-            video: video.originalname,
-            courseName: req.body.courseName,
-            price: req.body.price,
-            shortDescription: req.body.shortDescription,
-            longDescription: req.body.longDescription,
+    // Upload the image file
+    const imageUploadStream = bucket.openUploadStream(imageFile.originalname);
+    imageUploadStream.write(imageFile.buffer);
+    imageUploadStream.end();
+
+    db.collection("users")
+      .aggregate([
+        {
+          $match: { email: req.body.email },
+        },
+        {
+          $project: {
+            maxId: { $max: "$courses.id" },
           },
         },
-      },
-      (err) => {
+      ])
+      .toArray((err, result) => {
         if (err) throw err;
-        res.status(200).json({
-          message: "Video uploaded successfully",
-          filename: video.originalname,
-        });
-      }
-    );
+
+        const newId = result[0].maxId + 1;
+
+        db.collection("users").updateOne(
+          { email: req.body.email },
+          {
+            $push: {
+              courses: {
+                id: newId,
+                video: videoFile.originalname,
+                courseName: req.body.courseName,
+                price: req.body.price,
+                shortDescription: req.body.shortDescription,
+                longDescription: req.body.longDescription,
+                courseImage: imageFile.originalname,
+              },
+            },
+          },
+          (err) => {
+            if (err) throw err;
+            res.status(200).json({
+              message: "Video uploaded successfully",
+            });
+          }
+        );
+      });
   });
 
   app.get("/video/:filename", (req, res) => {
@@ -434,19 +463,16 @@ MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
   });
 });
 
-app.post("/imageUpload", async (req, res) => {
-  const client = new MongoClient(url, { useNewUrlParser: true });
-
-  try {
-    await client.connect();
+app.get("/images/:filename", (req, res) => {
+  MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
+    if (err) throw err;
     const db = client.db("users");
-    const image = { imageUrl: req.body.imageUrl };
-    const result = await db.collection("images").insertOne(image);
-    res.send(result.ops[0]);
-  } catch (error) {
-    res.status(400).send(error);
-  } finally {
-    client.close();
-  }
+    const { GridFSBucket } = require("mongodb");
+    const bucket = new GridFSBucket(db);
+
+    const readStream = bucket.openDownloadStreamByName(req.params.filename);
+    readStream.pipe(res);
+  });
 });
+
 app.listen(8000, () => console.log("Server is up on port 8000"));

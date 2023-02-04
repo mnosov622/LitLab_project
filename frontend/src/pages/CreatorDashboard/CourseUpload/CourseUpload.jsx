@@ -23,45 +23,20 @@ const CourseUpload = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
-    formData.append("video", video);
+    formData.append("files", video);
+    formData.append("files", image);
     formData.append("email", decoded.email);
     formData.append("courseName", nameRef.current.value);
     formData.append("price", priceRef.current.value);
     formData.append("shortDescription", shortDescr.current.value);
     formData.append("longDescription", longDescr.current.value);
-
-    const res1 = await fetch("http://localhost:8000/upload", {
+    console.log(image);
+    const res = await fetch("http://localhost:8000/upload", {
       method: "POST",
       body: formData,
     });
-    const data1 = await res1.json();
-    console.log(data1.filename);
-
-    setLoading(true);
-    const data2 = new FormData();
-    data2.append("file", image);
-    data2.append("upload_preset", "my_preset");
-
-    const res = await fetch(
-      "https://api.cloudinary.com/v1_1/<cloud_name>/image/upload",
-      {
-        method: "POST",
-        body: data2,
-      }
-    );
-    const file = await res.json();
-
-    const response = await fetch("http://localhost:5000/image/upload", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        imageUrl: file.secure_url,
-      }),
-    });
-    const result = await response.json();
-    setLoading(false);
+    const data = await res.json();
+    console.log(data.filename);
   };
 
   const onChange = (e) => {
@@ -71,8 +46,6 @@ const CourseUpload = () => {
   const handleImageChange = (event) => {
     setImage(event.target.files[0]);
   };
-
-  const handleUpload = async () => {};
 
   return (
     <form onSubmit={onSubmit}>
