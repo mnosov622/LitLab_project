@@ -58,7 +58,7 @@ const CreatorDashboard = () => {
         />
       ) : (
         <div className="row">
-          {courses ? (
+          {courses !== undefined || courses.length !== 0 ? (
             courses.map((course) => (
               <CreatorCourseCard
                 courseId={course.id}

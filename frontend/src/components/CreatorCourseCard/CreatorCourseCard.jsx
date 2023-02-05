@@ -9,13 +9,11 @@ const CreatorCourseCard = ({
   instructorName,
   courseId,
 }) => {
-  console.log(courseName);
-
   const handleDelete = () => {
     const token = localStorage.getItem("token");
     const decoded = jwtDecode(token);
     const userEmail = decoded.email;
-    console.log("data", { email: userEmail, courseId });
+    console.log("data", { email: userEmail, courseName: courseName });
 
     fetch(`http://localhost:8000/courses/${courseName}`, {
       method: "DELETE",
@@ -24,12 +22,9 @@ const CreatorCourseCard = ({
       .then((data) => console.log(data))
       .catch((e) => console.log(e));
 
-    fetch(
-      `http://localhost:8000/users/${userEmail}/courses/${Number(courseId)}`,
-      {
-        method: "DELETE",
-      }
-    )
+    fetch(`http://localhost:8000/users/${userEmail}/courses/${courseName}`, {
+      method: "DELETE",
+    })
       .then((response) => response.json())
       .then((data) => console.log(data))
       .catch((e) => console.log(e));

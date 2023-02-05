@@ -427,6 +427,7 @@ MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
             $push: {
               courses: {
                 id: newId,
+                email: req.body.email,
                 video: videoFile.originalname,
                 name: req.body.courseName,
                 price: req.body.price,
@@ -568,7 +569,7 @@ app.delete("/courses/:courseName", (req, res) => {
   });
 });
 
-app.delete("/users/:userEmail/courses/:courseId", (req, res) => {
+app.delete("/users/:userEmail/courses/:courseName", (req, res) => {
   MongoClient.connect(url, (err, client) => {
     if (err) {
       return res
@@ -578,11 +579,11 @@ app.delete("/users/:userEmail/courses/:courseId", (req, res) => {
 
     const db = client.db("users");
     const userEmail = req.params.userEmail;
-    const courseId = req.params.courseId;
+    const courseId = req.params.courseName;
 
     db.collection("users").updateOne(
       { email: req.params.userEmail },
-      { $pull: { courses: req.params.courseId } },
+      { $pull: { courses: { name: req.params.courseName } } },
       (err, result) => {
         client.close();
         if (err) {
@@ -591,7 +592,7 @@ app.delete("/users/:userEmail/courses/:courseId", (req, res) => {
             .send({ message: "Error deleting course: " + err });
         }
         res.send({
-          message: `Course with id ${courseId} was successfully deleted for user with id ${req.params.userEmail}`,
+          message: `Course with name ${req.params.courseName} was successfully deleted for user with id ${req.params.userEmail}`,
         });
       }
     );
