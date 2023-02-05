@@ -61,9 +61,10 @@ const CreatorDashboard = () => {
           {courses ? (
             courses.map((course) => (
               <CreatorCourseCard
+                courseId={course.id}
                 key={course.id}
                 courseImage={course.courseImage}
-                courseName={course.courseName}
+                courseName={course.name}
                 price={course.price}
                 courseVideo={course.courseVideo}
               />

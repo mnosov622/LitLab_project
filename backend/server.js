@@ -428,7 +428,7 @@ MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
               courses: {
                 id: newId,
                 video: videoFile.originalname,
-                courseName: req.body.courseName,
+                name: req.body.courseName,
                 price: req.body.price,
                 shortDescription: req.body.shortDescription,
                 longDescription: req.body.longDescription,
@@ -543,6 +543,59 @@ app.get("/creator-courses/:id", (req, res) => {
       });
     }
   );
+});
+
+app.delete("/courses/:courseName", (req, res) => {
+  MongoClient.connect(url, (err, client) => {
+    if (err) {
+      return res
+        .status(500)
+        .send({ message: "Error connecting to database", err });
+    }
+    const db = client.db("courses");
+    db.collection("courses").deleteOne(
+      { name: req.params.courseName },
+      (err, result) => {
+        client.close();
+        if (err) {
+          return res
+            .status(500)
+            .send({ message: "Error deleting course", err });
+        }
+        res.status(200).send({ message: "Course deleted successfully" });
+      }
+    );
+  });
+});
+
+app.delete("/users/:userEmail/courses/:courseId", (req, res) => {
+  MongoClient.connect(url, (err, client) => {
+    if (err) {
+      return res
+        .status(500)
+        .send({ message: "Error connecting to database: " + err });
+    }
+
+    const db = client.db("users");
+    const userEmail = req.params.userEmail;
+    const courseId = req.params.courseId;
+
+    db.collection("users").updateOne(
+      { email: req.params.userEmail },
+      { $pull: { courses: req.params.courseId } },
+      (err, result) => {
+        client.close();
+        if (err) {
+          return res
+            .status(500)
+            .send({ message: "Error deleting course: " + err });
+        }
+        res.send({
+          message: `Course with id ${courseId} was successfully deleted for user with id ${req.params.userEmail}`,
+        });
+      }
+    );
+  });
 });
 
 app.listen(8000, () => console.log("Server is up on port 8000"));

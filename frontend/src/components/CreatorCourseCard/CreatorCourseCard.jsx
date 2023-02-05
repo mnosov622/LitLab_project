@@ -1,4 +1,5 @@
-import React from "react";
+import jwtDecode from "jwt-decode";
+import React, { useEffect } from "react";
 
 const CreatorCourseCard = ({
   courseImage,
@@ -6,7 +7,33 @@ const CreatorCourseCard = ({
   price,
   courseVideo,
   instructorName,
+  courseId,
 }) => {
+  console.log(courseName);
+
+  const handleDelete = () => {
+    const token = localStorage.getItem("token");
+    const decoded = jwtDecode(token);
+    const userEmail = decoded.email;
+    console.log("data", { email: userEmail, courseId });
+
+    fetch(`http://localhost:8000/courses/${courseName}`, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((e) => console.log(e));
+
+    fetch(
+      `http://localhost:8000/users/${userEmail}/courses/${Number(courseId)}`,
+      {
+        method: "DELETE",
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((e) => console.log(e));
+  };
   return (
     <>
       <div className="w-25 mb-5 col-md-6">
@@ -29,7 +56,9 @@ const CreatorCourseCard = ({
           </div>
           <div className="buttons-wrapper d-flex justify-content-around w-50 text-center mx-auto mb-3">
             <button className="btn btn-dark text-white">Edit</button>
-            <button className="btn btn-danger">Delete</button>
+            <button className="btn btn-danger" onClick={handleDelete}>
+              Delete
+            </button>
           </div>
         </div>
       </div>
