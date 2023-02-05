@@ -21,7 +21,7 @@ const CourseCard = ({
           <div className="card-item border">
             {courseImage ? (
               <img
-                src={courseImage}
+                src={`http://localhost:8000/images/${courseImage}`}
                 className="card-img-top img-fluid card-image"
                 alt="Course"
               />

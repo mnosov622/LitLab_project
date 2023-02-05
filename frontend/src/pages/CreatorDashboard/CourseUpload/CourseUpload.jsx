@@ -5,14 +5,15 @@ import { useCallback } from "react";
 import { Button } from "react-bootstrap";
 import Dropzone from "react-dropzone";
 import { useDropzone } from "react-dropzone";
-import { Form, Link } from "react-router-dom";
+import { Bars } from "react-loader-spinner";
+import { Form, Link, useNavigate } from "react-router-dom";
 import "./CourseUpload.scss";
 
 const CourseUpload = () => {
   const [video, setVideo] = useState(null);
   const [image, setImage] = useState(null);
   const [loading, setLoading] = useState(false);
-
+  const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const decoded = jwtDecode(token);
   const nameRef = useRef();
@@ -22,6 +23,7 @@ const CourseUpload = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     const formData = new FormData();
     formData.append("files", video);
     formData.append("files", image);
@@ -36,19 +38,24 @@ const CourseUpload = () => {
       body: formData,
     });
     const data = await res.json();
-    console.log("data", data.video.originalname);
-    console.log("data", data.image.originalname);
+    console.log("data recieved", data);
+    console.log("response recieved", res);
+    if (res.status === 200) {
+      navigate("/", { state: { success: true } });
+    }
 
     const courseData = {
       video: data.video.originalname,
-      image: data.image.originalname,
+      courseImage: data.image.originalname,
       instructorEmail: decoded.email,
-      courseName: nameRef.current.value,
+      name: nameRef.current.value,
       price: priceRef.current.value,
       shortDescription: shortDescr.current.value,
       longDescription: longDescr.current.value,
       email: decoded.email,
+      instructor: decoded.name,
     };
+    setLoading(false);
 
     console.log("data from client", courseData);
 
@@ -165,7 +172,19 @@ const CourseUpload = () => {
             variant="primary"
             type="submit"
           >
-            Create A Course
+            {loading ? (
+              <Bars
+                height="30"
+                width="55"
+                color="#fff"
+                ariaLabel="bars-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+                visible={true}
+              />
+            ) : (
+              <span> Create A Course</span>
+            )}
           </Button>
         </div>
       </div>

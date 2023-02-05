@@ -73,3 +73,7 @@ footer {
 .bottom {
   margin-bottom: 500px;
 }
+
+.empty {
+  width: 5% !important;
+}

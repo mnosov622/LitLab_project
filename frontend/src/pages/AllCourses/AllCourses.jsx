@@ -7,6 +7,7 @@ import CourseCard from "../../components/CourseCards/CourseCard";
 import { Allcourses } from "../../store/actions";
 import { loggedInAsLearner } from "../../store/reducers/loginAsLearner";
 import "./AllCourses.scss";
+import empty from "../../assets/no-courses.gif";
 
 const AllCourses = () => {
   const [courses, setCourses] = useState([]);
@@ -17,6 +18,7 @@ const AllCourses = () => {
     fetch("http://localhost:8000/courses")
       .then((response) => response.json())
       .then((data) => {
+        console.log("data", data);
         setCourses(data);
         setLoading(false);
       });
@@ -46,6 +48,7 @@ const AllCourses = () => {
                   key={course.id}
                   id={course.id}
                   name={course.name}
+                  courseImage={course.courseImage}
                   image={course.courseImageURL}
                   price={course.price}
                   teacherName={course.instructor}

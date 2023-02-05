@@ -175,12 +175,12 @@ const Login = () => {
                 />
               </Form.Group>
               {wrongCredentials && (
-                <div class="text-center text-danger">
+                <div className="text-center text-danger">
                   Wrong Email Or Password
                 </div>
               )}
               {noAccountError && (
-                <div class="text-center text-danger">
+                <div className="text-center text-danger">
                   You don't have an account,{" "}
                   <Link to="/signup" className="text-decoration-underline">
                     create it

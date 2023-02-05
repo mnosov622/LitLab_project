@@ -481,12 +481,13 @@ app.post("/courses", async (req, res) => {
   try {
     const {
       email,
-      courseName,
+      name,
       price,
       shortDescription,
       longDescription,
       video,
-      image,
+      courseImage,
+      instructor,
     } = req.body;
 
     const client = new MongoClient(url, { useNewUrlParser: true });
@@ -506,12 +507,13 @@ app.post("/courses", async (req, res) => {
     const course = {
       id,
       video,
-      image,
+      courseImage,
       email,
-      courseName,
+      name,
       price,
       shortDescription,
       longDescription,
+      instructor,
     };
 
     const result = await client
@@ -525,6 +527,22 @@ app.post("/courses", async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
+});
+
+app.get("/creator-courses/:id", (req, res) => {
+  MongoClient.connect(
+    url,
+    { useNewUrlParser: true, useUnifiedTopology: true },
+    (err, client) => {
+      if (err) throw err;
+      const db = client.db("users");
+      db.collection("users").findOne({ email: req.params.id }, (err, user) => {
+        if (err) throw err;
+        res.json(user);
+        client.close();
+      });
+    }
+  );
 });
 
 app.listen(8000, () => console.log("Server is up on port 8000"));
