@@ -6,8 +6,11 @@ import { Button } from "react-bootstrap";
 import Dropzone from "react-dropzone";
 import { useDropzone } from "react-dropzone";
 import { Bars } from "react-loader-spinner";
+import { useDispatch, useSelector } from "react-redux";
 import { Form, Link, useNavigate } from "react-router-dom";
 import "./CourseUpload.scss";
+import { creatorCourse } from "../../../store/actions";
+import { createdCourse } from "../../../store/reducers/creatorCourse";
 
 const CourseUpload = () => {
   const [video, setVideo] = useState(null);
@@ -20,6 +23,8 @@ const CourseUpload = () => {
   const priceRef = useRef();
   const shortDescr = useRef();
   const longDescr = useRef();
+  const dispatch = useDispatch();
+  const createdCourse = useSelector((state) => state.createdCourse);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -38,7 +43,12 @@ const CourseUpload = () => {
       body: formData,
     });
     const data = await res.json();
-    console.log("data recieved", data);
+    console.log("ALL data", data.id);
+    // if (data && data.courses !== undefined && Array.isArray(data.courses)) {
+    //   console.log("data received", data.courses[data.courses.length - 1]);
+    // } else {
+    //   console.error("data or courses is not defined or not an array");
+    // }
     console.log("response recieved", res);
     if (res.status === 200) {
       navigate("/", { state: { success: true } });
@@ -58,7 +68,7 @@ const CourseUpload = () => {
     setLoading(false);
 
     console.log("data from client", courseData);
-
+    dispatch(creatorCourse(courseData));
     const response = await fetch("http://localhost:8000/courses", {
       method: "POST",
       headers: {
@@ -67,7 +77,8 @@ const CourseUpload = () => {
       body: JSON.stringify(courseData),
     });
     const courses = await response.json();
-    console.log(courses);
+    console.log("course", courses.course);
+    console.log("created course", createdCourse);
   };
 
   const onChange = (e) => {

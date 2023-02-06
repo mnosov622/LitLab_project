@@ -420,7 +420,7 @@ MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
         if (err) throw err;
 
         const newId = result[0].maxId + 1;
-
+        const newCourse = {};
         db.collection("users").updateOne(
           { email: req.body.email },
           {
@@ -443,6 +443,14 @@ MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
               message: "Video uploaded successfully",
               video: videoFile,
               image: imageFile,
+              id: newId,
+              email: req.body.email,
+              video: videoFile.originalname,
+              name: req.body.courseName,
+              price: req.body.price,
+              shortDescription: req.body.shortDescription,
+              longDescription: req.body.longDescription,
+              courseImage: imageFile.originalname,
             });
           }
         );
@@ -468,7 +476,7 @@ MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
 
 app.get("/images/:filename", (req, res) => {
   MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
-    if (err) throw err;
+    if (err) console.log("error ecurred", err);
     const db = client.db("users");
     const { GridFSBucket } = require("mongodb");
     const bucket = new GridFSBucket(db);
@@ -524,7 +532,9 @@ app.post("/courses", async (req, res) => {
 
     client.close();
 
-    res.status(201).json({ message: "Course added successfully" });
+    res
+      .status(201)
+      .json({ message: "Course added successfully", course: course });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

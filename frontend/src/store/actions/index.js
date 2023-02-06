@@ -38,3 +38,8 @@ export const myCourses = (object) => ({
   type: "UPDATE_COURSES",
   payload: object,
 });
+
+export const creatorCourse = (object) => ({
+  type: "STORE_COURSE",
+  payload: object,
+});

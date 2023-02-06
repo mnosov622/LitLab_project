@@ -29,6 +29,7 @@ import jwtDecode from "jwt-decode";
 import ContactUs from "./pages/ContactUs/ContactUs";
 import Test from "./pages/Test/Test";
 import Certificate from "./pages/Certificate/Certificate";
+import CourseEdit from "./pages/CourseEdit/CourseEdit";
 
 function App() {
   const dispatch = useDispatch();
@@ -65,6 +66,7 @@ function App() {
             <Route path="/" element={<CreatorDashboard />} />
             <Route path="/analytics" element={<CreatorAnalytics />} />
             <Route path="/upload" element={<CourseUpload />} />
+            <Route path="/course/edit/:courseId" element={<CourseEdit />} />
             <Route path="/contact-us" element={<ContactUs />} />
             <Route path="*" exact={true} element={<NotFound />} />
           </Routes>

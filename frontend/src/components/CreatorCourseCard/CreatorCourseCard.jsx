@@ -1,5 +1,6 @@
 import jwtDecode from "jwt-decode";
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const CreatorCourseCard = ({
   courseImage,
@@ -50,7 +51,10 @@ const CreatorCourseCard = ({
             </p>
           </div>
           <div className="buttons-wrapper d-flex justify-content-around w-50 text-center mx-auto mb-3">
-            <button className="btn btn-dark text-white">Edit</button>
+            <Link to={`/course/edit/${courseId}`}>
+              {" "}
+              <button className="btn btn-dark text-white">Edit</button>{" "}
+            </Link>
             <button className="btn btn-danger" onClick={handleDelete}>
               Delete
             </button>
