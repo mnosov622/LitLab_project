@@ -273,7 +273,6 @@ const CourseDescription = () => {
                     {course.pointsToLearn &&
                       course.pointsToLearn.map((item) => (
                         <>
-                          key={item.id}
                           <div className="fs-1">
                             <span style={{ marginRight: "10px" }}>
                               <svg

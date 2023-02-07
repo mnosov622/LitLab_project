@@ -21,81 +21,80 @@
     "pointsSummary": "By the end of this course, you will have a solid understanding of how to build full-stack web applications with Angular and Node and be well-prepared to take on your next web development project.",
     "courseContent": [
       {
-      "week": [
-      "Introduction to React",
-      "JSX and Components",
-      "State Management in React"
-      ]
+        "week": [
+          "Introduction to React",
+          "JSX and Components",
+          "State Management in React"
+        ]
       },
       {
-      "week": [
-      "Handling Events in React",
-      "Managing Forms in React",
-      "React Router and Navigations"
-      ]
+        "week": [
+          "Handling Events in React",
+          "Managing Forms in React",
+          "React Router and Navigations"
+        ]
       },
       {
-      "week": [
-      "Integrating APIs in React",
-      "React Hooks",
-      "Building and Deploying a React application"
-      ]
+        "week": [
+          "Integrating APIs in React",
+          "React Hooks",
+          "Building and Deploying a React application"
+        ]
       }
     ],
     "video": "https://player.vimeo.com/video/277300571?h=f143889cd6&title=0&byline=0&portrait=0",
     "test": [
-          {
-          "question": "What is the purpose of ReactJS?",
-          "options": [
-              "To create user interfaces",
-              "To build native mobile apps",
-              "To develop server-side applications",
-              "To make RESTful API calls"
-              ],
-          "correctAnswer": "To create user interfaces"
-          },
-          {
-          "question": "What is Virtual DOM in React?",
-          "options": [
-              "A lightweight in-memory representation of the actual DOM",
-              "A way to manipulate the real DOM",
-              "A library for styling components",
-              "A tool for managing state in React applications"
-              ],
-          "correctAnswer": "A lightweight in-memory representation of the actual DOM"
-          },
-          {
-          "question": "What is JSX in React?",
-          "options": [
-              "A JavaScript library for building user interfaces",
-              "A syntax extension for JavaScript",
-              "A way to define components in React",
-              "A tool for debugging React applications"
-              ],
-          "correctAnswer": "A syntax extension for JavaScript"
-          },
-          {
-          "question": "What is the role of state in React?",
-          "options": [
-              "To store the data that changes within a component",
-              "To manage the styles of a component",
-              "To handle server requests",
-              "To render components"
-              ],
-          "correctAnswer": "To store the data that changes within a component"
-          },
-          {
-          "question": "What is a React Hook?",
-          "options": [
-              "A function that lets you “hook into” React features",
-              "A tool for managing state in React applications",
-              "A way to define components in React",
-              "A library for styling components"
-              ],
-          "correctAnswer": "A function that lets you “hook into” React features"
-          }
-        ]
-  
+      {
+        "question": "What is the purpose of ReactJS?",
+        "options": [
+          "To create user interfaces",
+          "To build native mobile apps",
+          "To develop server-side applications",
+          "To make RESTful API calls"
+        ],
+        "correctAnswer": "To create user interfaces"
+      },
+      {
+        "question": "What is Virtual DOM in React?",
+        "options": [
+          "A lightweight in-memory representation of the actual DOM",
+          "A way to manipulate the real DOM",
+          "A library for styling components",
+          "A tool for managing state in React applications"
+        ],
+        "correctAnswer": "A lightweight in-memory representation of the actual DOM"
+      },
+      {
+        "question": "What is JSX in React?",
+        "options": [
+          "A JavaScript library for building user interfaces",
+          "A syntax extension for JavaScript",
+          "A way to define components in React",
+          "A tool for debugging React applications"
+        ],
+        "correctAnswer": "A syntax extension for JavaScript"
+      },
+      {
+        "question": "What is the role of state in React?",
+        "options": [
+          "To store the data that changes within a component",
+          "To manage the styles of a component",
+          "To handle server requests",
+          "To render components"
+        ],
+        "correctAnswer": "To store the data that changes within a component"
+      },
+      {
+        "question": "What is a React Hook?",
+        "options": [
+          "A function that lets you “hook into” React features",
+          "A tool for managing state in React applications",
+          "A way to define components in React",
+          "A library for styling components"
+        ],
+        "correctAnswer": "A function that lets you “hook into” React features"
+      }
+    ]
   },
   {
     "id": 2,
@@ -144,54 +143,54 @@
     "video": "https://player.vimeo.com/video/20142036?h=e80cd54128",
     "test": [
       {
-      "question": "What is the main use of JavaScript?",
-      "options": [
-        "Server-side scripting",
-        "Client-side scripting",
-        "Native mobile app development",
-        "Backend database management"
+        "question": "What is the main use of JavaScript?",
+        "options": [
+          "Server-side scripting",
+          "Client-side scripting",
+          "Native mobile app development",
+          "Backend database management"
         ],
-      "correctAnswer": "Client-side scripting"
+        "correctAnswer": "Client-side scripting"
       },
       {
-      "question": "What is a variable in JavaScript?",
-      "options": [
-        "A container for storing values",
-        "A keyword used for declaring functions",
-        "An operator for performing arithmetic operations",
-        "A type of loop for executing code multiple times"
+        "question": "What is a variable in JavaScript?",
+        "options": [
+          "A container for storing values",
+          "A keyword used for declaring functions",
+          "An operator for performing arithmetic operations",
+          "A type of loop for executing code multiple times"
         ],
-      "correctAnswer": "A container for storing values"
+        "correctAnswer": "A container for storing values"
       },
       {
-      "question": "What is the difference between let and var in JavaScript?",
-      "options": [
-        "let is used for declaring block-scoped variables and var is used for declaring function-scoped variables",
-        "var is used for declaring block-scoped variables and let is used for declaring function-scoped variables",
-        "let and var are used interchangeably and there is no difference between them",
-        "let is used for declaring constant variables and var is used for declaring mutable variables"
+        "question": "What is the difference between let and var in JavaScript?",
+        "options": [
+          "let is used for declaring block-scoped variables and var is used for declaring function-scoped variables",
+          "var is used for declaring block-scoped variables and let is used for declaring function-scoped variables",
+          "let and var are used interchangeably and there is no difference between them",
+          "let is used for declaring constant variables and var is used for declaring mutable variables"
         ],
-      "correctAnswer": "let is used for declaring block-scoped variables and var is used for declaring function-scoped variables"
+        "correctAnswer": "let is used for declaring block-scoped variables and var is used for declaring function-scoped variables"
       },
       {
-      "question": "What is a closure in JavaScript?",
-      "options": [
-        "A function that returns another function",
-        "A mechanism for accessing variables in parent scopes",
-        "A way to create objects with methods",
-        "A special type of loop for executing code multiple times"
+        "question": "What is a closure in JavaScript?",
+        "options": [
+          "A function that returns another function",
+          "A mechanism for accessing variables in parent scopes",
+          "A way to create objects with methods",
+          "A special type of loop for executing code multiple times"
         ],
-      "correctAnswer": "A mechanism for accessing variables in parent scopes"
+        "correctAnswer": "A mechanism for accessing variables in parent scopes"
       },
       {
-      "question": "What is the difference between == and === in JavaScript?",
-      "options": [
-        "== performs type coercion and === performs strict equality comparison without type coercion",
-        "=== performs type coercion and == performs strict equality comparison without type coercion",
-        "== and === are used interchangeably and there is no difference between them",
-        "=== is used for comparing objects and == is used for comparing primitive values"
+        "question": "What is the difference between == and === in JavaScript?",
+        "options": [
+          "== performs type coercion and === performs strict equality comparison without type coercion",
+          "=== performs type coercion and == performs strict equality comparison without type coercion",
+          "== and === are used interchangeably and there is no difference between them",
+          "=== is used for comparing objects and == is used for comparing primitive values"
         ],
-      "correctAnswer": "== performs type coercion and === performs strict equality comparison without type coercion"
+        "correctAnswer": "== performs type coercion and === performs strict equality comparison without type coercion"
       }
     ]
   },
@@ -244,56 +243,56 @@
     "video": "https://player.vimeo.com/video/123205124?h=1882b9fdd5",
     "test": [
       {
-      "question": "What is the main principle of social proof?",
-      "options": [
-      "People conform to the actions of others in an attempt to reflect correct behavior",
-      "People tend to comply with requests from someone they know and like",
-      "People are more likely to take action when they are given a reason why they should do so",
-      "People are more likely to take action when they are offered something of value"
-      ],
-      "correctAnswer": "People conform to the actions of others in an attempt to reflect correct behavior"
+        "question": "What is the main principle of social proof?",
+        "options": [
+          "People conform to the actions of others in an attempt to reflect correct behavior",
+          "People tend to comply with requests from someone they know and like",
+          "People are more likely to take action when they are given a reason why they should do so",
+          "People are more likely to take action when they are offered something of value"
+        ],
+        "correctAnswer": "People conform to the actions of others in an attempt to reflect correct behavior"
       },
       {
-      "question": "What is the concept of reciprocation in influence?",
-      "options": [
-      "People feel obligated to repay what someone else has provided for them",
-      "People are more likely to comply with requests from someone they know and like",
-      "People are more likely to take action when they are given a reason why they should do so",
-      "People conform to the actions of others in an attempt to reflect correct behavior"
-      ],
-      "correctAnswer": "People feel obligated to repay what someone else has provided for them"
+        "question": "What is the concept of reciprocation in influence?",
+        "options": [
+          "People feel obligated to repay what someone else has provided for them",
+          "People are more likely to comply with requests from someone they know and like",
+          "People are more likely to take action when they are given a reason why they should do so",
+          "People conform to the actions of others in an attempt to reflect correct behavior"
+        ],
+        "correctAnswer": "People feel obligated to repay what someone else has provided for them"
       },
       {
-      "question": "What is the principle of commitment and consistency in influence?",
-      "options": [
-      "People tend to act in ways that are consistent with their past behaviors and decisions",
-      "People feel obligated to repay what someone else has provided for them",
-      "People are more likely to comply with requests from someone they know and like",
-      "People conform to the actions of others in an attempt to reflect correct behavior"
-      ],
-      "correctAnswer": "People tend to act in ways that are consistent with their past behaviors and decisions"
+        "question": "What is the principle of commitment and consistency in influence?",
+        "options": [
+          "People tend to act in ways that are consistent with their past behaviors and decisions",
+          "People feel obligated to repay what someone else has provided for them",
+          "People are more likely to comply with requests from someone they know and like",
+          "People conform to the actions of others in an attempt to reflect correct behavior"
+        ],
+        "correctAnswer": "People tend to act in ways that are consistent with their past behaviors and decisions"
       },
       {
-      "question": "What is the concept of liking in influence?",
-      "options": [
-      "People are more likely to comply with requests from someone they know and like",
-      "People tend to act in ways that are consistent with their past behaviors and decisions",
-      "People feel obligated to repay what someone else has provided for them",
-      "People conform to the actions of others in an attempt to reflect correct behavior"
-      ],
-      "correctAnswer": "People are more likely to comply with requests from someone they know and like"
+        "question": "What is the concept of liking in influence?",
+        "options": [
+          "People are more likely to comply with requests from someone they know and like",
+          "People tend to act in ways that are consistent with their past behaviors and decisions",
+          "People feel obligated to repay what someone else has provided for them",
+          "People conform to the actions of others in an attempt to reflect correct behavior"
+        ],
+        "correctAnswer": "People are more likely to comply with requests from someone they know and like"
       },
       {
-      "question": "What is the principle of authority in influence?",
-      "options": [
-      "People tend to comply with the requests of someone who is perceived as an authority figure",
-      "People are more likely to comply with requests from someone they know and like",
-      "People tend to act in ways that are consistent with their past behaviors and decisions",
-      "People feel obligated to repay what someone else has provided for them"
-      ],
-      "correctAnswer": "People tend to comply with the requests of someone who is perceived as an authority figure"
+        "question": "What is the principle of authority in influence?",
+        "options": [
+          "People tend to comply with the requests of someone who is perceived as an authority figure",
+          "People are more likely to comply with requests from someone they know and like",
+          "People tend to act in ways that are consistent with their past behaviors and decisions",
+          "People feel obligated to repay what someone else has provided for them"
+        ],
+        "correctAnswer": "People tend to comply with the requests of someone who is perceived as an authority figure"
       }
-      ]
+    ]
   },
   {
     "id": 4,
@@ -342,56 +341,56 @@
     "video": "https://player.vimeo.com/video/730289390?h=462a664906&color=FBAD27&title=0&byline=0&portrait=0",
     "test": [
       {
-      "question": "What is the stock market?",
-      "options": [
-      "A marketplace where stocks are traded",
-      "A collection of banks",
-      "A place to buy and sell commodities",
-      "A marketplace for real estate"
-      ],
-      "correctAnswer": "A marketplace where stocks are traded"
+        "question": "What is the stock market?",
+        "options": [
+          "A marketplace where stocks are traded",
+          "A collection of banks",
+          "A place to buy and sell commodities",
+          "A marketplace for real estate"
+        ],
+        "correctAnswer": "A marketplace where stocks are traded"
       },
       {
-      "question": "What is the purpose of a stock?",
-      "options": [
-      "To raise funds for a company",
-      "To provide a place to store money",
-      "To act as a savings account",
-      "To provide a guaranteed return on investment"
-      ],
-      "correctAnswer": "To raise funds for a company"
+        "question": "What is the purpose of a stock?",
+        "options": [
+          "To raise funds for a company",
+          "To provide a place to store money",
+          "To act as a savings account",
+          "To provide a guaranteed return on investment"
+        ],
+        "correctAnswer": "To raise funds for a company"
       },
       {
-      "question": "What is the role of a bond?",
-      "options": [
-      "To raise funds for a company",
-      "To provide a place to store money",
-      "To provide a return on investment in the form of interest payments",
-      "To act as collateral for loans"
-      ],
-      "correctAnswer": "To provide a return on investment in the form of interest payments"
+        "question": "What is the role of a bond?",
+        "options": [
+          "To raise funds for a company",
+          "To provide a place to store money",
+          "To provide a return on investment in the form of interest payments",
+          "To act as collateral for loans"
+        ],
+        "correctAnswer": "To provide a return on investment in the form of interest payments"
       },
       {
-      "question": "What is a bull market?",
-      "options": [
-      "A market characterized by rising stock prices",
-      "A market characterized by falling stock prices",
-      "A market characterized by stable stock prices",
-      "A market characterized by high volatility"
-      ],
-      "correctAnswer": "A market characterized by rising stock prices"
+        "question": "What is a bull market?",
+        "options": [
+          "A market characterized by rising stock prices",
+          "A market characterized by falling stock prices",
+          "A market characterized by stable stock prices",
+          "A market characterized by high volatility"
+        ],
+        "correctAnswer": "A market characterized by rising stock prices"
       },
       {
-      "question": "What is a bear market?",
-      "options": [
-      "A market characterized by rising stock prices",
-      "A market characterized by falling stock prices",
-      "A market characterized by stable stock prices",
-      "A market characterized by high volatility"
-      ],
-      "correctAnswer": "A market characterized by falling stock prices"
+        "question": "What is a bear market?",
+        "options": [
+          "A market characterized by rising stock prices",
+          "A market characterized by falling stock prices",
+          "A market characterized by stable stock prices",
+          "A market characterized by high volatility"
+        ],
+        "correctAnswer": "A market characterized by falling stock prices"
       }
-      ]      
+    ]
   },
   {
     "id": 5,
@@ -442,54 +441,54 @@
       {
         "question": "What is the primary goal of effective communication?",
         "options": [
-        "To entertain the audience",
-        "To share information",
-        "To prove a point",
-        "To impress the audience"
+          "To entertain the audience",
+          "To share information",
+          "To prove a point",
+          "To impress the audience"
         ],
         "correctAnswer": "To share information"
-        },
-        {
+      },
+      {
         "question": "What is the most important aspect of verbal communication?",
         "options": [
-        "Verbal tone",
-        "Non-verbal cues",
-        "Words used",
-        "Pace of speech"
+          "Verbal tone",
+          "Non-verbal cues",
+          "Words used",
+          "Pace of speech"
         ],
         "correctAnswer": "Words used"
-        },
-        {
+      },
+      {
         "question": "What is active listening?",
         "options": [
-        "Talking more than listening",
-        "Ignoring the speaker",
-        "Focusing solely on one's own thoughts",
-        "Fully paying attention to and understanding the speaker"
+          "Talking more than listening",
+          "Ignoring the speaker",
+          "Focusing solely on one's own thoughts",
+          "Fully paying attention to and understanding the speaker"
         ],
         "correctAnswer": "Fully paying attention to and understanding the speaker"
-        },
-        {
+      },
+      {
         "question": "What is the purpose of non-verbal communication?",
         "options": [
-        "To replace verbal communication",
-        "To contradict verbal communication",
-        "To supplement verbal communication",
-        "To confuse the audience"
+          "To replace verbal communication",
+          "To contradict verbal communication",
+          "To supplement verbal communication",
+          "To confuse the audience"
         ],
         "correctAnswer": "To supplement verbal communication"
-        },
-        {
+      },
+      {
         "question": "What is the most effective way to handle conflicts in communication?",
         "options": [
-        "Avoiding the conflict",
-        "Yelling and being confrontational",
-        "Blame and criticize",
-        "Openly and respectfully discuss the issue and find a resolution"
+          "Avoiding the conflict",
+          "Yelling and being confrontational",
+          "Blame and criticize",
+          "Openly and respectfully discuss the issue and find a resolution"
         ],
         "correctAnswer": "Openly and respectfully discuss the issue and find a resolution"
-        }
-        ]
+      }
+    ]
   },
   {
     "id": 6,
@@ -538,56 +537,56 @@
     "video": "https://player.vimeo.com/video/348033?h=7cf2bee414&color=ffffff&title=0&byline=0&portrait=0",
     "test": [
       {
-      "question": "What is the difference between descriptive and inferential statistics?",
-      "options": [
-      "Descriptive statistics summarize and describe data, while inferential statistics use data to make inferences about a population",
-      "Inferential statistics summarize and describe data, while descriptive statistics use data to make inferences about a population",
-      "Both types of statistics involve summarizing and describing data",
-      "Neither type of statistics involves summarizing and describing data"
-      ],
-      "correctAnswer": "Descriptive statistics summarize and describe data, while inferential statistics use data to make inferences about a population"
+        "question": "What is the difference between descriptive and inferential statistics?",
+        "options": [
+          "Descriptive statistics summarize and describe data, while inferential statistics use data to make inferences about a population",
+          "Inferential statistics summarize and describe data, while descriptive statistics use data to make inferences about a population",
+          "Both types of statistics involve summarizing and describing data",
+          "Neither type of statistics involves summarizing and describing data"
+        ],
+        "correctAnswer": "Descriptive statistics summarize and describe data, while inferential statistics use data to make inferences about a population"
       },
       {
-      "question": "What is a population in statistics?",
-      "options": [
-      "The entire group of individuals or objects being studied",
-      "A sample of individuals or objects selected from a larger group",
-      "The sum of all the data values in a set",
-      "The average of all the data values in a set"
-      ],
-      "correctAnswer": "The entire group of individuals or objects being studied"
+        "question": "What is a population in statistics?",
+        "options": [
+          "The entire group of individuals or objects being studied",
+          "A sample of individuals or objects selected from a larger group",
+          "The sum of all the data values in a set",
+          "The average of all the data values in a set"
+        ],
+        "correctAnswer": "The entire group of individuals or objects being studied"
       },
       {
-      "question": "What is a sample in statistics?",
-      "options": [
-      "A portion of the population being studied",
-      "The entire population being studied",
-      "The sum of all the data values in a set",
-      "The average of all the data values in a set"
-      ],
-      "correctAnswer": "A portion of the population being studied"
+        "question": "What is a sample in statistics?",
+        "options": [
+          "A portion of the population being studied",
+          "The entire population being studied",
+          "The sum of all the data values in a set",
+          "The average of all the data values in a set"
+        ],
+        "correctAnswer": "A portion of the population being studied"
       },
       {
-      "question": "What is the purpose of calculating a mean in statistics?",
-      "options": [
-      "To describe the central tendency of a set of data",
-      "To describe the variability of a set of data",
-      "To describe the distribution of a set of data",
-      "To describe the shape of a set of data"
-      ],
-      "correctAnswer": "To describe the central tendency of a set of data"
+        "question": "What is the purpose of calculating a mean in statistics?",
+        "options": [
+          "To describe the central tendency of a set of data",
+          "To describe the variability of a set of data",
+          "To describe the distribution of a set of data",
+          "To describe the shape of a set of data"
+        ],
+        "correctAnswer": "To describe the central tendency of a set of data"
       },
       {
-      "question": "What is a correlation in statistics?",
-      "options": [
-      "A measure of the strength of the relationship between two variables",
-      "A cause-and-effect relationship between two variables",
-      "A statistical technique for predicting the value of one variable based on the value of another variable",
-      "A graphical representation of the relationship between two variables"
-      ],
-      "correctAnswer": "A measure of the strength of the relationship between two variables"
+        "question": "What is a correlation in statistics?",
+        "options": [
+          "A measure of the strength of the relationship between two variables",
+          "A cause-and-effect relationship between two variables",
+          "A statistical technique for predicting the value of one variable based on the value of another variable",
+          "A graphical representation of the relationship between two variables"
+        ],
+        "correctAnswer": "A measure of the strength of the relationship between two variables"
       }
-      ]
+    ]
   },
   {
     "id": 7,
@@ -635,56 +634,56 @@
     "video": "https://player.vimeo.com/video/29903598?h=ee3bd2aee6&title=0&byline=0&portrait=0",
     "test": [
       {
-      "question": "What is the purpose of using Decorators in Python?",
-      "options": [
-      "To add extra functionality to an existing function or class",
-      "To improve the performance of code",
-      "To define a new data type",
-      "To change the behavior of a function or class without modifying its source code"
-      ],
-      "correctAnswer": "To add extra functionality to an existing function or class"
+        "question": "What is the purpose of using Decorators in Python?",
+        "options": [
+          "To add extra functionality to an existing function or class",
+          "To improve the performance of code",
+          "To define a new data type",
+          "To change the behavior of a function or class without modifying its source code"
+        ],
+        "correctAnswer": "To add extra functionality to an existing function or class"
       },
       {
-      "question": "What is the difference between List Comprehension and Generator Expressions in Python?",
-      "options": [
-      "List comprehensions return a list while generator expressions return a generator object",
-      "List comprehensions are faster than generator expressions",
-      "List comprehensions have a larger memory footprint than generator expressions",
-      "Generator expressions cannot be used to perform any operations"
-      ],
-      "correctAnswer": "List comprehensions return a list while generator expressions return a generator object"
+        "question": "What is the difference between List Comprehension and Generator Expressions in Python?",
+        "options": [
+          "List comprehensions return a list while generator expressions return a generator object",
+          "List comprehensions are faster than generator expressions",
+          "List comprehensions have a larger memory footprint than generator expressions",
+          "Generator expressions cannot be used to perform any operations"
+        ],
+        "correctAnswer": "List comprehensions return a list while generator expressions return a generator object"
       },
       {
-      "question": "What is the use of yield statement in Python?",
-      "options": [
-      "To return a value from a function",
-      "To halt the execution of a function temporarily and resume it later",
-      "To stop the execution of a function",
-      "To generate a sequence of values to be used by an iterator"
-      ],
-      "correctAnswer": "To generate a sequence of values to be used by an iterator"
+        "question": "What is the use of yield statement in Python?",
+        "options": [
+          "To return a value from a function",
+          "To halt the execution of a function temporarily and resume it later",
+          "To stop the execution of a function",
+          "To generate a sequence of values to be used by an iterator"
+        ],
+        "correctAnswer": "To generate a sequence of values to be used by an iterator"
       },
       {
-      "question": "What is the difference between a Tuple and a List in Python?",
-      "options": [
-      "Tuples are mutable and lists are immutable",
-      "Lists are mutable and tuples are immutable",
-      "Tuples cannot contain duplicate elements while lists can",
-      "Tuples are ordered and lists are unordered"
-      ],
-      "correctAnswer": "Lists are mutable and tuples are immutable"
+        "question": "What is the difference between a Tuple and a List in Python?",
+        "options": [
+          "Tuples are mutable and lists are immutable",
+          "Lists are mutable and tuples are immutable",
+          "Tuples cannot contain duplicate elements while lists can",
+          "Tuples are ordered and lists are unordered"
+        ],
+        "correctAnswer": "Lists are mutable and tuples are immutable"
       },
       {
-      "question": "What is the use of *args and **kwargs in Python functions?",
-      "options": [
-      "To pass a variable number of arguments to a function",
-      "To pass a fixed number of arguments to a function",
-      "To pass keyword arguments to a function",
-      "To pass positional arguments to a function"
-      ],
-      "correctAnswer": "To pass a variable number of arguments to a function"
+        "question": "What is the use of *args and **kwargs in Python functions?",
+        "options": [
+          "To pass a variable number of arguments to a function",
+          "To pass a fixed number of arguments to a function",
+          "To pass keyword arguments to a function",
+          "To pass positional arguments to a function"
+        ],
+        "correctAnswer": "To pass a variable number of arguments to a function"
       }
-      ]
+    ]
   },
   {
     "id": 8,
@@ -735,29 +734,29 @@
     "video": "https://player.vimeo.com/video/115308169?h=414f89bdfe",
     "test": [
       {
-      "question": "¿Cómo se dice 'goodbye' en español?",
-      "options": ["Adiós", "Buenas dias", "Hola", "Por favor"],
-      "correctAnswer": "Adiós"
+        "question": "¿Cómo se dice 'goodbye' en español?",
+        "options": ["Adiós", "Buenas dias", "Hola", "Por favor"],
+        "correctAnswer": "Adiós"
       },
       {
-      "question": "¿Cómo se dice 'yes' en español?",
-      "options": ["Sí", "No", "Gracias", "Hola"],
-      "correctAnswer": "Sí"
+        "question": "¿Cómo se dice 'yes' en español?",
+        "options": ["Sí", "No", "Gracias", "Hola"],
+        "correctAnswer": "Sí"
       },
       {
-      "question": "¿Cómo se dice 'please' en español?",
-      "options": ["Por favor", "Gracias", "Hola", "Adiós"],
-      "correctAnswer": "Por favor"
+        "question": "¿Cómo se dice 'please' en español?",
+        "options": ["Por favor", "Gracias", "Hola", "Adiós"],
+        "correctAnswer": "Por favor"
       },
       {
-      "question": "¿Cómo se dice 'thank you' en español?",
-      "options": ["Gracias", "Por favor", "Adiós", "Hola"],
-      "correctAnswer": "Gracias"
+        "question": "¿Cómo se dice 'thank you' en español?",
+        "options": ["Gracias", "Por favor", "Adiós", "Hola"],
+        "correctAnswer": "Gracias"
       },
       {
-      "question": "¿Cómo se dice 'excuse me' en español?",
-      "options": ["Perdón", "Gracias", "Adiós", "Hola"],
-      "correctAnswer": "Perdón"
+        "question": "¿Cómo se dice 'excuse me' en español?",
+        "options": ["Perdón", "Gracias", "Adiós", "Hola"],
+        "correctAnswer": "Perdón"
       }
     ]
   },
@@ -810,56 +809,56 @@
     "video": "https://player.vimeo.com/video/282496707?h=9dacac48cf",
     "test": [
       {
-      "question": "What is Artificial Intelligence (AI)?",
-      "options": [
-      "A technology for building intelligent systems",
-      "A set of algorithms for solving mathematical problems",
-      "A method for simulating human decision-making processes",
-      "A tool for automating repetitive tasks"
-      ],
-      "correctAnswer": "A technology for building intelligent systems"
+        "question": "What is Artificial Intelligence (AI)?",
+        "options": [
+          "A technology for building intelligent systems",
+          "A set of algorithms for solving mathematical problems",
+          "A method for simulating human decision-making processes",
+          "A tool for automating repetitive tasks"
+        ],
+        "correctAnswer": "A technology for building intelligent systems"
       },
       {
-      "question": "What are the different types of AI?",
-      "options": [
-      "Reactive machines, Limited memory, Theory of mind, Self-aware",
-      "Supervised learning, Unsupervised learning, Reinforcement learning, Deep learning",
-      "Linear regression, Logistic regression, Naive Bayes, Decision trees",
-      "K-means clustering, Principal component analysis, Singular value decomposition, Latent Dirichlet Allocation"
-      ],
-      "correctAnswer": "Reactive machines, Limited memory, Theory of mind, Self-aware"
+        "question": "What are the different types of AI?",
+        "options": [
+          "Reactive machines, Limited memory, Theory of mind, Self-aware",
+          "Supervised learning, Unsupervised learning, Reinforcement learning, Deep learning",
+          "Linear regression, Logistic regression, Naive Bayes, Decision trees",
+          "K-means clustering, Principal component analysis, Singular value decomposition, Latent Dirichlet Allocation"
+        ],
+        "correctAnswer": "Reactive machines, Limited memory, Theory of mind, Self-aware"
       },
       {
-      "question": "What is the goal of machine learning?",
-      "options": [
-      "To develop systems that can learn from data and make predictions or decisions without being explicitly programmed",
-      "To create computer programs that can solve complex problems by breaking them down into smaller, more manageable sub-problems",
-      "To automate the process of designing and training neural networks",
-      "To simulate human intelligence using computers"
-      ],
-      "correctAnswer": "To develop systems that can learn from data and make predictions or decisions without being explicitly programmed"
+        "question": "What is the goal of machine learning?",
+        "options": [
+          "To develop systems that can learn from data and make predictions or decisions without being explicitly programmed",
+          "To create computer programs that can solve complex problems by breaking them down into smaller, more manageable sub-problems",
+          "To automate the process of designing and training neural networks",
+          "To simulate human intelligence using computers"
+        ],
+        "correctAnswer": "To develop systems that can learn from data and make predictions or decisions without being explicitly programmed"
       },
       {
-      "question": "What is deep learning?",
-      "options": [
-      "A subfield of machine learning that uses artificial neural networks with multiple layers",
-      "A method for training machine learning algorithms using large amounts of labeled data",
-      "A type of reinforcement learning that involves training agents in a virtual environment",
-      "A technique for creating more accurate predictions by combining the results of multiple models"
-      ],
-      "correctAnswer": "A subfield of machine learning that uses artificial neural networks with multiple layers"
+        "question": "What is deep learning?",
+        "options": [
+          "A subfield of machine learning that uses artificial neural networks with multiple layers",
+          "A method for training machine learning algorithms using large amounts of labeled data",
+          "A type of reinforcement learning that involves training agents in a virtual environment",
+          "A technique for creating more accurate predictions by combining the results of multiple models"
+        ],
+        "correctAnswer": "A subfield of machine learning that uses artificial neural networks with multiple layers"
       },
       {
-      "question": "What are the main challenges in AI development?",
-      "options": [
-      "Data quality and quantity, Model interpretability, Algorithm bias, Computational resources",
-      "Data privacy, Network security, Software reliability, Human-computer interaction",
-      "Optimizing algorithms, Managing complexity, Handling uncertainty, Integrating AI systems with existing systems",
-      "Data storage, Data retrieval, Data processing, Data visualization"
-      ],
-      "correctAnswer": "Data quality and quantity, Model interpretability, Algorithm bias, Computational resources"
+        "question": "What are the main challenges in AI development?",
+        "options": [
+          "Data quality and quantity, Model interpretability, Algorithm bias, Computational resources",
+          "Data privacy, Network security, Software reliability, Human-computer interaction",
+          "Optimizing algorithms, Managing complexity, Handling uncertainty, Integrating AI systems with existing systems",
+          "Data storage, Data retrieval, Data processing, Data visualization"
+        ],
+        "correctAnswer": "Data quality and quantity, Model interpretability, Algorithm bias, Computational resources"
       }
-      ]      
+    ]
   },
   {
     "id": 10,
@@ -908,56 +907,56 @@
     "video": "https://player.vimeo.com/video/30144927?h=2f60a58aee&title=0&byline=0&portrait=0",
     "test": [
       {
-      "question": "What is data visualization?",
-      "options": [
-      "The process of presenting data in a visual format",
-      "The process of collecting and cleaning data",
-      "The process of analyzing data to find patterns and relationships",
-      "The process of storing data in a database"
-      ],
-      "correctAnswer": "The process of presenting data in a visual format"
+        "question": "What is data visualization?",
+        "options": [
+          "The process of presenting data in a visual format",
+          "The process of collecting and cleaning data",
+          "The process of analyzing data to find patterns and relationships",
+          "The process of storing data in a database"
+        ],
+        "correctAnswer": "The process of presenting data in a visual format"
       },
       {
-      "question": "What is a histogram?",
-      "options": [
-      "A graph that shows the distribution of a continuous variable",
-      "A graph that shows the relationship between two variables",
-      "A graph that shows the distribution of a categorical variable",
-      "A graph that shows the distribution of a frequency"
-      ],
-      "correctAnswer": "A graph that shows the distribution of a continuous variable"
+        "question": "What is a histogram?",
+        "options": [
+          "A graph that shows the distribution of a continuous variable",
+          "A graph that shows the relationship between two variables",
+          "A graph that shows the distribution of a categorical variable",
+          "A graph that shows the distribution of a frequency"
+        ],
+        "correctAnswer": "A graph that shows the distribution of a continuous variable"
       },
       {
-      "question": "What is a scatter plot?",
-      "options": [
-      "A graph that shows the distribution of a continuous variable",
-      "A graph that shows the relationship between two variables",
-      "A graph that shows the distribution of a categorical variable",
-      "A graph that shows the distribution of a frequency"
-      ],
-      "correctAnswer": "A graph that shows the relationship between two variables"
+        "question": "What is a scatter plot?",
+        "options": [
+          "A graph that shows the distribution of a continuous variable",
+          "A graph that shows the relationship between two variables",
+          "A graph that shows the distribution of a categorical variable",
+          "A graph that shows the distribution of a frequency"
+        ],
+        "correctAnswer": "A graph that shows the relationship between two variables"
       },
       {
-      "question": "What is a bar chart used for?",
-      "options": [
-      "To show the distribution of a continuous variable",
-      "To show the relationship between two variables",
-      "To show the distribution of a categorical variable",
-      "To show the distribution of a frequency"
-      ],
-      "correctAnswer": "To show the distribution of a categorical variable"
+        "question": "What is a bar chart used for?",
+        "options": [
+          "To show the distribution of a continuous variable",
+          "To show the relationship between two variables",
+          "To show the distribution of a categorical variable",
+          "To show the distribution of a frequency"
+        ],
+        "correctAnswer": "To show the distribution of a categorical variable"
       },
       {
-      "question": "What is a line chart used for?",
-      "options": [
-      "To show the distribution of a continuous variable",
-      "To show the relationship between two variables over time",
-      "To show the distribution of a categorical variable",
-      "To show the distribution of a frequency"
-      ],
-      "correctAnswer": "To show the relationship between two variables over time"
+        "question": "What is a line chart used for?",
+        "options": [
+          "To show the distribution of a continuous variable",
+          "To show the relationship between two variables over time",
+          "To show the distribution of a categorical variable",
+          "To show the distribution of a frequency"
+        ],
+        "correctAnswer": "To show the relationship between two variables over time"
       }
-      ]
+    ]
   },
   {
     "id": 11,
@@ -1006,56 +1005,56 @@
     "video": "https://player.vimeo.com/video/65581921?h=f8bf11ebfb",
     "test": [
       {
-      "question": "What is Cloud Computing?",
-      "options": [
-      "A way to store data on remote servers",
-      "A method of delivering applications over the internet",
-      "A model for delivering information technology as a service",
-      "A process of running virtualized computing resources on physical servers"
-      ],
-      "correctAnswer": "A model for delivering information technology as a service"
+        "question": "What is Cloud Computing?",
+        "options": [
+          "A way to store data on remote servers",
+          "A method of delivering applications over the internet",
+          "A model for delivering information technology as a service",
+          "A process of running virtualized computing resources on physical servers"
+        ],
+        "correctAnswer": "A model for delivering information technology as a service"
       },
       {
-      "question": "What are the different types of cloud deployment models?",
-      "options": [
-      "Private, public, hybrid",
-      "Community, public, hybrid",
-      "Community, private, hybrid",
-      "Private, public, virtual"
-      ],
-      "correctAnswer": "Private, public, hybrid"
+        "question": "What are the different types of cloud deployment models?",
+        "options": [
+          "Private, public, hybrid",
+          "Community, public, hybrid",
+          "Community, private, hybrid",
+          "Private, public, virtual"
+        ],
+        "correctAnswer": "Private, public, hybrid"
       },
       {
-      "question": "What are the advantages of using cloud computing?",
-      "options": [
-      "Reduced costs, increased scalability, and improved disaster recovery",
-      "Improved data security, increased collaboration, and enhanced user experience",
-      "Increased data privacy, improved performance, and reduced downtime",
-      "Reduced maintenance, improved accessibility, and increased reliability"
-      ],
-      "correctAnswer": "Reduced costs, increased scalability, and improved disaster recovery"
+        "question": "What are the advantages of using cloud computing?",
+        "options": [
+          "Reduced costs, increased scalability, and improved disaster recovery",
+          "Improved data security, increased collaboration, and enhanced user experience",
+          "Increased data privacy, improved performance, and reduced downtime",
+          "Reduced maintenance, improved accessibility, and increased reliability"
+        ],
+        "correctAnswer": "Reduced costs, increased scalability, and improved disaster recovery"
       },
       {
-      "question": "What is the role of a cloud provider?",
-      "options": [
-      "To manage and maintain the infrastructure, security, and support for the cloud service",
-      "To monitor the cloud environment and provide technical support to users",
-      "To design and implement custom cloud solutions for individual clients",
-      "To develop and distribute cloud-based applications and services"
-      ],
-      "correctAnswer": "To manage and maintain the infrastructure, security, and support for the cloud service"
+        "question": "What is the role of a cloud provider?",
+        "options": [
+          "To manage and maintain the infrastructure, security, and support for the cloud service",
+          "To monitor the cloud environment and provide technical support to users",
+          "To design and implement custom cloud solutions for individual clients",
+          "To develop and distribute cloud-based applications and services"
+        ],
+        "correctAnswer": "To manage and maintain the infrastructure, security, and support for the cloud service"
       },
       {
-      "question": "What is Infrastructure-as-a-Service (IaaS)?",
-      "options": [
-      "A type of cloud service that provides virtualized computing resources",
-      "A platform for developing and deploying cloud-based applications and services",
-      "A set of tools and services for managing and analyzing big data",
-      "A method of delivering software applications over the internet"
-      ],
-      "correctAnswer": "A type of cloud service that provides virtualized computing resources"
+        "question": "What is Infrastructure-as-a-Service (IaaS)?",
+        "options": [
+          "A type of cloud service that provides virtualized computing resources",
+          "A platform for developing and deploying cloud-based applications and services",
+          "A set of tools and services for managing and analyzing big data",
+          "A method of delivering software applications over the internet"
+        ],
+        "correctAnswer": "A type of cloud service that provides virtualized computing resources"
       }
-      ]
+    ]
   },
   {
     "id": 12,
@@ -1103,56 +1102,56 @@
     "video": "https://player.vimeo.com/video/245101847?h=ff46074338&title=0&byline=0&portrait=0",
     "test": [
       {
-      "question": "What is the main goal of Cybersecurity?",
-      "options": [
-      "To prevent unauthorized access to computer systems",
-      "To increase the speed of computer systems",
-      "To reduce the cost of computer systems",
-      "To make computer systems more user-friendly"
-      ],
-      "correctAnswer": "To prevent unauthorized access to computer systems"
+        "question": "What is the main goal of Cybersecurity?",
+        "options": [
+          "To prevent unauthorized access to computer systems",
+          "To increase the speed of computer systems",
+          "To reduce the cost of computer systems",
+          "To make computer systems more user-friendly"
+        ],
+        "correctAnswer": "To prevent unauthorized access to computer systems"
       },
       {
-      "question": "What is a firewall?",
-      "options": [
-      "A hardware or software device that controls incoming and outgoing network traffic",
-      "An antivirus software",
-      "A spyware removal tool",
-      "A device that enhances the speed of network connections"
-      ],
-      "correctAnswer": "A hardware or software device that controls incoming and outgoing network traffic"
+        "question": "What is a firewall?",
+        "options": [
+          "A hardware or software device that controls incoming and outgoing network traffic",
+          "An antivirus software",
+          "A spyware removal tool",
+          "A device that enhances the speed of network connections"
+        ],
+        "correctAnswer": "A hardware or software device that controls incoming and outgoing network traffic"
       },
       {
-      "question": "What is the purpose of encryption?",
-      "options": [
-      "To secure sensitive information by encoding it",
-      "To increase the speed of data transfers",
-      "To make data transfers more efficient",
-      "To reduce the cost of data storage"
-      ],
-      "correctAnswer": "To secure sensitive information by encoding it"
+        "question": "What is the purpose of encryption?",
+        "options": [
+          "To secure sensitive information by encoding it",
+          "To increase the speed of data transfers",
+          "To make data transfers more efficient",
+          "To reduce the cost of data storage"
+        ],
+        "correctAnswer": "To secure sensitive information by encoding it"
       },
       {
-      "question": "What is the difference between a virus and a worm?",
-      "options": [
-      "A virus needs a host file to spread, while a worm can spread on its own",
-      "A virus is a type of worm",
-      "A worm is a type of virus",
-      "A virus is less dangerous than a worm"
-      ],
-      "correctAnswer": "A virus needs a host file to spread, while a worm can spread on its own"
+        "question": "What is the difference between a virus and a worm?",
+        "options": [
+          "A virus needs a host file to spread, while a worm can spread on its own",
+          "A virus is a type of worm",
+          "A worm is a type of virus",
+          "A virus is less dangerous than a worm"
+        ],
+        "correctAnswer": "A virus needs a host file to spread, while a worm can spread on its own"
       },
       {
-      "question": "What is social engineering?",
-      "options": [
-      "The use of psychological manipulation to trick individuals into divulging confidential information",
-      "The use of brute force to crack passwords",
-      "The use of encryption to secure sensitive information",
-      "The use of firewalls to control incoming and outgoing network traffic"
-      ],
-      "correctAnswer": "The use of psychological manipulation to trick individuals into divulging confidential information"
+        "question": "What is social engineering?",
+        "options": [
+          "The use of psychological manipulation to trick individuals into divulging confidential information",
+          "The use of brute force to crack passwords",
+          "The use of encryption to secure sensitive information",
+          "The use of firewalls to control incoming and outgoing network traffic"
+        ],
+        "correctAnswer": "The use of psychological manipulation to trick individuals into divulging confidential information"
       }
-      ]
+    ]
   },
   {
     "id": 13,
@@ -1201,56 +1200,56 @@
     "video": "https://player.vimeo.com/video/116082214?h=71edc224eb",
     "test": [
       {
-      "question": "What is Business Intelligence?",
-      "options": [
-      "The use of technology to support and enhance business decision-making",
-      "The collection and analysis of business data",
-      "The process of making data-driven decisions in a business context",
-      "All of the above"
-      ],
-      "correctAnswer": "All of the above"
+        "question": "What is Business Intelligence?",
+        "options": [
+          "The use of technology to support and enhance business decision-making",
+          "The collection and analysis of business data",
+          "The process of making data-driven decisions in a business context",
+          "All of the above"
+        ],
+        "correctAnswer": "All of the above"
       },
       {
-      "question": "What are the components of a Business Intelligence system?",
-      "options": [
-      "Data warehousing, data mining, and reporting and analysis",
-      "Data visualization, data mining, and business process management",
-      "Data warehousing, reporting and analysis, and data governance",
-      "Data visualization, data governance, and business process management"
-      ],
-      "correctAnswer": "Data warehousing, data mining, and reporting and analysis"
+        "question": "What are the components of a Business Intelligence system?",
+        "options": [
+          "Data warehousing, data mining, and reporting and analysis",
+          "Data visualization, data mining, and business process management",
+          "Data warehousing, reporting and analysis, and data governance",
+          "Data visualization, data governance, and business process management"
+        ],
+        "correctAnswer": "Data warehousing, data mining, and reporting and analysis"
       },
       {
-      "question": "What is the purpose of Data Warehousing in Business Intelligence?",
-      "options": [
-      "To store data for use in business analysis and reporting",
-      "To collect and process real-time data from multiple sources",
-      "To support data governance and data management",
-      "To provide data visualization and reporting tools"
-      ],
-      "correctAnswer": "To store data for use in business analysis and reporting"
+        "question": "What is the purpose of Data Warehousing in Business Intelligence?",
+        "options": [
+          "To store data for use in business analysis and reporting",
+          "To collect and process real-time data from multiple sources",
+          "To support data governance and data management",
+          "To provide data visualization and reporting tools"
+        ],
+        "correctAnswer": "To store data for use in business analysis and reporting"
       },
       {
-      "question": "What is the role of Data Mining in Business Intelligence?",
-      "options": [
-      "To discover hidden patterns and relationships in data",
-      "To store and manage data for business use",
-      "To provide real-time data analysis and reporting",
-      "To support data governance and data management"
-      ],
-      "correctAnswer": "To discover hidden patterns and relationships in data"
+        "question": "What is the role of Data Mining in Business Intelligence?",
+        "options": [
+          "To discover hidden patterns and relationships in data",
+          "To store and manage data for business use",
+          "To provide real-time data analysis and reporting",
+          "To support data governance and data management"
+        ],
+        "correctAnswer": "To discover hidden patterns and relationships in data"
       },
       {
-      "question": "What is the purpose of Reporting and Analysis in Business Intelligence?",
-      "options": [
-      "To provide insight into business performance and decision-making",
-      "To support data warehousing and data mining",
-      "To provide real-time data analysis and reporting",
-      "To support data governance and data management"
-      ],
-      "correctAnswer": "To provide insight into business performance and decision-making"
+        "question": "What is the purpose of Reporting and Analysis in Business Intelligence?",
+        "options": [
+          "To provide insight into business performance and decision-making",
+          "To support data warehousing and data mining",
+          "To provide real-time data analysis and reporting",
+          "To support data governance and data management"
+        ],
+        "correctAnswer": "To provide insight into business performance and decision-making"
       }
-      ]
+    ]
   },
   {
     "id": 14,
@@ -1299,56 +1298,56 @@
     "video": "https://player.vimeo.com/video/145965485?h=d0340b4c24",
     "test": [
       {
-      "question": "What is the main objective of digital marketing?",
-      "options": [
-      "To increase brand awareness",
-      "To increase sales",
-      "To improve customer satisfaction",
-      "All of the above"
-      ],
-      "correctAnswer": "All of the above"
+        "question": "What is the main objective of digital marketing?",
+        "options": [
+          "To increase brand awareness",
+          "To increase sales",
+          "To improve customer satisfaction",
+          "All of the above"
+        ],
+        "correctAnswer": "All of the above"
       },
       {
-      "question": "What is Search Engine Optimization (SEO)?",
-      "options": [
-      "A process of improving the visibility and ranking of a website on search engines",
-      "A way to advertise a website on social media",
-      "A method of email marketing",
-      "A way to track website traffic"
-      ],
-      "correctAnswer": "A process of improving the visibility and ranking of a website on search engines"
+        "question": "What is Search Engine Optimization (SEO)?",
+        "options": [
+          "A process of improving the visibility and ranking of a website on search engines",
+          "A way to advertise a website on social media",
+          "A method of email marketing",
+          "A way to track website traffic"
+        ],
+        "correctAnswer": "A process of improving the visibility and ranking of a website on search engines"
       },
       {
-      "question": "What is Pay-Per-Click (PPC) advertising?",
-      "options": [
-      "An online advertising model where advertisers pay each time a user clicks on one of their ads",
-      "A form of in-person advertising",
-      "A method of email marketing",
-      "A way to track website traffic"
-      ],
-      "correctAnswer": "An online advertising model where advertisers pay each time a user clicks on one of their ads"
+        "question": "What is Pay-Per-Click (PPC) advertising?",
+        "options": [
+          "An online advertising model where advertisers pay each time a user clicks on one of their ads",
+          "A form of in-person advertising",
+          "A method of email marketing",
+          "A way to track website traffic"
+        ],
+        "correctAnswer": "An online advertising model where advertisers pay each time a user clicks on one of their ads"
       },
       {
-      "question": "What is Social Media Marketing?",
-      "options": [
-      "The use of social media platforms to promote a product or service",
-      "A way to advertise a website on search engines",
-      "A method of email marketing",
-      "A way to track website traffic"
-      ],
-      "correctAnswer": "The use of social media platforms to promote a product or service"
+        "question": "What is Social Media Marketing?",
+        "options": [
+          "The use of social media platforms to promote a product or service",
+          "A way to advertise a website on search engines",
+          "A method of email marketing",
+          "A way to track website traffic"
+        ],
+        "correctAnswer": "The use of social media platforms to promote a product or service"
       },
       {
-      "question": "What is Email Marketing?",
-      "options": [
-      "The use of email to promote a product or service",
-      "The use of social media platforms to promote a product or service",
-      "A way to advertise a website on search engines",
-      "A way to track website traffic"
-      ],
-      "correctAnswer": "The use of email to promote a product or service"
+        "question": "What is Email Marketing?",
+        "options": [
+          "The use of email to promote a product or service",
+          "The use of social media platforms to promote a product or service",
+          "A way to advertise a website on search engines",
+          "A way to track website traffic"
+        ],
+        "correctAnswer": "The use of email to promote a product or service"
       }
-      ]
+    ]
   },
   {
     "id": 15,
@@ -1397,54 +1396,54 @@
     "video": "https://player.vimeo.com/video/240231149?h=a69504b26c",
     "test": [
       {
-      "question": "What is Blockchain technology?",
-      "options": [
-      "A decentralized and secure ledger of transactions",
-      "A centralized database management system",
-      "A programming language for smart contracts",
-      "A virtual currency used for online transactions"
-      ],
-      "correctAnswer": "A decentralized and secure ledger of transactions"
+        "question": "What is Blockchain technology?",
+        "options": [
+          "A decentralized and secure ledger of transactions",
+          "A centralized database management system",
+          "A programming language for smart contracts",
+          "A virtual currency used for online transactions"
+        ],
+        "correctAnswer": "A decentralized and secure ledger of transactions"
       },
       {
-      "question": "What is the main advantage of using Blockchain technology?",
-      "options": [
-      "Decentralization and security",
-      "Ease of data management",
-      "Reduced costs of transactions",
-      "Increased processing speed"
-      ],
-      "correctAnswer": "Decentralization and security"
+        "question": "What is the main advantage of using Blockchain technology?",
+        "options": [
+          "Decentralization and security",
+          "Ease of data management",
+          "Reduced costs of transactions",
+          "Increased processing speed"
+        ],
+        "correctAnswer": "Decentralization and security"
       },
       {
-      "question": "What is a smart contract in Blockchain?",
-      "options": [
-      "A self-executing contract with the terms of the agreement directly written into code",
-      "A traditional contract signed between parties",
-      "A tool for debugging Blockchain applications",
-      "A decentralized application for managing transactions"
-      ],
-      "correctAnswer": "A self-executing contract with the terms of the agreement directly written into code"
+        "question": "What is a smart contract in Blockchain?",
+        "options": [
+          "A self-executing contract with the terms of the agreement directly written into code",
+          "A traditional contract signed between parties",
+          "A tool for debugging Blockchain applications",
+          "A decentralized application for managing transactions"
+        ],
+        "correctAnswer": "A self-executing contract with the terms of the agreement directly written into code"
       },
       {
-      "question": "What is the role of a node in a Blockchain network?",
-      "options": [
-      "To store and validate the transactions on the network",
-      "To mine new blocks",
-      "To make decisions regarding the network consensus",
-      "All of the above"
-      ],
-      "correctAnswer": "All of the above"
+        "question": "What is the role of a node in a Blockchain network?",
+        "options": [
+          "To store and validate the transactions on the network",
+          "To mine new blocks",
+          "To make decisions regarding the network consensus",
+          "All of the above"
+        ],
+        "correctAnswer": "All of the above"
       },
       {
-      "question": "What is consensus in a Blockchain network?",
-      "options": [
-      "The process of agreeing on the state of the network",
-      "The process of verifying transactions",
-      "The process of adding new blocks to the chain",
-      "The process of managing the network nodes"
-      ],
-      "correctAnswer": "The process of agreeing on the state of the network"
+        "question": "What is consensus in a Blockchain network?",
+        "options": [
+          "The process of agreeing on the state of the network",
+          "The process of verifying transactions",
+          "The process of adding new blocks to the chain",
+          "The process of managing the network nodes"
+        ],
+        "correctAnswer": "The process of agreeing on the state of the network"
       }
     ]
   }

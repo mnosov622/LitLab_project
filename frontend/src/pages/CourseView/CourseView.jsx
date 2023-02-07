@@ -3,15 +3,24 @@ import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
 import { useRef } from "react";
+import { Oval } from "react-loader-spinner";
 
 const CourseView = () => {
   const { id } = useParams();
   const [isFinished, setIsFinished] = useState(false);
   const videoRef = useRef(null);
+  const [courseData, setCourseData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  const courses = useSelector((state) => state.coursesReducer);
-  const singleCourse = courses.find((c) => c.id === Number(id));
-  console.log("SINGLE COURS$E", singleCourse);
+  useEffect(() => {
+    setLoading(true);
+    fetch(`http://localhost:8000/courses/${Number(id)}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setCourseData(data.course);
+        setLoading(false);
+      });
+  }, []);
 
   const handleEnded = () => {
     setIsFinished(true);
@@ -32,42 +41,57 @@ const CourseView = () => {
   }, []);
 
   return (
-    <>
-      <div className="bg-light shadow text-center p-2 fs-2 mb-4">
-        <p>
-          {singleCourse?.name}
-          &nbsp;&nbsp;<i class="bi bi-person-video3"></i>
-        </p>
-      </div>
-      <div className="row mb-5">
-        <div className="col-md-6">
-          {singleCourse.video && (
-            <iframe
-              ref={videoRef}
-              width="560"
-              height="315"
-              title="video"
-              src={singleCourse.video}
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            >
-              <video onEnded="window.parent.postMessage('videoEnded', '*')"></video>
-            </iframe>
-          )}
+    <div className={loading && "bottom"}>
+      {loading ? (
+        <Oval
+          height={80}
+          width={80}
+          color="#0d6efd"
+          wrapperStyle={{ position: "absolute", left: "50%", top: "40%" }}
+          wrapperClass=""
+          visible={true}
+          ariaLabel="oval-loading"
+          secondaryColor="#0d6efd"
+          strokeWidth={2}
+          strokeWidthSecondary={2}
+        />
+      ) : (
+        <>
+          <div className="bg-light shadow text-center p-2 fs-2 mb-4">
+            <p>
+              {courseData?.name}
+              &nbsp;&nbsp;<i className="bi bi-person-video3"></i>
+            </p>
+          </div>
+          <div className="row mb-5">
+            <div className="col-md-6">
+              {courseData.video && (
+                <iframe
+                  ref={videoRef}
+                  width="560"
+                  height="315"
+                  title="video"
+                  src={courseData.video}
+                  allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                >
+                  <video onEnded="window.parent.postMessage('videoEnded', '*')"></video>
+                </iframe>
+              )}
 
-          {/* <video
+              {/* <video
             src={}
             controls
             width={"100%"}
             onEnded={handleEnded}
           ></video> */}
 
-          <p className="fs-5 text-center mt-3">
-            Once you watch the course, you will be able to do a test &nbsp;
-            <i class="bi bi-chevron-double-down"></i>
-          </p>
+              <p className="fs-5 text-center mt-3">
+                Once you watch the course, you will be able to do a test &nbsp;
+                <i className="bi bi-chevron-double-down"></i>
+              </p>
 
-          {/* <Link
+              {/* <Link
             to={`/test/${singleCourse.id}`}
             className={`btn btn-primary btn-lg ${
               !isFinished && "disabled"
@@ -75,33 +99,33 @@ const CourseView = () => {
           >
             Complete test
           </Link> */}
-          <Link
-            to={`/test/${singleCourse.id}`}
-            className={`btn btn-primary btn-lg d-block mx-auto w-50`}
-          >
-            Complete test
-          </Link>
-        </div>
-        <div className="col-md-6">
-          <p className="fs-1 text-center ">Course Content</p>
-          {singleCourse.courseContent &&
-            singleCourse.courseContent.map((content, index) => (
-              <p key={index} className="week">
-                <h3 className="text-primary">Week {index + 1}</h3>
-                <ul>
-                  {content.week.map((week, i) => (
-                    <li key={i} className="week-item">
-                      {week}
-                    </li>
-                  ))}
-                </ul>
-              </p>
-            ))}
-          {/* <div class="accordion" id="accordionExample">
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingOne">
+              <Link
+                to={`/test/${courseData.id}`}
+                className={`btn btn-primary btn-lg d-block mx-auto w-50`}
+              >
+                Complete test
+              </Link>
+            </div>
+            <div className="col-md-6">
+              <p className="fs-1 text-center ">Course Content</p>
+              {courseData.courseContent &&
+                courseData.courseContent.map((content, index) => (
+                  <p key={index} className="week">
+                    <h3 className="text-primary">Week {index + 1}</h3>
+                    <ul>
+                      {content.week.map((week, i) => (
+                        <li key={i} className="week-item">
+                          {week}
+                        </li>
+                      ))}
+                    </ul>
+                  </p>
+                ))}
+              {/* <div className="accordion" id="accordionExample">
+            <div className="accordion-item">
+              <h2 className="accordion-header" id="headingOne">
                 <button
-                  class="accordion-button"
+                  className="accordion-button"
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target="#collapseOne"
@@ -113,11 +137,11 @@ const CourseView = () => {
               </h2>
               <div
                 id="collapseOne"
-                class="accordion-collapse collapse show"
+                className="accordion-collapse collapse show"
                 aria-labelledby="headingOne"
                 data-bs-parent="#accordionExample"
               >
-                <div class="accordion-body">
+                <div className="accordion-body">
                   <ul>
                     <li>Understanding the components of Angular</li>
                     <li>Setting up an Angular project</li>
@@ -126,10 +150,10 @@ const CourseView = () => {
                 </div>
               </div>
             </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingTwo">
+            <div className="accordion-item">
+              <h2 className="accordion-header" id="headingTwo">
                 <button
-                  class="accordion-button collapsed"
+                  className="accordion-button collapsed"
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target="#collapseTwo"
@@ -141,11 +165,11 @@ const CourseView = () => {
               </h2>
               <div
                 id="collapseTwo"
-                class="accordion-collapse collapse"
+                className="accordion-collapse collapse"
                 aria-labelledby="headingTwo"
                 data-bs-parent="#accordionExample"
               >
-                <div class="accordion-body">
+                <div className="accordion-body">
                   <ul>
                     <li>Understanding the basics of Node.js</li>
                     <li>Building a server-side application</li>
@@ -154,10 +178,10 @@ const CourseView = () => {
                 </div>
               </div>
             </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingThree">
+            <div className="accordion-item">
+              <h2 className="accordion-header" id="headingThree">
                 <button
-                  class="accordion-button collapsed"
+                  className="accordion-button collapsed"
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target="#collapseThree"
@@ -169,11 +193,11 @@ const CourseView = () => {
               </h2>
               <div
                 id="collapseThree"
-                class="accordion-collapse collapse"
+                className="accordion-collapse collapse"
                 aria-labelledby="headingThree"
                 data-bs-parent="#accordionExample"
               >
-                <div class="accordion-body">
+                <div className="accordion-body">
                   <ul>
                     <li>Understanding the basics of MongoDB</li>
                     <li>Integrating MongoDB with a Node.js application</li>
@@ -182,10 +206,10 @@ const CourseView = () => {
                 </div>
               </div>
             </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingFour">
+            <div className="accordion-item">
+              <h2 className="accordion-header" id="headingFour">
                 <button
-                  class="accordion-button collapsed"
+                  className="accordion-button collapsed"
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target="#collapseFour"
@@ -197,11 +221,11 @@ const CourseView = () => {
               </h2>
               <div
                 id="collapseFour"
-                class="accordion-collapse collapse"
+                className="accordion-collapse collapse"
                 aria-labelledby="headingFour"
                 data-bs-parent="#accordionExample"
               >
-                <div class="accordion-body">
+                <div className="accordion-body">
                   <ul>
                     <li>
                       Building a full-stack web application with Angular and
@@ -216,10 +240,10 @@ const CourseView = () => {
                 </div>
               </div>
             </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingFive">
+            <div className="accordion-item">
+              <h2 className="accordion-header" id="headingFive">
                 <button
-                  class="accordion-button collapsed"
+                  className="accordion-button collapsed"
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target="#collapseFive"
@@ -231,11 +255,11 @@ const CourseView = () => {
               </h2>
               <div
                 id="collapseFive"
-                class="accordion-collapse collapse"
+                className="accordion-collapse collapse"
                 aria-labelledby="headingFive"
                 data-bs-parent="#accordionExample"
               >
-                <div class="accordion-body">
+                <div className="accordion-body">
                   <ul>
                     <li>Creating reusable components</li>
                     <li>Best practices for building web applications</li>
@@ -245,10 +269,10 @@ const CourseView = () => {
                 </div>
               </div>
             </div>
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingSix">
+            <div className="accordion-item">
+              <h2 className="accordion-header" id="headingSix">
                 <button
-                  class="accordion-button collapsed"
+                  className="accordion-button collapsed"
                   type="button"
                   data-bs-toggle="collapse"
                   data-bs-target="#collapseSix"
@@ -260,11 +284,11 @@ const CourseView = () => {
               </h2>
               <div
                 id="collapseSix"
-                class="accordion-collapse collapse"
+                className="accordion-collapse collapse"
                 aria-labelledby="headingSix"
                 data-bs-parent="#accordionExample"
               >
-                <div class="accordion-body">
+                <div className="accordion-body">
                   <ul>
                     <li>
                       Building a final project utilizing all the knowledge
@@ -275,9 +299,11 @@ const CourseView = () => {
               </div>
             </div>
           </div> */}
-        </div>
-      </div>
-    </>
+            </div>
+          </div>
+        </>
+      )}
+    </div>
   );
 };
 
