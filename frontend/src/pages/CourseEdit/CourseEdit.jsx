@@ -18,7 +18,8 @@ const CourseEdit = () => {
   const { courseId } = useParams();
   console.log("id is", courseId);
   console.log(decoded.email);
-
+  console.log("user id", decoded.id);
+  const { id } = useParams();
   useEffect(() => {
     setLoading(true);
     fetch(`http://localhost:8000/creator-courses/${decoded.email}`)
@@ -42,6 +43,29 @@ const CourseEdit = () => {
     singleCourse && setPrice(singleCourse?.price);
   }, [userData, courseId]);
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // const updatedCourse = {
+    //   courseName,
+    //   shortDescription,
+    //   longDescription,
+    //   price,
+    // };
+    // fetch(`http://localhost:8000/users/${decoded.id}/courses/${courseId}`, {
+    //   method: "PUT",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     updatedCourse,
+    //   }),
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //     // Handle success or error response
+    //   });
+  };
   return (
     <div className={loading ? "bottom" : ""}>
       <div className="bg-light shadow text-center p-2 fs-2 mb-4">
@@ -68,7 +92,7 @@ const CourseEdit = () => {
           strokeWidthSecondary={2}
         />
       ) : (
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="row">
             <div className="col-md-6">
               <div className="mb-4">

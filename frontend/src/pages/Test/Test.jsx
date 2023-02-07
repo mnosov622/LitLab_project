@@ -77,6 +77,7 @@ const Test = () => {
       .then((data) => {
         setQuestions(data.course.test);
         setLoading(false);
+        console.log(data);
       });
   }, []);
 
@@ -99,7 +100,7 @@ const Test = () => {
         <>
           <p className="fs-1 text-center mb-5 d-flex justify-content-center align-items-center text-primary">
             Complete a test to get certificate &nbsp;&nbsp;
-            <i class="bi bi-patch-check"></i>
+            <i className="bi bi-patch-check"></i>
           </p>
           {question.map((question, index) => (
             <>
@@ -120,7 +121,7 @@ const Test = () => {
                 You have answered all questions correctly!
               </p>
               <Link
-                to="/course/2/certificate/2"
+                to={`/certificate/${id}`}
                 role="button"
                 className="btn btn-primary mb-3"
               >

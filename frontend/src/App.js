@@ -30,6 +30,7 @@ import ContactUs from "./pages/ContactUs/ContactUs";
 import Test from "./pages/Test/Test";
 import Certificate from "./pages/Certificate/Certificate";
 import CourseEdit from "./pages/CourseEdit/CourseEdit";
+import CreatorProfile from "./pages/CreatorProfile/CreatorProfile";
 
 function App() {
   const dispatch = useDispatch();
@@ -68,6 +69,7 @@ function App() {
             <Route path="/upload" element={<CourseUpload />} />
             <Route path="/course/edit/:courseId" element={<CourseEdit />} />
             <Route path="/contact-us" element={<ContactUs />} />
+            <Route path="/profile" element={<CreatorProfile />} />
             <Route path="*" exact={true} element={<NotFound />} />
           </Routes>
         </Container>
@@ -94,10 +96,7 @@ function App() {
               <Route path="/cart" element={<Cart />} />
               <Route path="/help" element={<Help />} />
               <Route path="/contact-us" element={<ContactUs />} />
-              <Route
-                path="/course/:id/certificate/:id"
-                element={<Certificate />}
-              />
+              <Route path="/certificate/:id" element={<Certificate />} />
               <Route
                 path="/course/*"
                 element={<div>We couldn't find it</div>}

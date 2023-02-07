@@ -540,6 +540,57 @@ app.post("/courses", async (req, res) => {
   }
 });
 
+app.put("/users/:userId/courses/:courseId", (req, res) => {
+  console.log("id here", req.params.userId);
+  MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send({ error: "Failed to connect to the database" });
+    } else {
+      const db = client.db("users");
+      const collection = db.collection("users");
+      // Find the user with the specified ID
+      collection.findOne(
+        { _id: new ObjectId(req.params.userId) },
+        (error, user) => {
+          if (error) {
+            console.log(error);
+            res.status(500).send({ error: "Failed to find the user" });
+          } else if (!user) {
+            res.status(404).send({ error: "User not found" });
+          } else {
+            // Update the course with the specified ID
+            const updatedCourses = user.courses.map((course) => {
+              if (course.id === req.params.courseId) {
+                return { ...course, ...req.body.updatedCourse };
+              }
+              return course;
+            });
+
+            collection.updateOne(
+              { _id: new ObjectId(req.params.userId) },
+              { $set: { courses: updatedCourses } },
+              (error, result) => {
+                if (error) {
+                  console.log(error);
+                  res
+                    .status(500)
+                    .send({ error: "Failed to update the course" });
+                } else {
+                  console.log("course data updated successfully");
+                  res.send({ message: "course data updated successfully" });
+                }
+              }
+            );
+          }
+        }
+      );
+
+      client.close();
+    }
+  });
+});
+
 app.get("/creator-courses/:id", (req, res) => {
   MongoClient.connect(
     url,

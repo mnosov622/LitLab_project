@@ -4,18 +4,40 @@ import { useRef } from "react";
 import signature from "../../../src/assets/certificate-signature.png";
 import "./Certificate.scss";
 import congrats from "../../../src/assets/congrats.png";
+import { useParams } from "react-router-dom";
+import jwtDecode from "jwt-decode";
 
 const Certificate = () => {
   const elementRef = useRef(null);
   const [date, setDate] = useState("");
+  const [courseData, setCourseData] = useState([]);
+  const [userData, setUserData] = useState([]);
+  const { id } = useParams();
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    const decoded = jwtDecode(token);
+    console.log(decoded.id);
     let today = new Date();
     let date =
       today.getMonth() + 1 + "/" + today.getDate() + "/" + today.getFullYear();
     console.log(date);
     setDate(date);
+    fetch(`http://localhost:8000/courses/${Number(id)}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setCourseData(data.course);
+        console.log(data);
+      });
+
+    fetch(`http://localhost:8000/users/${decoded.id}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setUserData(data);
+        console.log(data);
+      });
   }, []);
+
   const handleDownload = () => {
     const element = elementRef.current;
     const signatureImg = `<img src="${signature}" alt="Signature" width="12%"/>`;
@@ -55,21 +77,22 @@ const Certificate = () => {
           This is to certify that
           <br />
           <br />
-          <strong>John Doe</strong>
+          <strong>
+            {userData.name} <i class="bi bi-person-circle"></i>
+            <br />
+          </strong>
           <br />
           has completed the course
           <br />
           <br />
-          <strong>Introduction to React</strong>
-          <br />
-          with flying colors.
+          <strong>{courseData.name}</strong>
         </p>
         <p className="text-center mt-3 fs-5">Date: {date}</p>
         <p className="text-center mt-3">
           <img src={signature} alt="Signature" width={"12%"} />
           <br />
           <br />
-          <p className="fs-5 fw-bold">Instructor: Mark Hovers</p>
+          <p className="fs-5 fw-bold">Instructor: {courseData.instructor}</p>
         </p>
         <img
           src={congrats}
