@@ -128,16 +128,14 @@ const CourseEdit = () => {
             <div className="col-md-6">
               {/* TODO: Issue with the image */}
 
-              {/* <p className="fs-4">Course Image</p>
+              <p className="fs-4">Course Image</p>
               {singleCourse && (
                 <img
-                  src={`http://localhost:8000/images/${
-                    singleCourse && singleCourse.courseImage
-                  }`}
+                  src={`http://localhost:8000/images/${singleCourse.courseImage}`}
                   width={"30%"}
                   alt="Course"
                 />
-              )} */}
+              )}
 
               <p className="fs-4">Video</p>
 
