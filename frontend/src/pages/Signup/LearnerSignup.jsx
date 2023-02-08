@@ -111,10 +111,10 @@ const LearnerSignup = () => {
             <Col className="form mt-5">
               <h2 className="mb-3 fs-2">Create an account to get started</h2>
               <Form onSubmit={handleSignup}>
-                <div class="form-floating mb-3">
+                <div className="form-floating mb-3">
                   <input
                     type="name"
-                    class="form-control"
+                    className="form-control"
                     id="floatingName"
                     placeholder="name@example.com"
                     autoFocus
@@ -124,10 +124,10 @@ const LearnerSignup = () => {
                   />
                   <label for="floatingName">Full Name</label>
                 </div>
-                <div class="form-floating mb-3">
+                <div className="form-floating mb-3">
                   <input
                     type="email"
-                    class="form-control"
+                    className="form-control"
                     id="floatingEmail"
                     placeholder="Email"
                     required
@@ -139,10 +139,10 @@ const LearnerSignup = () => {
                   />
                   <label for="floatingEmail">Email Address</label>
                 </div>
-                <div class="form-floating mb-3">
+                <div className="form-floating mb-3">
                   <input
                     type="password"
-                    class="form-control"
+                    className="form-control"
                     id="floatingPassword"
                     placeholder="Password"
                     required
@@ -151,10 +151,10 @@ const LearnerSignup = () => {
                   />
                   <label for="floatingPassword">Password</label>
                 </div>
-                <div class="form-floating mb-3">
+                <div className="form-floating mb-3">
                   <input
                     type="password"
-                    class="form-control"
+                    className="form-control"
                     id="floatingReEnterPassword"
                     placeholder="Password"
                     required

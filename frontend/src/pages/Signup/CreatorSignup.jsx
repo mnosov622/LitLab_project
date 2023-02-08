@@ -81,10 +81,10 @@ const CreatorSignup = () => {
           <Col className="form mt-5 ">
             <h2 className="fs-2 mb-3">Create an account to get started</h2>
             <Form onSubmit={handleSignup}>
-              <div class="form-floating mb-3">
+              <div className="form-floating mb-3">
                 <input
                   type="name"
-                  class="form-control"
+                  className="form-control"
                   id="floatingName"
                   placeholder="Name"
                   required
@@ -95,10 +95,10 @@ const CreatorSignup = () => {
                 <label for="floatingName">Full Name</label>
               </div>
 
-              <div class="form-floating mb-3">
+              <div className="form-floating mb-3">
                 <input
                   type="name"
-                  class="form-control"
+                  className="form-control"
                   id="floatingEmail"
                   placeholder="Email"
                   required
@@ -108,10 +108,10 @@ const CreatorSignup = () => {
                 <label for="floatingEmail">Email Address</label>
               </div>
 
-              <div class="form-floating mb-3">
+              <div className="form-floating mb-3">
                 <input
                   type="password"
-                  class="form-control"
+                  className="form-control"
                   id="floatingPassword"
                   placeholder="Password"
                   required
@@ -121,10 +121,10 @@ const CreatorSignup = () => {
                 <label for="floatingPassword">Password</label>
               </div>
 
-              <div class="form-floating mb-3">
+              <div className="form-floating mb-3">
                 <input
                   type="password"
-                  class="form-control"
+                  className="form-control"
                   id="floatingReEnterPassword"
                   placeholder="Password"
                   required
@@ -138,10 +138,10 @@ const CreatorSignup = () => {
                 )}
               </div>
 
-              <div class="form-floating mb-3">
+              <div className="form-floating mb-3">
                 <input
                   type="name"
-                  class="form-control"
+                  className="form-control"
                   id="floatingSubject"
                   placeholder="Subject"
                   required
@@ -151,10 +151,10 @@ const CreatorSignup = () => {
                 <label for="floatingSubject">Subject</label>
               </div>
 
-              <div class="form-floating mb-3">
+              <div className="form-floating mb-3">
                 <input
                   type="name"
-                  class="form-control"
+                  className="form-control"
                   id="floatingEducation"
                   placeholder="Education"
                   required

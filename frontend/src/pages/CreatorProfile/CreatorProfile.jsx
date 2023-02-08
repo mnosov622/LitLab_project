@@ -6,6 +6,7 @@ const CreatorProfile = () => {
   const token = localStorage.getItem("token");
   const decoded = jwtDecode(token);
   const [profileData, setProfileData] = useState([]);
+
   useEffect(() => {
     fetch(`http://localhost:8000/users/${decoded.id}`)
       .then((response) => response.json())
