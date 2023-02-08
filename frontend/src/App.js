@@ -21,15 +21,23 @@ import { logInAsCreator, logInAsLearner } from "./store/actions";
 
 import Cart from "./pages/Cart/Cart";
 import Analytics from "./pages/Analytics/Analytics";
-import Help from "./pages/Help/Help";
 import CreatorAnalytics from "./pages/CreatorDashboard/Analytics/CreatorAnalytics";
 import CourseView from "./pages/CourseView/CourseView";
 import CourseUpload from "./pages/CreatorDashboard/CourseUpload/CourseUpload";
 import jwtDecode from "jwt-decode";
-import ContactUs from "./pages/ContactUs/ContactUs";
 import Test from "./pages/Test/Test";
 import Certificate from "./pages/Certificate/Certificate";
 import CourseEdit from "./pages/CourseEdit/CourseEdit";
+
+// Footer content
+import AboutUs from "./pages/FooterContent/Aboutus/Aboutus";
+import Blog from "./pages/FooterContent/Blog/Blog";
+import ContactUs from "./pages/FooterContent/ContactUs";
+import ContentCreatorCommunity from "./pages/FooterContent/Community/ContentCreatorCommunity";
+import Help from "./pages/FooterContent/Help";
+import LearnerCommunity from "./pages/FooterContent/Community/LearnerCommunity";
+import Privacy from "./pages/FooterContent/Privacy/Privacy";
+import Term from "./pages/FooterContent/Term/Term";
 import CreatorProfile from "./pages/CreatorProfile/CreatorProfile";
 
 function App() {
@@ -68,8 +76,9 @@ function App() {
             <Route path="/analytics" element={<CreatorAnalytics />} />
             <Route path="/upload" element={<CourseUpload />} />
             <Route path="/course/edit/:courseId" element={<CourseEdit />} />
+            <Route path="/aboutus" element={<AboutUs />} />
+            <Route path="/blog" element={<Blog />} />
             <Route path="/contact-us" element={<ContactUs />} />
-            <Route path="/profile" element={<CreatorProfile />} />
             <Route path="*" exact={true} element={<NotFound />} />
           </Routes>
         </Container>
@@ -94,9 +103,13 @@ function App() {
               <Route path="/payment" element={<Payment />} />
               <Route path="/test/:id" element={<Test />} />
               <Route path="/cart" element={<Cart />} />
-              <Route path="/help" element={<Help />} />
+              <Route path="/aboutus" element={<AboutUs />} />
+              <Route path="/blog" element={<Blog />} />
               <Route path="/contact-us" element={<ContactUs />} />
-              <Route path="/certificate/:id" element={<Certificate />} />
+              <Route
+                path="/course/:id/certificate/:id"
+                element={<Certificate />}
+              />
               <Route
                 path="/course/*"
                 element={<div>We couldn't find it</div>}
@@ -121,8 +134,17 @@ function App() {
               <Route path="/creator-dashboard" element={<CreatorDashboard />} />
               <Route path="/creator/:id" element={<CreatorInformation />} />
               <Route path="/course/:id" element={<CourseDescription />} />
-              <Route path="/help" element={<Help />} />
+              <Route path="/aboutus" element={<AboutUs />} />
+              <Route path="/blog" element={<Blog />} />
               <Route path="/contact-us" element={<ContactUs />} />
+              <Route
+                path="/cccommunity"
+                element={<ContentCreatorCommunity />}
+              />
+              <Route path="/help" element={<Help />} />
+              <Route path="/lcomminuty" element={<LearnerCommunity />} />
+              <Route path="/privacy" element={<Privacy />} />
+              <Route path="/term" element={<Term />} />
               <Route path="*" exact={true} element={<NotFound />} />
             </Routes>
           </Container>
