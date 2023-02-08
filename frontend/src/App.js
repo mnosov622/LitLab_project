@@ -79,6 +79,7 @@ function App() {
             <Route path="/aboutus" element={<AboutUs />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/contact-us" element={<ContactUs />} />
+            <Route path="/profile" element={<CreatorProfile />} />
             <Route path="*" exact={true} element={<NotFound />} />
           </Routes>
         </Container>
