@@ -107,10 +107,7 @@ function App() {
               <Route path="/aboutus" element={<AboutUs />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/contact-us" element={<ContactUs />} />
-              <Route
-                path="/course/:id/certificate/:id"
-                element={<Certificate />}
-              />
+              <Route path="/certificate/:id" element={<Certificate />} />
               <Route
                 path="/course/*"
                 element={<div>We couldn't find it</div>}

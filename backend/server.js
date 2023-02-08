@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 const ObjectId = require("mongodb").ObjectId;
 const gridfs = require("gridfs-stream");
 const multer = require("multer");
-
+const nodemailer = require("nodemailer");
 //MongoDB
 const MongoClient = require("mongodb").MongoClient;
 const { GridFSBucket } = require("mongodb");

@@ -16,27 +16,9 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const navigate = useNavigate();
 
-  const onSuccess = (res) => {
-    console.log("success:", res.profileObj);
-    // navigate("/");
-  };
-  const onFailure = (err) => {
-    console.log("failed:", err);
-  };
+  useEffect(() => {});
 
-  const clientId = process.env.REACT_APP_GOOGLE_LOGIN_CLIENT_ID;
-
-  useEffect(() => {
-    const initClient = () => {
-      gapi.client.init({
-        clientId: clientId,
-        scope: "",
-      });
-    };
-    gapi.load("client:auth2", initClient);
-  });
-
-  const loggedIn = useSelector((state) => state.loggedIn);
+  const handleSubmit = () => {};
 
   return (
     <>
@@ -46,7 +28,7 @@ const Login = () => {
             <p className="text-center fs-2">
               You will recieve a link to reset password
             </p>
-            <Form className="mx-auto w-50">
+            <Form className="mx-auto w-50" onSubmit={handleSubmit}>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label className="fs-4">Enter Email</Form.Label>
                 <Form.Control type="email" placeholder="Email" autoFocus />

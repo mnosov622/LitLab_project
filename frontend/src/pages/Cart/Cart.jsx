@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CourseCard from "../../components/CourseCards/CourseCard";
 import empty from "../../assets/no-courses.gif";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { myCourses } from "../../store/actions";
 
 const Cart = () => {
@@ -10,11 +10,12 @@ const Cart = () => {
   console.log("CURRENT CART", cart);
   const dispatch = useDispatch();
   const AllCourses = useSelector((state) => state.boughtCoursesReducer);
+  const navigate = useNavigate();
 
   const goToCheckout = () => {
     localStorage.removeItem("item_to_buy");
     localStorage.setItem("item_to_buy", JSON.stringify(cart));
-
+    navigate("/payment");
     // dispatch(myCourses(cart));
   };
   return (
@@ -47,11 +48,9 @@ const Cart = () => {
             />
           ))}
           <div className="wrapper text-center mb-5">
-            <Link to="/payment">
-              <button className="btn btn-primary btn-lg" onClick={goToCheckout}>
-                Proceed to checkout
-              </button>
-            </Link>
+            <button className="btn btn-primary btn-lg" onClick={goToCheckout}>
+              Proceed to checkout
+            </button>
           </div>
         </div>
       )}
