@@ -18,7 +18,6 @@ const CourseEdit = () => {
   const { courseId } = useParams();
   console.log("id is", courseId);
   console.log(decoded.email);
-  console.log("user id", decoded.id);
   const { id } = useParams();
   useEffect(() => {
     setLoading(true);
@@ -44,27 +43,34 @@ const CourseEdit = () => {
   }, [userData, courseId]);
 
   const handleSubmit = (e) => {
+    console.log("user id", decoded.id);
+    console.log("cours id", courseId);
+
     e.preventDefault();
-    // const updatedCourse = {
-    //   courseName,
-    //   shortDescription,
-    //   longDescription,
-    //   price,
-    // };
-    // fetch(`http://localhost:8000/users/${decoded.id}/courses/${courseId}`, {
-    //   method: "PUT",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     updatedCourse,
-    //   }),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //     // Handle success or error response
-    //   });
+    const updatedCourse = {
+      courseName: courseName,
+      shortDescription: shortDescription,
+      longDescription: longDescription,
+      price: price,
+    };
+    console.log("email before request", decoded.email);
+    fetch(
+      `http://localhost:8000/creator-courses/${decoded.email}/courses/${courseId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          updatedCourse,
+        }),
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        // Handle success or error response
+      });
   };
   return (
     <div className={loading ? "bottom" : ""}>
