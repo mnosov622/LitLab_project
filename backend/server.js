@@ -540,47 +540,49 @@ app.post("/courses", async (req, res) => {
   }
 });
 
-app.put("/creator-courses/:email/courses/:courseId", (req, res) => {
-  console.log("email before request", req.params.email);
+//update course
 
-  MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
-    if (err) {
-      res.status(500).send({ error: "Failed to connect to the database" });
-    } else {
-      const db = client.db("users");
-      const collection = db.collection("users");
-      // Find the user with the specified ID
-      collection.findOne({ email: "creator@gmail.com" }, (error, user) => {
-        if (error) {
-          res.status(500).send({ error: "Failed to find the user" });
-        } else if (!user) {
-          res.status(404).send({ error: "User not found" });
-        } else {
-          // Update the course with the specified ID
-          const updatedCourses = user.courses.map((course) => {
-            if (course.id === req.params.courseId) {
-              return { ...course, ...req.body.updatedCourse };
-            }
-            return course;
-          });
+// app.put("/creator-courses/:email/courses/:courseId", (req, res) => {
+//   console.log("email before request", req.params.email);
 
-          collection.updateOne(
-            { email: req.params.email },
-            { $set: { courses: updatedCourses } },
-            (error, result) => {
-              if (error) {
-                res.status(500).send({ error: "Failed to update the course" });
-              } else {
-                res.send({ message: "course data updated successfully" });
-              }
-            }
-          );
-        }
-      });
-      client.close();
-    }
-  });
-});
+//   MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+//     if (err) {
+//       res.status(500).send({ error: "Failed to connect to the database" });
+//     } else {
+//       const db = client.db("users");
+//       const collection = db.collection("users");
+//       // Find the user with the specified ID
+//       collection.findOne({ email: "creator@gmail.com" }, (error, user) => {
+//         if (error) {
+//           res.status(500).send({ error: "Failed to find the user" });
+//         } else if (!user) {
+//           res.status(404).send({ error: "User not found" });
+//         } else {
+//           // Update the course with the specified ID
+//           const updatedCourses = user.courses.map((course) => {
+//             if (course.id === req.params.courseId) {
+//               return { ...course, ...req.body.updatedCourse };
+//             }
+//             return course;
+//           });
+
+//           collection.updateOne(
+//             { email: req.params.email },
+//             { $set: { courses: updatedCourses } },
+//             (error, result) => {
+//               if (error) {
+//                 res.status(500).send({ error: "Failed to update the course" });
+//               } else {
+//                 res.send({ message: "course data updated successfully" });
+//               }
+//             }
+//           );
+//         }
+//       });
+//       client.close();
+//     }
+//   });
+// });
 
 app.get("/creator-courses/:id", (req, res) => {
   MongoClient.connect(
@@ -649,6 +651,40 @@ app.delete("/users/:userEmail/courses/:courseName", (req, res) => {
       }
     );
   });
+});
+
+//not working yet :(
+app.put("/users/:userEmail/courses/:id", (req, res) => {
+  User.findOne({ email: req.params.userEmail })
+    .then((user) => {
+      if (!user) {
+        res.status(404).json({ error: "User not found" });
+        return;
+      }
+      console.log("user", user);
+      const updatedCourses = user.courses
+        ? user.courses.map((course) => {
+            if (Number(course.id) === Number(req.params.id)) {
+              console.log("in if statement");
+              return { ...course, courseCompleted: true };
+            }
+            return course;
+          })
+        : [];
+
+      return User.findOneAndUpdate(
+        { email: req.params.userEmail },
+        { $set: { courses: updatedCourses } },
+        { new: true }
+      );
+    })
+    .then((result) => {
+      res.json({ message: "Course updated successfully" });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ error: "Failed to update the course" });
+    });
 });
 
 app.listen(8000, () => console.log("Server is up on port 8000"));
