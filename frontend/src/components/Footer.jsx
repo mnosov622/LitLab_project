@@ -18,7 +18,7 @@ const Footer = () => {
               <Link to="/">
                 <p className="">Most popular courses</p>
               </Link>
-              <Link to="all-course">
+              <Link to="/all-courses">
                 <p className="">Explore all courses</p>
               </Link>
             </div>
