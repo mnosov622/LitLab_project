@@ -199,44 +199,48 @@ const Payment = () => {
           )}
         </div>
         <div className="p-4 col-md-6 h-100 bg-light shadow">
-  <form onSubmit={handleSubmit}>
-    <div>
+        <form onSubmit={handleSubmit}>
+    <div class="form-group">
       <label htmlFor="cardNumber">Card Number:</label>
       <input
+        class="form-control"
         type="text"
         id="cardNumber"
         value={cardNumber}
         onChange={(event) => setCardNumber(event.target.value)}
       />
     </div>
-    <div>
+    <div class="form-group">
       <label htmlFor="cardHolderName">Card Holder Name:</label>
       <input
+        class="form-control"
         type="text"
         id="cardHolderName"
         value={cardHolderName}
         onChange={(event) => setCardHolderName(event.target.value)}
       />
     </div>
-    <div>
+    <div class="form-group">
       <label htmlFor="expiryDate">Expiry Date:</label>
       <input
+        class="form-control"
         type="text"
         id="expiryDate"
         value={expiryDate}
         onChange={(event) => setExpiryDate(event.target.value)}
       />
     </div>
-    <div>
+    <div class="form-group">
       <label htmlFor="cvv">CVV:</label>
       <input
+        class="form-control"
         type="text"
         id="cvv"
         value={cvv}
         onChange={(event) => setCvv(event.target.value)}
       />
     </div>
-    <button type="submit">Save Payment Method</button>
+    <button class="btn btn-primary" type="submit">Save Payment Method</button>
   </form>
   <p className="fs-3">
     Total: <span>{item_to_buy[0]?.price}$</span>
