@@ -492,6 +492,8 @@ MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
   });
 });
 
+//getting image is buggy
+
 app.get("/images/:filename", (req, res) => {
   MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
     if (err) console.log("error ecurred", err);
@@ -560,60 +562,62 @@ app.post("/courses", async (req, res) => {
 
 //update course
 
-// app.put("/creator-courses/:email/courses/:courseId", (req, res) => {
-//   console.log("email before request", req.params.email);
+app.put("/creator-courses/:email/courses/:courseId", (req, res) => {
+  MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+    if (err) {
+      res.status(500).send({ error: "Failed to connect to the database" });
+    } else {
+      const db = client.db("users");
+      const collection = db.collection("users");
+      // Find the user with the specified ID
+      collection.findOne({ email: req.params.email }, (error, user) => {
+        if (error) {
+          res.status(500).send({ error: "Failed to find the user" });
+        } else if (!user) {
+          res.status(404).send({ error: "User not found" });
+        } else {
+          // Update the course with the specified ID
+          const updatedCourses = user.courses.map((course) => {
+            if (Number(course.id) === req.params.courseId) {
+              return { ...course, ...req.body.updatedCourse };
+            }
+            return course;
+          });
 
-//   MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
-//     if (err) {
-//       res.status(500).send({ error: "Failed to connect to the database" });
-//     } else {
-//       const db = client.db("users");
-//       const collection = db.collection("users");
-//       // Find the user with the specified ID
-//       collection.findOne({ email: "creator@gmail.com" }, (error, user) => {
-//         if (error) {
-//           res.status(500).send({ error: "Failed to find the user" });
-//         } else if (!user) {
-//           res.status(404).send({ error: "User not found" });
-//         } else {
-//           // Update the course with the specified ID
-//           const updatedCourses = user.courses.map((course) => {
-//             if (course.id === req.params.courseId) {
-//               return { ...course, ...req.body.updatedCourse };
-//             }
-//             return course;
-//           });
+          collection.updateOne(
+            { email: req.params.email },
+            { $set: { courses: updatedCourses } },
+            (error, result) => {
+              if (error) {
+                res.status(500).send({ error: "Failed to update the course" });
+              } else {
+                res.send({ message: "course data updated successfully" });
+              }
+            }
+          );
+        }
+      });
+      client.close();
+    }
+  });
+});
 
-//           collection.updateOne(
-//             { email: req.params.email },
-//             { $set: { courses: updatedCourses } },
-//             (error, result) => {
-//               if (error) {
-//                 res.status(500).send({ error: "Failed to update the course" });
-//               } else {
-//                 res.send({ message: "course data updated successfully" });
-//               }
-//             }
-//           );
-//         }
-//       });
-//       client.close();
-//     }
-//   });
-// });
-
-app.get("/creator-courses/:id", (req, res) => {
+app.get("/user-course/:userId", (req, res) => {
+  console.log("user id", req.params.userId);
   MongoClient.connect(
     url,
     { useNewUrlParser: true, useUnifiedTopology: true },
     (err, client) => {
       if (err) throw err;
       const db = client.db("users");
-      db.collection("users").findOne({ email: req.params.id }, (err, user) => {
-        if (err) throw err;
-        res.json(user);
-        client.close();
-      });
+      db.collection("users").findOne(
+        { _id: new ObjectId(req.params.userId) },
+        (err, user) => {
+          if (err) throw err;
+          res.json(user);
+          client.close();
+        }
+      );
     }
   );
 });
