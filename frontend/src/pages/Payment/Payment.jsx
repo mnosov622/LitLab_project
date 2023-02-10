@@ -267,6 +267,7 @@ const Payment = () => {
         class="form-control"
         type="text"
         id="cardHolderName"
+        placeholder="Maxim Nosov"
         value={cardHolderName}
         onChange={(event) => setCardHolderName(event.target.value)}
       />
@@ -295,6 +296,9 @@ const Payment = () => {
     pattern="[0-9]*"
     onChange={(event) => setCvv(event.target.value)}
   />
+</div>
+<div class="form-group">
+  <img src={PaymentLogo} width="250" height="50" alt="Visa and Mastercard logo" />
 </div>
   </form>
   <p className="fs-3">
