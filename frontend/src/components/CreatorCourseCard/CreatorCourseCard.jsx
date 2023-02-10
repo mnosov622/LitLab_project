@@ -11,29 +11,31 @@ const CreatorCourseCard = ({
   courseId,
 }) => {
   const handleDelete = () => {
-    const token = localStorage.getItem("token");
-    const decoded = jwtDecode(token);
-    const userEmail = decoded.email;
-    console.log("data", { email: userEmail, courseName: courseName });
+    if (window.confirm("Are you sure you want to delete the course?")) {
+      const token = localStorage.getItem("token");
+      const decoded = jwtDecode(token);
+      const userEmail = decoded.email;
+      console.log("data", { email: userEmail, courseName: courseName });
 
-    fetch(`http://localhost:8000/courses/${courseName}`, {
-      method: "DELETE",
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((e) => console.log(e));
-
-    fetch(`http://localhost:8000/users/${userEmail}/courses/${courseName}`, {
-      method: "DELETE",
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        setTimeout(() => {
-          window.location.reload();
-        }, 500);
+      fetch(`http://localhost:8000/courses/${courseName}`, {
+        method: "DELETE",
       })
-      .catch((e) => console.log(e));
+        .then((response) => response.json())
+        .then((data) => console.log(data))
+        .catch((e) => console.log(e));
+
+      fetch(`http://localhost:8000/users/${userEmail}/courses/${courseName}`, {
+        method: "DELETE",
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data);
+          setTimeout(() => {
+            window.location.reload();
+          }, 500);
+        })
+        .catch((e) => console.log(e));
+    }
   };
   return (
     <>
