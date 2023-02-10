@@ -11,6 +11,7 @@ import CreatorSignup from "./pages/Signup/CreatorSignup";
 import LearnerSignup from "./pages/Signup/LearnerSignup";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 import CreatorDashboard from "./pages/CreatorDashboard/CreatorDashboard";
+import AdminDashboard from "./pages/AdminDashboard/AdminDashboard";
 import CreatorInformation from "./pages/CreatorInformation/CreatorInformation";
 import { useEffect, useState } from "react";
 import LearnerCourses from "./pages/LearnerCourses/LearnerCourses";
@@ -43,6 +44,7 @@ import CreatorProfile from "./pages/CreatorProfile/CreatorProfile";
 function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
 
   const loggedInAsLearner = useSelector((state) => state.loggedInAsLearner);
   // console.log("LOGGED IN AS LEARNER", logInAsLearner);
@@ -80,6 +82,7 @@ function App() {
             <Route path="/blog" element={<Blog />} />
             <Route path="/contact-us" element={<ContactUs />} />
             <Route path="/profile" element={<CreatorProfile />} />
+            <Route path="/admin" element={<AdminDashboard />} />
             <Route path="*" exact={true} element={<NotFound />} />
           </Routes>
         </Container>
@@ -107,7 +110,15 @@ function App() {
               <Route path="/aboutus" element={<AboutUs />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/contact-us" element={<ContactUs />} />
+              <Route path="/admin" element={<AdminDashboard />} />
+
+
+              <Route
+                path="/course/:id/certificate/:id"
+                element={<Certificate />}
+              />
               <Route path="/certificate/:id" element={<Certificate />} />
+
               <Route
                 path="/course/*"
                 element={<div>We couldn't find it</div>}
@@ -135,6 +146,9 @@ function App() {
               <Route path="/aboutus" element={<AboutUs />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/contact-us" element={<ContactUs />} />
+              <Route path="/admin" element={<AdminDashboard />} />
+
+
               <Route
                 path="/cccommunity"
                 element={<ContentCreatorCommunity />}
@@ -143,6 +157,7 @@ function App() {
               <Route path="/lcomminuty" element={<LearnerCommunity />} />
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/term" element={<Term />} />
+
               <Route path="*" exact={true} element={<NotFound />} />
             </Routes>
           </Container>

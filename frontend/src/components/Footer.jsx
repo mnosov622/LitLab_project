@@ -21,6 +21,9 @@ const Footer = () => {
               <Link to="/all-courses">
                 <p className="">Explore all courses</p>
               </Link>
+              <Link to="/admin">
+                <p className="">Admin</p>
+              </Link>
             </div>
             <div className="col-md-3">
               <p className="fs-5 fw-bold">Community</p>
