@@ -52,6 +52,8 @@ function App() {
   const loggedInAsAdmin = useSelector((state) => state.adminLogin);
 
   console.log("Creator is logged in ", loggedInAsCreator);
+  console.log("Learner is logged in ", loggedInAsCreator);
+  console.log("Admin is logged in ", loggedInAsAdmin);
 
   useEffect(() => {
     if (localStorage.getItem("token") === null) {

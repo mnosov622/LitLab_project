@@ -10,7 +10,12 @@ import { GoogleLogin } from "react-google-login";
 import { gapi } from "gapi-script";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { logIn, logInAsCreator, logInAsLearner } from "../../store/actions";
+import {
+  logIn,
+  loginAsAdmin,
+  logInAsCreator,
+  logInAsLearner,
+} from "../../store/actions";
 import { useNavigate } from "react-router-dom";
 import { Bars, Oval } from "react-loader-spinner";
 
@@ -111,8 +116,11 @@ const Login = () => {
         if (data?.user?.isLearner) {
           dispatch(logInAsLearner());
           navigate("/");
-        } else {
+        } else if (data?.user?.isCreator) {
           dispatch(logInAsCreator());
+          navigate("/");
+        } else {
+          dispatch(loginAsAdmin());
           navigate("/");
         }
       } else if (response.status === 404) {
