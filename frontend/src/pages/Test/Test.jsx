@@ -108,7 +108,7 @@ const Test = () => {
       .then((data) => {
         setQuestions(data.course.test);
         setLoading(false);
-        console.log(data);
+        console.log("course", data);
       });
   }, []);
 

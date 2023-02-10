@@ -65,7 +65,7 @@ const CreatorInformation = () => {
               cardSmall
               name={course.name}
               price={course.price}
-              courseImage={course.courseImageURL}
+              creatorCourseImage={course.courseImageURL}
               id={course.id}
               rating={course.rating}
             />

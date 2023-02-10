@@ -13,6 +13,7 @@ const CourseCard = ({
   id,
   cardSmall,
   courseImage,
+  creatorCourseImage,
   rating,
   linkToCourseView,
   contentCreatorCard,
@@ -45,6 +46,13 @@ const CourseCard = ({
             className="card-item border position-relative"
             style={{ position: "relative" }}
           >
+            {creatorCourseImage && (
+              <img
+                src={creatorCourseImage}
+                className="card-img-top img-fluid card-image"
+                alt="Course"
+              />
+            )}
             {courseImage ? (
               <img
                 src={`http://localhost:8000/images/${courseImage}`}
@@ -52,11 +60,13 @@ const CourseCard = ({
                 alt="Course"
               />
             ) : (
-              <img
-                src={image}
-                className="card-img-top img-fluid card-image"
-                alt="Teacher for the course"
-              />
+              !creatorCourseImage && (
+                <img
+                  src={image}
+                  className="card-img-top img-fluid card-image"
+                  alt="Teacher for the course"
+                />
+              )
             )}
 
             <div className="card-body">
@@ -87,6 +97,16 @@ const CourseCard = ({
               <p className="bg-light border rounded text-center mt-4 fw-bold fs-5">
                 {price}$
               </p>
+              {courseCompleted && (
+                <div className="text-center bg-primary p-2 rounded">
+                  <Link
+                    to={`/certificate/${id}`}
+                    className="text-center text-light"
+                  >
+                    Show Certificate
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         </Link>
