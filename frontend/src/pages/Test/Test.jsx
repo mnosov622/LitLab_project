@@ -70,30 +70,31 @@ const Test = () => {
     setCorrectAnswers(correctAnswers + 1);
   };
   useEffect(() => {
-    // if (correctAnswers === totalQuestions) {
-    const fetchData = async () => {
-      const response = await fetch(
-        `http://localhost:8000/users/${userEmail}/courses/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            userEmail: userEmail,
-            courseId: id,
-          }),
-        }
-      );
+    //If users answers all questions correctly, make a PUT request to set the value of Completed to true
+    if (correctAnswers === totalQuestions) {
+      const fetchData = async () => {
+        const response = await fetch(
+          `http://localhost:8000/users/${userEmail}/courses/${id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              userEmail: userEmail,
+              courseId: id,
+            }),
+          }
+        );
 
-      console.log(response);
-      if (!response.ok) {
-        console.log("error");
-        throw new Error(response.statusText);
-      }
-    };
-    fetchData();
-    // }
+        console.log(response);
+        if (!response.ok) {
+          console.log("error");
+          throw new Error(response.statusText);
+        }
+      };
+      fetchData();
+    }
   }, [totalQuestions, correctAnswers]);
 
   setTimeout(() => {

@@ -88,6 +88,7 @@ const LearnerCourses = () => {
               image={course?.courseImage}
               teacherName={course?.instructor}
               id={course?.id}
+              courseCompleted={course.isCompleted}
             />
           ))}
         </div>

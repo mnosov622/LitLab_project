@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./CourseCard.scss";
+
+import { Badge } from "react-bootstrap";
+import jwtDecode from "jwt-decode";
 
 const CourseCard = ({
   name,
@@ -13,12 +16,36 @@ const CourseCard = ({
   rating,
   linkToCourseView,
   contentCreatorCard,
+  courseCompleted,
 }) => {
+  const [courses, setCourses] = useState([]);
+  console.log("completed", courseCompleted);
   return (
     <>
-      <div className={cardSmall ? "w-25 mb-5 col-md-6" : "w-100 mb-5"}>
+      <div
+        className={cardSmall ? "w-25 mb-5 col-md-6" : "w-100 mb-5"}
+        style={{ position: "relative" }}
+      >
+        {courseCompleted && (
+          <Badge
+            variant="success"
+            className="w-75"
+            style={{
+              fontSize: "20px",
+              position: "absolute",
+              top: 0,
+              right: "12.5%",
+              zIndex: 1,
+            }}
+          >
+            Completed
+          </Badge>
+        )}
         <Link to={linkToCourseView ? `/course-view/${id}` : `/course/${id}`}>
-          <div className="card-item border">
+          <div
+            className="card-item border position-relative"
+            style={{ position: "relative" }}
+          >
             {courseImage ? (
               <img
                 src={`http://localhost:8000/images/${courseImage}`}

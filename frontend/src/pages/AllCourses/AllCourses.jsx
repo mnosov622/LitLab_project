@@ -1,3 +1,4 @@
+import jwtDecode from "jwt-decode";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -11,6 +12,10 @@ import "./AllCourses.scss";
 const AllCourses = () => {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
+  const token = localStorage.getItem("token");
+  const decoded = jwtDecode(token);
+  const userId = decoded.id;
+  const [userCourses, setUserCourses] = useState([]);
 
   useEffect(() => {
     setLoading(true);
@@ -20,6 +25,13 @@ const AllCourses = () => {
         console.log("data", data);
         setCourses(data);
         setLoading(false);
+      });
+
+    fetch(`http://localhost:8000/users/${userId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setUserCourses(data.courses);
+        console.log("user courses", data.courses);
       });
   }, []);
 

@@ -73,6 +73,7 @@ const Payment = () => {
             instructor: item_to_buy[0]?.instructor,
             courseImage: item_to_buy[0].courseImage,
             price: item_to_buy[0].price,
+            isCompleted: false,
           }),
         });
         alert.success("Course was succesfully purchased", {
