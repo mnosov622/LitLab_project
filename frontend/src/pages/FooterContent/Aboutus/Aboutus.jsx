@@ -4,6 +4,9 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import wwb from '../../../assets/what-we-belive.jpg'
+import wwh from '../../../assets/what_we_have.jpg'
+import wwo from '../../../assets/what_we_offer.jpg'
+import ov from '../../../assets/our_vision.jpg'
 
 const AboutUs = () => {
   return (
@@ -30,7 +33,7 @@ const AboutUs = () => {
         </Row>
         <Row className='row-1'>
           <Col>
-          
+          <img className='img-wwo' src={wwo} alt="Belive" />
           </Col>
           <Col xs={7}>
           <h3>What We Offer</h3>
@@ -67,10 +70,14 @@ const AboutUs = () => {
             beginner or an expert, we invite you to join the LitLab community and start exploring all that we have to offer.
             </p>
           </Col>
-          <Col></Col>
+          <Col>
+          <img className='img-wwh' src={wwh} alt="Belive" />
+          </Col>
         </Row>
         <Row className='row-1'>
-          <Col></Col>
+          <Col>
+          <img className='img-ov' src={ov} alt="Belive" />
+          </Col>
           <Col>
             <h3>Our Vision</h3>
             <p> 
