@@ -206,6 +206,9 @@ const Payment = () => {
         class="form-control"
         type="text"
         id="cardNumber"
+        maxLength="16"
+        pattern="[0-9]*"
+        placeholder="1234-5678"
         value={cardNumber}
         onChange={(event) => setCardNumber(event.target.value)}
       />
@@ -221,25 +224,31 @@ const Payment = () => {
       />
     </div>
     <div class="form-group">
-      <label htmlFor="expiryDate">Expiry Date:</label>
-      <input
-        class="form-control"
-        type="text"
-        id="expiryDate"
-        value={expiryDate}
-        onChange={(event) => setExpiryDate(event.target.value)}
-      />
-    </div>
-    <div class="form-group">
-      <label htmlFor="cvv">CVV:</label>
-      <input
-        class="form-control"
-        type="text"
-        id="cvv"
-        value={cvv}
-        onChange={(event) => setCvv(event.target.value)}
-      />
-    </div>
+  <label htmlFor="expiryDate">Expiry Date:</label>
+  <input
+    class="form-control"
+    type="date"
+    id="expiryDate"
+    value={expiryDate}
+    min={new Date().toISOString().split("T")[0]}
+    onChange={(event) => setExpiryDate(event.target.value)}
+  />
+</div>
+
+
+<div class="form-group">
+  <label htmlFor="cvv">CVV:</label>
+  <input
+    class="form-control"
+    type="text"
+    id="cvv"
+    value={cvv}
+    maxLength="3"
+    pattern="[0-9]*"
+    onChange={(event) => setCvv(event.target.value)}
+  />
+</div>
+
     <button class="btn btn-primary" type="submit">Save Payment Method</button>
   </form>
   <p className="fs-3">
