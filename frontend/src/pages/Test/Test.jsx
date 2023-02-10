@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Oval } from "react-loader-spinner";
 import { Link, useParams } from "react-router-dom";
 import Confetti from "react-confetti";
+import jwtDecode from "jwt-decode";
 
 const Question = ({
   question,
@@ -60,16 +61,46 @@ const Test = () => {
   const [correctAnswers, setCorrectAnswers] = useState(null);
   const totalQuestions = question.length;
   const [running, setIsRunning] = useState(true);
+  const token = localStorage.getItem("token");
+  const decoded = jwtDecode(token);
+  const { id } = useParams();
+  const userEmail = decoded.email;
 
   const handleCorrectAnswer = () => {
     setCorrectAnswers(correctAnswers + 1);
   };
+  useEffect(() => {
+    //If users answers all questions correctly, make a PUT request to set the value of Completed to true
+    if (correctAnswers === totalQuestions) {
+      const fetchData = async () => {
+        const response = await fetch(
+          `http://localhost:8000/users/${userEmail}/courses/${id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              userEmail: userEmail,
+              courseId: id,
+            }),
+          }
+        );
+
+        console.log(response);
+        if (!response.ok) {
+          console.log("error");
+          throw new Error(response.statusText);
+        }
+      };
+      fetchData();
+    }
+  }, [totalQuestions, correctAnswers]);
 
   setTimeout(() => {
     setIsRunning(false);
   }, 3000);
 
-  const { id } = useParams();
   useEffect(() => {
     setLoading(true);
     fetch(`http://localhost:8000/courses/${Number(id)}`)
@@ -77,7 +108,7 @@ const Test = () => {
       .then((data) => {
         setQuestions(data.course.test);
         setLoading(false);
-        console.log(data);
+        console.log("course", data);
       });
   }, []);
 

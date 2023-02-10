@@ -182,6 +182,27 @@ app.post("/login", (req, res) => {
         if (!user) {
           return res.status(404).json({ message: "User not found" });
         }
+        if (user.isAdmin) {
+          if (
+            user.password !== req.body.password ||
+            user.email !== req.body.email
+          ) {
+            return res.status(401).json({ message: "Incorrect credentials" });
+          }
+
+          const payload = {
+            id: user._id,
+            email: user.email,
+            name: user.name,
+            isAdmin: user?.isAdmin,
+          };
+          const token = jwt.sign(payload, secret, { expiresIn: "2h" });
+
+          res.status(200).send({ user, token });
+
+          db.close();
+          return 0;
+        }
         const hashedPassword = user?.password;
         const match = await bcrypt.compare(password, hashedPassword);
 
@@ -326,11 +347,8 @@ app.get("/users/:id", (req, res) => {
 
 app.post("/buy-course", (req, res) => {
   const token = req.headers.authorization;
-  console.log("TOKEn", token);
   const decoded = jwt.verify(token, secret);
   const userId = decoded.id;
-
-  console.log("user id is", userId);
 
   MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
     if (err) {
@@ -359,6 +377,7 @@ app.post("/buy-course", (req, res) => {
         instructor: req.body.instructor,
         courseImage: req.body.courseImage,
         price: req.body.price,
+        isCompleted: false,
       });
 
       // Update the user document in the database
@@ -371,7 +390,6 @@ app.post("/buy-course", (req, res) => {
           }
           client.close();
           res.send({ success: true });
-          console.log("added course");
         }
       );
     });
@@ -474,6 +492,8 @@ MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
   });
 });
 
+//getting image is buggy
+
 app.get("/images/:filename", (req, res) => {
   MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
     if (err) console.log("error ecurred", err);
@@ -483,6 +503,58 @@ app.get("/images/:filename", (req, res) => {
 
     const readStream = bucket.openDownloadStreamByName(req.params.filename);
     readStream.pipe(res);
+  });
+});
+
+app.put("/certificate/:id", (req, res) => {
+  const userId = req.params.id;
+  console.log(userId);
+  const coursesCompleted = req.body.coursesCompleted;
+  console.log("name", req.body.courseName);
+  // Find the user by ID
+
+  MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+
+    const db = client.db("users");
+    const users = db.collection("users");
+
+    users.findOne({ _id: new ObjectId(userId) }, (err, user) => {
+      if (err) {
+        console.error(err);
+        client.close();
+        return;
+      }
+
+      if (!user.coursesCompleted) {
+        user.coursesCompleted = [];
+      }
+
+      // Add the course to the user's courses list
+      user.coursesCompleted.push({
+        id: req.body.courseId,
+        courseName: req.body.name,
+        instructor: req.body.instructor,
+        courseImage: req.body.courseImage,
+        price: req.body.price,
+      });
+
+      // Update the user document in the database
+      users.updateOne(
+        { _id: user._id },
+        { $set: { coursesCompleted: user.coursesCompleted } },
+        (err) => {
+          if (err) {
+            console.error(err);
+          }
+          client.close();
+          res.send({ success: true });
+        }
+      );
+    });
   });
 });
 
@@ -540,9 +612,9 @@ app.post("/courses", async (req, res) => {
   }
 });
 
-app.put("/creator-courses/:email/courses/:courseId", (req, res) => {
-  console.log("email before request", req.params.email);
+//update course
 
+app.put("/creator-courses/:email/courses/:courseId", (req, res) => {
   MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
     if (err) {
       res.status(500).send({ error: "Failed to connect to the database" });
@@ -550,7 +622,7 @@ app.put("/creator-courses/:email/courses/:courseId", (req, res) => {
       const db = client.db("users");
       const collection = db.collection("users");
       // Find the user with the specified ID
-      collection.findOne({ email: "creator@gmail.com" }, (error, user) => {
+      collection.findOne({ email: req.params.email }, (error, user) => {
         if (error) {
           res.status(500).send({ error: "Failed to find the user" });
         } else if (!user) {
@@ -558,7 +630,7 @@ app.put("/creator-courses/:email/courses/:courseId", (req, res) => {
         } else {
           // Update the course with the specified ID
           const updatedCourses = user.courses.map((course) => {
-            if (course.id === req.params.courseId) {
+            if (Number(course.id) === req.params.courseId) {
               return { ...course, ...req.body.updatedCourse };
             }
             return course;
@@ -582,18 +654,22 @@ app.put("/creator-courses/:email/courses/:courseId", (req, res) => {
   });
 });
 
-app.get("/creator-courses/:id", (req, res) => {
+app.get("/user-course/:userId", (req, res) => {
+  console.log("user id", req.params.userId);
   MongoClient.connect(
     url,
     { useNewUrlParser: true, useUnifiedTopology: true },
     (err, client) => {
       if (err) throw err;
       const db = client.db("users");
-      db.collection("users").findOne({ email: req.params.id }, (err, user) => {
-        if (err) throw err;
-        res.json(user);
-        client.close();
-      });
+      db.collection("users").findOne(
+        { _id: new ObjectId(req.params.userId) },
+        (err, user) => {
+          if (err) throw err;
+          res.json(user);
+          client.close();
+        }
+      );
     }
   );
 });
@@ -649,6 +725,50 @@ app.delete("/users/:userEmail/courses/:courseName", (req, res) => {
       }
     );
   });
+});
+
+//not working yet :(
+app.put("/users/:userEmail/courses/:id", (req, res) => {
+  User.findOne({ email: req.params.userEmail })
+    .then((user) => {
+      if (!user) {
+        res.status(404).json({ error: "User not found" });
+        return;
+      }
+
+      // Check if the user has any courses
+      if (!user.courses) {
+        res.status(404).json({ error: "The user does not have any courses" });
+        return;
+      }
+
+      // Find the index of the course with the matching id
+      const courseIndex = user.courses.findIndex(
+        (course) => Number(course.id) === Number(req.params.id)
+      );
+
+      // Check if the course with the matching id exists
+      if (courseIndex === -1) {
+        res.status(404).json({ error: "The course does not exist" });
+        return;
+      }
+
+      // Update the isCompleted property of the course
+      user.courses[courseIndex].isCompleted = true;
+
+      return User.findOneAndUpdate(
+        { email: req.params.userEmail },
+        { $set: { courses: user.courses } },
+        { new: true }
+      );
+    })
+    .then((result) => {
+      res.json({ message: "Course updated successfully" });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ error: "Failed to update the course" });
+    });
 });
 
 app.listen(8000, () => console.log("Server is up on port 8000"));

@@ -18,7 +18,7 @@ import LearnerCourses from "./pages/LearnerCourses/LearnerCourses";
 import CourseDescription from "./pages/CourseDescription/CourseDescription";
 import Payment from "./pages/Payment/Payment";
 import { useDispatch, useSelector } from "react-redux";
-import { logInAsCreator, logInAsLearner } from "./store/actions";
+import { logInAsCreator, logInAsLearner, loginAsAdmin } from "./store/actions";
 
 import Cart from "./pages/Cart/Cart";
 import Analytics from "./pages/Analytics/Analytics";
@@ -44,13 +44,16 @@ import CreatorProfile from "./pages/CreatorProfile/CreatorProfile";
 function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  
 
   const loggedInAsLearner = useSelector((state) => state.loggedInAsLearner);
   // console.log("LOGGED IN AS LEARNER", logInAsLearner);
   // console.log(logInAsLearner);
   const loggedInAsCreator = useSelector((state) => state.creatorLogin);
+  const loggedInAsAdmin = useSelector((state) => state.adminLogin);
+
   console.log("Creator is logged in ", loggedInAsCreator);
+  console.log("Learner is logged in ", loggedInAsCreator);
+  console.log("Admin is logged in ", loggedInAsAdmin);
 
   useEffect(() => {
     if (localStorage.getItem("token") === null) {
@@ -59,14 +62,39 @@ function App() {
     const token = localStorage.getItem("token");
     console.log("TOKEN is", token);
     const decoded = jwtDecode(token);
+    console.log("decoded", decoded?.isAdmin);
+
     if (token) {
       if (decoded?.isLearner) {
+        console.log("logged in as learner");
         dispatch(logInAsLearner());
       } else if (decoded?.isCreator) {
+        console.log("logged in as creator");
         dispatch(logInAsCreator());
+      } else if (decoded?.isAdmin) {
+        console.log("logged in as admin");
+        dispatch(loginAsAdmin());
       }
     }
   }, []);
+
+  if (loggedInAsAdmin) {
+    return (
+      <>
+        <Navbar />
+        <Container style={{ marginTop: "100px", marginBottom: "100px" }}>
+          <Routes>
+            <Route path="/" element={<AdminDashboard />} />
+            <Route path="/all-courses" element={<AllCourses />} />
+            <Route path="/course/:id" element={<CourseDescription />} />
+            <Route path="/course-view/:id" element={<CourseView />} />
+            <Route path="*" exact={true} element={<NotFound />} />
+          </Routes>
+        </Container>
+        <Footer />
+      </>
+    );
+  }
 
   if (loggedInAsCreator) {
     return (
@@ -112,7 +140,6 @@ function App() {
               <Route path="/contact-us" element={<ContactUs />} />
               <Route path="/admin" element={<AdminDashboard />} />
 
-
               <Route
                 path="/course/:id/certificate/:id"
                 element={<Certificate />}
@@ -147,7 +174,6 @@ function App() {
               <Route path="/blog" element={<Blog />} />
               <Route path="/contact-us" element={<ContactUs />} />
               <Route path="/admin" element={<AdminDashboard />} />
-
 
               <Route
                 path="/cccommunity"

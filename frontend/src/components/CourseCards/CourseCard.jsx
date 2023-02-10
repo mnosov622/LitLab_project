@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import "./CourseCard.scss";
+
+import { Badge } from "react-bootstrap";
+import jwtDecode from "jwt-decode";
 
 const CourseCard = ({
   name,
@@ -10,15 +13,46 @@ const CourseCard = ({
   id,
   cardSmall,
   courseImage,
+  creatorCourseImage,
   rating,
   linkToCourseView,
   contentCreatorCard,
+  courseCompleted,
 }) => {
+  const [courses, setCourses] = useState([]);
   return (
     <>
-      <div className={cardSmall ? "w-25 mb-5 col-md-6" : "w-100 mb-5"}>
+      <div
+        className={cardSmall ? "w-25 mb-5 col-md-6" : "w-100 mb-5"}
+        style={{ position: "relative" }}
+      >
+        {courseCompleted && (
+          <Badge
+            variant="success"
+            className="w-75"
+            style={{
+              fontSize: "20px",
+              position: "absolute",
+              top: 0,
+              right: "12.5%",
+              zIndex: 1,
+            }}
+          >
+            Completed
+          </Badge>
+        )}
         <Link to={linkToCourseView ? `/course-view/${id}` : `/course/${id}`}>
-          <div className="card-item border">
+          <div
+            className="card-item border position-relative"
+            style={{ position: "relative" }}
+          >
+            {creatorCourseImage && (
+              <img
+                src={creatorCourseImage}
+                className="card-img-top img-fluid card-image"
+                alt="Course"
+              />
+            )}
             {courseImage ? (
               <img
                 src={`http://localhost:8000/images/${courseImage}`}
@@ -26,11 +60,13 @@ const CourseCard = ({
                 alt="Course"
               />
             ) : (
-              <img
-                src={image}
-                className="card-img-top img-fluid card-image"
-                alt="Teacher for the course"
-              />
+              !creatorCourseImage && (
+                <img
+                  src={image}
+                  className="card-img-top img-fluid card-image"
+                  alt="Teacher for the course"
+                />
+              )
             )}
 
             <div className="card-body">
@@ -61,6 +97,16 @@ const CourseCard = ({
               <p className="bg-light border rounded text-center mt-4 fw-bold fs-5">
                 {price}$
               </p>
+              {courseCompleted && (
+                <div className="text-center bg-primary p-2 rounded">
+                  <Link
+                    to={`/certificate/${id}`}
+                    className="text-center text-light"
+                  >
+                    Show Certificate
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         </Link>

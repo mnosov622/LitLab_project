@@ -22,6 +22,7 @@ const Navbar = () => {
 
   const loggedInAsLearner = useSelector((state) => state.loggedInAsLearner);
   const loginAsCreator = useSelector((state) => state.creatorLogin);
+  const loginAsAdmin = useSelector((state) => state.adminLogin);
   const courses = useSelector((state) => state.coursesReducer);
   const amountIfItems = useSelector((state) => state.increaseItemsAmount);
 
@@ -71,7 +72,7 @@ const Navbar = () => {
           </div>
           {!loginAsCreator && (
             <div className="col-md-2 all-courses mt-4 fs-5">
-              <Link to="all-courses ">Explore All Courses</Link>
+              <Link to="/all-courses">Explore All Courses</Link>
             </div>
           )}
 
@@ -170,6 +171,28 @@ const Navbar = () => {
                 </button>
               </div>
             </div>
+          ) : loginAsAdmin ? (
+            <>
+              <div className="col-md-8 d-flex align-items-baseline justify-content-between">
+                <p className="offset-2 fs-5 text-black">
+                  Welcome back, <span className="text-primary">{name}</span>
+                </p>
+                <div className="col-md-4 text-end mt-4 fs-5">
+                  <Link to="/" className="">
+                    Dashboard
+                  </Link>
+                </div>
+
+                <div className="offset-1 col-md-2 mt-4">
+                  <button
+                    className="justify-content-end btn btn-dark"
+                    onClick={logOut}
+                  >
+                    Log out
+                  </button>
+                </div>
+              </div>
+            </>
           ) : (
             <>
               <div className="col-md-7 text-end mt-4">

@@ -102,7 +102,7 @@ const Term = () => {
           <p>
           <h3>Contact Information:</h3> 
           If you have any questions or concerns regarding these Terms and Conditions, please contact LitLab at 
-          [contact email or phone number].
+          info@litlab.com .
           </p>
           <p>
           <h3>Changes to Terms and Conditions:</h3> 

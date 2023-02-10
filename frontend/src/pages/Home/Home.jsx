@@ -77,7 +77,7 @@ const Home = () => {
           </div> */}
         </div>
       </div>
-      <div className="row mt-5">
+      <div className="row mt-5" id="most-popular">
         <div className="col-md-12 mt-5 fs-2">
           <p className="mt-5 title text-primary">
             Get certificate for your field
@@ -91,7 +91,7 @@ const Home = () => {
                 name="React - The complete Guide"
                 id="1"
                 image={teacher1}
-                price="19$/month"
+                price="45"
                 teacherName="Simona Gareth"
               />
             </div>
@@ -100,7 +100,7 @@ const Home = () => {
                 name="Javascript - From Zero to Hero"
                 id="2"
                 image={javascriptTeacher}
-                price="25$/month"
+                price="55"
                 teacherName="Kyle Thompson"
               />
             </div>
@@ -109,7 +109,7 @@ const Home = () => {
                 name="Influence - Psychology of Persuasion"
                 id="3"
                 image={influenceTeacher}
-                price="22$/month"
+                price="45"
                 teacherName="Mark Forgheit"
               />
             </div>

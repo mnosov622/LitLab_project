@@ -5,7 +5,6 @@ import { useAlert, positions } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import CourseCard from "../../components/CourseCards/CourseCard";
-import PaymentLogo from "../../assets/PaymentLogo.png";
 
 
 const Payment = () => {
@@ -16,10 +15,10 @@ const Payment = () => {
   const navigate = useNavigate();
   const currentCart = useSelector((state) => state.cartReducer);
   console.log("CURRENT CART", currentCart);
-  const [cardNumber, setCardNumber] = useState('');
-  const [cardHolderName, setCardHolderName] = useState('');
-  const [expiryDate, setExpiryDate] = useState('');
-  const [cvv, setCvv] = useState('');
+  const [cardNumber, setCardNumber] = useState("");
+  const [cardHolderName, setCardHolderName] = useState("");
+  const [expiryDate, setExpiryDate] = useState("");
+  const [cvv, setCvv] = useState("");
   const [totalAmount, setTotalAmount] = useState(0);
   const token = localStorage.getItem("token");
   const item = localStorage.getItem("item_to_buy");
@@ -75,6 +74,7 @@ const Payment = () => {
             instructor: item_to_buy[0]?.instructor,
             courseImage: item_to_buy[0].courseImage,
             price: item_to_buy[0].price,
+            isCompleted: false,
           }),
         });
         alert.success("Course was succesfully purchased", {
@@ -94,14 +94,13 @@ const Payment = () => {
     event.preventDefault();
 
     // Perform validation here and submit the form data to the server
-    console.log('Card Number:', cardNumber);
-    console.log('Card Holder Name:', cardHolderName);
-    console.log('Expiry Date:', expiryDate);
-    console.log('CVV:', cvv);
+    console.log("Card Number:", cardNumber);
+    console.log("Card Holder Name:", cardHolderName);
+    console.log("Expiry Date:", expiryDate);
+    console.log("CVV:", cvv);
   };
 
   if (!Array.isArray(item_to_buy)) {
-    console.log("here");
     return (
       <>
         <div className="row">
@@ -139,6 +138,55 @@ const Payment = () => {
             </div>
           </div>
           <div className="p-4 col-md-6 h-100 bg-light shadow">
+            <form onSubmit={handleSubmit}>
+              <div class="form-group">
+                <label htmlFor="cardNumber">Card Number:</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  id="cardNumber"
+                  maxLength="16"
+                  pattern="[0-9]*"
+                  placeholder="1234-5678-"
+                  value={cardNumber}
+                  onChange={(event) => setCardNumber(event.target.value)}
+                />
+              </div>
+              <div class="form-group">
+                <label htmlFor="cardHolderName">Card Holder Name:</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  id="cardHolderName"
+                  value={cardHolderName}
+                  onChange={(event) => setCardHolderName(event.target.value)}
+                />
+              </div>
+              <div class="form-group">
+                <label htmlFor="expiryDate">Expiry Date:</label>
+                <input
+                  class="form-control"
+                  type="date"
+                  id="expiryDate"
+                  value={expiryDate}
+                  min={new Date().toISOString().split("T")[0]}
+                  onChange={(event) => setExpiryDate(event.target.value)}
+                />
+              </div>
+
+              <div class="form-group">
+                <label htmlFor="cvv">CVV:</label>
+                <input
+                  class="form-control"
+                  type="text"
+                  id="cvv"
+                  value={cvv}
+                  maxLength="3"
+                  pattern="[0-9]*"
+                  onChange={(event) => setCvv(event.target.value)}
+                />
+              </div>
+            </form>
             <p className="fs-3">
               Total: <span>{item_to_buy?.price}$</span>
             </p>
@@ -150,7 +198,6 @@ const Payment = () => {
       </>
     );
   } else if (Array.isArray(item_to_buy)) {
-    console.log("here2");
     return (
       <div className="row">
         <div className=" col-md-6 fs-1">
@@ -209,19 +256,17 @@ const Payment = () => {
         id="cardNumber"
         maxLength="16"
         pattern="[0-9]*"
-        placeholder="Enter 16 digit credit card number"
+        placeholder="1234-5678-"
         value={cardNumber}
         onChange={(event) => setCardNumber(event.target.value)}
-      />  
+      />
     </div>
-    
     <div class="form-group">
       <label htmlFor="cardHolderName">Card Holder Name:</label>
       <input
         class="form-control"
         type="text"
         id="cardHolderName"
-        placeholder="Maxim Nosov"
         value={cardHolderName}
         onChange={(event) => setCardHolderName(event.target.value)}
       />
@@ -251,10 +296,6 @@ const Payment = () => {
     onChange={(event) => setCvv(event.target.value)}
   />
 </div>
-<div class="form-group">
-  <img src={PaymentLogo} width="250" height="50" alt="Visa and Mastercard logo" />
-</div>
-
   </form>
   <p className="fs-3">
     Total: <span>{item_to_buy[0]?.price}$</span>

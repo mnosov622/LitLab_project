@@ -15,6 +15,12 @@ export const logInAsCreator = () => {
     type: "LOGIN_AS_CREATOR",
   };
 };
+
+export const loginAsAdmin = () => {
+  return {
+    type: "LOGIN_AS_ADMIN",
+  };
+};
 export const Allcourses = (object) => ({
   type: "STORE_OBJECT",
   payload: object,

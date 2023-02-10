@@ -109,8 +109,8 @@ const ContactUs = () => {
                       </div>
                       <div className="text pl-3">
                         <p>
-                          <span>Address:</span> 198 West 21th Street, Suite 721
-                          New York NY 10016
+                          <span>Address:</span> 198 West 21th Street
+                          Toronto, ON M4X 1X3
                         </p>
                       </div>
                     </div>
@@ -121,7 +121,7 @@ const ContactUs = () => {
                       <div className="text pl-3">
                         <p>
                           <span>Phone:</span>{" "}
-                          <a href="tel://1234567920">+ 1235 2355 98</a>
+                          <a href="tel://12345678900">+1 (234) 547-8900</a>
                         </p>
                       </div>
                     </div>
@@ -131,7 +131,7 @@ const ContactUs = () => {
                       </div>
                       <div className="text pl-3">
                         <p>
-                          <span>Email:</span> LitLab_Learning@gmail.com
+                          <span>Email:</span> info@litlab.com
                         </p>
                       </div>
                     </div>
@@ -141,7 +141,7 @@ const ContactUs = () => {
                       </div>
                       <div className="text pl-3">
                         <p>
-                          <span>Website: </span> LitLabLearning.com
+                          <span>Website: </span> LitLabLearning.org
                         </p>
                       </div>
                     </div>

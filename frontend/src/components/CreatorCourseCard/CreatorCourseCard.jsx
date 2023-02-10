@@ -27,7 +27,12 @@ const CreatorCourseCard = ({
       method: "DELETE",
     })
       .then((response) => response.json())
-      .then((data) => console.log(data))
+      .then((data) => {
+        console.log(data);
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+      })
       .catch((e) => console.log(e));
   };
   return (
