@@ -19,7 +19,6 @@ const CourseCard = ({
   courseCompleted,
 }) => {
   const [courses, setCourses] = useState([]);
-  console.log("completed", courseCompleted);
   return (
     <>
       <div
