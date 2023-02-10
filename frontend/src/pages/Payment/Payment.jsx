@@ -5,6 +5,7 @@ import { useAlert, positions } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import CourseCard from "../../components/CourseCards/CourseCard";
+import PaymentLogo from "../../assets/PaymentLogo.png";
 
 
 const Payment = () => {
@@ -208,17 +209,19 @@ const Payment = () => {
         id="cardNumber"
         maxLength="16"
         pattern="[0-9]*"
-        placeholder="1234-5678-"
+        placeholder="Enter 16 digit credit card number"
         value={cardNumber}
         onChange={(event) => setCardNumber(event.target.value)}
-      />
+      />  
     </div>
+    
     <div class="form-group">
       <label htmlFor="cardHolderName">Card Holder Name:</label>
       <input
         class="form-control"
         type="text"
         id="cardHolderName"
+        placeholder="Maxim Nosov"
         value={cardHolderName}
         onChange={(event) => setCardHolderName(event.target.value)}
       />
@@ -248,6 +251,10 @@ const Payment = () => {
     onChange={(event) => setCvv(event.target.value)}
   />
 </div>
+<div class="form-group">
+  <img src={PaymentLogo} width="250" height="50" alt="Visa and Mastercard logo" />
+</div>
+
   </form>
   <p className="fs-3">
     Total: <span>{item_to_buy[0]?.price}$</span>
