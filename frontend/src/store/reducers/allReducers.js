@@ -7,6 +7,7 @@ import { buyCourseReducer } from "./buyCourseNow";
 import { increaseItemsAmount } from "./itemsAmount";
 import { creatorLogin } from "./creatorLogin";
 import { createdCourse } from "./creatorCourse";
+import { adminLogin } from "./loginAsAdmin";
 
 export const allReducers = combineReducers({
   loggedIn,
@@ -17,4 +18,5 @@ export const allReducers = combineReducers({
   increaseItemsAmount,
   creatorLogin,
   createdCourse,
+  adminLogin,
 });

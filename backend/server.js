@@ -182,6 +182,27 @@ app.post("/login", (req, res) => {
         if (!user) {
           return res.status(404).json({ message: "User not found" });
         }
+        if (user.isAdmin) {
+          if (
+            user.password !== req.body.password ||
+            user.email !== req.body.email
+          ) {
+            return res.status(401).json({ message: "Incorrect credentials" });
+          }
+
+          const payload = {
+            id: user._id,
+            email: user.email,
+            name: user.name,
+            isAdmin: user?.isAdmin,
+          };
+          const token = jwt.sign(payload, secret, { expiresIn: "2h" });
+
+          res.status(200).send({ user, token });
+
+          db.close();
+          return 0;
+        }
         const hashedPassword = user?.password;
         const match = await bcrypt.compare(password, hashedPassword);
 

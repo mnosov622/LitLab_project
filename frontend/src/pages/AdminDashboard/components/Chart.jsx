@@ -76,13 +76,12 @@ const Sales = () => {
   );
 };
 
-
-
-
 const Charts = () => {
   return (
     <>
-        <p><b>Analytics</b></p>
+      <p className="text-center fs-3 mt-3 mb-3">
+        <b>Analytics</b>
+      </p>
       <div className="charts-container mb-5">
         <ActiveUser />
         <Sales />
