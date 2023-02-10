@@ -90,6 +90,7 @@ const LearnerCourses = () => {
               teacherName={course?.instructor}
               id={course?.id}
               courseCompleted={course.isCompleted}
+              deleteBtn
             />
           ))}
         </div>

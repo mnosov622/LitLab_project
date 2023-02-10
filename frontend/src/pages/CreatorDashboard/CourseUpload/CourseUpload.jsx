@@ -92,7 +92,7 @@ const CourseUpload = () => {
   return (
     <form onSubmit={onSubmit}>
       <div className="bg-light shadow text-center p-2 fs-2 mb-4">
-        <p>My Courses</p>
+        <p>Upload your course</p>
       </div>
 
       <div className="row">
