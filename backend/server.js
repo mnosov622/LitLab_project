@@ -661,7 +661,12 @@ app.put("/users/:userEmail/courses/:id", (req, res) => {
         res.status(404).json({ error: "User not found" });
         return;
       }
-      console.log("user", user);
+      if (user && user.courses) {
+        console.log(user.courses);
+        // rest of the code
+      } else {
+        console.log("Courses property is not defined or is an empty array.");
+      }
       const updatedCourses = user.courses
         ? user.courses.map((course) => {
             if (Number(course.id) === Number(req.params.id)) {

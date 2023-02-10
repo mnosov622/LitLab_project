@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import CourseCard from "../../components/CourseCards/CourseCard";
 
-
 const Payment = () => {
   //TODO: Add sockets, so that user don't have to refresh page when he buys the course
 
@@ -15,10 +14,10 @@ const Payment = () => {
   const navigate = useNavigate();
   const currentCart = useSelector((state) => state.cartReducer);
   console.log("CURRENT CART", currentCart);
-  const [cardNumber, setCardNumber] = useState('');
-  const [cardHolderName, setCardHolderName] = useState('');
-  const [expiryDate, setExpiryDate] = useState('');
-  const [cvv, setCvv] = useState('');
+  const [cardNumber, setCardNumber] = useState("");
+  const [cardHolderName, setCardHolderName] = useState("");
+  const [expiryDate, setExpiryDate] = useState("");
+  const [cvv, setCvv] = useState("");
   const [totalAmount, setTotalAmount] = useState(0);
   const token = localStorage.getItem("token");
   const item = localStorage.getItem("item_to_buy");
@@ -93,14 +92,13 @@ const Payment = () => {
     event.preventDefault();
 
     // Perform validation here and submit the form data to the server
-    console.log('Card Number:', cardNumber);
-    console.log('Card Holder Name:', cardHolderName);
-    console.log('Expiry Date:', expiryDate);
-    console.log('CVV:', cvv);
+    console.log("Card Number:", cardNumber);
+    console.log("Card Holder Name:", cardHolderName);
+    console.log("Expiry Date:", expiryDate);
+    console.log("CVV:", cvv);
   };
 
   if (!Array.isArray(item_to_buy)) {
-    console.log("here");
     return (
       <>
         <div className="row">
@@ -149,7 +147,6 @@ const Payment = () => {
       </>
     );
   } else if (Array.isArray(item_to_buy)) {
-    console.log("here2");
     return (
       <div className="row">
         <div className=" col-md-6 fs-1">
@@ -199,58 +196,52 @@ const Payment = () => {
           )}
         </div>
         <div className="p-4 col-md-6 h-100 bg-light shadow">
-  <form onSubmit={handleSubmit}>
-    <div>
-      <label htmlFor="cardNumber">Card Number:</label>
-      <input
-        type="text"
-        id="cardNumber"
-        value={cardNumber}
-        onChange={(event) => setCardNumber(event.target.value)}
-      />
-    </div>
-    <div>
-      <label htmlFor="cardHolderName">Card Holder Name:</label>
-      <input
-        type="text"
-        id="cardHolderName"
-        value={cardHolderName}
-        onChange={(event) => setCardHolderName(event.target.value)}
-      />
-    </div>
-    <div>
-      <label htmlFor="expiryDate">Expiry Date:</label>
-      <input
-        type="text"
-        id="expiryDate"
-        value={expiryDate}
-        onChange={(event) => setExpiryDate(event.target.value)}
-      />
-    </div>
-    <div>
-      <label htmlFor="cvv">CVV:</label>
-      <input
-        type="text"
-        id="cvv"
-        value={cvv}
-        onChange={(event) => setCvv(event.target.value)}
-      />
-    </div>
-    <button type="submit">Save Payment Method</button>
-  </form>
-  <p className="fs-3">
-    Total: <span>{item_to_buy[0]?.price}$</span>
-  </p>
-  <button className="btn btn-primary btn-lg w-100" onClick={pay}>
-    Pay
-  </button>
-</div>
-
-
-
-
-
-
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label htmlFor="cardNumber">Card Number:</label>
+              <input
+                type="text"
+                id="cardNumber"
+                value={cardNumber}
+                onChange={(event) => setCardNumber(event.target.value)}
+              />
+            </div>
+            <div>
+              <label htmlFor="cardHolderName">Card Holder Name:</label>
+              <input
+                type="text"
+                id="cardHolderName"
+                value={cardHolderName}
+                onChange={(event) => setCardHolderName(event.target.value)}
+              />
+            </div>
+            <div>
+              <label htmlFor="expiryDate">Expiry Date:</label>
+              <input
+                type="text"
+                id="expiryDate"
+                value={expiryDate}
+                onChange={(event) => setExpiryDate(event.target.value)}
+              />
+            </div>
+            <div>
+              <label htmlFor="cvv">CVV:</label>
+              <input
+                type="text"
+                id="cvv"
+                value={cvv}
+                onChange={(event) => setCvv(event.target.value)}
+              />
+            </div>
+            <button type="submit">Save Payment Method</button>
+          </form>
+          <p className="fs-3">
+            Total: <span>{item_to_buy[0]?.price}$</span>
+          </p>
+          <button className="btn btn-primary btn-lg w-100" onClick={pay}>
+            Pay
+          </button>
+        </div>
       </div>
     );
   }
