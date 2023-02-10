@@ -147,7 +147,7 @@ p.text-muted {
         }
     }
 }
-/* Border versions */
+
 
 .table-bordered {
     border: 1px solid ;
@@ -157,14 +157,14 @@ p.text-muted {
         border: 1px solid ;
     }
 }
-/* Zebra-striping */
+
 
 .table-striped {
     tbody tr:nth-of-type(2n+1) {
         background-color: transparentize(grey,0.95);
     }
 }
-/* Hover effect */
+
 
 .table-hover {
     tbody tr {
@@ -173,7 +173,7 @@ p.text-muted {
         }
     }
 }
-/* Table backgrounds */
+
 
 .table {
     .thead-dark {
@@ -209,6 +209,11 @@ p.text-muted {
         }
     }
 }
+
+.scroll-y {
+    z-index: 1027;
+}
+
 
 
 

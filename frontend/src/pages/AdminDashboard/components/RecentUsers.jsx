@@ -13,7 +13,7 @@ function RecentUsers() {
 <Col md={6} xl={8}>
                         <Card className='Recent-Users'>
                             <Card.Header>
-                                <Card.Title as='h5'>Recent Users</Card.Title>
+                                <Card.Title as='h5'>Recent Instructors</Card.Title>
                             </Card.Header>
                             <Card.Body className='px-0 py-2'>
                                 <Table responsive hover>
