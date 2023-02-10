@@ -208,7 +208,7 @@ const Payment = () => {
         id="cardNumber"
         maxLength="16"
         pattern="[0-9]*"
-        placeholder="1234-5678"
+        placeholder="1234-5678-"
         value={cardNumber}
         onChange={(event) => setCardNumber(event.target.value)}
       />
@@ -248,8 +248,6 @@ const Payment = () => {
     onChange={(event) => setCvv(event.target.value)}
   />
 </div>
-
-    <button class="btn btn-primary" type="submit">Save Payment Method</button>
   </form>
   <p className="fs-3">
     Total: <span>{item_to_buy[0]?.price}$</span>
