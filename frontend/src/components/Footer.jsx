@@ -12,13 +12,13 @@ const Footer = () => {
           <div className="row mt-5 p-2">
             <div className="col-md-3">
               <p className="fs-5 fw-bold">LitLab</p>
-              <Link to="#about">
+              <Link to="/aboutus">
                 <p className="">About us</p>
               </Link>
-              <Link to="">
+              <Link to="/">
                 <p className="">Most popular courses</p>
               </Link>
-              <Link to="">
+              <Link to="/all-courses">
                 <p className="">Explore all courses</p>
               </Link>
               <Link to="/admin">
@@ -28,31 +28,28 @@ const Footer = () => {
             <div className="col-md-3">
               <p className="fs-5 fw-bold">Community</p>
               <Link to="/creator-signup">
-                <p className="">Content creator</p>
+                <p className="/cccommunity">Content creator</p>
               </Link>
-              <Link to="/learner-signup">
+              <Link to="/lcommunity">
                 <p className="">Learner</p>
               </Link>
-              <Link to="/">
+              <Link to="/blog">
                 <p className="">Blog</p>
               </Link>
             </div>
             <div className="col-md-3">
               <p className="fs-5 fw-bold">More</p>
-              <Link to="/Help">
-                <p className="">Help</p>
-              </Link>
-              <Link to="/">
+              <Link to="/term">
                 <p className="">Terms</p>
               </Link>
-              <Link to="/">
+              <Link to="/privacy">
                 <p className="">Privacy Policy</p>
               </Link>
               <Link to="/contact-us">
                 <p className="">Contact Us</p>
               </Link>
-              <Link to="/">
-                <p className="">Most popular questions</p>
+              <Link to="/help">
+                <p className="">Most popular questions(FAQ)</p>
               </Link>
             </div>
             <div className="col-md-3">

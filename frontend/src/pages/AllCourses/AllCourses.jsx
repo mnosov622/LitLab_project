@@ -7,7 +7,6 @@ import CourseCard from "../../components/CourseCards/CourseCard";
 import { Allcourses } from "../../store/actions";
 import { loggedInAsLearner } from "../../store/reducers/loginAsLearner";
 import "./AllCourses.scss";
-import empty from "../../assets/no-courses.gif";
 
 const AllCourses = () => {
   const [courses, setCourses] = useState([]);

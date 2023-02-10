@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 const ObjectId = require("mongodb").ObjectId;
 const gridfs = require("gridfs-stream");
 const multer = require("multer");
-
+const nodemailer = require("nodemailer");
 //MongoDB
 const MongoClient = require("mongodb").MongoClient;
 const { GridFSBucket } = require("mongodb");
@@ -538,6 +538,48 @@ app.post("/courses", async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
+});
+
+app.put("/creator-courses/:email/courses/:courseId", (req, res) => {
+  console.log("email before request", req.params.email);
+
+  MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
+    if (err) {
+      res.status(500).send({ error: "Failed to connect to the database" });
+    } else {
+      const db = client.db("users");
+      const collection = db.collection("users");
+      // Find the user with the specified ID
+      collection.findOne({ email: "creator@gmail.com" }, (error, user) => {
+        if (error) {
+          res.status(500).send({ error: "Failed to find the user" });
+        } else if (!user) {
+          res.status(404).send({ error: "User not found" });
+        } else {
+          // Update the course with the specified ID
+          const updatedCourses = user.courses.map((course) => {
+            if (course.id === req.params.courseId) {
+              return { ...course, ...req.body.updatedCourse };
+            }
+            return course;
+          });
+
+          collection.updateOne(
+            { email: req.params.email },
+            { $set: { courses: updatedCourses } },
+            (error, result) => {
+              if (error) {
+                res.status(500).send({ error: "Failed to update the course" });
+              } else {
+                res.send({ message: "course data updated successfully" });
+              }
+            }
+          );
+        }
+      });
+      client.close();
+    }
+  });
 });
 
 app.get("/creator-courses/:id", (req, res) => {

@@ -157,6 +157,9 @@ const Navbar = () => {
               <Link to="/analytics" className="dashboard-item fs-5">
                 Analytics
               </Link>
+              <Link to="/profile" className="dashboard-item fs-5">
+                My Profile
+              </Link>
 
               <div className="offset-1 col-md-2 mt-4">
                 <button

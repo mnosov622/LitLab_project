@@ -40,7 +40,7 @@ const CourseDescription = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:8000/courses/${Number(singleCourse.id)}`)
+    fetch(`http://localhost:8000/courses/${Number(id)}`)
       .then((response) => response.json())
       .then((data) => {
         setCourse(data.course);
@@ -273,7 +273,6 @@ const CourseDescription = () => {
                     {course.pointsToLearn &&
                       course.pointsToLearn.map((item) => (
                         <>
-                          key={item.id}
                           <div className="fs-1">
                             <span style={{ marginRight: "10px" }}>
                               <svg

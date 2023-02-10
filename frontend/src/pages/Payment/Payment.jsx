@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import CourseCard from "../../components/CourseCards/CourseCard";
 
+
 const Payment = () => {
   //TODO: Add sockets, so that user don't have to refresh page when he buys the course
 
@@ -14,12 +15,15 @@ const Payment = () => {
   const navigate = useNavigate();
   const currentCart = useSelector((state) => state.cartReducer);
   console.log("CURRENT CART", currentCart);
-
+  const [cardNumber, setCardNumber] = useState('');
+  const [cardHolderName, setCardHolderName] = useState('');
+  const [expiryDate, setExpiryDate] = useState('');
+  const [cvv, setCvv] = useState('');
   const [totalAmount, setTotalAmount] = useState(0);
   const token = localStorage.getItem("token");
   const item = localStorage.getItem("item_to_buy");
   const item_to_buy = JSON.parse(item);
-
+  console.log("course name", item_to_buy);
   useEffect(() => {
     if (currentCart.length > 1) {
       const prices = currentCart.map((item) => Number(item.price));
@@ -29,35 +33,74 @@ const Payment = () => {
   }, []);
 
   const pay = async () => {
-    try {
-      fetch("http://localhost:8000/buy-course", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: token,
-        },
-        body: JSON.stringify({
-          courseId: item_to_buy?.id,
-          name: item_to_buy?.name,
-          instructor: item_to_buy?.instructor,
-          courseImage: item_to_buy.image,
-          price: item_to_buy.price,
-        }),
-      });
-      alert.success("Course was succesfully purchased", {
-        position: positions.BOTTOM_RIGHT,
-        timeout: 2000, // custom timeout just for this one alert
-      });
-      navigate("/");
-      setTimeout(() => {
-        window.location.reload();
-      }, 500);
-    } catch (e) {
-      console.log("An error occured", e);
+    if (!Array.isArray(item_to_buy)) {
+      try {
+        fetch("http://localhost:8000/buy-course", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+          body: JSON.stringify({
+            courseId: item_to_buy?.id,
+            name: item_to_buy?.name,
+            instructor: item_to_buy?.instructor,
+            courseImage: item_to_buy.image,
+            price: item_to_buy.price,
+          }),
+        });
+        alert.success("Course was succesfully purchased", {
+          position: positions.BOTTOM_RIGHT,
+          timeout: 2000, // custom timeout just for this one alert
+        });
+        navigate("/");
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+      } catch (e) {
+        console.log("An error occured", e);
+      }
+    } else {
+      try {
+        fetch("http://localhost:8000/buy-course", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+          body: JSON.stringify({
+            courseId: item_to_buy[0]?.id,
+            name: item_to_buy[0]?.name,
+            instructor: item_to_buy[0]?.instructor,
+            courseImage: item_to_buy[0].courseImage,
+            price: item_to_buy[0].price,
+          }),
+        });
+        alert.success("Course was succesfully purchased", {
+          position: positions.BOTTOM_RIGHT,
+          timeout: 2000, // custom timeout just for this one alert
+        });
+        navigate("/");
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+      } catch (e) {
+        console.log("An error occured", e);
+      }
     }
   };
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
-  if (item_to_buy.length === undefined || item_to_buy.length === 1) {
+    // Perform validation here and submit the form data to the server
+    console.log('Card Number:', cardNumber);
+    console.log('Card Holder Name:', cardHolderName);
+    console.log('Expiry Date:', expiryDate);
+    console.log('CVV:', cvv);
+  };
+
+  if (!Array.isArray(item_to_buy)) {
+    console.log("here");
     return (
       <>
         <div className="row">
@@ -83,18 +126,20 @@ const Payment = () => {
 
             <p className="fs-3 fw-bold">Order details</p>
             <div className="row">
-              <CourseCard
-                name={item_to_buy.name}
-                price={item_to_buy.price}
-                image={item_to_buy.image}
-                teacherName={item_to_buy.instructor}
-                id={item_to_buy.id}
-              />
+              {item_to_buy && (
+                <CourseCard
+                  name={item_to_buy?.name}
+                  price={item_to_buy?.price}
+                  image={item_to_buy?.image}
+                  teacherName={item_to_buy?.instructor}
+                  id={item_to_buy?.id}
+                />
+              )}
             </div>
           </div>
           <div className="p-4 col-md-6 h-100 bg-light shadow">
             <p className="fs-3">
-              Total: <span>{item_to_buy.price}$</span>
+              Total: <span>{item_to_buy?.price}$</span>
             </p>
             <button className="btn btn-primary btn-lg w-100" onClick={pay}>
               Pay
@@ -103,9 +148,8 @@ const Payment = () => {
         </div>
       </>
     );
-  }
-
-  if (item_to_buy.length > 1) {
+  } else if (Array.isArray(item_to_buy)) {
+    console.log("here2");
     return (
       <div className="row">
         <div className=" col-md-6 fs-1">
@@ -155,13 +199,62 @@ const Payment = () => {
           )}
         </div>
         <div className="p-4 col-md-6 h-100 bg-light shadow">
-          <p className="fs-3">
-            Total: <span>{totalAmount}$</span>
-          </p>
-          <button className="btn btn-primary btn-lg w-100" onClick={pay}>
-            Pay
-          </button>
-        </div>
+        <form onSubmit={handleSubmit}>
+    <div class="form-group">
+      <label htmlFor="cardNumber">Card Number:</label>
+      <input
+        class="form-control"
+        type="text"
+        id="cardNumber"
+        value={cardNumber}
+        onChange={(event) => setCardNumber(event.target.value)}
+      />
+    </div>
+    <div class="form-group">
+      <label htmlFor="cardHolderName">Card Holder Name:</label>
+      <input
+        class="form-control"
+        type="text"
+        id="cardHolderName"
+        value={cardHolderName}
+        onChange={(event) => setCardHolderName(event.target.value)}
+      />
+    </div>
+    <div class="form-group">
+      <label htmlFor="expiryDate">Expiry Date:</label>
+      <input
+        class="form-control"
+        type="text"
+        id="expiryDate"
+        value={expiryDate}
+        onChange={(event) => setExpiryDate(event.target.value)}
+      />
+    </div>
+    <div class="form-group">
+      <label htmlFor="cvv">CVV:</label>
+      <input
+        class="form-control"
+        type="text"
+        id="cvv"
+        value={cvv}
+        onChange={(event) => setCvv(event.target.value)}
+      />
+    </div>
+    <button class="btn btn-primary" type="submit">Save Payment Method</button>
+  </form>
+  <p className="fs-3">
+    Total: <span>{item_to_buy[0]?.price}$</span>
+  </p>
+  <button className="btn btn-primary btn-lg w-100" onClick={pay}>
+    Pay
+  </button>
+</div>
+
+
+
+
+
+
       </div>
     );
   }
