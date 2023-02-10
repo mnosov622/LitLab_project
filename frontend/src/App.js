@@ -11,6 +11,7 @@ import CreatorSignup from "./pages/Signup/CreatorSignup";
 import LearnerSignup from "./pages/Signup/LearnerSignup";
 import ForgotPassword from "./pages/ForgotPassword/ForgotPassword";
 import CreatorDashboard from "./pages/CreatorDashboard/CreatorDashboard";
+import AdminDashboard from "./pages/AdminDashboard/AdminDashboard";
 import CreatorInformation from "./pages/CreatorInformation/CreatorInformation";
 import { useEffect, useState } from "react";
 import LearnerCourses from "./pages/LearnerCourses/LearnerCourses";
@@ -34,6 +35,7 @@ import CourseEdit from "./pages/CourseEdit/CourseEdit";
 function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  
 
   const loggedInAsLearner = useSelector((state) => state.loggedInAsLearner);
   // console.log("LOGGED IN AS LEARNER", logInAsLearner);
@@ -94,6 +96,9 @@ function App() {
               <Route path="/cart" element={<Cart />} />
               <Route path="/help" element={<Help />} />
               <Route path="/contact-us" element={<ContactUs />} />
+              <Route path="/admin" element={<AdminDashboard />} />
+              
+
               <Route
                 path="/course/:id/certificate/:id"
                 element={<Certificate />}
@@ -124,6 +129,7 @@ function App() {
               <Route path="/course/:id" element={<CourseDescription />} />
               <Route path="/help" element={<Help />} />
               <Route path="/contact-us" element={<ContactUs />} />
+              <Route path="/admin" element={<AdminDashboard />} />
               <Route path="*" exact={true} element={<NotFound />} />
             </Routes>
           </Container>
