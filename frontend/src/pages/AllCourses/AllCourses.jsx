@@ -15,25 +15,37 @@ const AllCourses = () => {
   const [userCourses, setUserCourses] = useState([]);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const decoded = jwtDecode(token);
-    const userId = decoded.id;
+    //checking if user has a token (logged in)
+    if (localStorage.getItem("token") !== null) {
+      const token = localStorage.getItem("token");
+      const decoded = jwtDecode(token);
+      const userId = decoded.id;
 
-    setLoading(true);
-    fetch("http://localhost:8000/courses")
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("data", data);
-        setCourses(data);
-        setLoading(false);
-      });
-
-    if (userId) {
-      fetch(`http://localhost:8000/users/${userId}`)
+      setLoading(true);
+      fetch("http://localhost:8000/courses")
         .then((response) => response.json())
         .then((data) => {
-          setUserCourses(data.courses);
-          console.log("user courses", data.courses);
+          console.log("data", data);
+          setCourses(data);
+          setLoading(false);
+        });
+
+      if (userId) {
+        fetch(`http://localhost:8000/users/${userId}`)
+          .then((response) => response.json())
+          .then((data) => {
+            setUserCourses(data.courses);
+            console.log("user courses", data.courses);
+          });
+      }
+    } else {
+      setLoading(true);
+      fetch("http://localhost:8000/courses")
+        .then((response) => response.json())
+        .then((data) => {
+          console.log("data", data);
+          setCourses(data);
+          setLoading(false);
         });
     }
   }, []);

@@ -77,6 +77,8 @@ function App() {
       } else {
         console.log("not logged in");
       }
+    } else {
+      console.log("no token");
     }
   }, []);
 

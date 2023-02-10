@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import CourseCard from "../../components/CourseCards/CourseCard";
 
-
 const Payment = () => {
   //TODO: Add sockets, so that user don't have to refresh page when he buys the course
 
@@ -247,73 +246,66 @@ const Payment = () => {
           )}
         </div>
         <div className="p-4 col-md-6 h-100 bg-light shadow">
-        <form onSubmit={handleSubmit}>
-    <div class="form-group">
-      <label htmlFor="cardNumber">Card Number:</label>
-      <input
-        class="form-control"
-        type="text"
-        id="cardNumber"
-        maxLength="16"
-        pattern="[0-9]*"
-        placeholder="1234-5678-"
-        value={cardNumber}
-        onChange={(event) => setCardNumber(event.target.value)}
-      />
-    </div>
-    <div class="form-group">
-      <label htmlFor="cardHolderName">Card Holder Name:</label>
-      <input
-        class="form-control"
-        type="text"
-        id="cardHolderName"
-        placeholder="Maxim Nosov"
-        value={cardHolderName}
-        onChange={(event) => setCardHolderName(event.target.value)}
-      />
-    </div>
-    <div class="form-group">
-  <label htmlFor="expiryDate">Expiry Date:</label>
-  <input
-    class="form-control"
-    type="date"
-    id="expiryDate"
-    value={expiryDate}
-    min={new Date().toISOString().split("T")[0]}
-    onChange={(event) => setExpiryDate(event.target.value)}
-  />
-</div>
+          <form onSubmit={handleSubmit}>
+            <div class="form-group">
+              <label htmlFor="cardNumber">Card Number:</label>
+              <input
+                class="form-control"
+                type="text"
+                id="cardNumber"
+                maxLength="16"
+                pattern="[0-9]*"
+                placeholder="1234-5678-"
+                value={cardNumber}
+                onChange={(event) => setCardNumber(event.target.value)}
+              />
+            </div>
+            <div class="form-group">
+              <label htmlFor="cardHolderName">Card Holder Name:</label>
+              <input
+                class="form-control"
+                type="text"
+                id="cardHolderName"
+                placeholder="Maxim Nosov"
+                value={cardHolderName}
+                onChange={(event) => setCardHolderName(event.target.value)}
+              />
+            </div>
+            <div class="form-group">
+              <label htmlFor="expiryDate">Expiry Date:</label>
+              <input
+                class="form-control"
+                type="date"
+                id="expiryDate"
+                value={expiryDate}
+                min={new Date().toISOString().split("T")[0]}
+                onChange={(event) => setExpiryDate(event.target.value)}
+              />
+            </div>
 
-
-<div class="form-group">
-  <label htmlFor="cvv">CVV:</label>
-  <input
-    class="form-control"
-    type="text"
-    id="cvv"
-    value={cvv}
-    maxLength="3"
-    pattern="[0-9]*"
-    onChange={(event) => setCvv(event.target.value)}
-  />
-</div>
-<div class="form-group">
-  <img src={PaymentLogo} width="250" height="50" alt="Visa and Mastercard logo" />
-</div>
-  </form>
-  <p className="fs-3">
-    Total: <span>{item_to_buy[0]?.price}$</span>
-  </p>
-  <button className="btn btn-primary btn-lg w-100" onClick={pay}>
-    Pay
-  </button>
-</div>
-
-
-
-
-
-
+            <div class="form-group">
+              <label htmlFor="cvv">CVV:</label>
+              <input
+                class="form-control"
+                type="text"
+                id="cvv"
+                value={cvv}
+                maxLength="3"
+                pattern="[0-9]*"
+                onChange={(event) => setCvv(event.target.value)}
+              />
+            </div>
+            <div class="form-group">
+              {/* <img src={PaymentLogo} width="250" height="50" alt="Visa and Mastercard logo" /> */}
+            </div>
+          </form>
+          <p className="fs-3">
+            Total: <span>{item_to_buy[0]?.price}$</span>
+          </p>
+          <button className="btn btn-primary btn-lg w-100" onClick={pay}>
+            Pay
+          </button>
+        </div>
       </div>
     );
   }
