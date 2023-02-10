@@ -18,6 +18,7 @@ const CourseCard = ({
   linkToCourseView,
   contentCreatorCard,
   courseCompleted,
+  demo,
 }) => {
   const [courses, setCourses] = useState([]);
   return (

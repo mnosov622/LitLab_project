@@ -74,6 +74,8 @@ function App() {
       } else if (decoded?.isAdmin) {
         console.log("logged in as admin");
         dispatch(loginAsAdmin());
+      } else {
+        console.log("not logged in");
       }
     }
   }, []);
