@@ -205,7 +205,7 @@ const Payment = () => {
                 id="cardNumber"
                 maxLength="16"
                 pattern="[0-9]*"
-                placeholder="1234-5678"
+                placeholder="1234-5678-"
                 value={cardNumber}
                 onChange={(event) => setCardNumber(event.target.value)}
               />
