@@ -12,6 +12,16 @@ const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   isLearner: { type: Boolean, required: false },
   isCreator: { type: Boolean, required: false },
+  courses: [
+    {
+      id: { type: Number, required: true },
+      courseName: { type: String, required: true },
+      instructor: { type: String, required: true },
+      courseImage: { type: String, required: true },
+      price: { type: String, required: true },
+      isCompleted: { type: Boolean },
+    },
+  ],
 });
 
 const User = mongoose.model("users", userSchema, "users");

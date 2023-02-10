@@ -347,11 +347,8 @@ app.get("/users/:id", (req, res) => {
 
 app.post("/buy-course", (req, res) => {
   const token = req.headers.authorization;
-  console.log("TOKEn", token);
   const decoded = jwt.verify(token, secret);
   const userId = decoded.id;
-
-  console.log("user id is", userId);
 
   MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
     if (err) {
@@ -380,6 +377,7 @@ app.post("/buy-course", (req, res) => {
         instructor: req.body.instructor,
         courseImage: req.body.courseImage,
         price: req.body.price,
+        isCompleted: false,
       });
 
       // Update the user document in the database
@@ -392,7 +390,6 @@ app.post("/buy-course", (req, res) => {
           }
           client.close();
           res.send({ success: true });
-          console.log("added course");
         }
       );
     });
@@ -682,25 +679,30 @@ app.put("/users/:userEmail/courses/:id", (req, res) => {
         res.status(404).json({ error: "User not found" });
         return;
       }
-      if (user && user.courses) {
-        console.log(user.courses);
-        // rest of the code
-      } else {
-        console.log("Courses property is not defined or is an empty array.");
+
+      // Check if the user has any courses
+      if (!user.courses) {
+        res.status(404).json({ error: "The user does not have any courses" });
+        return;
       }
-      const updatedCourses = user.courses
-        ? user.courses.map((course) => {
-            if (Number(course.id) === Number(req.params.id)) {
-              console.log("in if statement");
-              return { ...course, courseCompleted: true };
-            }
-            return course;
-          })
-        : [];
+
+      // Find the index of the course with the matching id
+      const courseIndex = user.courses.findIndex(
+        (course) => Number(course.id) === Number(req.params.id)
+      );
+
+      // Check if the course with the matching id exists
+      if (courseIndex === -1) {
+        res.status(404).json({ error: "The course does not exist" });
+        return;
+      }
+
+      // Update the isCompleted property of the course
+      user.courses[courseIndex].isCompleted = true;
 
       return User.findOneAndUpdate(
         { email: req.params.userEmail },
-        { $set: { courses: updatedCourses } },
+        { $set: { courses: user.courses } },
         { new: true }
       );
     })
