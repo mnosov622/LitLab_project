@@ -15,14 +15,11 @@ const Footer = () => {
               <Link to="/aboutus">
                 <p className="">About us</p>
               </Link>
-              <Link to="/">
+              <a href="#most-popular">
                 <p className="">Most popular courses</p>
-              </Link>
+              </a>
               <Link to="/all-courses">
                 <p className="">Explore all courses</p>
-              </Link>
-              <Link to="/admin">
-                <p className="">Admin</p>
               </Link>
             </div>
             <div className="col-md-3">
