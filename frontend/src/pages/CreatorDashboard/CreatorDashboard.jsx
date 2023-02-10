@@ -24,7 +24,7 @@ const CreatorDashboard = () => {
     const userEmail = decoded.email;
     console.log(userEmail);
     setLoading(true);
-    fetch(`http://localhost:8000/creator-courses/${userEmail}`)
+    fetch(`http://localhost:8000/users/${decoded.id}`)
       .then((response) => response.json())
       .then((data) => {
         console.log("data recieved", data);
@@ -63,7 +63,7 @@ const CreatorDashboard = () => {
               <CreatorCourseCard
                 courseId={course.id}
                 key={course.id}
-                courseImage={course.courseImage}
+                courseImage={course && course.courseImage && course.courseImage}
                 courseName={course.name}
                 price={course.price}
                 courseVideo={course.courseVideo}

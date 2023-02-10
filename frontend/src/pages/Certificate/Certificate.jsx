@@ -27,15 +27,35 @@ const Certificate = () => {
       .then((response) => response.json())
       .then((data) => {
         setCourseData(data.course);
-        console.log(data);
+        console.log("course", data.course);
       });
 
     fetch(`http://localhost:8000/users/${decoded.id}`)
       .then((response) => response.json())
       .then((data) => {
         setUserData(data);
-        console.log(data);
       });
+
+    const saveSertificate = async () => {
+      const response = await fetch(
+        `http://localhost:8000/certificate/${decoded.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            courseName: courseData.name,
+            id: courseData.id,
+            instructor: courseData.instructor,
+            courseImage: courseData.courseImage,
+          }),
+        }
+      );
+      console.log(response);
+    };
+
+    saveSertificate();
   }, []);
 
   const handleDownload = () => {

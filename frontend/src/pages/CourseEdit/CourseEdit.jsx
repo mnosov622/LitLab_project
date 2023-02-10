@@ -21,7 +21,7 @@ const CourseEdit = () => {
   const { id } = useParams();
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:8000/creator-courses/${decoded.email}`)
+    fetch(`http://localhost:8000/users/${decoded.id}`)
       .then((response) => response.json())
       .then((data) => {
         setUserData(data.courses);
@@ -158,14 +158,14 @@ const CourseEdit = () => {
             <div className="col-md-6">
               {/* TODO: Issue with the image */}
 
-              {/* <p className="fs-4">Course Image</p>
-              {singleCourse && (
+              <p className="fs-4">Course Image</p>
+              {singleCourse && singleCourse.courseImage && (
                 <img
                   src={`http://localhost:8000/images/${singleCourse.courseImage}`}
                   width={"30%"}
                   alt="Course"
                 />
-              )} */}
+              )}
 
               <p className="fs-4">Video</p>
 

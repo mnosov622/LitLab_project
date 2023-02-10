@@ -44,6 +44,7 @@ const CourseDescription = () => {
       .then((response) => response.json())
       .then((data) => {
         setCourse(data.course);
+        console.log("11", data.course);
         setLoading(false);
       });
   }, []);
@@ -79,7 +80,7 @@ const CourseDescription = () => {
         id: singleCourse?.id,
         name: singleCourse?.name,
         instructor: singleCourse?.instructor,
-        courseImage: singleCourse.courseImageURL,
+        courseImage: singleCourse?.courseImageURL,
         price: singleCourse.price,
       };
 
@@ -226,12 +227,19 @@ const CourseDescription = () => {
                 </p>
               </div>
               <div className="col-lg-4">
-                <img
-                  className="rounded"
-                  src={course.courseImageURL}
-                  alt="Course"
-                  width={"100%"}
-                />
+                {(course && course.courseImage) ||
+                  (course.courseImageURL && (
+                    <img
+                      className="rounded"
+                      src={
+                        course?.courseImageURL ||
+                        `http://localhost:8000/images/${course.courseImage}`
+                      }
+                      alt="Course"
+                      width={"100%"}
+                    />
+                  ))}
+
                 <div className="buttons d-flex flex-column">
                   <button
                     className="btn btn-outline-primary btn-lg mt-3"

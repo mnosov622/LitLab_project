@@ -72,7 +72,7 @@ const Navbar = () => {
           </div>
           {!loginAsCreator && (
             <div className="col-md-2 all-courses mt-4 fs-5">
-              <Link to="all-courses ">Explore All Courses</Link>
+              <Link to="/all-courses">Explore All Courses</Link>
             </div>
           )}
 
