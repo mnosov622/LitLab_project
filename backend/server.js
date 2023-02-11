@@ -492,19 +492,20 @@ MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
   });
 });
 
-//getting image is buggy
+//getting image is buggy, if you uncomment, there will be 'failed to fetch' errors
+//TODO: fix the bug with images
 
-app.get("/images/:filename", (req, res) => {
-  MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
-    if (err) console.log("error ecurred", err);
-    const db = client.db("users");
-    const { GridFSBucket } = require("mongodb");
-    const bucket = new GridFSBucket(db);
+// app.get("/images/:filename", (req, res) => {
+//   MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
+//     if (err) console.log("error ecurred", err);
+//     const db = client.db("users");
+//     const { GridFSBucket } = require("mongodb");
+//     const bucket = new GridFSBucket(db);
 
-    const readStream = bucket.openDownloadStreamByName(req.params.filename);
-    readStream.pipe(res);
-  });
-});
+//     const readStream = bucket.openDownloadStreamByName(req.params.filename);
+//     readStream.pipe(res);
+//   });
+// });
 
 app.put("/certificate/:id", (req, res) => {
   const userId = req.params.id;

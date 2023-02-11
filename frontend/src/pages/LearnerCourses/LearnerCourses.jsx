@@ -10,20 +10,21 @@ import { Oval } from "react-loader-spinner";
 const LearnerCourses = () => {
   const [courses, setCourses] = useState([]);
   const [loader, setLoader] = useState(true);
-  const token = localStorage.getItem("token");
-  const decoded = jwtDecode(token);
-  const userId = decoded.id;
-  console.log("user id", userId);
 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    const decoded = jwtDecode(token);
+    const userId = decoded.id;
     setLoader(true);
-    fetch(`http://localhost:8000/users/${userId}`)
-      .then((response) => response.json())
-      .then((data) => setCourses(data.courses));
-    setLoader(false);
+    if (userId) {
+      fetch(`http://localhost:8000/users/${userId}`)
+        .then((response) => response.json())
+        .then((data) => setCourses(data.courses));
+      setLoader(false);
+    }
   }, []);
 
-  if (!courses) {
+  if (!courses || courses.length === 0) {
     return (
       <>
         <p className="mt-5">
@@ -89,6 +90,7 @@ const LearnerCourses = () => {
               teacherName={course?.instructor}
               id={course?.id}
               courseCompleted={course.isCompleted}
+              deleteBtn
             />
           ))}
         </div>

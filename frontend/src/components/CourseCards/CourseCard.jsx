@@ -18,6 +18,8 @@ const CourseCard = ({
   linkToCourseView,
   contentCreatorCard,
   courseCompleted,
+  demo,
+  deleteBtn,
 }) => {
   const [courses, setCourses] = useState([]);
   return (
@@ -97,6 +99,7 @@ const CourseCard = ({
               <p className="bg-light border rounded text-center mt-4 fw-bold fs-5">
                 {price}$
               </p>
+
               {courseCompleted && (
                 <div className="text-center bg-primary p-2 rounded">
                   <Link

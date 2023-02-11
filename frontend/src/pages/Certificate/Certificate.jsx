@@ -36,26 +36,26 @@ const Certificate = () => {
         setUserData(data);
       });
 
-    const saveSertificate = async () => {
-      const response = await fetch(
-        `http://localhost:8000/certificate/${decoded.id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            courseName: courseData.name,
-            id: courseData.id,
-            instructor: courseData.instructor,
-            courseImage: courseData.courseImage,
-          }),
-        }
-      );
-      console.log(response);
-    };
+    // const saveSertificate = async () => {
+    //   const response = await fetch(
+    //     `http://localhost:8000/certificate/${decoded.id}`,
+    //     {
+    //       method: "PUT",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //       body: JSON.stringify({
+    //         courseName: courseData.name,
+    //         id: courseData.id,
+    //         instructor: courseData.instructor,
+    //         courseImage: courseData.courseImage,
+    //       }),
+    //     }
+    //   );
+    //   console.log(response);
+    // };
 
-    saveSertificate();
+    // saveSertificate();
   }, []);
 
   const handleDownload = () => {
