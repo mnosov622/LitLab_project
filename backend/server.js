@@ -396,7 +396,6 @@ app.post("/buy-course", (req, res) => {
   });
 });
 
-//not sure how it works yet, but it's magic, so don't touch it pleaseee
 MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
   if (err) throw err;
 
@@ -490,22 +489,23 @@ MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
 
     downloadStream.pipe(res);
   });
+
+  app.get("/images/:filename", (req, res) => {
+    bucket.find().toArray((err, files) => {
+      console.log(files.map((file) => file.filename));
+    });
+
+    const downloadStream = bucket.openDownloadStreamByName(req.params.filename);
+
+    downloadStream.on("error", () => {
+      return res.status(404).json({ message: "Image not found" });
+    });
+
+    res.set("Content-Type", "image/jpeg");
+
+    downloadStream.pipe(res);
+  });
 });
-
-//getting image is buggy, if you uncomment, there will be 'failed to fetch' errors
-//TODO: fix the bug with images
-
-// app.get("/images/:filename", (req, res) => {
-//   MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
-//     if (err) console.log("error ecurred", err);
-//     const db = client.db("users");
-//     const { GridFSBucket } = require("mongodb");
-//     const bucket = new GridFSBucket(db);
-
-//     const readStream = bucket.openDownloadStreamByName(req.params.filename);
-//     readStream.pipe(res);
-//   });
-// });
 
 app.put("/certificate/:id", (req, res) => {
   const userId = req.params.id;
@@ -616,6 +616,7 @@ app.post("/courses", async (req, res) => {
 //update course
 
 app.put("/creator-courses/:email/courses/:courseId", (req, res) => {
+  console.log(req.params.email);
   MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
     if (err) {
       res.status(500).send({ error: "Failed to connect to the database" });
@@ -624,6 +625,7 @@ app.put("/creator-courses/:email/courses/:courseId", (req, res) => {
       const collection = db.collection("users");
       // Find the user with the specified ID
       collection.findOne({ email: req.params.email }, (error, user) => {
+        console.log("user", user);
         if (error) {
           res.status(500).send({ error: "Failed to find the user" });
         } else if (!user) {
