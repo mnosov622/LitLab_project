@@ -615,46 +615,42 @@ app.post("/courses", async (req, res) => {
 
 //update course
 
-app.put("/creator-courses/:email/courses/:courseId", (req, res) => {
+app.put("/creator-courses/:id/courses/:courseId", (req, res) => {
   console.log(req.params.email);
-  MongoClient.connect(url, { useNewUrlParser: true }, (err, client) => {
-    if (err) {
-      res.status(500).send({ error: "Failed to connect to the database" });
-    } else {
-      const db = client.db("users");
-      const collection = db.collection("users");
-      // Find the user with the specified ID
-      collection.findOne({ email: req.params.email }, (error, user) => {
-        console.log("user", user);
-        if (error) {
-          res.status(500).send({ error: "Failed to find the user" });
-        } else if (!user) {
-          res.status(404).send({ error: "User not found" });
-        } else {
-          // Update the course with the specified ID
-          const updatedCourses = user.courses.map((course) => {
-            if (Number(course.id) === req.params.courseId) {
-              return { ...course, ...req.body.updatedCourse };
-            }
-            return course;
-          });
+  console.log("updated course received", req.body.updatedCourse);
 
-          collection.updateOne(
-            { email: req.params.email },
-            { $set: { courses: updatedCourses } },
-            (error, result) => {
-              if (error) {
-                res.status(500).send({ error: "Failed to update the course" });
-              } else {
-                res.send({ message: "course data updated successfully" });
-              }
+  User.findById(req.params.id)
+    .then((user) => {
+      if (!user) {
+        res.status(404).json({ message: "User not found" });
+      } else {
+        console.log("user is", user);
+        const updatedCourses = user.courses.map((course) => {
+          if (Number(course.id) === Number(req.params.courseId)) {
+            return { ...course, ...req.body.updatedCourse };
+          }
+          return course;
+        });
+
+        User.updateOne(
+          { _id: ObjectId(req.params.id) },
+          { $set: { courses: updatedCourses } },
+          (error, result) => {
+            if (error) {
+              res.status(500).send({ error: "Failed to update the course" });
+            } else {
+              res.send({
+                message: "course data updated successfully",
+                result: result,
+              });
             }
-          );
-        }
-      });
-      client.close();
-    }
-  });
+          }
+        );
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({ message: err.message });
+    });
 });
 
 app.get("/user-course/:userId", (req, res) => {

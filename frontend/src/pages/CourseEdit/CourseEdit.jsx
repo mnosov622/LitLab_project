@@ -54,15 +54,16 @@ const CourseEdit = () => {
       price: price,
     };
     console.log("email before request", decoded.email);
+    console.log("updated cpurse", updatedCourse);
     fetch(
-      `http://localhost:8000/creator-courses/${decoded.email}/courses/${courseId}`,
+      `http://localhost:8000/creator-courses/${decoded.id}/courses/${courseId}`,
       {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          updatedCourse,
+          updatedCourse: updatedCourse,
         }),
       }
     )
