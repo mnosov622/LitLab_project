@@ -5,6 +5,7 @@ import { useAlert, positions } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import CourseCard from "../../components/CourseCards/CourseCard";
+import PaymentLogo from "../../assets/PaymentLogo.png";
 
 
 const Payment = () => {
@@ -256,7 +257,7 @@ const Payment = () => {
         id="cardNumber"
         maxLength="16"
         pattern="[0-9]*"
-        placeholder="1234-5678-"
+        placeholder="1234-5678-1212-2121"
         value={cardNumber}
         onChange={(event) => setCardNumber(event.target.value)}
       />
@@ -267,7 +268,7 @@ const Payment = () => {
         class="form-control"
         type="text"
         id="cardHolderName"
-        placeholder="Maxim Nosov"
+        placeholder="Arnold Schwarzenegger"
         value={cardHolderName}
         onChange={(event) => setCardHolderName(event.target.value)}
       />
