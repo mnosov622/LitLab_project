@@ -618,38 +618,41 @@ app.post("/courses", async (req, res) => {
 app.put("/creator-courses/:id/courses/:courseId", (req, res) => {
   console.log("updated course received", req.body.updatedCourse);
 
-  User.findById(req.params.id)
-    .then((user) => {
-      if (!user) {
-        res.status(404).json({ message: "User not found" });
-      } else {
-        console.log("user is", user);
-        const updatedCourses = user.courses.map((course) => {
-          if (Number(course.id) === Number(req.params.courseId)) {
-            return { ...course, ...req.body.updatedCourse };
-          }
-          return course;
-        });
-
-        User.findByIdAndUpdate(
-          req.params.id,
-          { $set: { courses: updatedCourses } },
-          (error, result) => {
-            if (error) {
-              res.status(500).send({ error: "Failed to update the course" });
-            } else {
-              res.send({
-                message: "course data updated successfully",
-                result: result,
-              });
+  MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+    if (err) throw err;
+    const dbo = db.db("users");
+    dbo
+      .collection("users")
+      .findOne({ _id: ObjectId(req.params.id) }, function (err, user) {
+        if (err) throw err;
+        if (!user) {
+          res.status(404).json({ message: "User not found" });
+        } else {
+          console.log("user is", user);
+          const updatedCourses = user.courses.map((course) => {
+            if (Number(course.id) === Number(req.params.courseId)) {
+              console.log("course", course);
+              return { ...course, ...req.body.updatedCourse };
             }
-          }
-        );
-      }
-    })
-    .catch((err) => {
-      res.status(500).json({ message: err.message });
-    });
+            return course;
+          });
+          dbo
+            .collection("users")
+            .updateOne(
+              { _id: ObjectId(req.params.id) },
+              { $set: { courses: updatedCourses } },
+              function (err, result) {
+                if (err) throw err;
+                res.send({
+                  message: "course data updated successfully",
+                  result: result,
+                });
+                db.close();
+              }
+            );
+        }
+      });
+  });
 });
 
 app.get("/user-course/:userId", (req, res) => {
@@ -704,8 +707,7 @@ app.delete("/users/:userEmail/courses/:courseId", (req, res) => {
     }
 
     const db = client.db("users");
-    const userEmail = req.params.userEmail;
-    const courseId = req.params.courseName;
+
     db.collection("users").updateOne(
       { email: req.params.userEmail },
       { $pull: { courses: { id: Number(req.params.courseId) } } },

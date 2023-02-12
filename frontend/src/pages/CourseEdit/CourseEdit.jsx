@@ -48,7 +48,7 @@ const CourseEdit = () => {
 
     e.preventDefault();
     const updatedCourse = {
-      courseName: courseName,
+      name: courseName,
       shortDescription: shortDescription,
       longDescription: longDescription,
       price: price,
