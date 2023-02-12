@@ -14,6 +14,21 @@ const Certificate = () => {
   const [userData, setUserData] = useState([]);
   const { id } = useParams();
 
+  function downloadPrint() {
+    const win = window.open(
+      "",
+      "",
+      "left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0"
+    );
+    win.document.write(elementRef.current.innerHTML);
+    win.document.close();
+    win.focus();
+    win.onload = function () {
+      win.print();
+      // win.close();
+    };
+  }
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     const decoded = jwtDecode(token);
@@ -88,6 +103,7 @@ const Certificate = () => {
       <div
         className="container mt-5 mb-5 certificate position-relative border p-3 border-dark rounded w-75"
         ref={elementRef}
+        id="printArea"
       >
         <h1 className="text-center font-weight-bold">
           Certificate of Completion &nbsp;
@@ -113,7 +129,9 @@ const Certificate = () => {
           <br />
           <br />
           <p className="fs-5 fw-bold">Instructor: {courseData.instructor}</p>
+          <p className="fs-5 text-primary">LitLab</p>
         </p>
+
         <img
           src={congrats}
           alt="Congratulations"
@@ -121,8 +139,9 @@ const Certificate = () => {
           className="congrats position-absolute"
         />
       </div>
+
       <div className="button-wrapper text-center mb-5">
-        <button onClick={handleDownload} className="btn btn-primary btn-lg">
+        <button onClick={downloadPrint} className="btn btn-primary btn-lg">
           Download Certificate
         </button>
       </div>
