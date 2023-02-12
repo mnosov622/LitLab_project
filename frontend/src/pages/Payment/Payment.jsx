@@ -5,6 +5,7 @@ import { useAlert, positions } from "react-alert";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import CourseCard from "../../components/CourseCards/CourseCard";
+import PaymentLogo from "../../assets/PaymentLogo.png";
 
 const Payment = () => {
   //TODO: Add sockets, so that user don't have to refresh page when he buys the course
@@ -146,7 +147,7 @@ const Payment = () => {
                   id="cardNumber"
                   maxLength="16"
                   pattern="[0-9]*"
-                  placeholder="1234-5678-"
+                  placeholder="1234-5678-1212-1213"
                   value={cardNumber}
                   onChange={(event) => setCardNumber(event.target.value)}
                 />
@@ -157,6 +158,9 @@ const Payment = () => {
                   class="form-control"
                   type="text"
                   id="cardHolderName"
+                  max
+                  length="40"
+                  placeholder="Jackie Chan"
                   value={cardHolderName}
                   onChange={(event) => setCardHolderName(event.target.value)}
                 />
@@ -181,9 +185,13 @@ const Payment = () => {
                   id="cvv"
                   value={cvv}
                   maxLength="3"
+                  placeholder="000"
                   pattern="[0-9]*"
                   onChange={(event) => setCvv(event.target.value)}
                 />
+              </div>
+              <div class="form-group">
+                <img src={PaymentLogo} width="250" height="50" />
               </div>
             </form>
             <p className="fs-3">
@@ -255,7 +263,7 @@ const Payment = () => {
                 id="cardNumber"
                 maxLength="16"
                 pattern="[0-9]*"
-                placeholder="1234-5678-"
+                placeholder="1234-5678-1121-1121"
                 value={cardNumber}
                 onChange={(event) => setCardNumber(event.target.value)}
               />
@@ -266,7 +274,7 @@ const Payment = () => {
                 class="form-control"
                 type="text"
                 id="cardHolderName"
-                placeholder="Maxim Nosov"
+                placeholder="Tom Croos"
                 value={cardHolderName}
                 onChange={(event) => setCardHolderName(event.target.value)}
               />
@@ -289,6 +297,7 @@ const Payment = () => {
                 class="form-control"
                 type="text"
                 id="cvv"
+                placeholder="000"
                 value={cvv}
                 maxLength="3"
                 pattern="[0-9]*"
@@ -296,7 +305,7 @@ const Payment = () => {
               />
             </div>
             <div class="form-group">
-              {/* <img src={PaymentLogo} width="250" height="50" alt="Visa and Mastercard logo" /> */}
+              <img src={PaymentLogo} width="250" height="50" />
             </div>
           </form>
           <p className="fs-3">
