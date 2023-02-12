@@ -616,7 +616,6 @@ app.post("/courses", async (req, res) => {
 //update course
 
 app.put("/creator-courses/:id/courses/:courseId", (req, res) => {
-  console.log(req.params.email);
   console.log("updated course received", req.body.updatedCourse);
 
   User.findById(req.params.id)
@@ -632,8 +631,8 @@ app.put("/creator-courses/:id/courses/:courseId", (req, res) => {
           return course;
         });
 
-        User.updateOne(
-          { _id: ObjectId(req.params.id) },
+        User.findByIdAndUpdate(
+          req.params.id,
           { $set: { courses: updatedCourses } },
           (error, result) => {
             if (error) {
