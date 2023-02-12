@@ -184,6 +184,7 @@ const Payment = () => {
                   id="cvv"
                   value={cvv}
                   maxLength="3"
+                  placeholder="000"
                   pattern="[0-9]*"
                   onChange={(event) => setCvv(event.target.value)}
                 />
