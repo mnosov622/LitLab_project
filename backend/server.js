@@ -695,7 +695,7 @@ app.delete("/courses/:courseName", (req, res) => {
   });
 });
 
-app.delete("/users/:userEmail/courses/:courseName", (req, res) => {
+app.delete("/users/:userEmail/courses/:courseId", (req, res) => {
   MongoClient.connect(url, (err, client) => {
     if (err) {
       return res
@@ -706,10 +706,9 @@ app.delete("/users/:userEmail/courses/:courseName", (req, res) => {
     const db = client.db("users");
     const userEmail = req.params.userEmail;
     const courseId = req.params.courseName;
-
     db.collection("users").updateOne(
       { email: req.params.userEmail },
-      { $pull: { courses: { name: req.params.courseName } } },
+      { $pull: { courses: { id: Number(req.params.courseId) } } },
       (err, result) => {
         client.close();
         if (err) {

@@ -24,7 +24,8 @@ const CreatorCourseCard = ({
         .then((data) => console.log(data))
         .catch((e) => console.log(e));
 
-      fetch(`http://localhost:8000/users/${userEmail}/courses/${courseName}`, {
+      console.log("course id", courseId);
+      fetch(`http://localhost:8000/users/${userEmail}/courses/${courseId}`, {
         method: "DELETE",
       })
         .then((response) => response.json())
