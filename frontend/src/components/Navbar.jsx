@@ -18,6 +18,8 @@ const Navbar = () => {
   const [data, setData] = useState("");
   const [showList, setShowList] = useState(true);
   const [name, setName] = useState("");
+  const [numberOfItems, setNumberOfItems] = useState(0);
+
   const navigate = useNavigate();
 
   const loggedInAsLearner = useSelector((state) => state.loggedInAsLearner);
@@ -28,6 +30,11 @@ const Navbar = () => {
 
   console.log(courses);
 
+  const shoppingCart = JSON.parse(localStorage.getItem("shopping_cart"));
+  useEffect(() => {
+    const numberOfItems = shoppingCart ? shoppingCart.length : 0;
+    setNumberOfItems(numberOfItems);
+  }, [shoppingCart]);
   const displayOptions = () => {
     const options = getOptions(search, courses);
     setData(options);
@@ -131,7 +138,7 @@ const Navbar = () => {
               </Link>
               <Link to="/cart" className="dashboard-item cart fs-5">
                 My Cart
-                <span className="amount">{amountIfItems}</span>
+                <span className="amount">{numberOfItems}</span>
               </Link>
 
               <div className="offset-1 col-md-2 mt-4">

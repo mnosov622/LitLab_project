@@ -33,7 +33,9 @@ const CourseDescription = () => {
   console.log("CURRENT CART", cart);
   console.log("Item that you want to buy", itemToBuy);
   const [learnerCourses, setLearnerCourses] = useState([]);
-
+  const shoppingCart = localStorage.getItem("shopping_cart");
+  const items = JSON.parse(shoppingCart);
+  const [cartItems, setCartItems] = useState(items);
   //Get log in state
   const loggedIn = useSelector((state) => state.loggedInAsLearner);
   const itemsInCart = useSelector((state) => state.increaseItemsAmount);
@@ -90,6 +92,7 @@ const CourseDescription = () => {
       });
       dispatch(addToCart(newItem));
       dispatch(itemsAmount());
+      setCartItems((prev) => [...(Array.isArray(prev) ? prev : []), newItem]);
       console.log("AMOUNT Of items", itemsAmount);
     } else {
       alert.error("Item exists in cart", {
@@ -119,6 +122,11 @@ const CourseDescription = () => {
       navigate("/payment");
     }
   };
+
+  useEffect(() => {
+    localStorage.setItem("shopping_cart", JSON.stringify(cartItems));
+    console.log("items11", cartItems);
+  }, [cartItems]);
 
   return (
     <div className={loading && "bottom"}>

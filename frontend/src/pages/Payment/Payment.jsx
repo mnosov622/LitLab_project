@@ -97,6 +97,10 @@ const Payment = () => {
           position: positions.BOTTOM_RIGHT,
           timeout: 2000, // custom timeout just for this one alert
         });
+        navigate("/");
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
       } catch (e) {
         console.log("An error occured", e);
       }
