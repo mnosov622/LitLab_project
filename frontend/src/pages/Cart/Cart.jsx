@@ -31,6 +31,13 @@ const Cart = () => {
     localStorage.setItem("item_to_buy", JSON.stringify(shoppingCartItems));
     navigate("/payment");
   };
+
+  const handleClearCart = () => {
+    if (window.confirm("Are you sure you want to clear the cart?")) {
+      localStorage.removeItem("shopping_cart");
+      window.location.reload();
+    }
+  };
   return (
     <>
       <div className="bg-light shadow text-center p-2 fs-2 mb-5">
@@ -60,8 +67,15 @@ const Cart = () => {
               id={item.id}
             />
           ))}
-          <div className="wrapper text-center mb-5">
-            <button className="btn btn-primary btn-lg" onClick={goToCheckout}>
+
+          <div className="wrapper mb-5 d-flex">
+            <button className="btn btn-danger fs-5" onClick={handleClearCart}>
+              Clear cart
+            </button>
+            <button
+              className="btn btn-primary btn-lg ml-auto mx-auto"
+              onClick={goToCheckout}
+            >
               Proceed to checkout
             </button>
           </div>
