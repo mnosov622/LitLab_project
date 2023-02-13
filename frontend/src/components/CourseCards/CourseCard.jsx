@@ -114,7 +114,8 @@ const CourseCard = ({
                     className="btn btn-danger"
                     onClick={handleRemove(id)}
                   >
-                    <i class="bi bi-trash3-fill">Remove</i>
+                    <i class="bi bi-trash3-fill"></i>
+                    &nbsp; Remove
                   </button>
                 </div>
               )}
