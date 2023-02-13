@@ -65,6 +65,7 @@ const Cart = () => {
               image={item.courseImage}
               price={item.price}
               id={item.id}
+              removable
             />
           ))}
 

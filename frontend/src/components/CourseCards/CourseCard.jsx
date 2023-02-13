@@ -20,8 +20,16 @@ const CourseCard = ({
   courseCompleted,
   demo,
   deleteBtn,
+  removable,
 }) => {
-  const [courses, setCourses] = useState([]);
+  const handleRemove = (id) => (e) => {
+    e.preventDefault();
+    const shoppingCart = JSON.parse(localStorage.getItem("shopping_cart"));
+    const updatedShoppingCart = shoppingCart.filter((i) => i.id !== id);
+    localStorage.setItem("shopping_cart", JSON.stringify(updatedShoppingCart));
+    window.location.reload();
+  };
+
   return (
     <>
       <div
@@ -99,7 +107,17 @@ const CourseCard = ({
               <p className="bg-light border rounded text-center mt-4 fw-bold fs-5">
                 {price}$
               </p>
-
+              {removable && (
+                <div>
+                  <button
+                    type="button"
+                    className="btn btn-danger"
+                    onClick={handleRemove(id)}
+                  >
+                    <i class="bi bi-trash3-fill">Remove</i>
+                  </button>
+                </div>
+              )}
               {courseCompleted && (
                 <div className="text-center bg-primary p-2 rounded">
                   <Link
