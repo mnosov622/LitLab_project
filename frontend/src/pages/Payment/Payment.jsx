@@ -24,9 +24,10 @@ const Payment = () => {
   const item = localStorage.getItem("item_to_buy");
   const item_to_buy = JSON.parse(item);
   console.log("course name", item_to_buy);
+
   useEffect(() => {
-    if (currentCart.length > 1) {
-      const prices = currentCart.map((item) => Number(item.price));
+    if (item_to_buy.length > 1) {
+      const prices = item_to_buy.map((item) => Number(item.price));
       const pricesTotal = prices.reduce((sum, item) => sum + item, 0);
       setTotalAmount(pricesTotal);
     }
@@ -35,19 +36,21 @@ const Payment = () => {
   const pay = async () => {
     if (!Array.isArray(item_to_buy)) {
       try {
+        const courses = {
+          id: item_to_buy?.id,
+          courseName: item_to_buy?.name,
+          instructor: item_to_buy?.instructor,
+          courseImage: item_to_buy.image,
+          price: item_to_buy.price,
+          isCompleted: false,
+        };
         fetch("http://localhost:8000/buy-course", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             Authorization: token,
           },
-          body: JSON.stringify({
-            courseId: item_to_buy?.id,
-            name: item_to_buy?.name,
-            instructor: item_to_buy?.instructor,
-            courseImage: item_to_buy.image,
-            price: item_to_buy.price,
-          }),
+          body: JSON.stringify({ courses }),
         });
         alert.success("Course was succesfully purchased", {
           position: positions.BOTTOM_RIGHT,
@@ -62,29 +65,30 @@ const Payment = () => {
       }
     } else {
       try {
+        const courses = [];
+        item_to_buy.forEach((item) => {
+          courses.push({
+            id: item.id,
+            courseName: item.name,
+            instructor: item.instructor,
+            courseImage: item.courseImage,
+            price: item.price,
+            isCompleted: false,
+          });
+        });
+
         fetch("http://localhost:8000/buy-course", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             Authorization: token,
           },
-          body: JSON.stringify({
-            courseId: item_to_buy[0]?.id,
-            name: item_to_buy[0]?.name,
-            instructor: item_to_buy[0]?.instructor,
-            courseImage: item_to_buy[0].courseImage,
-            price: item_to_buy[0].price,
-            isCompleted: false,
-          }),
+          body: JSON.stringify({ courses }),
         });
-        alert.success("Course was succesfully purchased", {
+        alert.success("Courses were succesfully purchased", {
           position: positions.BOTTOM_RIGHT,
           timeout: 2000, // custom timeout just for this one alert
         });
-        navigate("/");
-        setTimeout(() => {
-          window.location.reload();
-        }, 500);
       } catch (e) {
         console.log("An error occured", e);
       }
@@ -191,7 +195,12 @@ const Payment = () => {
                 />
               </div>
               <div class="form-group">
-                <img src={PaymentLogo} width="250" height="50" />
+                <img
+                  src={PaymentLogo}
+                  width="250"
+                  height="50"
+                  alt="Payment logos"
+                />
               </div>
             </form>
             <p className="fs-3">
@@ -309,7 +318,7 @@ const Payment = () => {
             </div>
           </form>
           <p className="fs-3">
-            Total: <span>{item_to_buy[0]?.price}$</span>
+            Total: <span>{totalAmount}$</span>
           </p>
           <button className="btn btn-primary btn-lg w-100" onClick={pay}>
             Pay

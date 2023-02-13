@@ -327,22 +327,51 @@ app.get("/users/:id", (req, res) => {
     });
 });
 
-// app.get("/creator-courses/:id", (req, res) => {
-//   MongoClient.connect(
-//     url,
-//     { useNewUrlParser: true, useUnifiedTopology: true },
-//     function (err, client) {
-//       if (err) throw err;
-//       const db = client.db("users");
-//       db.collection("creator-courses")
-//         .find({})
-//         .toArray((err, users) => {
-//           if (err) throw err;
-//           res.json(users);
-//           client.close();
-//         });
+// app.post("/buy-course", (req, res) => {
+//   const token = req.headers.authorization;
+//   const decoded = jwt.verify(token, secret);
+//   const userId = decoded.id;
+
+//   console.log("courses recieved", req.body.courses);
+//   MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
+//     if (err) {
+//       console.error(err);
+//       return;
 //     }
-//   );
+
+//     const db = client.db("users");
+//     const users = db.collection("users");
+
+//     users.findOne({ _id: new ObjectId(userId) }, (err, user) => {
+//       if (err) {
+//         console.error(err);
+//         client.close();
+//         return;
+//       }
+
+//       if (!user.courses) {
+//         user.courses = [];
+//       }
+
+//       // Add the courses to the user's courses list
+//       req.body.courses.forEach((course) => {
+//         user.courses.push(course);
+//       });
+
+//       // Update the user document in the database
+//       users.updateOne(
+//         { _id: user._id },
+//         { $set: { courses: user.courses } },
+//         (err) => {
+//           if (err) {
+//             console.error(err);
+//           }
+//           client.close();
+//           res.send({ success: true });
+//         }
+//       );
+//     });
+//   });
 // });
 
 app.post("/buy-course", (req, res) => {
@@ -353,7 +382,7 @@ app.post("/buy-course", (req, res) => {
   MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
     if (err) {
       console.error(err);
-      return;
+      return res.send({ success: false, error: err });
     }
 
     const db = client.db("users");
@@ -363,21 +392,23 @@ app.post("/buy-course", (req, res) => {
       if (err) {
         console.error(err);
         client.close();
-        return;
+        return res.send({ success: false, error: err });
       }
 
       if (!user.courses) {
         user.courses = [];
       }
 
-      // Add the course to the user's courses list
-      user.courses.push({
-        id: req.body.courseId,
-        courseName: req.body.name,
-        instructor: req.body.instructor,
-        courseImage: req.body.courseImage,
-        price: req.body.price,
-        isCompleted: false,
+      let courses;
+      if (Array.isArray(req.body.courses)) {
+        courses = req.body.courses;
+      } else {
+        courses = [req.body.courses];
+      }
+
+      // Add the courses to the user's courses list
+      courses.forEach((course) => {
+        user.courses.push(course);
       });
 
       // Update the user document in the database
@@ -387,6 +418,8 @@ app.post("/buy-course", (req, res) => {
         (err) => {
           if (err) {
             console.error(err);
+            client.close();
+            return res.send({ success: false, error: err });
           }
           client.close();
           res.send({ success: true });
