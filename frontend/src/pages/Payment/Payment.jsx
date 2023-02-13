@@ -26,14 +26,22 @@ const Payment = () => {
   console.log("course name", item_to_buy);
 
   useEffect(() => {
-    if (item_to_buy.length > 1) {
+    if (item_to_buy.length > 1 || Array.isArray(item_to_buy)) {
       const prices = item_to_buy.map((item) => Number(item.price));
       const pricesTotal = prices.reduce((sum, item) => sum + item, 0);
       setTotalAmount(pricesTotal);
     }
   }, []);
 
-  const pay = async () => {
+  const handlePayment = async (event) => {
+    event.preventDefault();
+
+    // Perform validation here and submit the form data to the server
+    console.log("Card Number:", cardNumber);
+    console.log("Card Holder Name:", cardHolderName);
+    console.log("Expiry Date:", expiryDate);
+    console.log("CVV:", cvv);
+
     if (!Array.isArray(item_to_buy)) {
       try {
         const courses = {
@@ -94,15 +102,6 @@ const Payment = () => {
       }
     }
   };
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    // Perform validation here and submit the form data to the server
-    console.log("Card Number:", cardNumber);
-    console.log("Card Holder Name:", cardHolderName);
-    console.log("Expiry Date:", expiryDate);
-    console.log("CVV:", cvv);
-  };
 
   if (!Array.isArray(item_to_buy)) {
     return (
@@ -142,7 +141,7 @@ const Payment = () => {
             </div>
           </div>
           <div className="p-4 col-md-6 h-100 bg-light shadow">
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handlePayment}>
               <div class="form-group">
                 <label htmlFor="cardNumber">Card Number:</label>
                 <input
@@ -154,6 +153,7 @@ const Payment = () => {
                   placeholder="1234-5678-1212-1213"
                   value={cardNumber}
                   onChange={(event) => setCardNumber(event.target.value)}
+                  required
                 />
               </div>
               <div class="form-group">
@@ -162,11 +162,11 @@ const Payment = () => {
                   class="form-control"
                   type="text"
                   id="cardHolderName"
-                  max
-                  length="40"
+                  maxLength="40"
                   placeholder="Jackie Chan"
                   value={cardHolderName}
                   onChange={(event) => setCardHolderName(event.target.value)}
+                  required
                 />
               </div>
               <div class="form-group">
@@ -178,6 +178,7 @@ const Payment = () => {
                   value={expiryDate}
                   min={new Date().toISOString().split("T")[0]}
                   onChange={(event) => setExpiryDate(event.target.value)}
+                  required
                 />
               </div>
 
@@ -192,6 +193,7 @@ const Payment = () => {
                   placeholder="000"
                   pattern="[0-9]*"
                   onChange={(event) => setCvv(event.target.value)}
+                  required
                 />
               </div>
               <div class="form-group">
@@ -202,13 +204,12 @@ const Payment = () => {
                   alt="Payment logos"
                 />
               </div>
+
+              <p className="fs-3">
+                Total: <span>{item_to_buy?.price}$</span>
+              </p>
+              <button className="btn btn-primary btn-lg w-100">Pay</button>
             </form>
-            <p className="fs-3">
-              Total: <span>{item_to_buy?.price}$</span>
-            </p>
-            <button className="btn btn-primary btn-lg w-100" onClick={pay}>
-              Pay
-            </button>
           </div>
         </div>
       </>
@@ -263,7 +264,7 @@ const Payment = () => {
           )}
         </div>
         <div className="p-4 col-md-6 h-100 bg-light shadow">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handlePayment}>
             <div class="form-group">
               <label htmlFor="cardNumber">Card Number:</label>
               <input
@@ -275,6 +276,7 @@ const Payment = () => {
                 placeholder="1234-5678-1121-1121"
                 value={cardNumber}
                 onChange={(event) => setCardNumber(event.target.value)}
+                required
               />
             </div>
             <div class="form-group">
@@ -286,6 +288,7 @@ const Payment = () => {
                 placeholder="Tom Croos"
                 value={cardHolderName}
                 onChange={(event) => setCardHolderName(event.target.value)}
+                required
               />
             </div>
             <div class="form-group">
@@ -297,6 +300,7 @@ const Payment = () => {
                 value={expiryDate}
                 min={new Date().toISOString().split("T")[0]}
                 onChange={(event) => setExpiryDate(event.target.value)}
+                required
               />
             </div>
 
@@ -311,18 +315,23 @@ const Payment = () => {
                 maxLength="3"
                 pattern="[0-9]*"
                 onChange={(event) => setCvv(event.target.value)}
+                required
               />
             </div>
             <div class="form-group">
-              <img src={PaymentLogo} width="250" height="50" />
+              <img
+                src={PaymentLogo}
+                width="250"
+                height="50"
+                alt="Payment Logos"
+              />
             </div>
+
+            <p className="fs-3">
+              Total: <span>{totalAmount}$</span>
+            </p>
+            <button className="btn btn-primary btn-lg w-100">Pay</button>
           </form>
-          <p className="fs-3">
-            Total: <span>{totalAmount}$</span>
-          </p>
-          <button className="btn btn-primary btn-lg w-100" onClick={pay}>
-            Pay
-          </button>
         </div>
       </div>
     );
