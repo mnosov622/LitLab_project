@@ -171,7 +171,7 @@ const Navbar = () => {
 
               <div className="offset-1 col-md-2 mt-4">
                 <button
-                  className="justify-content-end btn btn-primary"
+                  className="justify-content-end btn btn-dark"
                   onClick={logOut}
                 >
                   Log out

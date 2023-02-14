@@ -49,13 +49,15 @@ const CourseUpload = () => {
     // } else {
     //   console.error("data or courses is not defined or not an array");
     // }
-    console.log("response recieved", res);
+    console.log("response recieved", data);
     if (res.status === 200) {
       navigate("/", { state: { success: true } });
     }
 
+    console.log("name of the video", data.video.originalname);
+
     const courseData = {
-      video: data.video.originalname,
+      video: data.video,
       courseImageURL: data.image.originalname,
       instructorEmail: decoded.email,
       name: nameRef.current.value,

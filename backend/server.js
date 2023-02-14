@@ -455,6 +455,9 @@ MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
     imageUploadStream.write(imageFile.buffer);
     imageUploadStream.end();
 
+    console.log("video file", videoFile, videoFile.originalname);
+    console.log("iamge file", imageFile, imageFile.originalname);
+
     db.collection("users")
       .aggregate([
         {
