@@ -596,6 +596,8 @@ app.put("/certificate/:id", (req, res) => {
 });
 
 app.post("/courses", async (req, res) => {
+  console.log("curse content", req.body.courseContent);
+
   try {
     const {
       email,
@@ -606,6 +608,7 @@ app.post("/courses", async (req, res) => {
       video,
       courseImageURL,
       instructor,
+      courseContent,
     } = req.body;
 
     const client = new MongoClient(url, { useNewUrlParser: true });
@@ -632,6 +635,7 @@ app.post("/courses", async (req, res) => {
       shortDescription,
       longDescription,
       instructor,
+      courseContent,
     };
 
     const result = await client

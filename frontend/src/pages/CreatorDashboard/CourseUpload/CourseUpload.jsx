@@ -26,8 +26,16 @@ const CourseUpload = () => {
   const dispatch = useDispatch();
   const createdCourse = useSelector((state) => state.createdCourse);
 
+  const [weeks, setWeeks] = useState([
+    { week: ["", "", ""] },
+    { week: ["", "", ""] },
+    { week: ["", "", ""] },
+  ]);
+
   const onSubmit = async (e) => {
     e.preventDefault();
+    console.log(weeks);
+
     setLoading(true);
     const formData = new FormData();
     formData.append("files", video);
@@ -43,18 +51,11 @@ const CourseUpload = () => {
       body: formData,
     });
     const data = await res.json();
-    console.log("ALL data", data.id);
-    // if (data && data.courses !== undefined && Array.isArray(data.courses)) {
-    //   console.log("data received", data.courses[data.courses.length - 1]);
-    // } else {
-    //   console.error("data or courses is not defined or not an array");
-    // }
+
     console.log("response recieved", data);
     if (res.status === 200) {
       navigate("/", { state: { success: true } });
     }
-
-    console.log("name of the video", data.video.originalname);
 
     const courseData = {
       video: data.video,
@@ -66,6 +67,7 @@ const CourseUpload = () => {
       longDescription: longDescr.current.value,
       email: decoded.email,
       instructor: decoded.name,
+      courseContent: weeks.map((week) => ({ week: week.week })),
     };
     setLoading(false);
 
@@ -89,6 +91,12 @@ const CourseUpload = () => {
 
   const handleImageChange = (event) => {
     setImage(event.target.files[0]);
+  };
+
+  const handleChange = (index, event) => {
+    const values = [...weeks];
+    values[index].week[event.target.name] = event.target.value;
+    setWeeks(values);
   };
 
   return (
@@ -179,6 +187,33 @@ const CourseUpload = () => {
             />
             <label for="floatingDescription">Long Description</label>
           </div>
+
+          {weeks.map((week, index) => (
+            <div key={index}>
+              <h3>Week {index + 1}</h3>
+              <input
+                type="text"
+                name="0"
+                value={week.week[0]}
+                onChange={(event) => handleChange(index, event)}
+                placeholder="Lesson 1"
+              />
+              <input
+                type="text"
+                name="1"
+                value={week.week[1]}
+                onChange={(event) => handleChange(index, event)}
+                placeholder="Lesson 2"
+              />
+              <input
+                type="text"
+                name="2"
+                value={week.week[2]}
+                onChange={(event) => handleChange(index, event)}
+                placeholder="Lesson 3"
+              />
+            </div>
+          ))}
 
           <Button
             className="btn btn-lg btn-primary mb-3"
