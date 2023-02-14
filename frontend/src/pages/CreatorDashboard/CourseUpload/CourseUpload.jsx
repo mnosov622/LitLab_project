@@ -1,5 +1,5 @@
 import jwtDecode from "jwt-decode";
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import { useState } from "react";
 import { useCallback } from "react";
 import { Button } from "react-bootstrap";
@@ -25,6 +25,9 @@ const CourseUpload = () => {
   const longDescr = useRef();
   const dispatch = useDispatch();
   const createdCourse = useSelector((state) => state.createdCourse);
+  const [showModal, setShowModal] = useState(false);
+  const modalRef = useRef(null);
+  const [selectedQuestionsAmount, setSelectedQuestionsAmount] = useState(null);
 
   const [weeks, setWeeks] = useState([
     { week: ["", "", ""] },
@@ -42,7 +45,6 @@ const CourseUpload = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log("summary", summary);
 
     setLoading(true);
     const formData = new FormData();
@@ -115,6 +117,54 @@ const CourseUpload = () => {
     setPointsToLearn(newPointsToLearn);
   };
 
+  const handleClickOutside = (event) => {
+    if (modalRef.current && !modalRef.current.contains(event.target)) {
+      setShowModal(false);
+    }
+  };
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  });
+
+  const [numQuestions, setNumQuestions] = useState(0);
+  const [questions, setQuestions] = useState([]);
+
+  const handleDropdownChange = (e) => {
+    setSelectedQuestionsAmount(e.target.value);
+    for (let i = 0; i < selectedQuestionsAmount; i++) {}
+  };
+  const handleNumQuestionsChange = (event) => {
+    const num = parseInt(event.target.value);
+    setNumQuestions(num);
+    setQuestions(
+      Array.from({ length: num }, () => ({
+        question: "",
+        options: ["", "", "", ""],
+        correctAnswer: "",
+      }))
+    );
+  };
+
+  const handleQuestionChange = (event, index) => {
+    const newQuestions = [...questions];
+    newQuestions[index].question = event.target.value;
+    setQuestions(newQuestions);
+  };
+
+  const handleOptionChange = (event, questionIndex, optionIndex) => {
+    const newQuestions = [...questions];
+    newQuestions[questionIndex].options[optionIndex] = event.target.value;
+    setQuestions(newQuestions);
+  };
+
+  const handleCorrectAnswerChange = (event, index) => {
+    const newQuestions = [...questions];
+    newQuestions[index].correctAnswer = event.target.value;
+    setQuestions(newQuestions);
+  };
   return (
     <form onSubmit={onSubmit}>
       <div className="bg-light shadow text-center p-2 fs-2 mb-4">
@@ -124,7 +174,7 @@ const CourseUpload = () => {
       <div className="row">
         <div className="col-md-6">
           <div className="upload-item">
-            <p className="fs-2">Upload a course video</p>
+            <h3 className="fs-2 text-primary">Upload a course video</h3>
             <div class="input-container d-flex  justify-content-center align-items-center">
               <p className="fs-4">
                 <i className="bi bi-upload fs-1"></i>
@@ -139,7 +189,7 @@ const CourseUpload = () => {
             </div>
           </div>
           <div className="upload-item">
-            <p className="fs-2">Upload a course image</p>
+            <h3 className="fs-2 text-primary">Upload a course image</h3>
             <div class="input-container d-flex  justify-content-center align-items-center">
               <p className="fs-4">
                 <i className="bi bi-upload fs-1"></i>
@@ -153,7 +203,7 @@ const CourseUpload = () => {
               />
             </div>
           </div>
-          <h3 className="mt-3">Specify what people will learn:</h3>
+          <h3 className="mt-3 text-primary">Specify what people will learn:</h3>
           {pointsToLearn.map((point, index) => (
             <div key={index}>
               <h4 className="mt-3">Point {index + 1}</h4>
@@ -177,6 +227,7 @@ const CourseUpload = () => {
         </div>
 
         <div className="col-md-6">
+          <h2 className="text-primary">General Information</h2>
           <div className="form-floating mb-3">
             <input
               required
@@ -224,10 +275,10 @@ const CourseUpload = () => {
             />
             <label for="floatingDescription">Long Description</label>
           </div>
-
+          <h2 className="text-primary">Course Content</h2>
           {weeks.map((week, index) => (
             <div key={index}>
-              <h3>Week {index + 1}</h3>
+              <h4>Week {index + 1}</h4>
               <input
                 type="text"
                 name="0"
@@ -254,6 +305,116 @@ const CourseUpload = () => {
               />
             </div>
           ))}
+          {showModal && (
+            <div className="modal">
+              <div ref={modalRef} className="modal-content">
+                <span
+                  className="close position-absolute right-0"
+                  style={{ right: "20px", top: "5px" }}
+                  onClick={() => setShowModal(false)}
+                >
+                  &times;
+                </span>
+                <h2 className="text-center">Create a test</h2>
+                <div>
+                  <label htmlFor="num-questions">Number of questions:</label>
+                  <select
+                    id="num-questions"
+                    value={numQuestions}
+                    onChange={handleNumQuestionsChange}
+                    className="form-control w-25"
+                  >
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+
+                  {numQuestions > 0 && (
+                    <div>
+                      <h2>Questions:</h2>
+                      {Array.from(
+                        { length: numQuestions },
+                        (_, questionIndex) => (
+                          <div key={questionIndex}>
+                            <label
+                              htmlFor={`question-${questionIndex}`}
+                              className="fw-bold fs-5"
+                            >
+                              Question {questionIndex + 1}:
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id={`question-${questionIndex}`}
+                              value={questions[questionIndex].question}
+                              onChange={(event) =>
+                                handleQuestionChange(event, questionIndex)
+                              }
+                            />
+
+                            <h5>Options:</h5>
+                            {questions[questionIndex].options.map(
+                              (option, optionIndex) => (
+                                <div key={optionIndex}>
+                                  <label
+                                    htmlFor={`question-${questionIndex}-option-${optionIndex}`}
+                                  >
+                                    Option {optionIndex + 1}:
+                                  </label>
+                                  <input
+                                    type="text"
+                                    id={`question-${questionIndex}-option-${optionIndex}`}
+                                    value={option}
+                                    className="form-control"
+                                    onChange={(event) =>
+                                      handleOptionChange(
+                                        event,
+                                        questionIndex,
+                                        optionIndex
+                                      )
+                                    }
+                                  />
+                                </div>
+                              )
+                            )}
+
+                            <label
+                              htmlFor={`question-${questionIndex}-correct-answer`}
+                            >
+                              Correct answer:
+                            </label>
+                            <input
+                              type="text"
+                              id={`question-${questionIndex}-correct-answer`}
+                              value={questions[questionIndex].correctAnswer}
+                              className="form-control"
+                              onChange={(event) =>
+                                handleCorrectAnswerChange(event, questionIndex)
+                              }
+                            />
+                          </div>
+                        )
+                      )}
+                      <div className="text-center">
+                        <button className="btn btn-primary mt-3">
+                          Create a test
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          )}
+
+          <button
+            className="btn btn-success btn-lg"
+            onClick={() => setShowModal(true)}
+          >
+            Create a test
+          </button>
         </div>
         <Button
           className="btn btn-lg btn-primary mb-3 w-25 mx-auto mt-3"
