@@ -11,6 +11,8 @@ const CourseView = () => {
   const videoRef = useRef(null);
   const [courseData, setCourseData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [fakeVideo, setFakeVideo] = useState(false);
+  const [uploadedVideo, setUploadedVideo] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -19,8 +21,22 @@ const CourseView = () => {
       .then((data) => {
         setCourseData(data.course);
         setLoading(false);
+        console.log("data", courseData);
       });
   }, []);
+
+  useEffect(() => {
+    const videoSourceLink = courseData.video?.startsWith("https");
+    console.log("source true", videoSourceLink);
+    if (videoSourceLink) {
+      setFakeVideo(true);
+    } else {
+      setUploadedVideo(true);
+    }
+    //   ? courseData
+    //   : `http://localhost:8000/images/${courseData.video}`;
+    // setVideoSource(videoSource);
+  }, [courseData]);
 
   const handleEnded = () => {
     setIsFinished(true);
@@ -65,7 +81,7 @@ const CourseView = () => {
           </div>
           <div className="row mb-5">
             <div className="col-md-6">
-              {courseData.video && (
+              {fakeVideo ? (
                 <iframe
                   ref={videoRef}
                   width="560"
@@ -75,8 +91,17 @@ const CourseView = () => {
                   allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                 >
-                  <video onEnded="window.parent.postMessage('videoEnded', '*')"></video>
+                  {/* <video onEnded="window.parent.postMessage('videoEnded', '*')"></video> */}
                 </iframe>
+              ) : (
+                uploadedVideo &&
+                courseData.video && (
+                  <video
+                    src={`http://localhost:8000/videos/${courseData.video}`}
+                    controls
+                    width={"100%"}
+                  />
+                )
               )}
 
               {/* <video
