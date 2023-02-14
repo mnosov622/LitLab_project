@@ -32,9 +32,15 @@ const CourseUpload = () => {
     { week: ["", "", ""] },
   ]);
 
+  const [pointsToLearn, setPointsToLearn] = useState([
+    { point: "" },
+    { point: "" },
+    { point: "" },
+  ]);
+
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(weeks);
+    console.log(pointsToLearn);
 
     setLoading(true);
     const formData = new FormData();
@@ -68,6 +74,7 @@ const CourseUpload = () => {
       email: decoded.email,
       instructor: decoded.name,
       courseContent: weeks.map((week) => ({ week: week.week })),
+      pointsToLearn: pointsToLearn.map((point) => ({ point: point.point })),
     };
     setLoading(false);
 
@@ -97,6 +104,12 @@ const CourseUpload = () => {
     const values = [...weeks];
     values[index].week[event.target.name] = event.target.value;
     setWeeks(values);
+  };
+
+  const handlePointChange = (index, value) => {
+    const newPointsToLearn = [...pointsToLearn];
+    newPointsToLearn[index].point = value;
+    setPointsToLearn(newPointsToLearn);
   };
 
   return (
@@ -137,6 +150,19 @@ const CourseUpload = () => {
               />
             </div>
           </div>
+          <h3 className="mt-3">Specify what learners will learn:</h3>
+          {pointsToLearn.map((point, index) => (
+            <div key={index}>
+              <h4 className="mt-3">Point {index + 1}</h4>
+              <input
+                type="text"
+                id={`point-${index}`}
+                value={point.point}
+                onChange={(e) => handlePointChange(index, e.target.value)}
+                className="form-control w-50"
+              />
+            </div>
+          ))}
         </div>
 
         <div className="col-md-6">
@@ -197,6 +223,7 @@ const CourseUpload = () => {
                 value={week.week[0]}
                 onChange={(event) => handleChange(index, event)}
                 placeholder="Lesson 1"
+                className="form-control mb-3"
               />
               <input
                 type="text"
@@ -204,6 +231,7 @@ const CourseUpload = () => {
                 value={week.week[1]}
                 onChange={(event) => handleChange(index, event)}
                 placeholder="Lesson 2"
+                className="form-control mb-3"
               />
               <input
                 type="text"
@@ -211,30 +239,30 @@ const CourseUpload = () => {
                 value={week.week[2]}
                 onChange={(event) => handleChange(index, event)}
                 placeholder="Lesson 3"
+                className="form-control mb-3"
               />
             </div>
           ))}
-
-          <Button
-            className="btn btn-lg btn-primary mb-3"
-            variant="primary"
-            type="submit"
-          >
-            {loading ? (
-              <Bars
-                height="30"
-                width="55"
-                color="#fff"
-                ariaLabel="bars-loading"
-                wrapperStyle={{}}
-                wrapperClass=""
-                visible={true}
-              />
-            ) : (
-              <span> Create A Course</span>
-            )}
-          </Button>
         </div>
+        <Button
+          className="btn btn-lg btn-primary mb-3 w-25 mx-auto mt-3"
+          variant="primary"
+          type="submit"
+        >
+          {loading ? (
+            <Bars
+              height="30"
+              width="55"
+              color="#fff"
+              ariaLabel="bars-loading"
+              wrapperStyle={{}}
+              wrapperClass=""
+              visible={true}
+            />
+          ) : (
+            <span> Create A Course</span>
+          )}
+        </Button>
       </div>
     </form>
   );

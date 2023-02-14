@@ -90,9 +90,7 @@ const CourseView = () => {
                   src={courseData.video}
                   allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
-                >
-                  {/* <video onEnded="window.parent.postMessage('videoEnded', '*')"></video> */}
-                </iframe>
+                ></iframe>
               ) : (
                 uploadedVideo &&
                 courseData.video && (
