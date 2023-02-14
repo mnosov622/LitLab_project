@@ -39,6 +39,7 @@ const CourseDescription = () => {
   //Get log in state
   const loggedIn = useSelector((state) => state.loggedInAsLearner);
   const itemsInCart = useSelector((state) => state.increaseItemsAmount);
+  const [imageSource, setImageSource] = useState("");
 
   useEffect(() => {
     setLoading(true);
@@ -72,6 +73,15 @@ const CourseDescription = () => {
         // });
       });
   }, []);
+
+  useEffect(() => {
+    console.log("course iamge1", course.courseImageURL);
+    const imageSource = course.courseImageURL?.startsWith("https")
+      ? course.courseImageURL
+      : `http://localhost:8000/images/${course.courseImageURL}`;
+    setImageSource(imageSource);
+  }, [course, course.coureseImageURL]);
+
   //TODO: Add all items from object to the cart
   const addCourseToCart = () => {
     //Checking if added item exists in cart, if so, then show error, otherwise add item to cart
@@ -82,7 +92,7 @@ const CourseDescription = () => {
         id: singleCourse?.id,
         name: singleCourse?.name,
         instructor: singleCourse?.instructor,
-        courseImage: singleCourse?.courseImageURL,
+        courseImageURL: singleCourse?.courseImageURL,
         price: singleCourse.price,
       };
 
@@ -104,19 +114,18 @@ const CourseDescription = () => {
 
   const buyNow = async () => {
     localStorage.removeItem("item_to_buy");
-    console.log("LOGIN STATE", loggedIn);
-
+    console.log(course);
     if (!loggedIn) {
       return navigate("/login", { state: { loggedIn: false } });
     } else {
       localStorage.setItem(
         "item_to_buy",
         JSON.stringify({
-          id: singleCourse.id,
-          name: singleCourse.name,
-          price: singleCourse.price,
-          instructor: singleCourse.instructor,
-          image: singleCourse.courseImageURL,
+          id: course.id,
+          name: course.name,
+          price: course.price,
+          instructor: course.instructor,
+          courseImageURL: course.courseImageURL,
         })
       );
       navigate("/payment");
@@ -235,18 +244,12 @@ const CourseDescription = () => {
                 </p>
               </div>
               <div className="col-lg-4">
-                {(course && course.courseImage) ||
-                  (course.courseImageURL && (
-                    <img
-                      className="rounded"
-                      src={
-                        course?.courseImageURL ||
-                        `http://localhost:8000/images/${course.courseImage}`
-                      }
-                      alt="Course"
-                      width={"100%"}
-                    />
-                  ))}
+                <img
+                  src={imageSource}
+                  class="rounded"
+                  alt="Course"
+                  width={"100%"}
+                />
 
                 <div className="buttons d-flex flex-column">
                   <button

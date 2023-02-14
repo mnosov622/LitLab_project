@@ -10,6 +10,7 @@ const Cart = () => {
   const items = JSON.parse(shoppingCart);
   const [shoppingCartItems, setShoppingCartItems] = useState(items);
   console.log("init", shoppingCartItems);
+  const [imageSource, setImageSource] = useState("");
 
   const cart = useSelector((state) => state.cartReducer);
   console.log("CURRENT CART", cart);
@@ -25,6 +26,13 @@ const Cart = () => {
       console.log("for some reason");
     }
   }, []);
+
+  // useEffect(() => {
+  //   const imageSource = shoppingCartItems.courseImage?.startsWith("https")
+  //     ? shoppingCartItems.courseImage
+  //     : `http://localhost:8000/images/${shoppingCartItems.courseImage}`;
+  //   setImageSource(imageSource);
+  // }, [shoppingCartItems]);
 
   const goToCheckout = () => {
     localStorage.removeItem("item_to_buy");
@@ -62,7 +70,7 @@ const Cart = () => {
               cardSmall
               name={item.name}
               teacherName={item.instructor}
-              image={item.courseImage}
+              courseImage={item.courseImageURL}
               price={item.price}
               id={item.id}
               removable

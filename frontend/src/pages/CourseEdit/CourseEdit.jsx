@@ -2,12 +2,12 @@ import jwtDecode from "jwt-decode";
 import React, { useEffect, useState } from "react";
 import { Oval } from "react-loader-spinner";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const CourseEdit = () => {
   const [userData, setUserData] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  const navigate = useNavigate();
   const [singleCourse, setSingleCourse] = useState([]);
   const [courseName, setCourseName] = useState("");
   const [shortDescription, setShortDescription] = useState("");
@@ -70,6 +70,7 @@ const CourseEdit = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        navigate("/");
         // Handle success or error response
       });
   };
@@ -157,12 +158,10 @@ const CourseEdit = () => {
             </div>
 
             <div className="col-md-6">
-              {/* TODO: Issue with the image */}
-
               <p className="fs-4">Course Image</p>
-              {singleCourse && singleCourse.courseImage && (
+              {singleCourse && singleCourse.courseImageURL && (
                 <img
-                  src={`http://localhost:8000/images/${singleCourse.courseImage}`}
+                  src={`http://localhost:8000/images/${singleCourse.courseImageURL}`}
                   width={"30%"}
                   alt="Course"
                 />

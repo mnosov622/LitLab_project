@@ -63,7 +63,9 @@ const CreatorDashboard = () => {
               <CreatorCourseCard
                 courseId={course.id}
                 key={course.id}
-                courseImage={course && course.courseImage && course.courseImage}
+                courseImage={
+                  course && course.courseImageURL && course.courseImageURL
+                }
                 courseName={course.name}
                 price={course.price}
                 courseVideo={course.courseVideo}

@@ -483,7 +483,7 @@ MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
                 price: req.body.price,
                 shortDescription: req.body.shortDescription,
                 longDescription: req.body.longDescription,
-                courseImage: imageFile.originalname,
+                courseImageURL: imageFile.originalname,
               },
             },
           },
@@ -601,7 +601,7 @@ app.post("/courses", async (req, res) => {
       shortDescription,
       longDescription,
       video,
-      courseImage,
+      courseImageURL,
       instructor,
     } = req.body;
 
@@ -622,7 +622,7 @@ app.post("/courses", async (req, res) => {
     const course = {
       id,
       video,
-      courseImage,
+      courseImageURL,
       email,
       name,
       price,

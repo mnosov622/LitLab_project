@@ -74,7 +74,7 @@ const AllCourses = () => {
                   key={course.id}
                   id={course.id}
                   name={course.name}
-                  courseImage={course.courseImage}
+                  courseImage={course.courseImageURL}
                   image={course.courseImageURL}
                   price={course.price}
                   teacherName={course.instructor}

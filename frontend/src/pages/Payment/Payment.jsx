@@ -48,7 +48,7 @@ const Payment = () => {
           id: item_to_buy?.id,
           courseName: item_to_buy?.name,
           instructor: item_to_buy?.instructor,
-          courseImage: item_to_buy.image,
+          courseImage: item_to_buy.courseImageURL,
           price: item_to_buy.price,
           isCompleted: false,
         };
@@ -79,7 +79,7 @@ const Payment = () => {
             id: item.id,
             courseName: item.name,
             instructor: item.instructor,
-            courseImage: item.courseImage,
+            courseImage: item.courseImageURL,
             price: item.price,
             isCompleted: false,
           });
@@ -137,7 +137,7 @@ const Payment = () => {
                 <CourseCard
                   name={item_to_buy?.name}
                   price={item_to_buy?.price}
-                  image={item_to_buy?.image}
+                  courseImage={item_to_buy?.courseImageURL}
                   teacherName={item_to_buy?.instructor}
                   id={item_to_buy?.id}
                 />
@@ -246,7 +246,7 @@ const Payment = () => {
             item_to_buy.map((item) => (
               <CourseCard
                 name={item.name}
-                image={item.courseImage}
+                courseImage={item.courseImageURL}
                 teacherName={item.instructor}
                 price={item.price}
                 id={item.id}

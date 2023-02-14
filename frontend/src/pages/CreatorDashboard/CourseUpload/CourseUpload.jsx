@@ -56,7 +56,7 @@ const CourseUpload = () => {
 
     const courseData = {
       video: data.video.originalname,
-      courseImage: data.image.originalname,
+      courseImageURL: data.image.originalname,
       instructorEmail: decoded.email,
       name: nameRef.current.value,
       price: priceRef.current.value,

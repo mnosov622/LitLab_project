@@ -21,7 +21,10 @@ const CourseCard = ({
   demo,
   deleteBtn,
   removable,
+  courseImageURL,
 }) => {
+  const [imageSource, setImageSource] = useState("");
+
   const handleRemove = (id) => (e) => {
     e.preventDefault();
     const shoppingCart = JSON.parse(localStorage.getItem("shopping_cart"));
@@ -29,6 +32,13 @@ const CourseCard = ({
     localStorage.setItem("shopping_cart", JSON.stringify(updatedShoppingCart));
     window.location.reload();
   };
+
+  useEffect(() => {
+    const imageSource = courseImage?.startsWith("https")
+      ? courseImage
+      : `http://localhost:8000/images/${courseImage}`;
+    setImageSource(imageSource);
+  }, []);
 
   return (
     <>
@@ -63,21 +73,11 @@ const CourseCard = ({
                 alt="Course"
               />
             )}
-            {courseImage ? (
-              <img
-                src={`http://localhost:8000/images/${courseImage}`}
-                className="card-img-top img-fluid card-image"
-                alt="Course"
-              />
-            ) : (
-              !creatorCourseImage && (
-                <img
-                  src={image}
-                  className="card-img-top img-fluid card-image"
-                  alt="Teacher for the course"
-                />
-              )
-            )}
+            <img
+              src={imageSource}
+              className="card-img-top img-fluid card-image"
+              alt="Course"
+            />
 
             <div className="card-body">
               <h5 className="card-title">{name}</h5>

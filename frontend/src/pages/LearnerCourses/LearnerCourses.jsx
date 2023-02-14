@@ -86,7 +86,7 @@ const LearnerCourses = () => {
               cardSmall
               name={course?.courseName}
               price={course?.price}
-              image={course?.courseImage}
+              courseImage={course?.courseImage}
               teacherName={course?.instructor}
               id={course?.id}
               courseCompleted={course.isCompleted}
