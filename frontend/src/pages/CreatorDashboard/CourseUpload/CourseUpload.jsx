@@ -38,9 +38,11 @@ const CourseUpload = () => {
     { point: "" },
   ]);
 
+  const [summary, setSummary] = useState("");
+
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(pointsToLearn);
+    console.log("summary", summary);
 
     setLoading(true);
     const formData = new FormData();
@@ -75,6 +77,7 @@ const CourseUpload = () => {
       instructor: decoded.name,
       courseContent: weeks.map((week) => ({ week: week.week })),
       pointsToLearn: pointsToLearn.map((point) => ({ point: point.point })),
+      pointsSummary: summary,
     };
     setLoading(false);
 
@@ -150,7 +153,7 @@ const CourseUpload = () => {
               />
             </div>
           </div>
-          <h3 className="mt-3">Specify what learners will learn:</h3>
+          <h3 className="mt-3">Specify what people will learn:</h3>
           {pointsToLearn.map((point, index) => (
             <div key={index}>
               <h4 className="mt-3">Point {index + 1}</h4>
@@ -163,6 +166,14 @@ const CourseUpload = () => {
               />
             </div>
           ))}
+          <h4 className="mt-3">Summary of points</h4>
+          <textarea
+            type="text"
+            placeholder="Summary"
+            className="form-control w-50"
+            value={summary}
+            onChange={(e) => setSummary(e.target.value)}
+          />
         </div>
 
         <div className="col-md-6">

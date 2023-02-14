@@ -608,6 +608,7 @@ app.post("/courses", async (req, res) => {
       instructor,
       courseContent,
       pointsToLearn,
+      pointsSummary,
     } = req.body;
 
     console.log("points to learn recieved", pointsToLearn);
@@ -638,6 +639,7 @@ app.post("/courses", async (req, res) => {
       instructor,
       courseContent,
       pointsToLearn,
+      pointsSummary,
     };
 
     const result = await client
