@@ -43,8 +43,7 @@ const CourseEdit = () => {
   }, [userData, courseId]);
 
   const handleSubmit = (e) => {
-    console.log("user id", decoded.email);
-    console.log("cours id", courseId);
+    console.log("course id", courseId);
 
     e.preventDefault();
     const updatedCourse = {
@@ -73,6 +72,23 @@ const CourseEdit = () => {
         navigate("/");
         // Handle success or error response
       });
+
+    //TODO: Update course for all courses section
+    // fetch(`http://localhost:8000/users/${decoded.id}/courses/${courseId}`, {
+    //   method: "PUT",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     updatedCourse: updatedCourse,
+    //   }),
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //     navigate("/");
+    //     // Handle success or error response
+    //   });
   };
   return (
     <div className={loading ? "bottom" : ""}>

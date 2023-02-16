@@ -196,7 +196,7 @@ app.post("/login", (req, res) => {
             name: user.name,
             isAdmin: user?.isAdmin,
           };
-          const token = jwt.sign(payload, secret, { expiresIn: "2h" });
+          const token = jwt.sign(payload, secret, { expiresIn: "24h" });
 
           res.status(200).send({ user, token });
 
@@ -438,6 +438,10 @@ MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
   const upload = multer({ storage });
 
   app.post("/upload", upload.array("files"), (req, res) => {
+    // console.log("courseContent", JSON.parse(req.body.courseContent));
+    // console.log("pointsToLearn", JSON.parse(req.body.pointsToLearn));
+    // console.log("test", JSON.parse(req.body.questions));
+
     const videoFile = req.files.find((file) =>
       file.mimetype.startsWith("video/")
     );
@@ -487,6 +491,11 @@ MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
                 shortDescription: req.body.shortDescription,
                 longDescription: req.body.longDescription,
                 courseImageURL: imageFile.originalname,
+                pointsSummary: req.body.pointsSummary,
+                // pointsToLearn: JSON.parse(req.body.pointsToLearn),
+                // courseContent: JSON.parse(req.body.courseContent),
+                // test: JSON.parse(req.body.questions),
+                enrollments: 0,
               },
             },
           },
@@ -504,6 +513,7 @@ MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
               shortDescription: req.body.shortDescription,
               longDescription: req.body.longDescription,
               courseImage: imageFile.originalname,
+              test: req.body.test,
             });
           }
         );
@@ -609,6 +619,8 @@ app.post("/courses", async (req, res) => {
       courseContent,
       pointsToLearn,
       pointsSummary,
+      test,
+      enrollments,
     } = req.body;
 
     console.log("points to learn recieved", pointsToLearn);
@@ -640,6 +652,8 @@ app.post("/courses", async (req, res) => {
       courseContent,
       pointsToLearn,
       pointsSummary,
+      test,
+      enrollments,
     };
 
     const result = await client
@@ -657,8 +671,7 @@ app.post("/courses", async (req, res) => {
   }
 });
 
-//update course
-
+//update course for the user
 app.put("/creator-courses/:id/courses/:courseId", (req, res) => {
   console.log("updated course received", req.body.updatedCourse);
 
@@ -698,6 +711,40 @@ app.put("/creator-courses/:id/courses/:courseId", (req, res) => {
       });
   });
 });
+
+//TODO: Update course for all courses section
+// app.put("/users/:id/courses/:courseId", (req, res) => {
+//   console.log("updated course received", req.body.updatedCourse);
+
+//   MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+//     if (err) throw err;
+//     const dbo = db.db("courses");
+//     dbo.collection("courses").findOne({ id: 17 }, function (err, user) {
+//       console.log("we found user", user);
+
+//       if (err) throw err;
+//       if (!user) {
+//         res.status(404).json({ message: "User not found" });
+//       } else {
+//         console.log("user is", user);
+//         dbo
+//           .collection("users")
+//           .updateOne(
+//             { email: "creator@gmail.com" },
+//             { $set: { courses: req.body.updatedCourse } },
+//             function (err, result) {
+//               if (err) throw err;
+//               res.send({
+//                 message: "course data updated successfully",
+//                 result: result,
+//               });
+//               db.close();
+//             }
+//           );
+//       }
+//     });
+//   });
+// });
 
 app.get("/user-course/:userId", (req, res) => {
   console.log("user id", req.params.userId);
