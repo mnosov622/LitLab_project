@@ -14,6 +14,7 @@ import jwtDecode from "jwt-decode";
 import { useEffect } from "react";
 import dashboard from "../assets/dashboard.png";
 import myLearning from "../assets/my-learning.png";
+import allCourses from "../assets/all-courses.png";
 
 const Navbar = () => {
   const [search, setSearch] = useState("");
@@ -80,8 +81,11 @@ const Navbar = () => {
             </Link>
           </div>
           {!loginAsCreator && (
-            <div className="col-md-2 all-courses mt-4 fs-5">
-              <Link to="/all-courses">Explore All Courses</Link>
+            <div className="col-md-2 all-courses fs-5 d-flex justify-content-between align-items-center">
+              <Link to="/all-courses">
+                Explore All Courses &nbsp;
+                <img src={allCourses} alt="" width={"12%"} />
+              </Link>
             </div>
           )}
 

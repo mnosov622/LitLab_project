@@ -861,6 +861,8 @@ app.put("/users/:userEmail/courses/:id", (req, res) => {
     });
 });
 
+//Admin endpoints
+
 //remove the user, functionality for admin only
 //TODO: Protect the route, so that only admin can do that
 app.delete("/users/:email", (req, res) => {
@@ -899,6 +901,32 @@ app.delete("/users/:email", (req, res) => {
         if (deletedUser === null) {
           res.status(404).send("User not found");
         }
+      }
+    });
+  });
+});
+
+//delete the course - admin endpoint
+app.delete("/courses/:name", (req, res) => {
+  console.log(req.params.id);
+  const courseName = req.params.name;
+  MongoClient.connect(url, (err, client) => {
+    if (err) throw err;
+    const db = client.db("courses");
+    const collection = db.collection("courses");
+    collection.find().toArray((err, courses) => {
+      if (err) throw err;
+      const courseToDelete = courses.find(
+        (course) => course.name === courseName
+      );
+      if (!courseToDelete) {
+        res.status(404).send(`Course ${courseName} not found`);
+      } else {
+        collection.deleteOne({ name: courseName }, (err, result) => {
+          if (err) throw err;
+          res.status(204).send();
+          client.close();
+        });
       }
     });
   });
