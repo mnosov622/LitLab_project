@@ -33,7 +33,6 @@ const Users = () => {
   };
 
   const deleteCourse = (name) => {
-    console.log("delete course with id", name);
     if (window.confirm("Are you sure you want to delete this course ?")) {
       fetch(`http://localhost:8000/courses/${name}`, {
         method: "DELETE",
@@ -95,7 +94,7 @@ const Users = () => {
               </th>
               <th>Price $</th>
               <th>Enrollments</th>
-              <th>Actions</th>
+              <th className="text-center">Actions</th>
             </tr>
           </thead>
           <tbody>

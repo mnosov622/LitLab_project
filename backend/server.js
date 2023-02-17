@@ -28,7 +28,6 @@ app.use(
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-//TODO: implement creating account functionality
 app.post("/registerLearner", async (req, res) => {
   MongoClient.connect(
     url,
@@ -326,53 +325,6 @@ app.get("/users/:id", (req, res) => {
       res.status(500).json({ message: err.message });
     });
 });
-
-// app.post("/buy-course", (req, res) => {
-//   const token = req.headers.authorization;
-//   const decoded = jwt.verify(token, secret);
-//   const userId = decoded.id;
-
-//   console.log("courses recieved", req.body.courses);
-//   MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
-//     if (err) {
-//       console.error(err);
-//       return;
-//     }
-
-//     const db = client.db("users");
-//     const users = db.collection("users");
-
-//     users.findOne({ _id: new ObjectId(userId) }, (err, user) => {
-//       if (err) {
-//         console.error(err);
-//         client.close();
-//         return;
-//       }
-
-//       if (!user.courses) {
-//         user.courses = [];
-//       }
-
-//       // Add the courses to the user's courses list
-//       req.body.courses.forEach((course) => {
-//         user.courses.push(course);
-//       });
-
-//       // Update the user document in the database
-//       users.updateOne(
-//         { _id: user._id },
-//         { $set: { courses: user.courses } },
-//         (err) => {
-//           if (err) {
-//             console.error(err);
-//           }
-//           client.close();
-//           res.send({ success: true });
-//         }
-//       );
-//     });
-//   });
-// });
 
 app.post("/buy-course", (req, res) => {
   const token = req.headers.authorization;
@@ -907,6 +859,7 @@ app.delete("/users/:email", (req, res) => {
 });
 
 //delete the course - admin endpoint
+//TODO: Protect the route, so that only admin can do that
 app.delete("/courses/:name", (req, res) => {
   console.log(req.params.id);
   const courseName = req.params.name;
