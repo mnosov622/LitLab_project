@@ -2,8 +2,6 @@ import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import logo from "../assets/logo.png";
-import courses from "../fakeData/courses.json";
-import { getOptions } from "../utils/getOptions";
 import { useState } from "react";
 import "./Navbar.style.scss";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,41 +10,27 @@ import { loggedIn } from "../store/reducers/login";
 import { logInAsCreator } from "../store/actions/index";
 import jwtDecode from "jwt-decode";
 import { useEffect } from "react";
+import SearchBar from "../pages/Search/SearchBar";
+
 
 const Navbar = () => {
-  const [search, setSearch] = useState("");
-  const [data, setData] = useState("");
-  const [showList, setShowList] = useState(true);
   const [name, setName] = useState("");
   const [numberOfItems, setNumberOfItems] = useState(0);
-
   const navigate = useNavigate();
-
   const loggedInAsLearner = useSelector((state) => state.loggedInAsLearner);
   const loginAsCreator = useSelector((state) => state.creatorLogin);
   const loginAsAdmin = useSelector((state) => state.adminLogin);
   const courses = useSelector((state) => state.coursesReducer);
-  const amountIfItems = useSelector((state) => state.increaseItemsAmount);
+ 
 
   console.log(courses);
 
-  const shoppingCart = JSON.parse(localStorage.getItem("shopping_cart"));
-  useEffect(() => {
+  //const shoppingCart = JSON.parse(localStorage.getItem("shopping_cart"));
+  /*useEffect(() => {
     const numberOfItems = shoppingCart ? shoppingCart.length : 0;
     setNumberOfItems(numberOfItems);
-  }, [shoppingCart]);
-  const displayOptions = () => {
-    const options = getOptions(search, courses);
-    setData(options);
-  };
-  const searchForCourses = () => {
-    displayOptions();
-  };
-
-  const goToCourse = (id) => {
-    window.location.href = `/course/${id}`;
-  };
-
+  }, [shoppingCart]);*/
+  
   const logOut = () => {
     localStorage.removeItem("token");
     window.location.reload();
@@ -83,51 +67,8 @@ const Navbar = () => {
             </div>
           )}
 
-          {loggedInAsLearner && (
-            <div className="col-md-3">
-              <form action="">
-                <div className="input-group search">
-                  <input
-                    type="text"
-                    className="form-control w-100 mt-4"
-                    placeholder="Search for your favourite courses"
-                    aria-label="Search for your favourite courses"
-                    onKeyUp={searchForCourses}
-                    onChange={(e) => setSearch(e.target.value)}
-                    onFocus={() => setShowList(true)}
-                    //To fix search remove this line
-                    onBlur={() => setShowList(false)}
-                  ></input>
-                  {/* <div className="input-group-append">
-                    <button className="btn btn-outline-secondary" type="button">
-                      <i className="bi bi-search"></i>
-                    </button>
-                  </div> */}
-                </div>
-                {showList && (
-                  <ul className="options">
-                    {data &&
-                      data.map((item) => (
-                        <div className="">
-                          <Link
-                            to={`/course/${item.id}`}
-                            key={item.id}
-                            // onClick={setShowList(false)}
-                          >
-                            <li className="item">
-                              {item.name}
-                              <p className="text-muted mt-1 mb-0">
-                                By {item.instructor}
-                              </p>
-                            </li>
-                          </Link>
-                        </div>
-                      ))}
-                  </ul>
-                )}
-              </form>
-            </div>
-          )}
+          {loggedInAsLearner && ( <SearchBar/>)}
+          
           {loggedInAsLearner ? (
             <div className="col-md-6 d-flex align-items-baseline justify-content-around">
               <p className="fs-5 text-black">
