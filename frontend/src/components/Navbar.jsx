@@ -10,8 +10,14 @@ import { loggedIn } from "../store/reducers/login";
 import { logInAsCreator } from "../store/actions/index";
 import jwtDecode from "jwt-decode";
 import { useEffect } from "react";
+<<<<<<< HEAD
 import SearchBar from "../pages/Search/SearchBar";
 
+=======
+import dashboard from "../assets/dashboard.png";
+import myLearning from "../assets/my-learning.png";
+import allCourses from "../assets/all-courses.png";
+>>>>>>> 695c93609e4d0efae5b93c4b12bbf43a4e81f635
 
 const Navbar = () => {
   const [name, setName] = useState("");
@@ -62,8 +68,11 @@ const Navbar = () => {
             </Link>
           </div>
           {!loginAsCreator && (
-            <div className="col-md-2 all-courses mt-4 fs-5">
-              <Link to="/all-courses">Explore All Courses</Link>
+            <div className="col-md-2 all-courses fs-5 d-flex justify-content-between align-items-center">
+              <Link to="/all-courses">
+                Explore All Courses &nbsp;
+                <img src={allCourses} alt="" width={"12%"} />
+              </Link>
             </div>
           )}
 
@@ -125,9 +134,20 @@ const Navbar = () => {
                 <p className="offset-2 fs-5 text-black">
                   Welcome back, <span className="text-primary">{name}</span>
                 </p>
-                <div className="col-md-4 text-end mt-4 fs-5">
-                  <Link to="/" className="">
-                    Dashboard
+                <div className="col-md-4 mt-4 fs-5 d-flex align-items-center ">
+                  <Link
+                    to="/"
+                    className="d-flex align-items-center justify-content-center"
+                  >
+                    <span className="me-2">Dashboard</span>
+                    <img
+                      src={dashboard}
+                      alt=""
+                      srcset=""
+                      width={"5%"}
+                      height={"55%"}
+                      style={{ alignSelf: "center" }}
+                    />
                   </Link>
                 </div>
 

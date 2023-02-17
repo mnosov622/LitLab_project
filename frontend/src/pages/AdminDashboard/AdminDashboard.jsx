@@ -4,6 +4,7 @@ import Chart from "./components/Chart";
 import FeaturedInfo from "./components/FeaturedInfo";
 import Topbar from "./components/Topbar";
 import RecentUsers from "./components/RecentUsers";
+import Users from "./components/Users";
 //import WidgetLg from "./components/WidgetLg";
 //import WidgetSm from "./components/WidgetSm";
 
@@ -13,12 +14,12 @@ const AdminDashboard = () => {
       <Topbar />
       <FeaturedInfo />
       <Chart />
-      <RecentUsers/>
+      <Users />
+      {/* <RecentUsers/> */}
       {/* <WidgetLg/>
         <WidgetSm/> */}
     </div>
   );
 };
-
 
 export default AdminDashboard;

@@ -196,7 +196,7 @@ app.post("/login", (req, res) => {
             name: user.name,
             isAdmin: user?.isAdmin,
           };
-          const token = jwt.sign(payload, secret, { expiresIn: "2h" });
+          const token = jwt.sign(payload, secret, { expiresIn: "24h" });
 
           res.status(200).send({ user, token });
 
@@ -216,7 +216,7 @@ app.post("/login", (req, res) => {
           isLearner: user?.isLearner,
           isCreator: user?.isCreator,
         };
-        const token = jwt.sign(payload, secret, { expiresIn: "2h" });
+        const token = jwt.sign(payload, secret, { expiresIn: "24h" });
 
         res.status(200).send({ user, token });
 
@@ -248,7 +248,7 @@ app.post("/googleLogin", (req, res) => {
           isLearner: user?.isLearner,
           isCreator: user?.isCreator,
         };
-        const token = jwt.sign(payload, secret, { expiresIn: "2h" });
+        const token = jwt.sign(payload, secret, { expiresIn: "24h" });
 
         res.status(200).send({ user, token });
 
@@ -266,9 +266,9 @@ app.get("/courses", (req, res) => {
       const db = client.db("courses");
       db.collection("courses")
         .find({})
-        .toArray((err, users) => {
+        .toArray((err, courses) => {
           if (err) throw err;
-          res.json(users);
+          res.json(courses);
           client.close();
         });
     }
@@ -438,6 +438,10 @@ MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
   const upload = multer({ storage });
 
   app.post("/upload", upload.array("files"), (req, res) => {
+    console.log("courseContent", JSON.parse(req.body.courseContent));
+    console.log("pointsToLearn", JSON.parse(req.body.pointsToLearn));
+    // console.log("test", JSON.parse(req.body.questions));
+
     const videoFile = req.files.find((file) =>
       file.mimetype.startsWith("video/")
     );
@@ -487,6 +491,11 @@ MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
                 shortDescription: req.body.shortDescription,
                 longDescription: req.body.longDescription,
                 courseImageURL: imageFile.originalname,
+                pointsSummary: req.body.pointsSummary,
+                pointsToLearn: JSON.parse(req.body.pointsToLearn),
+                courseContent: JSON.parse(req.body.courseContent),
+                // test: JSON.parse(req.body.questions),
+                enrollments: 0,
               },
             },
           },
@@ -504,6 +513,7 @@ MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
               shortDescription: req.body.shortDescription,
               longDescription: req.body.longDescription,
               courseImage: imageFile.originalname,
+              test: req.body.test,
             });
           }
         );
@@ -609,6 +619,8 @@ app.post("/courses", async (req, res) => {
       courseContent,
       pointsToLearn,
       pointsSummary,
+      test,
+      enrollments,
     } = req.body;
 
     console.log("points to learn recieved", pointsToLearn);
@@ -640,6 +652,8 @@ app.post("/courses", async (req, res) => {
       courseContent,
       pointsToLearn,
       pointsSummary,
+      test,
+      enrollments,
     };
 
     const result = await client
@@ -657,8 +671,7 @@ app.post("/courses", async (req, res) => {
   }
 });
 
-//update course
-
+//update course for the user
 app.put("/creator-courses/:id/courses/:courseId", (req, res) => {
   console.log("updated course received", req.body.updatedCourse);
 
@@ -698,6 +711,40 @@ app.put("/creator-courses/:id/courses/:courseId", (req, res) => {
       });
   });
 });
+
+//TODO: Update course for all courses section
+// app.put("/users/:id/courses/:courseId", (req, res) => {
+//   console.log("updated course received", req.body.updatedCourse);
+
+//   MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+//     if (err) throw err;
+//     const dbo = db.db("courses");
+//     dbo.collection("courses").findOne({ id: 17 }, function (err, user) {
+//       console.log("we found user", user);
+
+//       if (err) throw err;
+//       if (!user) {
+//         res.status(404).json({ message: "User not found" });
+//       } else {
+//         console.log("user is", user);
+//         dbo
+//           .collection("users")
+//           .updateOne(
+//             { email: "creator@gmail.com" },
+//             { $set: { courses: req.body.updatedCourse } },
+//             function (err, result) {
+//               if (err) throw err;
+//               res.send({
+//                 message: "course data updated successfully",
+//                 result: result,
+//               });
+//               db.close();
+//             }
+//           );
+//       }
+//     });
+//   });
+// });
 
 app.get("/user-course/:userId", (req, res) => {
   console.log("user id", req.params.userId);
@@ -812,6 +859,77 @@ app.put("/users/:userEmail/courses/:id", (req, res) => {
       console.log(err);
       res.status(500).json({ error: "Failed to update the course" });
     });
+});
+
+//Admin endpoints
+
+//remove the user, functionality for admin only
+//TODO: Protect the route, so that only admin can do that
+app.delete("/users/:email", (req, res) => {
+  const email = req.params.email;
+  console.log("email is", email);
+  MongoClient.connect(url, (err, client) => {
+    if (err) {
+      return res
+        .status(500)
+        .send({ message: "Error connecting to database: " + err });
+    }
+
+    const db = client.db("users");
+    const usersCollection = db.collection("users");
+
+    usersCollection.find().toArray((err, users) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send("Error finding users");
+      } else {
+        let deletedUser = null;
+        users.forEach((user) => {
+          if (user.email === email) {
+            deletedUser = user;
+            usersCollection.deleteOne({ email: email }, (err, result) => {
+              if (err) {
+                console.error(err);
+                res.status(500).send("Error deleting user");
+              } else {
+                res.send("User deleted successfully");
+              }
+            });
+          }
+        });
+
+        if (deletedUser === null) {
+          res.status(404).send("User not found");
+        }
+      }
+    });
+  });
+});
+
+//delete the course - admin endpoint
+app.delete("/courses/:name", (req, res) => {
+  console.log(req.params.id);
+  const courseName = req.params.name;
+  MongoClient.connect(url, (err, client) => {
+    if (err) throw err;
+    const db = client.db("courses");
+    const collection = db.collection("courses");
+    collection.find().toArray((err, courses) => {
+      if (err) throw err;
+      const courseToDelete = courses.find(
+        (course) => course.name === courseName
+      );
+      if (!courseToDelete) {
+        res.status(404).send(`Course ${courseName} not found`);
+      } else {
+        collection.deleteOne({ name: courseName }, (err, result) => {
+          if (err) throw err;
+          res.status(204).send();
+          client.close();
+        });
+      }
+    });
+  });
 });
 
 app.listen(8000, () => console.log("Server is up on port 8000"));

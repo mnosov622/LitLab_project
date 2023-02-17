@@ -61,6 +61,7 @@ const CourseCard = ({
             Completed
           </Badge>
         )}
+
         <Link to={linkToCourseView ? `/course-view/${id}` : `/course/${id}`}>
           <div
             className="card-item border position-relative"
