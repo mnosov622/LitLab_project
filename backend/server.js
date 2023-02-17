@@ -216,7 +216,7 @@ app.post("/login", (req, res) => {
           isLearner: user?.isLearner,
           isCreator: user?.isCreator,
         };
-        const token = jwt.sign(payload, secret, { expiresIn: "2h" });
+        const token = jwt.sign(payload, secret, { expiresIn: "24h" });
 
         res.status(200).send({ user, token });
 
@@ -248,7 +248,7 @@ app.post("/googleLogin", (req, res) => {
           isLearner: user?.isLearner,
           isCreator: user?.isCreator,
         };
-        const token = jwt.sign(payload, secret, { expiresIn: "2h" });
+        const token = jwt.sign(payload, secret, { expiresIn: "24h" });
 
         res.status(200).send({ user, token });
 
@@ -266,9 +266,9 @@ app.get("/courses", (req, res) => {
       const db = client.db("courses");
       db.collection("courses")
         .find({})
-        .toArray((err, users) => {
+        .toArray((err, courses) => {
           if (err) throw err;
-          res.json(users);
+          res.json(courses);
           client.close();
         });
     }
@@ -438,8 +438,8 @@ MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
   const upload = multer({ storage });
 
   app.post("/upload", upload.array("files"), (req, res) => {
-    // console.log("courseContent", JSON.parse(req.body.courseContent));
-    // console.log("pointsToLearn", JSON.parse(req.body.pointsToLearn));
+    console.log("courseContent", JSON.parse(req.body.courseContent));
+    console.log("pointsToLearn", JSON.parse(req.body.pointsToLearn));
     // console.log("test", JSON.parse(req.body.questions));
 
     const videoFile = req.files.find((file) =>
@@ -492,8 +492,8 @@ MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
                 longDescription: req.body.longDescription,
                 courseImageURL: imageFile.originalname,
                 pointsSummary: req.body.pointsSummary,
-                // pointsToLearn: JSON.parse(req.body.pointsToLearn),
-                // courseContent: JSON.parse(req.body.courseContent),
+                pointsToLearn: JSON.parse(req.body.pointsToLearn),
+                courseContent: JSON.parse(req.body.courseContent),
                 // test: JSON.parse(req.body.questions),
                 enrollments: 0,
               },

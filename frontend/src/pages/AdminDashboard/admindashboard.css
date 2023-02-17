@@ -1,10 +1,13 @@
-.container{
-    display: flex;
-    margin-top: 10px;
-  }
-  
-  
-  .link{
-    text-decoration: none;
-    color: inherit;
-  }
+.container {
+  display: flex;
+  margin-top: 10px;
+}
+
+.featured .featuredItem {
+  cursor: none !important;
+}
+
+.link {
+  text-decoration: none;
+  color: inherit;
+}

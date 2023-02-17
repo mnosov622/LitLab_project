@@ -47,10 +47,13 @@ const CourseUpload = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    const courseContentJSON = JSON.stringify(weeks);
-    const pointsToLearnJSON = JSON.stringify(pointsToLearn);
+    const courseContentJSON = JSON.stringify(
+      weeks.map((week) => ({ week: week.week }))
+    );
+    const pointsToLearnJSON = JSON.stringify(
+      pointsToLearn.map((point) => ({ point: point.point }))
+    );
     const questionsJSON = JSON.stringify(questions);
-
     setLoading(true);
     const formData = new FormData();
     formData.append("files", video);
@@ -326,7 +329,10 @@ const CourseUpload = () => {
 
             <button
               className="btn btn-success btn-lg"
-              onClick={() => setShowModal(true)}
+              onClick={(e) => {
+                setShowModal(true);
+                e.preventDefault();
+              }}
             >
               Create a test
             </button>

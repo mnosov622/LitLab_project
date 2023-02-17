@@ -19,11 +19,13 @@ const CourseEdit = () => {
   console.log("id is", courseId);
   console.log(decoded.email);
   const { id } = useParams();
+
   useEffect(() => {
     setLoading(true);
     fetch(`http://localhost:8000/users/${decoded.id}`)
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
         setUserData(data.courses);
         setLoading(false);
       });
@@ -41,6 +43,19 @@ const CourseEdit = () => {
     singleCourse && setCourseName(singleCourse?.name);
     singleCourse && setPrice(singleCourse?.price);
   }, [userData, courseId]);
+
+  const [courseData, setCourseData] = useState([]);
+
+  const handleWeekChange = (weekIndex, itemIndex, e) => {
+    if (singleCourse?.courseContent) {
+      setCourseData(singleCourse.courseContent);
+    }
+    const newCourseData = [...courseData];
+    if (newCourseData[weekIndex] && newCourseData[weekIndex].week) {
+      newCourseData[weekIndex].week[itemIndex] = e.target.value;
+      setCourseData(newCourseData);
+    }
+  };
 
   const handleSubmit = (e) => {
     console.log("course id", courseId);
@@ -192,6 +207,34 @@ const CourseEdit = () => {
                   width={"50%"}
                 ></video>
               )}
+            </div>
+            <div className="col-md-6">
+              <p className="fs-4">Course Content</p>
+
+              {singleCourse &&
+                singleCourse.courseContent &&
+                singleCourse.courseContent.map((week, weekIndex) => (
+                  <div key={weekIndex}>
+                    <p className="fs-3">Week {weekIndex + 1}</p>
+                    {week &&
+                      week.week &&
+                      week.week.map((item, itemIndex) => (
+                        <>
+                          <p className="fw-bold">Lesson {itemIndex + 1}</p>
+                          <div key={itemIndex}>
+                            <input
+                              type="text"
+                              className="form-control mb-3"
+                              value={item}
+                              onChange={(e) =>
+                                handleWeekChange(weekIndex, itemIndex, e)
+                              }
+                            />
+                          </div>
+                        </>
+                      ))}
+                  </div>
+                ))}
             </div>
           </div>
           <div className="button-wrapper text-center mt-5">
