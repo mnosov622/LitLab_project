@@ -19,17 +19,17 @@ const Users = () => {
   }, []);
 
   const removeUser = (email) => {
-    console.log("user email", email);
-
-    fetch(`http://localhost:8000/users/${email}`, {
-      method: "DELETE",
-    })
-      .then((response) => console.log(response))
-      .catch((e) => console.log(e));
-    //   .then(console.log(res))
-    //   .then((res) => {
-    //     console.log("response", res);
-    //   });
+    if (window.confirm("Are you sure you want to delete this user ?")) {
+      fetch(`http://localhost:8000/users/${email}`, {
+        method: "DELETE",
+      })
+        .then((response) => {
+          if (response.status === 200) {
+            window.location.reload();
+          }
+        })
+        .catch((e) => console.log(e));
+    }
   };
   return (
     <div>
@@ -58,7 +58,7 @@ const Users = () => {
                   className="btn btn-danger"
                   onClick={() => removeUser(user.email)}
                 >
-                  Remove user
+                  Delete user
                 </button>
                 &nbsp; &nbsp;
                 <button className="btn btn-warning">

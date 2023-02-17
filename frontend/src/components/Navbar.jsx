@@ -12,6 +12,8 @@ import { loggedIn } from "../store/reducers/login";
 import { logInAsCreator } from "../store/actions/index";
 import jwtDecode from "jwt-decode";
 import { useEffect } from "react";
+import dashboard from "../assets/dashboard.png";
+import myLearning from "../assets/my-learning.png";
 
 const Navbar = () => {
   const [search, setSearch] = useState("");
@@ -184,9 +186,20 @@ const Navbar = () => {
                 <p className="offset-2 fs-5 text-black">
                   Welcome back, <span className="text-primary">{name}</span>
                 </p>
-                <div className="col-md-4 text-end mt-4 fs-5">
-                  <Link to="/" className="">
-                    Dashboard
+                <div className="col-md-4 mt-4 fs-5 d-flex align-items-center ">
+                  <Link
+                    to="/"
+                    className="d-flex align-items-center justify-content-center"
+                  >
+                    <span className="me-2">Dashboard</span>
+                    <img
+                      src={dashboard}
+                      alt=""
+                      srcset=""
+                      width={"5%"}
+                      height={"55%"}
+                      style={{ alignSelf: "center" }}
+                    />
                   </Link>
                 </div>
 
