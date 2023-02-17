@@ -863,5 +863,45 @@ app.put("/users/:userEmail/courses/:id", (req, res) => {
 
 //remove the user, functionality for admin only
 //TODO: Protect the route, so that only admin can do that
+app.delete("/users/:email", (req, res) => {
+  const email = req.params.email;
+  console.log("email is", email);
+  MongoClient.connect(url, (err, client) => {
+    if (err) {
+      return res
+        .status(500)
+        .send({ message: "Error connecting to database: " + err });
+    }
+
+    const db = client.db("users");
+    const usersCollection = db.collection("users");
+
+    usersCollection.find().toArray((err, users) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send("Error finding users");
+      } else {
+        let deletedUser = null;
+        users.forEach((user) => {
+          if (user.email === email) {
+            deletedUser = user;
+            usersCollection.deleteOne({ email: email }, (err, result) => {
+              if (err) {
+                console.error(err);
+                res.status(500).send("Error deleting user");
+              } else {
+                res.send("User deleted successfully");
+              }
+            });
+          }
+        });
+
+        if (deletedUser === null) {
+          res.status(404).send("User not found");
+        }
+      }
+    });
+  });
+});
 
 app.listen(8000, () => console.log("Server is up on port 8000"));

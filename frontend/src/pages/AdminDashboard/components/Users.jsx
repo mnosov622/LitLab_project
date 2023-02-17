@@ -18,8 +18,18 @@ const Users = () => {
       .then((data) => setCoursesData(data));
   }, []);
 
-  const removeUser = (id) => {
-    console.log("user id", id);
+  const removeUser = (email) => {
+    console.log("user email", email);
+
+    fetch(`http://localhost:8000/users/${email}`, {
+      method: "DELETE",
+    })
+      .then((response) => console.log(response))
+      .catch((e) => console.log(e));
+    //   .then(console.log(res))
+    //   .then((res) => {
+    //     console.log("response", res);
+    //   });
   };
   return (
     <div>
@@ -46,7 +56,7 @@ const Users = () => {
               <td className="buttons-wrapper">
                 <button
                   className="btn btn-danger"
-                  onClick={() => removeUser(user._id)}
+                  onClick={() => removeUser(user.email)}
                 >
                   Remove user
                 </button>
