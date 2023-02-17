@@ -10,14 +10,11 @@ import { loggedIn } from "../store/reducers/login";
 import { logInAsCreator } from "../store/actions/index";
 import jwtDecode from "jwt-decode";
 import { useEffect } from "react";
-<<<<<<< HEAD
 import SearchBar from "../pages/Search/SearchBar";
-
-=======
 import dashboard from "../assets/dashboard.png";
 import myLearning from "../assets/my-learning.png";
 import allCourses from "../assets/all-courses.png";
->>>>>>> 695c93609e4d0efae5b93c4b12bbf43a4e81f635
+
 
 const Navbar = () => {
   const [name, setName] = useState("");
