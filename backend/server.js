@@ -861,4 +861,7 @@ app.put("/users/:userEmail/courses/:id", (req, res) => {
     });
 });
 
+//remove the user, functionality for admin only
+//TODO: Protect the route, so that only admin can do that
+
 app.listen(8000, () => console.log("Server is up on port 8000"));

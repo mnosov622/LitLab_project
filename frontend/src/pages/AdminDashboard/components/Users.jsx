@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ListGroup, ListGroupItem } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import CourseCard from "../../../components/CourseCards/CourseCard";
+import "../admindashboard.css";
 
 const Users = () => {
   const [usersData, setUsersData] = useState([]);
@@ -17,6 +18,9 @@ const Users = () => {
       .then((data) => setCoursesData(data));
   }, []);
 
+  const removeUser = (id) => {
+    console.log("user id", id);
+  };
   return (
     <div>
       <h2 className="text-center mb-4">All Users</h2>
@@ -25,6 +29,7 @@ const Users = () => {
           <tr className="text-dark">
             <th>Name</th>
             <th>Email</th>
+            <th></th>
             <th></th>
           </tr>
         </thead>
@@ -37,6 +42,18 @@ const Users = () => {
                 <a href={`mailto:${user.email}`} className="btn btn-primary">
                   Contact
                 </a>
+              </td>
+              <td className="buttons-wrapper">
+                <button
+                  className="btn btn-danger"
+                  onClick={() => removeUser(user._id)}
+                >
+                  Remove user
+                </button>
+                &nbsp; &nbsp;
+                <button className="btn btn-warning">
+                  Edit User Information
+                </button>
               </td>
             </tr>
           ))}

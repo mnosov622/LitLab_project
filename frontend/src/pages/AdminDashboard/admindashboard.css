@@ -1,13 +1,17 @@
-.container {
+/* .container {
   display: flex;
   margin-top: 10px;
-}
+} */
 
 .featured .featuredItem {
-  cursor: none !important;
+  cursor: default;
 }
 
 .link {
   text-decoration: none;
   color: inherit;
+}
+
+.buttons-wrapper {
+  text-align: right !important;
 }
