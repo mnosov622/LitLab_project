@@ -1,25 +1,17 @@
 const express = require("express");
 const { User } = require("../models/users");
+const client = require("../mongodb");
 const router = express.Router();
-const MongoClient = require("mongodb").MongoClient;
-const url = "mongodb+srv://max:LitLab@cluster0.qnyvkxl.mongodb.net";
 
-router.get("/", (req, res) => {
-  MongoClient.connect(
-    url,
-    { useNewUrlParser: true, useUnifiedTopology: true },
-    function (err, client) {
-      if (err) throw err;
-      const db = client.db("users");
-      db.collection("users")
-        .find({})
-        .toArray((err, users) => {
-          if (err) throw err;
-          res.json(users);
-          client.close();
-        });
-    }
-  );
+router.get("/", async (req, res) => {
+  try {
+    const db = client.db("users");
+    const users = await db.collection("users").find({}).toArray();
+    res.json(users);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal Server Error");
+  }
 });
 
 router.get("/:id", (req, res) => {
@@ -39,15 +31,8 @@ router.get("/:id", (req, res) => {
 //remove the user, functionality for admin only
 //TODO: Protect the route, so that only admin can do that
 router.delete("/:email", (req, res) => {
-  const email = req.params.email;
-  console.log("email is", email);
-  MongoClient.connect(url, (err, client) => {
-    if (err) {
-      return res
-        .status(500)
-        .send({ message: "Error connecting to database: " + err });
-    }
-
+  try {
+    const email = req.params.email;
     const db = client.db("users");
     const usersCollection = db.collection("users");
 
@@ -76,7 +61,10 @@ router.delete("/:email", (req, res) => {
         }
       }
     });
-  });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal Server Error");
+  }
 });
 
 module.exports = router;
