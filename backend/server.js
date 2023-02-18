@@ -22,6 +22,7 @@ const login = require("./endpoints/login/login");
 const dotenv = require("dotenv");
 const client = require("./mongodb");
 dotenv.config();
+const secret = process.env.secret;
 
 const url = process.env.connection_url;
 

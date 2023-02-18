@@ -17,7 +17,6 @@ router.get("/", async (req, res) => {
 router.get("/:id", async (req, res) => {
   try {
     const db = client.db("courses");
-
     const course = await db
       .collection("courses")
       .findOne({ id: Number(req.params.id) });
@@ -34,8 +33,6 @@ router.get("/:id", async (req, res) => {
       message: "Error getting course from the database",
       error: err,
     });
-  } finally {
-    client.close();
   }
 });
 

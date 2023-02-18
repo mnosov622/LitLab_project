@@ -3,6 +3,8 @@ const { User } = require("../models/users");
 const client = require("../mongodb");
 const router = express.Router();
 
+const secret = process.env.secret;
+
 router.get("/", async (req, res) => {
   try {
     const db = client.db("users");
