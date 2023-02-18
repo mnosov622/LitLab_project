@@ -19,6 +19,7 @@ const registerLearner = require("./endpoints/signup/learnerSignup");
 const googleSignup = require("./endpoints/signup/googleSignup");
 const googleLogin = require("./endpoints/login/googleLogin");
 const login = require("./endpoints/login/login");
+const search = require("./endpoints/search/search");
 
 const dotenv = require("dotenv");
 const client = require("./mongodb");
@@ -50,6 +51,8 @@ app.use("/register-with-google", googleSignup);
 //login user
 app.use("/googleLogin", googleLogin);
 app.use("/login", login);
+
+app.use("/search", search);
 
 //buy course
 app.post("/buy-course", (req, res) => {

@@ -24,6 +24,7 @@ const Users = () => {
     console.log("email", email);
     setShowDeleteUserModal(true);
     setSelectedUser(email);
+    document.body.style.overflow = "hidden";
   };
 
   const handleHideModal = () => {
@@ -65,6 +66,7 @@ const Users = () => {
         }
       })
       .catch((e) => console.log(e));
+    document.body.style.overflow = "visible";
   };
 
   const handleCancel = () => {

@@ -143,8 +143,8 @@ function App() {
               <Route path="/aboutus" element={<AboutUs />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/contact-us" element={<ContactUs />} />
-              <Route path="/admin" element={<AdminDashboard />} />   
-              <Route path="/search-result" element={<SearchResults />} />                 
+              <Route path="/admin" element={<AdminDashboard />} />
+              <Route path="/search" element={<SearchResults />} />
               <Route
                 path="/course/:id/certificate/:id"
                 element={<Certificate />}

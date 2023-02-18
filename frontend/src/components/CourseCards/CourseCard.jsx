@@ -30,6 +30,7 @@ const CourseCard = ({
     const shoppingCart = JSON.parse(localStorage.getItem("shopping_cart"));
     const updatedShoppingCart = shoppingCart.filter((i) => i.id !== id);
     localStorage.setItem("shopping_cart", JSON.stringify(updatedShoppingCart));
+
     window.location.reload();
   };
 
