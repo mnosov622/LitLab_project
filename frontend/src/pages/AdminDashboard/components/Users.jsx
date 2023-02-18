@@ -2,11 +2,51 @@ import React, { useEffect, useState } from "react";
 import { Card, ListGroup, ListGroupItem, Table } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import CourseCard from "../../../components/CourseCards/CourseCard";
+import Modal from "../../../components/Modal/Modal";
 import "../admindashboard.css";
 
 const Users = () => {
   const [usersData, setUsersData] = useState([]);
   const [coursesData, setCoursesData] = useState([]);
+
+  const [showModal, setShowModal] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState(null);
+
+  const handleShowModal = (courseName) => {
+    setSelectedCourse(courseName);
+    setShowModal(true);
+    document.body.style.overflow = "hidden";
+  };
+
+  const handleHideModal = () => {
+    setShowModal(false);
+    document.body.style.overflow = "visible";
+  };
+
+  const handleConfirm = (name) => {
+    // handle confirm action
+    console.log(name);
+    fetch(`http://localhost:8000/courses/${name}`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        console.log(response);
+        if (response.status === 200) {
+          fetch("http://localhost:8000/courses")
+            .then((res) => res.json())
+            .then((data) => setCoursesData(data));
+        }
+      })
+      .catch((e) => console.log(e));
+    handleHideModal();
+    document.body.style.overflow = "visible";
+  };
+
+  const handleCancel = () => {
+    // handle cancel action
+    handleHideModal();
+    document.body.style.overflow = "visible";
+  };
 
   useEffect(() => {
     fetch("http://localhost:8000/users")
@@ -15,7 +55,8 @@ const Users = () => {
 
     fetch("http://localhost:8000/courses")
       .then((res) => res.json())
-      .then((data) => setCoursesData(data));
+      .then((data) => setCoursesData(data))
+      .catch((e) => console.log(e));
   }, []);
 
   const removeUser = (email) => {
@@ -32,20 +73,6 @@ const Users = () => {
     }
   };
 
-  const deleteCourse = (name) => {
-    if (window.confirm("Are you sure you want to delete this course ?")) {
-      fetch(`http://localhost:8000/courses/${name}`, {
-        method: "DELETE",
-      })
-        .then((response) => {
-          console.log(response);
-          if (response.status === 200) {
-            window.location.reload();
-          }
-        })
-        .catch((e) => console.log(e));
-    }
-  };
   return (
     <div>
       <h2 className="text-center mb-5">All Users</h2>
@@ -107,7 +134,7 @@ const Users = () => {
                 <td className="d-flex justify-content-between border-0">
                   <button
                     className="btn btn-danger"
-                    onClick={() => deleteCourse(course.name)}
+                    onClick={() => handleShowModal(course.name)}
                   >
                     Delete course
                   </button>
@@ -119,6 +146,15 @@ const Users = () => {
           </tbody>
         </Table>
       </div>
+      {showModal && (
+        <Modal
+          title="Confirm Action"
+          body={`Are you sure you want to delete course`}
+          item={selectedCourse}
+          onConfirm={() => handleConfirm(selectedCourse)}
+          onCancel={handleCancel}
+        />
+      )}
     </div>
   );
 };

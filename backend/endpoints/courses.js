@@ -2,14 +2,16 @@ const express = require("express");
 const client = require("../mongodb");
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  const db = client.db("courses");
-  db.collection("courses")
-    .find({})
-    .toArray((err, courses) => {
-      if (err) throw err;
-      res.json(courses);
-    });
+router.get("/", async (req, res) => {
+  try {
+    await client.connect(); // Ensure that the client is connected before proceeding
+    const db = client.db("courses");
+    const courses = await db.collection("courses").find({}).toArray();
+    res.json(courses);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Internal server error" });
+  }
 });
 
 router.get("/:id", async (req, res) => {
