@@ -19,8 +19,10 @@ const registerLearner = require("./endpoints/signup/learnerSignup");
 const googleSignup = require("./endpoints/signup/googleSignup");
 const googleLogin = require("./endpoints/login/googleLogin");
 const login = require("./endpoints/login/login");
+
 const dotenv = require("dotenv");
 const client = require("./mongodb");
+const { User } = require("./models/users");
 dotenv.config();
 const secret = process.env.secret;
 
