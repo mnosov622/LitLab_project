@@ -33,6 +33,9 @@ app.use(express.json());
 //routes for courses
 app.use("/courses", coursesRouter);
 
+//routes for users
+app.use("/users", usersRouter);
+
 app.post("/registerLearner", async (req, res) => {
   MongoClient.connect(
     url,
@@ -259,38 +262,6 @@ app.post("/googleLogin", (req, res) => {
         db.close();
       });
   });
-});
-
-app.get("/users", (req, res) => {
-  MongoClient.connect(
-    url,
-    { useNewUrlParser: true, useUnifiedTopology: true },
-    function (err, client) {
-      if (err) throw err;
-      const db = client.db("users");
-      db.collection("users")
-        .find({})
-        .toArray((err, users) => {
-          if (err) throw err;
-          res.json(users);
-          client.close();
-        });
-    }
-  );
-});
-
-app.get("/users/:id", (req, res) => {
-  User.findById(req.params.id)
-    .then((user) => {
-      if (!user) {
-        res.status(404).json({ message: "User not found" });
-      } else {
-        res.json(user);
-      }
-    })
-    .catch((err) => {
-      res.status(500).json({ message: err.message });
-    });
 });
 
 app.post("/buy-course", (req, res) => {
@@ -524,72 +495,6 @@ app.put("/certificate/:id", (req, res) => {
   });
 });
 
-app.post("/courses", async (req, res) => {
-  try {
-    const {
-      email,
-      name,
-      price,
-      shortDescription,
-      longDescription,
-      video,
-      courseImageURL,
-      instructor,
-      courseContent,
-      pointsToLearn,
-      pointsSummary,
-      test,
-      enrollments,
-    } = req.body;
-
-    console.log("points to learn recieved", pointsToLearn);
-
-    const client = new MongoClient(url, { useNewUrlParser: true });
-    await client.connect();
-
-    const latestCourse = await client
-      .db("courses")
-      .collection("courses")
-      .find()
-      .sort({ id: -1 })
-      .limit(1)
-      .toArray();
-
-    // Increment the id by 1
-    let id = latestCourse.length ? latestCourse[0].id + 1 : 15;
-
-    const course = {
-      id,
-      video,
-      courseImageURL,
-      email,
-      name,
-      price,
-      shortDescription,
-      longDescription,
-      instructor,
-      courseContent,
-      pointsToLearn,
-      pointsSummary,
-      test,
-      enrollments,
-    };
-
-    const result = await client
-      .db("courses")
-      .collection("courses")
-      .insertOne(course);
-
-    client.close();
-
-    res
-      .status(201)
-      .json({ message: "Course added successfully", course: course });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
 //update course for the user
 app.put("/creator-courses/:id/courses/:courseId", (req, res) => {
   console.log("updated course received", req.body.updatedCourse);
@@ -685,29 +590,6 @@ app.get("/user-course/:userId", (req, res) => {
   );
 });
 
-app.delete("/courses/:courseName", (req, res) => {
-  MongoClient.connect(url, (err, client) => {
-    if (err) {
-      return res
-        .status(500)
-        .send({ message: "Error connecting to database", err });
-    }
-    const db = client.db("courses");
-    db.collection("courses").deleteOne(
-      { name: req.params.courseName },
-      (err, result) => {
-        client.close();
-        if (err) {
-          return res
-            .status(500)
-            .send({ message: "Error deleting course", err });
-        }
-        res.status(200).send({ message: "Course deleted successfully" });
-      }
-    );
-  });
-});
-
 app.delete("/users/:userEmail/courses/:courseId", (req, res) => {
   MongoClient.connect(url, (err, client) => {
     if (err) {
@@ -781,75 +663,5 @@ app.put("/users/:userEmail/courses/:id", (req, res) => {
 });
 
 //Admin endpoints
-
-//remove the user, functionality for admin only
-//TODO: Protect the route, so that only admin can do that
-app.delete("/users/:email", (req, res) => {
-  const email = req.params.email;
-  console.log("email is", email);
-  MongoClient.connect(url, (err, client) => {
-    if (err) {
-      return res
-        .status(500)
-        .send({ message: "Error connecting to database: " + err });
-    }
-
-    const db = client.db("users");
-    const usersCollection = db.collection("users");
-
-    usersCollection.find().toArray((err, users) => {
-      if (err) {
-        console.error(err);
-        res.status(500).send("Error finding users");
-      } else {
-        let deletedUser = null;
-        users.forEach((user) => {
-          if (user.email === email) {
-            deletedUser = user;
-            usersCollection.deleteOne({ email: email }, (err, result) => {
-              if (err) {
-                console.error(err);
-                res.status(500).send("Error deleting user");
-              } else {
-                res.send("User deleted successfully");
-              }
-            });
-          }
-        });
-
-        if (deletedUser === null) {
-          res.status(404).send("User not found");
-        }
-      }
-    });
-  });
-});
-
-//delete the course - admin endpoint
-//TODO: Protect the route, so that only admin can do that
-app.delete("/courses/:name", (req, res) => {
-  console.log(req.params.id);
-  const courseName = req.params.name;
-  MongoClient.connect(url, (err, client) => {
-    if (err) throw err;
-    const db = client.db("courses");
-    const collection = db.collection("courses");
-    collection.find().toArray((err, courses) => {
-      if (err) throw err;
-      const courseToDelete = courses.find(
-        (course) => course.name === courseName
-      );
-      if (!courseToDelete) {
-        res.status(404).send(`Course ${courseName} not found`);
-      } else {
-        collection.deleteOne({ name: courseName }, (err, result) => {
-          if (err) throw err;
-          res.status(204).send();
-          client.close();
-        });
-      }
-    });
-  });
-});
 
 app.listen(8000, () => console.log("Server is up on port 8000"));
