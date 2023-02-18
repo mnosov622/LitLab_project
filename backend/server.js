@@ -52,6 +52,7 @@ app.use("/register-with-google", googleSignup);
 app.use("/googleLogin", googleLogin);
 app.use("/login", login);
 
+//search for courses route
 app.use("/search", search);
 
 //buy course
