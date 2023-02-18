@@ -25,7 +25,6 @@ router.post("/", async (req, res) => {
 
           console.log("user inserted", user);
           res.status(200).send({ user });
-          db.close();
         });
       }
     });
