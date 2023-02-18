@@ -7,6 +7,7 @@ const ObjectId = require("mongodb").ObjectId;
 const gridfs = require("gridfs-stream");
 const multer = require("multer");
 const nodemailer = require("nodemailer");
+
 //MongoDB
 const MongoClient = require("mongodb").MongoClient;
 const { GridFSBucket } = require("mongodb");
@@ -16,9 +17,10 @@ const coursesRouter = require("./endpoints/courses");
 const registerCreator = require("./endpoints/signup/creatorSignup");
 const registerLearner = require("./endpoints/signup/learnerSignup");
 const googleSignup = require("./endpoints/signup/googleSignup");
-const googleLogin = require("./endpoints/login/login");
+const googleLogin = require("./endpoints/login/googleLogin");
 const login = require("./endpoints/login/login");
 const dotenv = require("dotenv");
+const client = require("./mongodb");
 dotenv.config();
 
 const url = process.env.connection_url;
@@ -44,7 +46,6 @@ app.use("/register-with-google", googleSignup);
 
 //login user
 app.use("/googleLogin", googleLogin);
-
 app.use("/login", login);
 
 //buy course

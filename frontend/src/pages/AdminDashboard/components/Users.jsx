@@ -9,17 +9,26 @@ const Users = () => {
   const [usersData, setUsersData] = useState([]);
   const [coursesData, setCoursesData] = useState([]);
 
-  const [showModal, setShowModal] = useState(false);
+  const [showDeleteCourseModal, setShowDeleteCourseModal] = useState(false);
+  const [showDeleteUserModal, setShowDeleteUserModal] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(null);
 
   const handleShowModal = (courseName) => {
     setSelectedCourse(courseName);
-    setShowModal(true);
+    setShowDeleteCourseModal(true);
     document.body.style.overflow = "hidden";
   };
 
+  const handleShowDeleteUserModal = (email) => {
+    console.log("email", email);
+    setShowDeleteUserModal(true);
+    setSelectedUser(email);
+  };
+
   const handleHideModal = () => {
-    setShowModal(false);
+    setShowDeleteCourseModal(false);
+    setShowDeleteUserModal(false);
     document.body.style.overflow = "visible";
   };
 
@@ -32,6 +41,7 @@ const Users = () => {
       .then((response) => {
         console.log(response);
         if (response.status === 200) {
+          setShowDeleteUserModal(false);
           fetch("http://localhost:8000/courses")
             .then((res) => res.json())
             .then((data) => setCoursesData(data));
@@ -40,6 +50,21 @@ const Users = () => {
       .catch((e) => console.log(e));
     handleHideModal();
     document.body.style.overflow = "visible";
+  };
+
+  const handleConfirmDeleteUser = (email) => {
+    fetch(`http://localhost:8000/users/${email}`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          setShowDeleteUserModal(false);
+          fetch("http://localhost:8000/users")
+            .then((res) => res.json())
+            .then((data) => setUsersData(data));
+        }
+      })
+      .catch((e) => console.log(e));
   };
 
   const handleCancel = () => {
@@ -58,20 +83,6 @@ const Users = () => {
       .then((data) => setCoursesData(data))
       .catch((e) => console.log(e));
   }, []);
-
-  const removeUser = (email) => {
-    if (window.confirm("Are you sure you want to delete this user ?")) {
-      fetch(`http://localhost:8000/users/${email}`, {
-        method: "DELETE",
-      })
-        .then((response) => {
-          if (response.status === 200) {
-            window.location.reload();
-          }
-        })
-        .catch((e) => console.log(e));
-    }
-  };
 
   return (
     <div>
@@ -98,7 +109,7 @@ const Users = () => {
               <td className="buttons-wrapper">
                 <button
                   className="btn btn-danger"
-                  onClick={() => removeUser(user.email)}
+                  onClick={() => handleShowDeleteUserModal(user.email)}
                 >
                   Delete user
                 </button>
@@ -146,12 +157,22 @@ const Users = () => {
           </tbody>
         </Table>
       </div>
-      {showModal && (
+      {showDeleteCourseModal && (
         <Modal
           title="Confirm Action"
           body={`Are you sure you want to delete course`}
           item={selectedCourse}
           onConfirm={() => handleConfirm(selectedCourse)}
+          onCancel={handleCancel}
+        />
+      )}
+
+      {showDeleteUserModal && (
+        <Modal
+          title="Confirm Action"
+          body={`Are you sure you want to delete user`}
+          item={selectedUser}
+          onConfirm={() => handleConfirmDeleteUser(selectedUser)}
           onCancel={handleCancel}
         />
       )}
