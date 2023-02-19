@@ -25,9 +25,9 @@ const dotenv = require("dotenv");
 const client = require("./mongodb");
 const { User } = require("./models/users");
 dotenv.config();
-const secret = process.env.secret;
+const secret = "secret";
 
-const url = process.env.connection_url;
+const url = "mongodb+srv://max:LitLab@cluster0.qnyvkxl.mongodb.net";
 
 app.use(
   cors({
