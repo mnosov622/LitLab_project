@@ -1,44 +1,39 @@
 const express = require("express");
+const client = require("../mongodb");
 const router = express.Router();
-const MongoClient = require("mongodb").MongoClient;
-const url = "mongodb+srv://max:LitLab@cluster0.qnyvkxl.mongodb.net";
 
-router.get("/", (req, res) => {
-  MongoClient.connect(
-    url,
-    { useNewUrlParser: true, useUnifiedTopology: true },
-    function (err, client) {
-      if (err) throw err;
-      const db = client.db("courses");
-      db.collection("courses")
-        .find({})
-        .toArray((err, courses) => {
-          if (err) throw err;
-          res.json(courses);
-          client.close();
-        });
-    }
-  );
+router.get("/", async (req, res) => {
+  try {
+    await client.connect(); // Ensure that the client is connected before proceeding
+    const db = client.db("courses");
+    const courses = await db.collection("courses").find({}).toArray();
+    res.json(courses);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Internal server error" });
+  }
 });
 
-router.get("/:id", (req, res) => {
-  MongoClient.connect(url, { useUnifiedTopology: true }, function (err, db) {
-    if (err) throw err;
-    var dbo = db.db("courses");
-    dbo
+router.get("/:id", async (req, res) => {
+  try {
+    const db = client.db("courses");
+    const course = await db
       .collection("courses")
-      .findOne({ id: Number(req.params.id) }, async function (err, course) {
-        if (err) throw err;
-        if (!course) {
-          return res
-            .status(404)
-            .json({ message: "Course not found", id: req.params.id });
-        }
+      .findOne({ id: Number(req.params.id) });
+    if (!course) {
+      return res
+        .status(404)
+        .json({ message: "Course not found", id: req.params.id });
+    }
 
-        res.status(200).send({ course });
-        db.close();
-      });
-  });
+    res.status(200).send({ course });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      message: "Error getting course from the database",
+      error: err,
+    });
+  }
 });
 
 router.post("/", async (req, res) => {
@@ -60,9 +55,6 @@ router.post("/", async (req, res) => {
     } = req.body;
 
     console.log("points to learn recieved", pointsToLearn);
-
-    const client = new MongoClient(url, { useNewUrlParser: true });
-    await client.connect();
 
     const latestCourse = await client
       .db("courses")
@@ -107,27 +99,20 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.delete("/:courseName", (req, res) => {
-  MongoClient.connect(url, (err, client) => {
-    if (err) {
-      return res
-        .status(500)
-        .send({ message: "Error connecting to database", err });
-    }
+router.delete("/:courseName", async (req, res) => {
+  try {
     const db = client.db("courses");
-    db.collection("courses").deleteOne(
-      { name: req.params.courseName },
-      (err, result) => {
-        client.close();
-        if (err) {
-          return res
-            .status(500)
-            .send({ message: "Error deleting course", err });
-        }
-        res.status(200).send({ message: "Course deleted successfully" });
-      }
-    );
-  });
+    const result = await db
+      .collection("courses")
+      .deleteOne({ name: req.params.courseName });
+    client.close();
+    if (result.deletedCount === 0) {
+      return res.status(404).send({ message: "Course not found" });
+    }
+    res.status(200).send({ message: "Course deleted successfully" });
+  } catch (err) {
+    res.status(500).send({ message: "Error deleting course", err });
+  }
 });
 
 //delete the course - admin endpoint
@@ -135,25 +120,22 @@ router.delete("/:courseName", (req, res) => {
 router.delete("/:name", (req, res) => {
   console.log(req.params.id);
   const courseName = req.params.name;
-  MongoClient.connect(url, (err, client) => {
+
+  const db = client.db("courses");
+  const collection = db.collection("courses");
+
+  collection.find().toArray((err, courses) => {
     if (err) throw err;
-    const db = client.db("courses");
-    const collection = db.collection("courses");
-    collection.find().toArray((err, courses) => {
-      if (err) throw err;
-      const courseToDelete = courses.find(
-        (course) => course.name === courseName
-      );
-      if (!courseToDelete) {
-        res.status(404).send(`Course ${courseName} not found`);
-      } else {
-        collection.deleteOne({ name: courseName }, (err, result) => {
-          if (err) throw err;
-          res.status(204).send();
-          client.close();
-        });
-      }
-    });
+    const courseToDelete = courses.find((course) => course.name === courseName);
+    if (!courseToDelete) {
+      res.status(404).send(`Course ${courseName} not found`);
+    } else {
+      collection.deleteOne({ name: courseName }, (err, result) => {
+        if (err) throw err;
+        res.status(204).send();
+        client.close();
+      });
+    }
   });
 });
 

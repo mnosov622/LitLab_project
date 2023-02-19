@@ -12,6 +12,7 @@ const CreatorDashboard = () => {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
+  const [instructorName, setInstructorName] = useState("");
 
   const location = useLocation();
 
@@ -29,9 +30,9 @@ const CreatorDashboard = () => {
       .then((data) => {
         console.log("data recieved", data);
         setCourses(data.courses);
+        setInstructorName(data.name);
         setLoading(false);
       });
-
     //get request to the user to find all courses for content creator
   }, []);
 
@@ -69,6 +70,7 @@ const CreatorDashboard = () => {
                 courseName={course.name}
                 price={course.price}
                 courseVideo={course.courseVideo}
+                instructorName={instructorName}
               />
             ))
           ) : (

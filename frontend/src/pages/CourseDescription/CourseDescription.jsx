@@ -75,12 +75,12 @@ const CourseDescription = () => {
   }, []);
 
   useEffect(() => {
-    console.log("course iamge1", course.courseImageURL);
-    const imageSource = course.courseImageURL?.startsWith("https")
-      ? course.courseImageURL
+    console.log(course);
+    const imageSource = course?.courseImageURL?.startsWith("https")
+      ? course?.courseImageURL
       : `http://localhost:8000/images/${course.courseImageURL}`;
     setImageSource(imageSource);
-  }, [course, course.coureseImageURL]);
+  }, [course, course?.coureseImageURL]);
 
   //TODO: Add all items from object to the cart
   const addCourseToCart = () => {
@@ -157,8 +157,8 @@ const CourseDescription = () => {
           <div className="bg-light p-3 shadow rounded">
             <div className="row container text-dark">
               <div className="col-lg-8 fs-1 ">
-                <p className="fw-bold">{course.name}</p>
-                <p className="fs-5 mt-2">{course.shortDescription}</p>
+                <p className="fw-bold">{course?.name}</p>
+                <p className="fs-5 mt-2">{course?.shortDescription}</p>
                 <div className="row ">
                   <div className="col-md-6 d-flex align-items-center">
                     <span className="fs-5">Rating:</span>
@@ -227,7 +227,7 @@ const CourseDescription = () => {
                 <p className="fs-5 mt-3">
                   Enrollments:{" "}
                   <span className="fw-bold">
-                    {course.enrollments}
+                    {course?.enrollments}
                     <i
                       className="bi bi-people"
                       style={{ marginLeft: "5px" }}
@@ -236,9 +236,9 @@ const CourseDescription = () => {
                 </p>
                 <p className="fs-5 mt-3">
                   Created by:&nbsp;
-                  <Link to={`/creator/${course.instructorId}`}>
+                  <Link to={`/creator/${course?.instructorId}`}>
                     <span className="fw-bold text-decoration-underline">
-                      {course.instructor}
+                      {course?.instructor}
                     </span>
                   </Link>
                 </p>
@@ -289,8 +289,8 @@ const CourseDescription = () => {
                 </div>
                 <div className="mt-4">
                   <div className="learn">
-                    {course.pointsToLearn &&
-                      course.pointsToLearn.map((item) => (
+                    {course?.pointsToLearn &&
+                      course?.pointsToLearn.map((item) => (
                         <>
                           <div className="fs-1">
                             <span style={{ marginRight: "10px" }}>
@@ -313,7 +313,7 @@ const CourseDescription = () => {
                       ))}
                   </div>
 
-                  <p className="mt-5 fw-bold fs-5">{course.pointsSummary}</p>
+                  <p className="mt-5 fw-bold fs-5">{course?.pointsSummary}</p>
                 </div>
               </div>
             </div>
@@ -322,8 +322,8 @@ const CourseDescription = () => {
             <div className="mx-auto col-md-8">
               <p className="fs-3 fw-bold">Course Content</p>
 
-              {course.courseContent &&
-                course.courseContent.map((content, index) => (
+              {course?.courseContent &&
+                course?.courseContent.map((content, index) => (
                   <p key={index} className="week">
                     <h3 className="text-primary">Week {index + 1}</h3>
                     <ul>
@@ -335,194 +335,13 @@ const CourseDescription = () => {
                     </ul>
                   </p>
                 ))}
-
-              {/* <div className="accordion" id="accordionExample">
-                <div className="accordion-item">
-                  <h2 className="accordion-header" id="headingOne">
-                    <button
-                      className="accordion-button"
-                      type="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target="#collapseOne"
-                      aria-expanded="true"
-                      aria-controls="collapseOne"
-                    >
-                      Week 1: Introduction to Angular
-                    </button>
-                  </h2>
-                  <div
-                    id="collapseOne"
-                    className="accordion-collapse collapse show"
-                    aria-labelledby="headingOne"
-                    data-bs-parent="#accordionExample"
-                  >
-                    <div className="accordion-body">
-                      <ul>
-                        <li>Understanding the components of Angular</li>
-                        <li>Setting up an Angular project</li>
-                        <li>Creating templates and services overflow.</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="accordion-item">
-                  <h2 className="accordion-header" id="headingTwo">
-                    <button
-                      className="accordion-button collapsed"
-                      type="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target="#collapseTwo"
-                      aria-expanded="false"
-                      aria-controls="collapseTwo"
-                    >
-                      Week 2: Node.js Fundamentals
-                    </button>
-                  </h2>
-                  <div
-                    id="collapseTwo"
-                    className="accordion-collapse collapse"
-                    aria-labelledby="headingTwo"
-                    data-bs-parent="#accordionExample"
-                  >
-                    <div className="accordion-body">
-                      <ul>
-                        <li>Understanding the basics of Node.js</li>
-                        <li>Building a server-side application</li>
-                        <li>CUsing npm to manage dependencies</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="accordion-item">
-                  <h2 className="accordion-header" id="headingThree">
-                    <button
-                      className="accordion-button collapsed"
-                      type="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target="#collapseThree"
-                      aria-expanded="false"
-                      aria-controls="collapseThree"
-                    >
-                      Week 3: MongoDB and Database Integration
-                    </button>
-                  </h2>
-                  <div
-                    id="collapseThree"
-                    className="accordion-collapse collapse"
-                    aria-labelledby="headingThree"
-                    data-bs-parent="#accordionExample"
-                  >
-                    <div className="accordion-body">
-                      <ul>
-                        <li>Understanding the basics of MongoDB</li>
-                        <li>Integrating MongoDB with a Node.js application</li>
-                        <li>Using npm to manage dependencies</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="accordion-item">
-                  <h2 className="accordion-header" id="headingFour">
-                    <button
-                      className="accordion-button collapsed"
-                      type="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target="#collapseFour"
-                      aria-expanded="false"
-                      aria-controls="collapseFour"
-                    >
-                      Week 4: Full Stack Development
-                    </button>
-                  </h2>
-                  <div
-                    id="collapseFour"
-                    className="accordion-collapse collapse"
-                    aria-labelledby="headingFour"
-                    data-bs-parent="#accordionExample"
-                  >
-                    <div className="accordion-body">
-                      <ul>
-                        <li>
-                          Building a full-stack web application with Angular and
-                          Node
-                        </li>
-                        <li>
-                          Understanding the communication between the front-end
-                          and back-end
-                        </li>
-                        <li>
-                          Implementing user authentication and authorization
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="accordion-item">
-                  <h2 className="accordion-header" id="headingFive">
-                    <button
-                      className="accordion-button collapsed"
-                      type="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target="#collapseFive"
-                      aria-expanded="false"
-                      aria-controls="collapseFive"
-                    >
-                      Week 5: Advanced Topics
-                    </button>
-                  </h2>
-                  <div
-                    id="collapseFive"
-                    className="accordion-collapse collapse"
-                    aria-labelledby="headingFive"
-                    data-bs-parent="#accordionExample"
-                  >
-                    <div className="accordion-body">
-                      <ul>
-                        <li>Creating reusable components</li>
-                        <li>Best practices for building web applications</li>
-                        <li>Deploying a full-stack web application</li>
-                        <li>Troubleshooting and debugging</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="accordion-item">
-                  <h2 className="accordion-header" id="headingSix">
-                    <button
-                      className="accordion-button collapsed"
-                      type="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target="#collapseSix"
-                      aria-expanded="false"
-                      aria-controls="collapseSix"
-                    >
-                      Week 6: Project
-                    </button>
-                  </h2>
-                  <div
-                    id="collapseSix"
-                    className="accordion-collapse collapse"
-                    aria-labelledby="headingSix"
-                    data-bs-parent="#accordionExample"
-                  >
-                    <div className="accordion-body">
-                      <ul>
-                        <li>
-                          Building a final project utilizing all the knowledge
-                          learned throughout the course
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div> */}
             </div>
           </div>
 
           <div className="row mt-5">
             <div className="mx-auto col-md-8">
               <p className="fs-3 fw-bold">Course Description</p>
-              <p className="course-description">{course.longDescription}</p>
+              <p className="course-description">{course?.longDescription}</p>
             </div>
           </div>
 
@@ -532,16 +351,16 @@ const CourseDescription = () => {
 
               <div className="profile d-flex justify-content-center justify-content-between row mb-5">
                 <p className="text-underline text-primary fw-bold fs-2">
-                  {course.instructor}
+                  {course?.instructor}
                 </p>
                 <img
-                  src={course.instructorImageURL}
+                  src={course?.instructorImageURL}
                   alt="Instructor profile"
                   className="col-md-4 instructor-image"
                 />
 
                 <p className="col-md-8 creator-description ">
-                  {course.instructorBio}
+                  {course?.instructorBio}
                 </p>
               </div>
             </div>
