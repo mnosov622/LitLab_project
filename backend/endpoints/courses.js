@@ -92,7 +92,7 @@ router.post("/", async (req, res) => {
     client.close();
 
     res
-      .status(201)
+      .status(200)
       .json({ message: "Course added successfully", course: course });
   } catch (error) {
     res.status(500).json({ message: error.message });

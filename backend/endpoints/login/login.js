@@ -6,7 +6,7 @@ const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv");
 dotenv.config();
 
-const secret = process.env.secret;
+const secret = "secret";
 
 router.post("/", (req, res) => {
   client.connect(async (err) => {

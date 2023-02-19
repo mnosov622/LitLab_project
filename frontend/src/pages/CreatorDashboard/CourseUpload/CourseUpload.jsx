@@ -76,9 +76,7 @@ const CourseUpload = () => {
     const data = await res.json();
 
     console.log("response recieved", data);
-    if (res.status === 200) {
-      navigate("/", { state: { success: true } });
-    }
+    
 
     const courseData = {
       video: data.video,
@@ -99,7 +97,6 @@ const CourseUpload = () => {
     setLoading(false);
 
     console.log("data from client", courseData);
-    dispatch(creatorCourse(courseData));
     const response = await fetch("http://localhost:8000/courses", {
       method: "POST",
       headers: {
@@ -108,6 +105,10 @@ const CourseUpload = () => {
       body: JSON.stringify(courseData),
     });
     const courses = await response.json();
+    if (response.status === 200) {
+      navigate("/", { state: { success: true } });
+    }
+
     console.log("course", courses.course);
     console.log("created course", createdCourse);
   };
