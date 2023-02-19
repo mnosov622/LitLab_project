@@ -27,11 +27,19 @@ const CourseCard = ({
 
   const handleRemove = (id) => (e) => {
     e.preventDefault();
-    const shoppingCart = JSON.parse(localStorage.getItem("shopping_cart"));
-    const updatedShoppingCart = shoppingCart.filter((i) => i.id !== id);
-    localStorage.setItem("shopping_cart", JSON.stringify(updatedShoppingCart));
-
-    window.location.reload();
+    if (
+      window.confirm(
+        "Are you sure you want to remove course from shopping cart? "
+      )
+    ) {
+      const shoppingCart = JSON.parse(localStorage.getItem("shopping_cart"));
+      const updatedShoppingCart = shoppingCart.filter((i) => i.id !== id);
+      localStorage.setItem(
+        "shopping_cart",
+        JSON.stringify(updatedShoppingCart)
+      );
+      window.location.reload();
+    }
   };
 
   useEffect(() => {

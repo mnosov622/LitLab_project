@@ -6,30 +6,31 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { myCourses } from "../../store/actions";
 
 const Cart = () => {
+  const navigate = useNavigate();
   const shoppingCart = localStorage.getItem("shopping_cart");
   const items = JSON.parse(shoppingCart);
-  const [shoppingCartItems, setShoppingCartItems] = useState(items);
+  const [shoppingCartItems, setShoppingCartItems] = useState(
+    JSON.parse(localStorage.getItem("shopping_cart"))
+  );
 
   const [imageSource, setImageSource] = useState("");
 
-  const dispatch = useDispatch();
-  const AllCourses = useSelector((state) => state.boughtCoursesReducer);
-  const navigate = useNavigate();
-  const cart = useSelector((state) => state.cartReducer);
-
   useEffect(() => {
-    const shoppingCartItems = localStorage.getItem("shopping_cart");
-
-    const items = JSON.parse(shoppingCartItems);
-    setShoppingCartItems(items);
+    setShoppingCartItems(JSON.parse(localStorage.getItem("shopping_cart")));
   }, []);
 
   // useEffect(() => {
-  //   const imageSource = shoppingCartItems.courseImage?.startsWith("https")
-  //     ? shoppingCartItems.courseImage
-  //     : `http://localhost:8000/images/${shoppingCartItems.courseImage}`;
-  //   setImageSource(imageSource);
-  // }, [shoppingCartItems]);
+  //   setShoppingCartItems(items);
+  // }, [items]);
+
+  // const shoppingCartItems = localStorage.getItem("shopping_cart");
+  // const items = JSON.parse(shoppingCartItems);
+
+  // useEffect(() => {
+  //   const shoppingCartItems = localStorage.getItem("shopping_cart");
+  //   const items = JSON.parse(shoppingCartItems);
+  //   setShoppingCartItems(items);
+  // }, [items]);
 
   const goToCheckout = () => {
     localStorage.removeItem("item_to_buy");

@@ -36,6 +36,42 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+//when user pays the course, increase amount of enrollments by 1
+router.put("/:id/increase-enrollments", async (req, res) => {
+  try {
+    const courseId = Number(req.params.id);
+    const db = client.db("courses");
+
+    // Find the course in the courses collection by ID
+    const course = await db.collection("courses").findOne({ id: courseId });
+
+    if (!course) {
+      // Send a 404 response if the course was not found
+      res.status(404).json({ success: false, message: "Course not found" });
+      return;
+    }
+
+    // Increase the enrollments count for the course by 1
+    await db
+      .collection("courses")
+      .updateOne({ id: courseId }, { $inc: { enrollments: 1 } });
+
+    // Send a success response
+    res
+      .status(200)
+      .json({ success: true, message: "Enrollments increased for course" });
+  } catch (error) {
+    // Send an error response
+    res.status(500).json({
+      success: false,
+      message: "Failed to increase enrollments for course",
+      error,
+    });
+  } finally {
+    client.close();
+  }
+});
+
 router.post("/", async (req, res) => {
   try {
     const {

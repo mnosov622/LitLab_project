@@ -52,6 +52,14 @@ const Payment = () => {
           price: item_to_buy.price,
           isCompleted: false,
         };
+
+        fetch(
+          `http://localhost:8000/courses/${item_to_buy.id}/increase-enrollments`,
+          {
+            method: "PUT",
+          }
+        );
+
         fetch("http://localhost:8000/buy-course", {
           method: "POST",
           headers: {
@@ -85,22 +93,22 @@ const Payment = () => {
           });
         });
 
-        fetch("http://localhost:8000/buy-course", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: token,
-          },
-          body: JSON.stringify({ courses }),
-        });
-        alert.success("Courses were succesfully purchased", {
-          position: positions.BOTTOM_RIGHT,
-          timeout: 2000, // custom timeout just for this one alert
-        });
-        navigate("/");
-        setTimeout(() => {
-          window.location.reload();
-        }, 500);
+        // fetch("http://localhost:8000/buy-course", {
+        //   method: "POST",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //     Authorization: token,
+        //   },
+        //   body: JSON.stringify({ courses }),
+        // });
+        // alert.success("Courses were succesfully purchased", {
+        //   position: positions.BOTTOM_RIGHT,
+        //   timeout: 2000, // custom timeout just for this one alert
+        // });
+        // navigate("/");
+        // setTimeout(() => {
+        //   window.location.reload();
+        // }, 500);
       } catch (e) {
         console.log("An error occured", e);
       }
