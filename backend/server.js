@@ -6,7 +6,6 @@ const bcrypt = require("bcrypt");
 const ObjectId = require("mongodb").ObjectId;
 const gridfs = require("gridfs-stream");
 const multer = require("multer");
-const nodemailer = require("nodemailer");
 
 //MongoDB
 const MongoClient = require("mongodb").MongoClient;
@@ -20,6 +19,7 @@ const googleSignup = require("./endpoints/signup/googleSignup");
 const googleLogin = require("./endpoints/login/googleLogin");
 const login = require("./endpoints/login/login");
 const search = require("./endpoints/search/search");
+const contactUs = require("./endpoints/contact-us");
 
 const dotenv = require("dotenv");
 const client = require("./mongodb");
@@ -54,6 +54,9 @@ app.use("/login", login);
 
 //search for courses route
 app.use("/search", search);
+
+//contact us
+app.use("/contact-us", contactUs);
 
 //buy course
 app.post("/buy-course", (req, res) => {
@@ -453,5 +456,12 @@ app.put("/users/:userEmail/courses/:id", (req, res) => {
       res.status(500).json({ error: "Failed to update the course" });
     });
 });
+
+
+
+
+ 
+
+
 
 app.listen(8000, () => console.log("Server is up on port 8000"));
