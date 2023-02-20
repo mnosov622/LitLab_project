@@ -7,17 +7,27 @@ const ObjectId = require("mongodb").ObjectId;
 const gridfs = require("gridfs-stream");
 const multer = require("multer");
 const nodemailer = require("nodemailer");
+
 //MongoDB
 const MongoClient = require("mongodb").MongoClient;
 const { GridFSBucket } = require("mongodb");
 const mongodb = require("mongodb");
+const usersRouter = require("./endpoints/users");
+const coursesRouter = require("./endpoints/courses");
+const registerCreator = require("./endpoints/signup/creatorSignup");
+const registerLearner = require("./endpoints/signup/learnerSignup");
+const googleSignup = require("./endpoints/signup/googleSignup");
+const googleLogin = require("./endpoints/login/googleLogin");
+const login = require("./endpoints/login/login");
+const search = require("./endpoints/search/search");
 
-const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const client = require("./mongodb");
 const { User } = require("./models/users");
-// const { Course } = require("./models/courses");
+dotenv.config();
+const secret = "secret";
 
 const url = "mongodb+srv://max:LitLab@cluster0.qnyvkxl.mongodb.net";
-const secret = "superSecret";
 
 app.use(
   cors({
@@ -28,352 +38,24 @@ app.use(
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-//TODO: implement creating account functionality
-app.post("/registerLearner", async (req, res) => {
-  MongoClient.connect(
-    url,
-    { useNewUrlParser: true, useUnifiedTopology: true },
-    function (err, client) {
-      if (err) throw err;
-      const db = client.db("users");
-      db.collection("users")
-        .find({})
-        .toArray(async (err, users) => {
-          if (err) throw err;
-          const user = users.find((u) => u.email === req.body.email);
-          if (user) {
-            console.log("USER ALREADY EXISTS");
-            return res.status(409).send("User exists");
-          } else {
-            console.log("user doesn't exists");
-            const hashedPassword = await bcrypt.hash(req.body.password, 10);
-            console.log("Hashed password", hashedPassword);
-            MongoClient.connect(
-              url,
-              { useUnifiedTopology: true },
-              function (err, db) {
-                if (err) throw err;
-                const user = {
-                  name: req.body.name,
-                  email: req.body.email,
-                  password: hashedPassword,
-                  isLearner: req?.body?.isLearner,
-                };
-                var dbo = db.db("users");
-                dbo.collection("users").insertOne(user, function (err, user) {
-                  if (err) throw err;
+//routes for courses
+app.use("/courses", coursesRouter);
+//routes for users
+app.use("/users", usersRouter);
 
-                  console.log("user inserted", user);
-                  res.status(200).send({ user });
-                  db.close();
-                });
-              }
-            );
-          }
-          client.close();
-        });
-    }
-  );
-});
+//routes for registering user
+app.use("/registerLearner", registerLearner);
+app.use("/registerCreator", registerCreator);
+app.use("/register-with-google", googleSignup);
 
-app.post("/register-with-google", async (req, res) => {
-  MongoClient.connect(
-    url,
-    { useNewUrlParser: true, useUnifiedTopology: true },
-    function (err, client) {
-      if (err) throw err;
-      const db = client.db("users");
-      db.collection("users")
-        .find({})
-        .toArray(async (err, users) => {
-          if (err) throw err;
-          const user = users.find((u) => u.email === req.body.email);
-          if (user) {
-            console.log("USER ALREADY EXISTS");
-            return res.status(409).send("User exists");
-          } else {
-            console.log("user doesn't exists");
-            MongoClient.connect(
-              url,
-              { useUnifiedTopology: true },
-              function (err, db) {
-                if (err) throw err;
-                const user = {
-                  name: req.body.name,
-                  email: req.body.email,
-                  token: req.body.token,
-                  isLearner: req?.body?.isLearner,
-                };
-                var dbo = db.db("users");
-                dbo.collection("users").insertOne(user, function (err, user) {
-                  if (err) throw err;
+//login user
+app.use("/googleLogin", googleLogin);
+app.use("/login", login);
 
-                  console.log("user inserted", user);
-                  res.status(200).send({ user });
-                  db.close();
-                });
-              }
-            );
-          }
-          client.close();
-        });
-    }
-  );
-});
+//search for courses route
+app.use("/search", search);
 
-app.post("/registerCreator", async (req, res) => {
-  MongoClient.connect(
-    url,
-    { useNewUrlParser: true, useUnifiedTopology: true },
-    function (err, client) {
-      if (err) throw err;
-      const db = client.db("users");
-      db.collection("users")
-        .find({})
-        .toArray(async (err, users) => {
-          if (err) throw err;
-          const user = users.find((u) => u.email === req.body.email);
-          if (user) {
-            console.log("USER ALREADY EXISTS");
-            return res.status(409).send("User exists");
-          } else {
-            console.log("user doesn't exists");
-            const hashedPassword = await bcrypt.hash(req.body.password, 10);
-            console.log("Hashed password", hashedPassword);
-            MongoClient.connect(
-              url,
-              { useUnifiedTopology: true },
-              function (err, db) {
-                if (err) throw err;
-                const user = {
-                  name: req.body.name,
-                  email: req.body.email,
-                  password: hashedPassword,
-                  subject: req.body.subject,
-                  education: req.body.education,
-                  isCreator: req?.body?.isCreator,
-                };
-                var dbo = db.db("users");
-                dbo.collection("users").insertOne(user, function (err, user) {
-                  if (err) throw err;
-
-                  console.log("user inserted", user);
-                  res.status(200).send({ user });
-                  db.close();
-                });
-              }
-            );
-          }
-          client.close();
-        });
-    }
-  );
-});
-
-app.post("/login", (req, res) => {
-  const { email, password } = req.body;
-  MongoClient.connect(url, { useUnifiedTopology: true }, function (err, db) {
-    if (err) throw err;
-    var dbo = db.db("users");
-    dbo
-      .collection("users")
-      .findOne({ email: req.body.email }, async function (err, user) {
-        if (err) throw err;
-        if (!user) {
-          return res.status(404).json({ message: "User not found" });
-        }
-        if (user.isAdmin) {
-          if (
-            user.password !== req.body.password ||
-            user.email !== req.body.email
-          ) {
-            return res.status(401).json({ message: "Incorrect credentials" });
-          }
-
-          const payload = {
-            id: user._id,
-            email: user.email,
-            name: user.name,
-            isAdmin: user?.isAdmin,
-          };
-          const token = jwt.sign(payload, secret, { expiresIn: "2h" });
-
-          res.status(200).send({ user, token });
-
-          db.close();
-          return 0;
-        }
-        const hashedPassword = user?.password;
-        const match = await bcrypt.compare(password, hashedPassword);
-
-        if (!match || user.email !== req.body.email) {
-          return res.status(401).json({ message: "Incorrect credentials" });
-        }
-        const payload = {
-          id: user._id,
-          email: user.email,
-          name: user.name,
-          isLearner: user?.isLearner,
-          isCreator: user?.isCreator,
-        };
-        const token = jwt.sign(payload, secret, { expiresIn: "2h" });
-
-        res.status(200).send({ user, token });
-
-        db.close();
-      });
-  });
-});
-
-app.post("/googleLogin", (req, res) => {
-  MongoClient.connect(url, { useUnifiedTopology: true }, function (err, db) {
-    if (err) throw err;
-    var dbo = db.db("users");
-    dbo
-      .collection("users")
-      .findOne({ email: req.body.email }, async function (err, user) {
-        if (err) throw err;
-        if (!user) {
-          return res.status(404).json({ message: "User not found" });
-        }
-
-        if (user.email !== req.body.email) {
-          return res.status(401).json({ message: "Incorrect credentials" });
-        }
-
-        const payload = {
-          id: user._id,
-          email: user.email,
-          name: user.name,
-          isLearner: user?.isLearner,
-          isCreator: user?.isCreator,
-        };
-        const token = jwt.sign(payload, secret, { expiresIn: "2h" });
-
-        res.status(200).send({ user, token });
-
-        db.close();
-      });
-  });
-});
-
-app.get("/courses", (req, res) => {
-  MongoClient.connect(
-    url,
-    { useNewUrlParser: true, useUnifiedTopology: true },
-    function (err, client) {
-      if (err) throw err;
-      const db = client.db("courses");
-      db.collection("courses")
-        .find({})
-        .toArray((err, users) => {
-          if (err) throw err;
-          res.json(users);
-          client.close();
-        });
-    }
-  );
-});
-
-app.get("/courses/:id", (req, res) => {
-  MongoClient.connect(url, { useUnifiedTopology: true }, function (err, db) {
-    if (err) throw err;
-    var dbo = db.db("courses");
-    dbo
-      .collection("courses")
-      .findOne({ id: Number(req.params.id) }, async function (err, course) {
-        if (err) throw err;
-        if (!course) {
-          return res
-            .status(404)
-            .json({ message: "Course not found", id: req.params.id });
-        }
-
-        res.status(200).send({ course });
-        db.close();
-      });
-  });
-});
-
-app.get("/users", (req, res) => {
-  MongoClient.connect(
-    url,
-    { useNewUrlParser: true, useUnifiedTopology: true },
-    function (err, client) {
-      if (err) throw err;
-      const db = client.db("users");
-      db.collection("users")
-        .find({})
-        .toArray((err, users) => {
-          if (err) throw err;
-          res.json(users);
-          client.close();
-        });
-    }
-  );
-});
-
-app.get("/users/:id", (req, res) => {
-  User.findById(req.params.id)
-    .then((user) => {
-      if (!user) {
-        res.status(404).json({ message: "User not found" });
-      } else {
-        res.json(user);
-      }
-    })
-    .catch((err) => {
-      res.status(500).json({ message: err.message });
-    });
-});
-
-// app.post("/buy-course", (req, res) => {
-//   const token = req.headers.authorization;
-//   const decoded = jwt.verify(token, secret);
-//   const userId = decoded.id;
-
-//   console.log("courses recieved", req.body.courses);
-//   MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
-//     if (err) {
-//       console.error(err);
-//       return;
-//     }
-
-//     const db = client.db("users");
-//     const users = db.collection("users");
-
-//     users.findOne({ _id: new ObjectId(userId) }, (err, user) => {
-//       if (err) {
-//         console.error(err);
-//         client.close();
-//         return;
-//       }
-
-//       if (!user.courses) {
-//         user.courses = [];
-//       }
-
-//       // Add the courses to the user's courses list
-//       req.body.courses.forEach((course) => {
-//         user.courses.push(course);
-//       });
-
-//       // Update the user document in the database
-//       users.updateOne(
-//         { _id: user._id },
-//         { $set: { courses: user.courses } },
-//         (err) => {
-//           if (err) {
-//             console.error(err);
-//           }
-//           client.close();
-//           res.send({ success: true });
-//         }
-//       );
-//     });
-//   });
-// });
-
+//buy course
 app.post("/buy-course", (req, res) => {
   const token = req.headers.authorization;
   const decoded = jwt.verify(token, secret);
@@ -438,6 +120,10 @@ MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
   const upload = multer({ storage });
 
   app.post("/upload", upload.array("files"), (req, res) => {
+    console.log("courseContent", JSON.parse(req.body.courseContent));
+    console.log("pointsToLearn", JSON.parse(req.body.pointsToLearn));
+    // console.log("test", JSON.parse(req.body.questions));
+
     const videoFile = req.files.find((file) =>
       file.mimetype.startsWith("video/")
     );
@@ -487,6 +173,11 @@ MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
                 shortDescription: req.body.shortDescription,
                 longDescription: req.body.longDescription,
                 courseImageURL: imageFile.originalname,
+                pointsSummary: req.body.pointsSummary,
+                pointsToLearn: JSON.parse(req.body.pointsToLearn),
+                courseContent: JSON.parse(req.body.courseContent),
+                // test: JSON.parse(req.body.questions),
+                enrollments: 0,
               },
             },
           },
@@ -504,6 +195,7 @@ MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
               shortDescription: req.body.shortDescription,
               longDescription: req.body.longDescription,
               courseImage: imageFile.originalname,
+              test: req.body.test,
             });
           }
         );
@@ -595,70 +287,7 @@ app.put("/certificate/:id", (req, res) => {
   });
 });
 
-app.post("/courses", async (req, res) => {
-  try {
-    const {
-      email,
-      name,
-      price,
-      shortDescription,
-      longDescription,
-      video,
-      courseImageURL,
-      instructor,
-      courseContent,
-      pointsToLearn,
-      pointsSummary,
-    } = req.body;
-
-    console.log("points to learn recieved", pointsToLearn);
-
-    const client = new MongoClient(url, { useNewUrlParser: true });
-    await client.connect();
-
-    const latestCourse = await client
-      .db("courses")
-      .collection("courses")
-      .find()
-      .sort({ id: -1 })
-      .limit(1)
-      .toArray();
-
-    // Increment the id by 1
-    let id = latestCourse.length ? latestCourse[0].id + 1 : 15;
-
-    const course = {
-      id,
-      video,
-      courseImageURL,
-      email,
-      name,
-      price,
-      shortDescription,
-      longDescription,
-      instructor,
-      courseContent,
-      pointsToLearn,
-      pointsSummary,
-    };
-
-    const result = await client
-      .db("courses")
-      .collection("courses")
-      .insertOne(course);
-
-    client.close();
-
-    res
-      .status(201)
-      .json({ message: "Course added successfully", course: course });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
-//update course
-
+//update course for the user
 app.put("/creator-courses/:id/courses/:courseId", (req, res) => {
   console.log("updated course received", req.body.updatedCourse);
 
@@ -699,6 +328,40 @@ app.put("/creator-courses/:id/courses/:courseId", (req, res) => {
   });
 });
 
+//TODO: Update course for all courses section
+// app.put("/users/:id/courses/:courseId", (req, res) => {
+//   console.log("updated course received", req.body.updatedCourse);
+
+//   MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
+//     if (err) throw err;
+//     const dbo = db.db("courses");
+//     dbo.collection("courses").findOne({ id: 17 }, function (err, user) {
+//       console.log("we found user", user);
+
+//       if (err) throw err;
+//       if (!user) {
+//         res.status(404).json({ message: "User not found" });
+//       } else {
+//         console.log("user is", user);
+//         dbo
+//           .collection("users")
+//           .updateOne(
+//             { email: "creator@gmail.com" },
+//             { $set: { courses: req.body.updatedCourse } },
+//             function (err, result) {
+//               if (err) throw err;
+//               res.send({
+//                 message: "course data updated successfully",
+//                 result: result,
+//               });
+//               db.close();
+//             }
+//           );
+//       }
+//     });
+//   });
+// });
+
 app.get("/user-course/:userId", (req, res) => {
   console.log("user id", req.params.userId);
   MongoClient.connect(
@@ -717,29 +380,6 @@ app.get("/user-course/:userId", (req, res) => {
       );
     }
   );
-});
-
-app.delete("/courses/:courseName", (req, res) => {
-  MongoClient.connect(url, (err, client) => {
-    if (err) {
-      return res
-        .status(500)
-        .send({ message: "Error connecting to database", err });
-    }
-    const db = client.db("courses");
-    db.collection("courses").deleteOne(
-      { name: req.params.courseName },
-      (err, result) => {
-        client.close();
-        if (err) {
-          return res
-            .status(500)
-            .send({ message: "Error deleting course", err });
-        }
-        res.status(200).send({ message: "Course deleted successfully" });
-      }
-    );
-  });
 });
 
 app.delete("/users/:userEmail/courses/:courseId", (req, res) => {

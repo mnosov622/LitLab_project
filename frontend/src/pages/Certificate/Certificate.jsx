@@ -121,14 +121,17 @@ const Certificate = () => {
           has completed the course
           <br />
           <br />
-          <strong>{courseData.name}</strong>
+          <strong>{courseData && courseData.name && courseData?.name}</strong>
         </p>
         <p className="text-center mt-3 fs-5">Date: {date}</p>
         <p className="text-center mt-3">
           <img src={signature} alt="Signature" width={"12%"} />
           <br />
           <br />
-          <p className="fs-5 fw-bold">Instructor: {courseData.instructor}</p>
+          <p className="fs-5 fw-bold">
+            Instructor:{" "}
+            {courseData && courseData.instructor && courseData.instructor}
+          </p>
           <p className="fs-5 text-primary">LitLab</p>
         </p>
 

@@ -40,6 +40,7 @@ import LearnerCommunity from "./pages/FooterContent/Community/LearnerCommunity";
 import Privacy from "./pages/FooterContent/Privacy/Privacy";
 import Term from "./pages/FooterContent/Term/Term";
 import CreatorProfile from "./pages/CreatorProfile/CreatorProfile";
+import SearchResults from "./pages/Search/SearchResults";
 
 function App() {
   const dispatch = useDispatch();
@@ -143,7 +144,7 @@ function App() {
               <Route path="/blog" element={<Blog />} />
               <Route path="/contact-us" element={<ContactUs />} />
               <Route path="/admin" element={<AdminDashboard />} />
-
+              <Route path="/search" element={<SearchResults />} />
               <Route
                 path="/course/:id/certificate/:id"
                 element={<Certificate />}

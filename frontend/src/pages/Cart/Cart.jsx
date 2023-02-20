@@ -9,22 +9,19 @@ const Cart = () => {
   const shoppingCart = localStorage.getItem("shopping_cart");
   const items = JSON.parse(shoppingCart);
   const [shoppingCartItems, setShoppingCartItems] = useState(items);
-  console.log("init", shoppingCartItems);
+
   const [imageSource, setImageSource] = useState("");
 
-  const cart = useSelector((state) => state.cartReducer);
-  console.log("CURRENT CART", cart);
   const dispatch = useDispatch();
   const AllCourses = useSelector((state) => state.boughtCoursesReducer);
   const navigate = useNavigate();
+  const cart = useSelector((state) => state.cartReducer);
+
   useEffect(() => {
     const shoppingCartItems = localStorage.getItem("shopping_cart");
+
     const items = JSON.parse(shoppingCartItems);
     setShoppingCartItems(items);
-    console.log("shopping cart items", items);
-    if (cart.length === 0) {
-      console.log("for some reason");
-    }
   }, []);
 
   // useEffect(() => {
@@ -43,7 +40,9 @@ const Cart = () => {
   const handleClearCart = () => {
     if (window.confirm("Are you sure you want to clear the cart?")) {
       localStorage.removeItem("shopping_cart");
-      window.location.reload();
+      const shoppingCartItems = localStorage.getItem("shopping_cart");
+      const items = JSON.parse(shoppingCartItems);
+      setShoppingCartItems(items);
     }
   };
   return (

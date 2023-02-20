@@ -30,6 +30,7 @@ const CourseCard = ({
     const shoppingCart = JSON.parse(localStorage.getItem("shopping_cart"));
     const updatedShoppingCart = shoppingCart.filter((i) => i.id !== id);
     localStorage.setItem("shopping_cart", JSON.stringify(updatedShoppingCart));
+
     window.location.reload();
   };
 
@@ -61,6 +62,7 @@ const CourseCard = ({
             Completed
           </Badge>
         )}
+
         <Link to={linkToCourseView ? `/course-view/${id}` : `/course/${id}`}>
           <div
             className="card-item border position-relative"
