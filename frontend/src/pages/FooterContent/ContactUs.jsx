@@ -1,6 +1,9 @@
 import React, { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ContactUs = () => {
+  const navigate = useNavigate();
+
   const nameRef = useRef();
   const emailRef = useRef();
   const subjectRef = useRef();
@@ -24,7 +27,7 @@ const ContactUs = () => {
     })
     .then(res => {
       if(res.status === 200) {
-        alert("We recieved your message and will answer you within 2 business days");
+        navigate("/thankyou");
       }
     });
   }

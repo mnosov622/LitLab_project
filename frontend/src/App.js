@@ -41,6 +41,7 @@ import Privacy from "./pages/FooterContent/Privacy/Privacy";
 import Term from "./pages/FooterContent/Term/Term";
 import CreatorProfile from "./pages/CreatorProfile/CreatorProfile";
 import SearchResults from "./pages/Search/SearchResults";
+import ThankYou from "./pages/FooterContent/ThankYou";
 
 function App() {
   const dispatch = useDispatch();
@@ -143,6 +144,7 @@ function App() {
               <Route path="/aboutus" element={<AboutUs />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/contact-us" element={<ContactUs />} />
+              <Route path="/thankyou" element={<ThankYou />} />
               <Route path="/admin" element={<AdminDashboard />} />
               <Route path="/search" element={<SearchResults />} />
               <Route
@@ -178,6 +180,7 @@ function App() {
               <Route path="/aboutus" element={<AboutUs />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/contact-us" element={<ContactUs />} />
+              <Route path="/thankyou" element={<ThankYou />} />
               <Route path="/admin" element={<AdminDashboard />} />
 
               <Route
