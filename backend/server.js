@@ -24,6 +24,7 @@ const contactUs = require("./endpoints/contact-us");
 const dotenv = require("dotenv");
 const client = require("./mongodb");
 const { User } = require("./models/users");
+const { Creator } = require("./models/creator")
 dotenv.config();
 const secret = "secret";
 
