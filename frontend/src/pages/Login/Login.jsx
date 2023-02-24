@@ -31,6 +31,41 @@ const Login = () => {
   const [signedUp, setSignedUp] = useState(false);
   const [userLoggedIn, setUserLoggedIn] = useState(true);
 
+  const [emailError, setEmailError] = useState(null);
+  const [passwordError, setPasswordError] = useState(null);
+
+  // Define a function to validate the email input field
+  function handleEmail() {
+    // Ensure the email is not empty
+    if (email == null) {
+      return setEmailError("Email cannot be empty.");
+    }
+
+    // Ensure the email is in a valid format
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      return setEmailError("Email must be in a valid format.");
+    }
+
+    // If all checks pass, return null to indicate success
+    return setEmailError(null);
+  }
+
+  // Define a function to validate the password input field
+  function handlePassword() {
+    // Ensure the password is not empty
+    if (password == null) {
+      return setPasswordError("Password cannot be empty.");
+    }
+
+    // Ensure the password is at least 8 characters long
+    if (password.length < 8) {
+      return setPasswordError("Password must be at least 8 characters long.");
+    }
+
+    // If all checks pass, return null to indicate success
+    return setPasswordError(null);
+  }
+
   const navigate = useNavigate();
   const { state } = useLocation();
   const dispatch = useDispatch();
@@ -168,7 +203,9 @@ const Login = () => {
                   className="form-control"
                   required
                   onChange={(e) => setEmail(e.target.value)}
+                  onKeyUp={handleEmail}
                 />
+                {emailError && (<div className="text-danger mt-2">{emailError}</div>)}
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label className="fs-3">Password</Form.Label>
@@ -180,7 +217,9 @@ const Login = () => {
                   value={password}
                   required
                   onChange={(e) => setPassword(e.target.value)}
+                  onKeyUp={handlePassword}
                 />
+                {passwordError && (<div className="text-danger mt-2">{passwordError}</div>)}
               </Form.Group>
               {wrongCredentials && (
                 <div className="text-center text-danger">

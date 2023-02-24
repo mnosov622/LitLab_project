@@ -25,6 +25,13 @@ const CreatorSignup = () => {
   const [reEnterPassword, setReEnterPassword] = useState("");
   const [passwordMatch, setPasswordMatch] = useState(true);
 
+  // Define state variables for the input values and validation errors
+  const [nameError, setNameError] = useState(null);
+  const [emailError, setEmailError] = useState(null);
+  const [passwordError, setPasswordError] = useState(null);
+  const [subjectError, setSubjectError] = useState(null);
+  const [eduError, setEduError] = useState(null);
+
   const handlePasswordMatch = () => {
     if (password !== reEnterPassword) {
       setPasswordMatch(false);
@@ -32,6 +39,75 @@ const CreatorSignup = () => {
       setPasswordMatch(true);
     }
   };
+
+  const handleName = () => {
+    // Ensure the name is not empty
+    if (name == null) {
+      return setNameError("Name cannot be empty.") ;
+    }
+  
+    // Ensure the name is not too short or too long
+    if (name.length < 2 || name.length > 50) {
+      return setNameError("Name must be between 2 and 50 characters.");
+    }
+  
+    // Ensure the name contains only valid characters
+    if (!/^[a-zA-Z\s]*$/.test(name)) {
+      return setNameError("Name can only contain letters and spaces.");
+    }
+  
+    // If all checks pass, return null to indicate success
+    return setNameError(null);
+  };
+
+  // Define a function to validate the email input field
+  function handleEmail() {
+    // Ensure the email is not empty
+    if (email == null) {
+      return setEmailError("Email cannot be empty.");
+    }
+
+    // Ensure the email is in a valid format
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      return setEmailError("Email must be in a valid format.");
+    }
+
+    // If all checks pass, return null to indicate success
+    return setEmailError(null);
+  }
+
+  // Define a function to validate the password input field
+  function handlePassword() {
+    // Ensure the password is not empty
+    if (password == null) {
+      return setPasswordError("Password cannot be empty.");
+    }
+
+    // Ensure the password is at least 8 characters long
+    if (password.length < 8) {
+      return setPasswordError("Password must be at least 8 characters long.");
+    }
+
+    // If all checks pass, return null to indicate success
+    return setPasswordError(null);
+  }
+  
+  function handleSubject() {
+    // Ensure the subject contains only valid characters
+    if (!/^[a-zA-Z\s]*$/.test(subject)) {
+      return setSubjectError("Subject can only contain letters and spaces.");
+    }
+    return setSubjectError(null);
+  }
+
+  function handleEdu() {
+    // Ensure the subject contains only valid characters
+    if (!/^[a-zA-Z\s]*$/.test(education)) {
+      return setEduError("Education can only contain letters and spaces.");
+    }
+    return setEduError(null);
+  }
+
 
   const handleSignup = async (e) => {
     setShowLoader(true);
@@ -61,8 +137,10 @@ const CreatorSignup = () => {
         console.log("Unknown error", e);
       }
     }
-    setShowLoader(false);
+   setShowLoader(false);
   };
+
+  
 
   return (
     <>
@@ -91,8 +169,10 @@ const CreatorSignup = () => {
                   autoFocus
                   value={name}
                   onChange={(e) => setName(e.target.value)}
+                  onKeyUp={handleName}
                 />
                 <label for="floatingName">Full Name</label>
+                {nameError && (<div className="text-danger mt-2">{nameError}</div>)}
               </div>
 
               <div className="form-floating mb-3">
@@ -104,8 +184,10 @@ const CreatorSignup = () => {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  onKeyUp={handleEmail}
                 />
                 <label for="floatingEmail">Email Address</label>
+                {emailError && <div className="text-danger mt-2">{emailError}</div>}
               </div>
 
               <div className="form-floating mb-3">
@@ -117,8 +199,10 @@ const CreatorSignup = () => {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  onKeyUp={handlePassword}
                 />
                 <label for="floatingPassword">Password</label>
+                {passwordError && <div className="text-danger mt-2">{passwordError}</div>}
               </div>
 
               <div className="form-floating mb-3">
@@ -147,8 +231,10 @@ const CreatorSignup = () => {
                   required
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
+                  onKeyUp={handleSubject}
                 />
                 <label for="floatingSubject">Subject</label>
+                {subjectError && <div className="text-danger mt-2">{subjectError}</div>}
               </div>
 
               <div className="form-floating mb-3">
@@ -160,8 +246,10 @@ const CreatorSignup = () => {
                   required
                   value={education}
                   onChange={(e) => setEducation(e.target.value)}
+                  onKeyUp={handleEdu}
                 />
                 <label for="floatingEducation">Education</label>
+                {eduError && <div className="text-danger mt-2">{eduError}</div>}
               </div>
 
               {userExists && (
