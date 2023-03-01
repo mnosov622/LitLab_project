@@ -59,9 +59,10 @@ function App() {
   console.log("Admin is logged in ", loggedInAsAdmin);
 
   useEffect(() => {
-    if (localStorage.getItem("token") === null) {
+    if (localStorage.getItem("token") === null ) {
       return navigate("/");
     }
+
     const token = localStorage.getItem("token");
     console.log("TOKEN is", token);
     const decoded = jwtDecode(token);
@@ -158,8 +159,9 @@ function App() {
                 path="/course/*"
                 element={<div>We couldn't find it</div>}
               />
-              <Route path="*" exact={true} element={<NotFound />} />
               <Route path="/reset-password" element={<ResetPassword />} />
+              <Route path="/forgot-password" element={<ForgotPassword  />} />
+              <Route path="*" exact={true} element={<NotFound />} />
             </Routes>
           </Container>
           <Footer />
@@ -175,6 +177,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/all-courses" element={<AllCourses />} />
               <Route path="/creator-dashboard" element={<CreatorDashboard />} />
               <Route path="/creator/:id" element={<CreatorInformation />} />
@@ -194,7 +197,9 @@ function App() {
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/term" element={<Term />} />
 
+             
               <Route path="*" exact={true} element={<NotFound />} />
+              
             </Routes>
           </Container>
           <Footer />

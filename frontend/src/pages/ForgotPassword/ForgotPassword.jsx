@@ -12,9 +12,11 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logIn } from "../../store/actions";
 import { useNavigate } from "react-router-dom";
+import { useAlert, positions } from "react-alert";
 
 const Login = () => {
   const emailRef = useRef();
+  const alert = useAlert();
 
   const navigate = useNavigate();
 
@@ -32,9 +34,22 @@ const Login = () => {
       },
       body: JSON.stringify({ email }),
     })
-      .then((res) => res.json())
-      .then((data) => console.log(data))
-      .catch((error) => console.log(error));
+      .then((res) => {
+        if(res.status === 200) {
+          alert.success("Reset pasword link was set to email", {
+            position: positions.BOTTOM_CENTER,
+            timeout: 5000, // custom timeout just for this one alert
+          });
+          localStorage.setItem("resettingPassword", true)
+        }
+        else if(res.status === 400){
+          alert.error("User with this email doesn't exists", {
+            position: positions.BOTTOM_CENTER,
+            timeout: 5000, // custom timeout just for this one alert
+          });
+        }
+      })
+      
   };
 
   return (

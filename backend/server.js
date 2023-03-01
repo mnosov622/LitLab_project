@@ -21,6 +21,7 @@ const login = require("./endpoints/login/login");
 const search = require("./endpoints/search/search");
 const contactUs = require("./endpoints/contact-us");
 const forgotPassword = require("./endpoints/forgotPassword");
+const resetPassword = require("./endpoints/resetPassword");
 
 const dotenv = require("dotenv");
 const client = require("./mongodb");
@@ -61,6 +62,9 @@ app.use("/contact-us", contactUs);
 
 //forgot password
 app.use("/forgot-password", forgotPassword);
+
+//reset password
+app.use("/reset-password", resetPassword);
 
 //buy course
 app.post("/buy-course", (req, res) => {

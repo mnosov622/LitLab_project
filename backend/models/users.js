@@ -12,6 +12,8 @@ const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   isLearner: { type: Boolean, required: false },
   isCreator: { type: Boolean, required: false },
+  resetPasswordToken: { type: String },
+  resetPasswordExpires: { type: Number },
   courses: [
     {
       id: { type: Number, required: true },
