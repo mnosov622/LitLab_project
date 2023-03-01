@@ -42,6 +42,7 @@ import Term from "./pages/FooterContent/Term/Term";
 import CreatorProfile from "./pages/CreatorProfile/CreatorProfile";
 import SearchResults from "./pages/Search/SearchResults";
 import ThankYou from "./pages/FooterContent/ThankYou";
+import ResetPassword from "./pages/ResetPassword/ResetPassword";
 
 function App() {
   const dispatch = useDispatch();
@@ -158,6 +159,7 @@ function App() {
                 element={<div>We couldn't find it</div>}
               />
               <Route path="*" exact={true} element={<NotFound />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
             </Routes>
           </Container>
           <Footer />

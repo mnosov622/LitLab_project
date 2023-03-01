@@ -20,6 +20,7 @@ const googleLogin = require("./endpoints/login/googleLogin");
 const login = require("./endpoints/login/login");
 const search = require("./endpoints/search/search");
 const contactUs = require("./endpoints/contact-us");
+const forgotPassword = require("./endpoints/forgotPassword");
 
 const dotenv = require("dotenv");
 const client = require("./mongodb");
@@ -57,6 +58,9 @@ app.use("/search", search);
 
 //contact us
 app.use("/contact-us", contactUs);
+
+//forgot password
+app.use("/forgot-password", forgotPassword);
 
 //buy course
 app.post("/buy-course", (req, res) => {
