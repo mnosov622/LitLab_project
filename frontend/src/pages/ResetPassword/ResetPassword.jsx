@@ -12,12 +12,15 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logIn } from "../../store/actions";
 import { useNavigate } from "react-router-dom";
+import { useAlert, positions } from "react-alert";
 
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordMatch, setPasswordMatch] = useState(true);
-  const [successMessage, setSuccessMessage] = useState(false);
+  const [emptyPassword, setEmptyPassword] = useState(false);
+
+  const alert = useAlert();
 
   //Getting token from URL
   const location = useLocation();
@@ -26,14 +29,6 @@ const ResetPassword = () => {
 
   const navigate = useNavigate();
 
-  const onSuccess = (res) => {
-    console.log("success:", res.profileObj);
-    // navigate("/");
-  };
-  const onFailure = (err) => {
-    console.log("failed:", err);
-  };
-
   useEffect(() => {
     if (localStorage.getItem("resettingPassword")) {
       console.log("exists");
@@ -41,15 +36,21 @@ const ResetPassword = () => {
   }, []);
 
   useEffect(() => {
+    setEmptyPassword(false);
     if (password !== confirmPassword) {
       setPasswordMatch(false);
-    } else {
+    } else if (password === confirmPassword) {
       setPasswordMatch(true);
     }
   }, [confirmPassword, password]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!password.trim()) {
+      setEmptyPassword(true);
+      return;
+    }
+
     if (passwordMatch) {
       console.log(password, token);
       console.log("Form is submitted");
@@ -60,7 +61,13 @@ const ResetPassword = () => {
       }).then((res) => {
         console.log("response", res);
         if (res.status === 200) {
-          navigate("/login");
+          alert.success("Reset pasword link was set to email", {
+            position: positions.BOTTOM_CENTER,
+            timeout: 5000, // custom timeout just for this one alert
+          });
+          setTimeout(() => {
+            navigate("/login");
+          }, 2000);
         }
       });
     }
@@ -92,6 +99,9 @@ const ResetPassword = () => {
                 />
                 {!passwordMatch && (
                   <p className="text-danger mt-2">Passwords don't match</p>
+                )}
+                {emptyPassword && (
+                  <p className="text-danger mt-2">Password can't be empty</p>
                 )}
               </Form.Group>
               <Button

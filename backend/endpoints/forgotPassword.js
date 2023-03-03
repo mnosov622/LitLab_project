@@ -46,11 +46,64 @@ router.post("/", async (req, res) => {
   });
 
   // Create the email
+  const emailHTML = `
+  <!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Reset Password</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    
+    h1 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-top: 0;
+    }
+    
+    p {
+      margin: 1em 0;
+    }
+    
+    a {
+      color: #007bff;
+      text-decoration: none;
+      font-size:20px;
+    }
+    
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Reset Your Password</h1>
+    <p>Hello,</p>
+    <p>We have received a request to reset the password for your account. Please click the link below to reset your password:</p>
+    <a class="btn btn-primary fs-1" href="http://localhost:3000/reset-password?token=${resetToken}" role="button">Reset</a>
+    <p>If you did not request a password reset, please ignore this email.</p>
+    <p>Best regards,</p>
+    <p>LitLab Team</p>
+  </div>
+</body>
+</html>
+`;
   const mailOptions = {
     from: "mnosov622@gmail.com",
     to: email,
     subject: "Password Reset Request",
-    html: `Click <a href="http://localhost:3000/reset-password?token=${resetToken}">here</a> to reset your password.`,
+    html: emailHTML,
   };
 
   // Send the email
