@@ -8,10 +8,12 @@ mongoose
 
 const userSchema = new mongoose.Schema({
   email: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
+  password: { type: String },
   name: { type: String, required: true },
   isLearner: { type: Boolean, required: false },
   isCreator: { type: Boolean, required: false },
+  resetPasswordToken: { type: String },
+  resetPasswordExpires: { type: Number },
   courses: [
     {
       id: { type: Number, required: true },

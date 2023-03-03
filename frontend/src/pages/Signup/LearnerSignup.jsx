@@ -24,6 +24,13 @@ const LearnerSignup = () => {
   const [reEnterPassword, setReEnterPassword] = useState("");
   const [passwordMatch, setPasswordMatch] = useState(true);
 
+  // Define state variables for the input values and validation errors
+  const [nameError, setNameError] = useState(null);
+  const [emailError, setEmailError] = useState(null);
+  const [passwordError, setPasswordError] = useState(null);
+
+
+
   const handlePasswordMatch = () => {
     if (password !== reEnterPassword) {
       setPasswordMatch(false);
@@ -31,6 +38,59 @@ const LearnerSignup = () => {
       setPasswordMatch(true);
     }
   };
+
+  const handleName = () => {
+    // Ensure the name is not empty
+    if (name == null) {
+      return setNameError("Name cannot be empty.") ;
+    }
+  
+    // Ensure the name is not too short or too long
+    if (name.length < 2 || name.length > 50) {
+      return setNameError("Name must be between 2 and 50 characters.");
+    }
+  
+    // Ensure the name contains only valid characters
+    if (!/^[a-zA-Z\s]*$/.test(name)) {
+      return setNameError("Name can only contain letters and spaces.");
+    }
+  
+    // If all checks pass, return null to indicate success
+    return setNameError(null);
+  };
+
+  // Define a function to validate the email input field
+  function handleEmail() {
+    // Ensure the email is not empty
+    if (email == null) {
+      return setEmailError("Email cannot be empty.");
+    }
+
+    // Ensure the email is in a valid format
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      return setEmailError("Email must be in a valid format.");
+    }
+
+    // If all checks pass, return null to indicate success
+    return setEmailError(null);
+  }
+
+  // Define a function to validate the password input field
+  function handlePassword() {
+    // Ensure the password is not empty
+    if (password == null) {
+      return setPasswordError("Password cannot be empty.");
+    }
+
+    // Ensure the password is at least 8 characters long
+    if (password.length < 8) {
+      return setPasswordError("Password must be at least 8 characters long.");
+    }
+
+    // If all checks pass, return null to indicate success
+    return setPasswordError(null);
+  }
+  
 
   const onSuccess = async (res) => {
     // navigate("/");
@@ -121,8 +181,10 @@ const LearnerSignup = () => {
                     required
                     value={name}
                     onChange={(e) => setName(e.target.value)}
+                    onKeyUp={handleName}
                   />
                   <label for="floatingName">Full Name</label>
+                  {nameError && (<div className="text-danger mt-2">{nameError}</div>)}
                 </div>
                 <div className="form-floating mb-3">
                   <input
@@ -136,8 +198,10 @@ const LearnerSignup = () => {
                       setEmail(e.target.value);
                       setUserExists(false);
                     }}
+                    onKeyUp={handleEmail}
                   />
                   <label for="floatingEmail">Email Address</label>
+                  {emailError && (<div className="text-danger mt-2">{emailError}</div>)}
                 </div>
                 <div className="form-floating mb-3">
                   <input
@@ -148,8 +212,10 @@ const LearnerSignup = () => {
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    onKeyUp={handlePassword}
                   />
                   <label for="floatingPassword">Password</label>
+                   {passwordError && (<div className="text-danger mt-2">{passwordError}</div>)}
                 </div>
                 <div className="form-floating mb-3">
                   <input

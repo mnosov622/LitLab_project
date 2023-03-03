@@ -76,9 +76,7 @@ const CourseUpload = () => {
     const data = await res.json();
 
     console.log("response recieved", data);
-    if (res.status === 200) {
-      navigate("/", { state: { success: true } });
-    }
+    
 
     const courseData = {
       video: data.video,
@@ -99,7 +97,6 @@ const CourseUpload = () => {
     setLoading(false);
 
     console.log("data from client", courseData);
-    dispatch(creatorCourse(courseData));
     const response = await fetch("http://localhost:8000/courses", {
       method: "POST",
       headers: {
@@ -108,6 +105,10 @@ const CourseUpload = () => {
       body: JSON.stringify(courseData),
     });
     const courses = await response.json();
+    if (response.status === 200) {
+      navigate("/", { state: { success: true } });
+    }
+
     console.log("course", courses.course);
     console.log("created course", createdCourse);
   };
@@ -137,6 +138,8 @@ const CourseUpload = () => {
       setShowModal(false);
     }
   };
+
+
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
@@ -181,6 +184,28 @@ const CourseUpload = () => {
     setShowModal(false);
     console.log("Q", questions);
   };
+
+/*
+  // Define state variables for the input values and validation errors
+  const [courseNameError, setCourseNameError] = useState(null);
+  const [priceError, setPriceError] = useState(null);
+
+  function handleCourseName() {
+    // Ensure the subject contains only valid characters
+    if (!/^[a-zA-Z\s]*$/.test(nameRef)) {
+      return setCourseNameError("Course Name can only contain letters and spaces.");
+    }
+    return setCourseNameError(null);
+  }
+
+  function handlePrice() {
+    // Ensure the subject contains only valid characters
+    if (!/^[0-9]+$/.test(priceRef)) {
+      return setPriceError("Price can only contain numbers.");
+    }
+    return setPriceError(null);
+  }
+*/
 
   return (
     <>
@@ -257,9 +282,11 @@ const CourseUpload = () => {
                 className="form-control"
                 id="floatingName"
                 placeholder="Name"
+                //onKeyUp={handleCourseName}
                 autoFocus
               />
               <label for="floatingName">Name</label>
+              {/*{courseNameError && (<div className="text-danger mt-2">{courseNameError}</div>)}*/}
             </div>
 
             <div className="form-floating mb-3">
@@ -269,9 +296,11 @@ const CourseUpload = () => {
                 className="form-control"
                 id="floatingPrice"
                 placeholder="Price"
+                //onKeyUp={handlePrice}
                 required
               />
               <label for="floatingPrice">Price</label>
+              {/*{priceError && (<div className="text-danger mt-2">{priceError}</div>)}*/}
             </div>
 
             <div className="form-floating mb-3">

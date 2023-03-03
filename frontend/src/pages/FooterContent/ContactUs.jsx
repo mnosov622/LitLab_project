@@ -1,6 +1,36 @@
-import React from "react";
+import React, { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ContactUs = () => {
+  const navigate = useNavigate();
+
+  const nameRef = useRef();
+  const emailRef = useRef();
+  const subjectRef = useRef();
+  const messageRef = useRef();
+ 
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    const fullName = nameRef.current.value;
+    const email = emailRef.current.value;
+    const subject = subjectRef.current.value;
+    const message = messageRef.current.value;
+
+    fetch("http://localhost:8000/contact-us", {
+      method: "POST",
+      headers: {
+        "Content-Type" : "application/json"
+      },
+      body: JSON.stringify({fullName, email, subject, message })
+    })
+    .then(res => {
+      if(res.status === 200) {
+        navigate("/thankyou");
+      }
+    });
+  }
   return (
     <>
       <div className="container">
@@ -18,10 +48,11 @@ const ContactUs = () => {
                 <div className="col-lg-8 col-md-7 order-md-last d-flex align-items-stretch">
                   <div className="contact-wrap">
                     <form
-                      method="POST"
+                      action=""
                       id="contactForm"
                       name="contactForm"
                       className="contactForm"
+                      onSubmit={handleSubmit}
                     >
                       <div className="row">
                         <div className="col-md-12">
@@ -30,6 +61,7 @@ const ContactUs = () => {
                               Full Name
                             </label>
                             <input
+                              ref={nameRef}
                               type="text"
                               className="form-control"
                               name="name"
@@ -44,6 +76,7 @@ const ContactUs = () => {
                               Email Address
                             </label>
                             <input
+                              ref={emailRef}
                               type="email"
                               className="form-control"
                               name="email"
@@ -58,6 +91,7 @@ const ContactUs = () => {
                               Subject
                             </label>
                             <input
+                              ref={subjectRef}
                               type="text"
                               className="form-control"
                               name="subject"
@@ -73,6 +107,7 @@ const ContactUs = () => {
                               Message
                             </label>
                             <textarea
+                              ref={messageRef}
                               name="message"
                               className="form-control"
                               id="message"

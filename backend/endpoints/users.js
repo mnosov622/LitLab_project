@@ -1,4 +1,5 @@
 const express = require("express");
+const { ObjectId } = require("mongodb");
 const { User } = require("../models/users");
 const client = require("../mongodb");
 const router = express.Router();
@@ -14,6 +15,7 @@ router.get("/", async (req, res) => {
   }
 });
 
+
 router.get("/:id", (req, res) => {
   User.findById(req.params.id)
     .then((user) => {
@@ -27,6 +29,30 @@ router.get("/:id", (req, res) => {
       res.status(500).json({ message: err.message });
     });
 });
+
+router.delete("/:id/courses", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const db = client.db("users");
+    const userCollection = db.collection("users");
+
+    const user = await User.findById(id);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.courses = []; // clear the courses array
+
+    await user.save(); // save the updated user to the database
+
+    res.status(200).json({ message: "Courses deleted successfully" });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
 
 //remove the user, functionality for admin only
 //TODO: Protect the route, so that only admin can do that

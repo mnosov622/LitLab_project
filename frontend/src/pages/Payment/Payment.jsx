@@ -25,6 +25,35 @@ const Payment = () => {
   const item_to_buy = JSON.parse(item);
   console.log("course name", item_to_buy);
 
+  // Define state variables for the input values and validation errors
+  const [cardNoError, setCardNoError] = useState(null);
+  const [cardNameError, setCardNameError] = useState(null);
+  const [cvvError, setCvvError] = useState(null);
+
+  function handleCardNo() {
+    // Ensure the subject contains only valid characters
+    if (!/^[0-9]+$/.test(cardNumber)) {
+      return setCardNoError("Card Number can only contain numbers.");
+    }
+    return setCardNoError(null);
+  }
+
+  function handleCardName() {
+    // Ensure the subject contains only valid characters
+    if (!/^[a-zA-Z\s]*$/.test(cardHolderName)) {
+      return setCardNameError("Card Holder Name can only contain letters and spaces.");
+    }
+    return setCardNameError(null);
+  }
+
+  function handleCvv() {
+    // Ensure the subject contains only valid characters
+    if (!/^[0-9]+$/.test(cvv)) {
+      return setCvvError("CVV can only contain numbers.");
+    }
+    return setCvvError(null);
+  }
+
   useEffect(() => {
     if (item_to_buy.length > 1 || Array.isArray(item_to_buy)) {
       const prices = item_to_buy.map((item) => Number(item.price));
@@ -165,8 +194,10 @@ const Payment = () => {
                   placeholder="1234-5678-1212-1213"
                   value={cardNumber}
                   onChange={(event) => setCardNumber(event.target.value)}
+                  onKeyUp={handleCardNo}
                   required
                 />
+                {cardNoError && (<div className="text-danger mt-2">{cardNoError}</div>)}
               </div>
               <div class="form-group">
                 <label htmlFor="cardHolderName">Card Holder Name:</label>
@@ -178,8 +209,10 @@ const Payment = () => {
                   placeholder="Jackie Chan"
                   value={cardHolderName}
                   onChange={(event) => setCardHolderName(event.target.value)}
+                  onKeyUp={handleCardName}
                   required
                 />
+                {cardNameError && (<div className="text-danger mt-2">{cardNameError}</div>)}
               </div>
               <div class="form-group">
                 <label htmlFor="expiryDate">Expiry Date:</label>
@@ -205,8 +238,10 @@ const Payment = () => {
                   placeholder="000"
                   pattern="[0-9]*"
                   onChange={(event) => setCvv(event.target.value)}
+                  onKeyUp={handleCvv}
                   required
                 />
+                {cvvError && (<div className="text-danger mt-2">{cvvError}</div>)}
               </div>
               <div class="form-group">
                 <img

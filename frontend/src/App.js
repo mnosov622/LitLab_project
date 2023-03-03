@@ -41,6 +41,8 @@ import Privacy from "./pages/FooterContent/Privacy/Privacy";
 import Term from "./pages/FooterContent/Term/Term";
 import CreatorProfile from "./pages/CreatorProfile/CreatorProfile";
 import SearchResults from "./pages/Search/SearchResults";
+import ThankYou from "./pages/FooterContent/ThankYou";
+import ResetPassword from "./pages/ResetPassword/ResetPassword";
 
 function App() {
   const dispatch = useDispatch();
@@ -57,9 +59,10 @@ function App() {
   console.log("Admin is logged in ", loggedInAsAdmin);
 
   useEffect(() => {
-    if (localStorage.getItem("token") === null) {
+    if (localStorage.getItem("token") === null ) {
       return navigate("/");
     }
+
     const token = localStorage.getItem("token");
     console.log("TOKEN is", token);
     const decoded = jwtDecode(token);
@@ -143,6 +146,7 @@ function App() {
               <Route path="/aboutus" element={<AboutUs />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/contact-us" element={<ContactUs />} />
+              <Route path="/thankyou" element={<ThankYou />} />
               <Route path="/admin" element={<AdminDashboard />} />
               <Route path="/search" element={<SearchResults />} />
               <Route
@@ -155,6 +159,8 @@ function App() {
                 path="/course/*"
                 element={<div>We couldn't find it</div>}
               />
+              <Route path="/reset-password" element={<ResetPassword />} />
+              <Route path="/forgot-password" element={<ForgotPassword  />} />
               <Route path="*" exact={true} element={<NotFound />} />
             </Routes>
           </Container>
@@ -171,6 +177,7 @@ function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/all-courses" element={<AllCourses />} />
               <Route path="/creator-dashboard" element={<CreatorDashboard />} />
               <Route path="/creator/:id" element={<CreatorInformation />} />
@@ -178,6 +185,7 @@ function App() {
               <Route path="/aboutus" element={<AboutUs />} />
               <Route path="/blog" element={<Blog />} />
               <Route path="/contact-us" element={<ContactUs />} />
+              <Route path="/thankyou" element={<ThankYou />} />
               <Route path="/admin" element={<AdminDashboard />} />
 
               <Route
@@ -189,7 +197,9 @@ function App() {
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/term" element={<Term />} />
 
+             
               <Route path="*" exact={true} element={<NotFound />} />
+              
             </Routes>
           </Container>
           <Footer />

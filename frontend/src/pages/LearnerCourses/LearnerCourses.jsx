@@ -10,11 +10,11 @@ import { Oval } from "react-loader-spinner";
 const LearnerCourses = () => {
   const [courses, setCourses] = useState([]);
   const [loader, setLoader] = useState(true);
+  const token = localStorage.getItem("token");
+  const decoded = jwtDecode(token);
+  const userId = decoded.id;
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const decoded = jwtDecode(token);
-    const userId = decoded.id;
     setLoader(true);
     if (userId) {
       fetch(`http://localhost:8000/users/${userId}`)
@@ -22,7 +22,16 @@ const LearnerCourses = () => {
         .then((data) => setCourses(data.courses));
       setLoader(false);
     }
-  }, []);
+  }, [courses]);
+
+  const handleRemove = () => {
+    console.log("remvoe all");
+
+    fetch(`http://localhost:8000/users/${userId}/courses`, {
+      method: "DELETE"
+    })
+    .then(res => console.log(res))
+  }
 
   if (!courses || courses.length === 0) {
     return (
@@ -93,6 +102,9 @@ const LearnerCourses = () => {
               deleteBtn
             />
           ))}
+        </div>
+        <div className="btn-container text-center mb-3">
+        <button className="btn btn-danger" onClick={handleRemove}>Remove all courses</button>
         </div>
       </>
     );

@@ -6,7 +6,6 @@ const bcrypt = require("bcrypt");
 const ObjectId = require("mongodb").ObjectId;
 const gridfs = require("gridfs-stream");
 const multer = require("multer");
-const nodemailer = require("nodemailer");
 
 //MongoDB
 const MongoClient = require("mongodb").MongoClient;
@@ -20,14 +19,18 @@ const googleSignup = require("./endpoints/signup/googleSignup");
 const googleLogin = require("./endpoints/login/googleLogin");
 const login = require("./endpoints/login/login");
 const search = require("./endpoints/search/search");
+const contactUs = require("./endpoints/contact-us");
+const forgotPassword = require("./endpoints/forgotPassword");
+const resetPassword = require("./endpoints/resetPassword");
 
 const dotenv = require("dotenv");
 const client = require("./mongodb");
 const { User } = require("./models/users");
+const { Creator } = require("./models/creator");
 dotenv.config();
-const secret = process.env.secret;
+const secret = "secret";
 
-const url = process.env.connection_url;
+const url = "mongodb+srv://max:LitLab@cluster0.qnyvkxl.mongodb.net";
 
 app.use(
   cors({
@@ -54,6 +57,15 @@ app.use("/login", login);
 
 //search for courses route
 app.use("/search", search);
+
+//contact us
+app.use("/contact-us", contactUs);
+
+//forgot password
+app.use("/forgot-password", forgotPassword);
+
+//reset password
+app.use("/reset-password", resetPassword);
 
 //buy course
 app.post("/buy-course", (req, res) => {
