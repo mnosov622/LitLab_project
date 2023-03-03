@@ -29,8 +29,6 @@ const LearnerSignup = () => {
   const [emailError, setEmailError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
 
-
-
   const handlePasswordMatch = () => {
     if (password !== reEnterPassword) {
       setPasswordMatch(false);
@@ -42,19 +40,19 @@ const LearnerSignup = () => {
   const handleName = () => {
     // Ensure the name is not empty
     if (name == null) {
-      return setNameError("Name cannot be empty.") ;
+      return setNameError("Name cannot be empty.");
     }
-  
+
     // Ensure the name is not too short or too long
     if (name.length < 2 || name.length > 50) {
       return setNameError("Name must be between 2 and 50 characters.");
     }
-  
+
     // Ensure the name contains only valid characters
     if (!/^[a-zA-Z\s]*$/.test(name)) {
       return setNameError("Name can only contain letters and spaces.");
     }
-  
+
     // If all checks pass, return null to indicate success
     return setNameError(null);
   };
@@ -88,9 +86,8 @@ const LearnerSignup = () => {
     }
 
     // If all checks pass, return null to indicate success
-    return setPasswordError(null);
+    return setPasswordError(false);
   }
-  
 
   const onSuccess = async (res) => {
     // navigate("/");
@@ -132,7 +129,7 @@ const LearnerSignup = () => {
   const handleSignup = async (e) => {
     setShowLoader(true);
     e.preventDefault();
-    if (passwordMatch) {
+    if (passwordMatch && !passwordError) {
       try {
         const response = await fetch("http://localhost:8000/registerLearner", {
           method: "POST",
@@ -184,7 +181,9 @@ const LearnerSignup = () => {
                     onKeyUp={handleName}
                   />
                   <label for="floatingName">Full Name</label>
-                  {nameError && (<div className="text-danger mt-2">{nameError}</div>)}
+                  {nameError && (
+                    <div className="text-danger mt-2">{nameError}</div>
+                  )}
                 </div>
                 <div className="form-floating mb-3">
                   <input
@@ -201,7 +200,9 @@ const LearnerSignup = () => {
                     onKeyUp={handleEmail}
                   />
                   <label for="floatingEmail">Email Address</label>
-                  {emailError && (<div className="text-danger mt-2">{emailError}</div>)}
+                  {emailError && (
+                    <div className="text-danger mt-2">{emailError}</div>
+                  )}
                 </div>
                 <div className="form-floating mb-3">
                   <input
@@ -215,7 +216,9 @@ const LearnerSignup = () => {
                     onKeyUp={handlePassword}
                   />
                   <label for="floatingPassword">Password</label>
-                   {passwordError && (<div className="text-danger mt-2">{passwordError}</div>)}
+                  {passwordError && (
+                    <div className="text-danger mt-2">{passwordError}</div>
+                  )}
                 </div>
                 <div className="form-floating mb-3">
                   <input

@@ -19,6 +19,7 @@ const ResetPassword = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordMatch, setPasswordMatch] = useState(true);
   const [emptyPassword, setEmptyPassword] = useState(false);
+  const [shortPassword, setShortPassword] = useState(false);
 
   const alert = useAlert();
 
@@ -42,6 +43,9 @@ const ResetPassword = () => {
     } else if (password === confirmPassword) {
       setPasswordMatch(true);
     }
+    if (password.length >= 8 || confirmPassword.length >= 8) {
+      setShortPassword(false);
+    }
   }, [confirmPassword, password]);
 
   const handleSubmit = async (e) => {
@@ -51,9 +55,13 @@ const ResetPassword = () => {
       return;
     }
 
-    if (passwordMatch) {
-      console.log(password, token);
-      console.log("Form is submitted");
+    if (password.length < 8 || confirmPassword.length < 8) {
+      setShortPassword(true);
+    }
+
+    if (passwordMatch && password.length > 8 && confirmPassword.length > 8) {
+      setShortPassword(false);
+
       fetch("http://localhost:8000/reset-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -111,6 +119,11 @@ const ResetPassword = () => {
                 )}
                 {emptyPassword && (
                   <p className="text-danger mt-2">Password can't be empty</p>
+                )}
+                {shortPassword && (
+                  <p className="text-danger mt-2">
+                    Password must be at least 8 characters long.
+                  </p>
                 )}
               </Form.Group>
               <Button
