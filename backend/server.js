@@ -219,10 +219,6 @@ MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
   });
 
   app.get("/images/:filename", (req, res) => {
-    bucket.find().toArray((err, files) => {
-      console.log(files.map((file) => file.filename));
-    });
-
     const downloadStream = bucket.openDownloadStreamByName(req.params.filename);
 
     downloadStream.on("error", () => {
