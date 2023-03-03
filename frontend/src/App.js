@@ -59,7 +59,11 @@ function App() {
   console.log("Admin is logged in ", loggedInAsAdmin);
 
   useEffect(() => {
-    if (localStorage.getItem("token") === null ) {
+    if (localStorage.getItem("resettingPassword") !== null) {
+      return;
+    }
+
+    if (localStorage.getItem("token") === null) {
       return navigate("/");
     }
 
@@ -160,7 +164,7 @@ function App() {
                 element={<div>We couldn't find it</div>}
               />
               <Route path="/reset-password" element={<ResetPassword />} />
-              <Route path="/forgot-password" element={<ForgotPassword  />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="*" exact={true} element={<NotFound />} />
             </Routes>
           </Container>
@@ -197,9 +201,7 @@ function App() {
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/term" element={<Term />} />
 
-             
               <Route path="*" exact={true} element={<NotFound />} />
-              
             </Routes>
           </Container>
           <Footer />

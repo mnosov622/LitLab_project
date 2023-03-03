@@ -205,7 +205,9 @@ const Login = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   onKeyUp={handleEmail}
                 />
-                {emailError && (<div className="text-danger mt-2">{emailError}</div>)}
+                {emailError && (
+                  <div className="text-danger mt-2">{emailError}</div>
+                )}
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label className="fs-3">Password</Form.Label>
@@ -219,7 +221,9 @@ const Login = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   onKeyUp={handlePassword}
                 />
-                {passwordError && (<div className="text-danger mt-2">{passwordError}</div>)}
+                {passwordError && (
+                  <div className="text-danger mt-2">{passwordError}</div>
+                )}
               </Form.Group>
               {wrongCredentials && (
                 <div className="text-center text-danger">
