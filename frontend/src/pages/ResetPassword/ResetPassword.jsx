@@ -60,8 +60,17 @@ const ResetPassword = () => {
         body: JSON.stringify({ token, password }),
       }).then((res) => {
         console.log("response", res);
+        if (res.status === 400) {
+          alert.error(
+            "Reset password link has expired. Send new reset password request.",
+            {
+              position: positions.BOTTOM_CENTER,
+              timeout: 5000, // custom timeout just for this one alert
+            }
+          );
+        }
         if (res.status === 200) {
-          alert.success("Reset pasword link was set to email", {
+          alert.success("You have successfully changed your password", {
             position: positions.BOTTOM_CENTER,
             timeout: 5000, // custom timeout just for this one alert
           });
