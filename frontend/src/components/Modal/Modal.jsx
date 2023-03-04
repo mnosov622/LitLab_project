@@ -28,7 +28,15 @@ const Modal = ({
       });
   }, [editUser, id]);
   const handleSave = (id) => {
-    console.log("id of user", id);
+    const updatedUser = { name: userName, email: userEmail };
+
+    fetch(`http://localhost:8000/users/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(updatedUser),
+    }).then((res) => {
+      console.log(res);
+    });
   };
 
   return (
