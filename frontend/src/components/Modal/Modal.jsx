@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./Modal.scss";
+import { useAlert, positions } from "react-alert";
 
 const Modal = ({
   title,
@@ -15,6 +16,7 @@ const Modal = ({
   const [userData, setUserData] = useState([]);
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
+  const alert = useAlert();
 
   useEffect(() => {
     console.log("id is", id);
@@ -35,7 +37,17 @@ const Modal = ({
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedUser),
     }).then((res) => {
-      console.log(res);
+      if (res.status === 200) {
+        onCancel();
+        alert.success("User is successfully edited", {
+          position: positions.BOTTOM_CENTER,
+          timeout: 2000,
+        });
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      }
     });
   };
 
@@ -68,6 +80,7 @@ const Modal = ({
             {editUser && (
               <>
                 <input
+                  className="form-control mb-3"
                   value={userName}
                   onChange={(e) => setUserName(e.target.value)}
                 />
@@ -75,6 +88,7 @@ const Modal = ({
             )}
             {editUser && (
               <input
+                className="form-control"
                 value={userEmail}
                 onChange={(e) => setUserEmail(e.target.value)}
               />
