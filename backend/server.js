@@ -67,6 +67,8 @@ app.use("/forgot-password", forgotPassword);
 //reset password
 app.use("/reset-password", resetPassword);
 
+app.use("/reset-password", resetPassword);
+
 //buy course
 app.post("/buy-course", (req, res) => {
   const token = req.headers.authorization;

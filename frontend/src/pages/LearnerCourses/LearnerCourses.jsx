@@ -26,12 +26,12 @@ const LearnerCourses = () => {
 
   const handleRemove = () => {
     console.log("remvoe all");
-
-    fetch(`http://localhost:8000/users/${userId}/courses`, {
-      method: "DELETE"
-    })
-    .then(res => console.log(res))
-  }
+    if (window.confirm("Are you sure you want to remove all courses ?")) {
+      fetch(`http://localhost:8000/users/${userId}/courses`, {
+        method: "DELETE",
+      }).then((res) => console.log(res));
+    }
+  };
 
   if (!courses || courses.length === 0) {
     return (
@@ -104,7 +104,9 @@ const LearnerCourses = () => {
           ))}
         </div>
         <div className="btn-container text-center mb-3">
-        <button className="btn btn-danger" onClick={handleRemove}>Remove all courses</button>
+          <button className="btn btn-danger" onClick={handleRemove}>
+            Remove all courses
+          </button>
         </div>
       </>
     );

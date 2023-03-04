@@ -10,6 +10,7 @@ const CreatorCourseCard = ({
   instructorName,
   courseId,
 }) => {
+  console.log("");
   const handleDelete = () => {
     if (window.confirm("Are you sure you want to delete the course?")) {
       const token = localStorage.getItem("token");

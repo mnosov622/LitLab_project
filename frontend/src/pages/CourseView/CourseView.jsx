@@ -26,7 +26,7 @@ const CourseView = () => {
   }, []);
 
   useEffect(() => {
-    const videoSourceLink = courseData.video?.startsWith("https");
+    const videoSourceLink = courseData?.video?.startsWith("https");
     console.log("source true", videoSourceLink);
     if (videoSourceLink) {
       setFakeVideo(true);
@@ -87,13 +87,13 @@ const CourseView = () => {
                   width="560"
                   height="315"
                   title="video"
-                  src={courseData.video}
+                  src={courseData && courseData?.video}
                   allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                 ></iframe>
               ) : (
                 uploadedVideo &&
-                courseData.video && (
+                courseData?.video && (
                   <video
                     src={`http://localhost:8000/videos/${courseData.video}`}
                     controls
@@ -123,7 +123,7 @@ const CourseView = () => {
             Complete test
           </Link> */}
               <Link
-                to={`/test/${courseData.id}`}
+                to={`/test/${courseData?.id}`}
                 className={`btn btn-primary btn-lg d-block mx-auto w-50`}
               >
                 Complete test
@@ -131,8 +131,8 @@ const CourseView = () => {
             </div>
             <div className="col-md-6">
               <p className="fs-1 text-center ">Course Content</p>
-              {courseData.courseContent &&
-                courseData.courseContent.map((content, index) => (
+              {courseData?.courseContent &&
+                courseData?.courseContent.map((content, index) => (
                   <p key={index} className="week">
                     <h3 className="text-primary">Week {index + 1}</h3>
                     <ul>

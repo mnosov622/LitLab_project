@@ -41,7 +41,9 @@ const Payment = () => {
   function handleCardName() {
     // Ensure the subject contains only valid characters
     if (!/^[a-zA-Z\s]*$/.test(cardHolderName)) {
-      return setCardNameError("Card Holder Name can only contain letters and spaces.");
+      return setCardNameError(
+        "Card Holder Name can only contain letters and spaces."
+      );
     }
     return setCardNameError(null);
   }
@@ -102,9 +104,9 @@ const Payment = () => {
           timeout: 2000, // custom timeout just for this one alert
         });
         navigate("/");
-        setTimeout(() => {
-          window.location.reload();
-        }, 500);
+        // setTimeout(() => {
+        //   window.location.reload();
+        // }, 500);
       } catch (e) {
         console.log("An error occured", e);
       }
@@ -197,7 +199,9 @@ const Payment = () => {
                   onKeyUp={handleCardNo}
                   required
                 />
-                {cardNoError && (<div className="text-danger mt-2">{cardNoError}</div>)}
+                {cardNoError && (
+                  <div className="text-danger mt-2">{cardNoError}</div>
+                )}
               </div>
               <div class="form-group">
                 <label htmlFor="cardHolderName">Card Holder Name:</label>
@@ -212,7 +216,9 @@ const Payment = () => {
                   onKeyUp={handleCardName}
                   required
                 />
-                {cardNameError && (<div className="text-danger mt-2">{cardNameError}</div>)}
+                {cardNameError && (
+                  <div className="text-danger mt-2">{cardNameError}</div>
+                )}
               </div>
               <div class="form-group">
                 <label htmlFor="expiryDate">Expiry Date:</label>
@@ -241,7 +247,7 @@ const Payment = () => {
                   onKeyUp={handleCvv}
                   required
                 />
-                {cvvError && (<div className="text-danger mt-2">{cvvError}</div>)}
+                {cvvError && <div className="text-danger mt-2">{cvvError}</div>}
               </div>
               <div class="form-group">
                 <img

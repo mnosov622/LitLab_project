@@ -61,6 +61,7 @@ const ResetPassword = () => {
 
     if (passwordMatch && password.length > 8 && confirmPassword.length > 8) {
       setShortPassword(false);
+      localStorage.removeItem("resettingPassword");
 
       fetch("http://localhost:8000/reset-password", {
         method: "POST",
