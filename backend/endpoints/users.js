@@ -108,7 +108,6 @@ router.delete("/:email", (req, res) => {
 });
 
 router.put("/:id", async (req, res) => {
-  console.log("endpoint accessed");
   try {
     const id = req.params.id;
     const updatedUser = req.body;

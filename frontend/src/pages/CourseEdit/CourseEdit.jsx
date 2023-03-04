@@ -1,5 +1,5 @@
 import jwtDecode from "jwt-decode";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Oval } from "react-loader-spinner";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
@@ -9,16 +9,32 @@ const CourseEdit = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [singleCourse, setSingleCourse] = useState([]);
+  const [courses, setCourses] = useState([]);
+  const [singleCourseName, setSingleCourseName] = useState("");
   const [courseName, setCourseName] = useState("");
   const [shortDescription, setShortDescription] = useState("");
   const [longDescription, setLongDescription] = useState("");
   const [price, setPrice] = useState(0);
+  const [courseData, setCourseData] = useState([]);
   const token = localStorage.getItem("token");
   const decoded = jwtDecode(token);
   const { courseId } = useParams();
   console.log("id is", courseId);
   console.log(decoded.email);
   const { id } = useParams();
+  const nameRef = useRef();
+
+  useEffect(() => {
+    console.log("data", userData);
+    const singleCourse = userData.find(
+      (course) => course.id === Number(courseId)
+    );
+    setSingleCourse(singleCourse);
+    singleCourse && setShortDescription(singleCourse?.shortDescription);
+    singleCourse && setLongDescription(singleCourse?.longDescription);
+    singleCourse && setCourseName(singleCourse?.name);
+    singleCourse && setPrice(singleCourse?.price);
+  }, [userData, courseId, singleCourseName]);
 
   useEffect(() => {
     setLoading(true);
@@ -29,22 +45,17 @@ const CourseEdit = () => {
         setUserData(data.courses);
         setLoading(false);
       });
+
+    fetch(`http://localhost:8000/courses`)
+      .then((res) => res.json())
+      .then((data) => {
+        setCourses(data);
+
+        const course = data.find((d) => d.name === singleCourse?.name);
+        setSingleCourseName(course?.name);
+        setSingleCourseName(nameRef.current.value);
+      });
   }, []);
-
-  useEffect(() => {
-    console.log("data", userData);
-    const singleCourse = userData.find(
-      (course) => course.id === Number(courseId)
-    );
-    setSingleCourse(singleCourse);
-    console.log("single course", singleCourse);
-    singleCourse && setShortDescription(singleCourse?.shortDescription);
-    singleCourse && setLongDescription(singleCourse?.longDescription);
-    singleCourse && setCourseName(singleCourse?.name);
-    singleCourse && setPrice(singleCourse?.price);
-  }, [userData, courseId]);
-
-  const [courseData, setCourseData] = useState([]);
 
   const handleWeekChange = (weekIndex, itemIndex, e) => {
     if (singleCourse?.courseContent) {
@@ -59,7 +70,7 @@ const CourseEdit = () => {
 
   const handleSubmit = (e) => {
     console.log("course id", courseId);
-
+    console.log(courseName);
     e.preventDefault();
     const updatedCourse = {
       name: courseName,
@@ -67,8 +78,6 @@ const CourseEdit = () => {
       longDescription: longDescription,
       price: price,
     };
-    console.log("email before request", decoded.email);
-    console.log("updated cpurse", updatedCourse);
     fetch(
       `http://localhost:8000/creator-courses/${decoded.id}/courses/${courseId}`,
       {
@@ -89,21 +98,21 @@ const CourseEdit = () => {
       });
 
     //TODO: Update course for all courses section
-    // fetch(`http://localhost:8000/users/${decoded.id}/courses/${courseId}`, {
-    //   method: "PUT",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     updatedCourse: updatedCourse,
-    //   }),
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //     navigate("/");
-    //     // Handle success or error response
-    //   });
+    fetch(`http://localhost:8000/courses/${singleCourseName}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        updatedCourse: updatedCourse,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        navigate("/");
+        // Handle success or error response
+      });
   };
   return (
     <div className={loading ? "bottom" : ""}>
@@ -144,6 +153,7 @@ const CourseEdit = () => {
                   type="text"
                   value={(singleCourse && courseName) || ""}
                   onChange={(e) => setCourseName(e.target.value)}
+                  ref={nameRef}
                 />
               </div>
               <div className="mb-4">

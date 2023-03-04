@@ -339,38 +339,43 @@ app.put("/creator-courses/:id/courses/:courseId", (req, res) => {
 });
 
 //TODO: Update course for all courses section
-// app.put("/users/:id/courses/:courseId", (req, res) => {
-//   console.log("updated course received", req.body.updatedCourse);
-
-//   MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
-//     if (err) throw err;
-//     const dbo = db.db("courses");
-//     dbo.collection("courses").findOne({ id: 17 }, function (err, user) {
-//       console.log("we found user", user);
-
-//       if (err) throw err;
-//       if (!user) {
-//         res.status(404).json({ message: "User not found" });
-//       } else {
-//         console.log("user is", user);
-//         dbo
-//           .collection("users")
-//           .updateOne(
-//             { email: "creator@gmail.com" },
-//             { $set: { courses: req.body.updatedCourse } },
-//             function (err, result) {
-//               if (err) throw err;
-//               res.send({
-//                 message: "course data updated successfully",
-//                 result: result,
-//               });
-//               db.close();
-//             }
-//           );
-//       }
-//     });
-//   });
-// });
+app.put("/courses/:name", (req, res) => {
+  console.log(
+    "updated course received",
+    req.body.updatedCourse.name,
+    req.body.updatedCourse.price
+  );
+  console.log("course name before uodateing", req.params.name);
+  const db = client.db("courses");
+  db.collection("courses").findOne(
+    { name: req.params.name },
+    function (err, course) {
+      if (!course) {
+        res.status(404).json({ message: "Course not found" });
+      } else {
+        console.log("course is", course);
+        db.collection("courses").updateOne(
+          { name: req.params.name },
+          {
+            $set: {
+              name: req.body.updatedCourse.name,
+              price: req.body.updatedCourse.price,
+              shortDescription: req.body.shortDescription,
+              longDescription: req.body.longDescription,
+            },
+          },
+          function (err, result) {
+            if (err) throw err;
+            res.send({
+              message: "course data updated successfully",
+              result: result,
+            });
+          }
+        );
+      }
+    }
+  );
+});
 
 app.get("/user-course/:userId", (req, res) => {
   console.log("user id", req.params.userId);

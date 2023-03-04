@@ -74,6 +74,8 @@ router.put("/:id/increase-enrollments", async (req, res) => {
 
 router.post("/", async (req, res) => {
   try {
+    await client.connect();
+
     const {
       email,
       name,
@@ -124,8 +126,6 @@ router.post("/", async (req, res) => {
       .db("courses")
       .collection("courses")
       .insertOne(course);
-
-    client.close();
 
     res
       .status(200)

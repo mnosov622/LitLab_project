@@ -76,7 +76,6 @@ const CourseUpload = () => {
     const data = await res.json();
 
     console.log("response recieved", data);
-    
 
     const courseData = {
       video: data.video,
@@ -105,6 +104,8 @@ const CourseUpload = () => {
       body: JSON.stringify(courseData),
     });
     const courses = await response.json();
+    console.log("response recived", courses);
+
     if (response.status === 200) {
       navigate("/", { state: { success: true } });
     }
@@ -138,7 +139,6 @@ const CourseUpload = () => {
       setShowModal(false);
     }
   };
-
 
   useEffect(() => {
     document.addEventListener("mousedown", handleClickOutside);
@@ -185,7 +185,7 @@ const CourseUpload = () => {
     console.log("Q", questions);
   };
 
-/*
+  /*
   // Define state variables for the input values and validation errors
   const [courseNameError, setCourseNameError] = useState(null);
   const [priceError, setPriceError] = useState(null);
