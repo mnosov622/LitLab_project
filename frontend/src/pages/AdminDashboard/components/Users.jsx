@@ -8,9 +8,11 @@ import "../admindashboard.css";
 const Users = () => {
   const [usersData, setUsersData] = useState([]);
   const [coursesData, setCoursesData] = useState([]);
+  const [singleUserData, setSingleUserData] = useState([]);
 
   const [showDeleteCourseModal, setShowDeleteCourseModal] = useState(false);
   const [showDeleteUserModal, setShowDeleteUserModal] = useState(false);
+  const [showEditUserModal, setShowEditUserModal] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
 
@@ -30,6 +32,7 @@ const Users = () => {
   const handleHideModal = () => {
     setShowDeleteCourseModal(false);
     setShowDeleteUserModal(false);
+    setShowEditUserModal(false);
     document.body.style.overflow = "visible";
   };
 
@@ -69,10 +72,25 @@ const Users = () => {
     document.body.style.overflow = "visible";
   };
 
+  const handleConfirmEditUser = () => {};
+
   const handleCancel = () => {
     // handle cancel action
     handleHideModal();
     document.body.style.overflow = "visible";
+  };
+
+  const handleOpenEditModal = (id, email) => {
+    console.log("id of user", id);
+    setShowEditUserModal(true);
+    setSelectedUser(email);
+
+    fetch(`http://localhost:8000/users/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setSingleUserData(data);
+        console.log(data);
+      });
   };
 
   useEffect(() => {
@@ -116,7 +134,12 @@ const Users = () => {
                   Delete user
                 </button>
                 &nbsp; &nbsp;
-                <button className="btn btn-info">Edit User Information</button>
+                <button
+                  className="btn btn-info"
+                  onClick={() => handleOpenEditModal(user._id, user.email)}
+                >
+                  Edit User Information
+                </button>
               </td>
             </tr>
           ))}
@@ -176,6 +199,18 @@ const Users = () => {
           item={selectedUser}
           onConfirm={() => handleConfirmDeleteUser(selectedUser)}
           onCancel={handleCancel}
+        />
+      )}
+
+      {showEditUserModal && (
+        <Modal
+          title="Edit User"
+          body={``}
+          item={selectedUser}
+          id={singleUserData._id}
+          onConfirm={() => handleConfirmEditUser(selectedUser)}
+          onCancel={handleCancel}
+          editUser
         />
       )}
     </div>

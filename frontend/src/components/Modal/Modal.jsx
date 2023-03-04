@@ -1,7 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./Modal.scss";
 
-const Modal = ({ title, body, onConfirm, onCancel, item }) => {
+const Modal = ({
+  title,
+  body,
+  onConfirm,
+  onCancel,
+  item,
+  editUser,
+  name,
+  email,
+  id,
+}) => {
+  const [userData, setUserData] = useState([]);
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+
+  useEffect(() => {
+    console.log("id is", id);
+    fetch(`http://localhost:8000/users/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setUserData(data);
+        setUserEmail(data.email);
+        setUserName(data.name);
+        console.log("user data", data.name);
+      });
+  }, [editUser, id]);
+  const handleSave = (id) => {
+    console.log("id of user", id);
+  };
+
   return (
     <div
       className="modal"
@@ -26,7 +55,22 @@ const Modal = ({ title, body, onConfirm, onCancel, item }) => {
             </button>
           </div>
           <div className="modal-body">
-            {body} <span className="fw-bold">{item} ?</span>
+            {body}{" "}
+            <span className={editUser ? "d-none" : `fw-bold`}>{item} ?</span>
+            {editUser && (
+              <>
+                <input
+                  value={userName}
+                  onChange={(e) => setUserName(e.target.value)}
+                />
+              </>
+            )}
+            {editUser && (
+              <input
+                value={userEmail}
+                onChange={(e) => setUserEmail(e.target.value)}
+              />
+            )}
           </div>
           <div className="modal-footer">
             <button
@@ -37,13 +81,24 @@ const Modal = ({ title, body, onConfirm, onCancel, item }) => {
             >
               Cancel
             </button>
-            <button
-              type="button"
-              className="btn btn-danger"
-              onClick={onConfirm}
-            >
-              Delete
-            </button>
+
+            {editUser ? (
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={() => handleSave(userData._id)}
+              >
+                Save
+              </button>
+            ) : (
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={onConfirm}
+              >
+                Delete
+              </button>
+            )}
           </div>
         </div>
       </div>

@@ -15,9 +15,24 @@ router.get("/", async (req, res) => {
   }
 });
 
-
 router.get("/:id", (req, res) => {
   User.findById(req.params.id)
+    .then((user) => {
+      if (!user) {
+        res.status(404).json({ message: "User not found" });
+      } else {
+        res.json(user);
+      }
+    })
+    .catch((err) => {
+      res.status(500).json({ message: err.message });
+    });
+});
+
+router.get("/:email", (req, res) => {
+  console.log("EMAIL is", req.params.email);
+
+  User.findOne({ email: req.params.email })
     .then((user) => {
       if (!user) {
         res.status(404).json({ message: "User not found" });
@@ -52,7 +67,6 @@ router.delete("/:id/courses", async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
-
 
 //remove the user, functionality for admin only
 //TODO: Protect the route, so that only admin can do that
