@@ -13,6 +13,7 @@ const Users = () => {
   const [showDeleteCourseModal, setShowDeleteCourseModal] = useState(false);
   const [showDeleteUserModal, setShowDeleteUserModal] = useState(false);
   const [showEditUserModal, setShowEditUserModal] = useState(false);
+  const [showEditCourseModal, setShowEditCourseModal] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
 
@@ -33,6 +34,7 @@ const Users = () => {
     setShowDeleteCourseModal(false);
     setShowDeleteUserModal(false);
     setShowEditUserModal(false);
+    setShowEditCourseModal(false);
     document.body.style.overflow = "visible";
   };
 
@@ -85,6 +87,18 @@ const Users = () => {
     setShowEditUserModal(true);
     setSelectedUser(email);
 
+    fetch(`http://localhost:8000/users/${id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setSingleUserData(data);
+        console.log(data);
+      });
+  };
+
+  const handleOpenEditCourseModal = (name, id) => {
+    console.log("id and name", id, name);
+    setShowEditCourseModal(true);
+    setSelectedCourse(id);
     fetch(`http://localhost:8000/users/${id}`)
       .then((res) => res.json())
       .then((data) => {
@@ -175,7 +189,14 @@ const Users = () => {
                     Delete course
                   </button>
 
-                  <button className="btn btn-info">Edit course</button>
+                  <button
+                    className="btn btn-info"
+                    onClick={() =>
+                      handleOpenEditCourseModal(course.name, course.id)
+                    }
+                  >
+                    Edit course
+                  </button>
                 </td>
               </tr>
             ))}
@@ -211,6 +232,17 @@ const Users = () => {
           onConfirm={() => handleConfirmEditUser(selectedUser)}
           onCancel={handleCancel}
           editUser
+        />
+      )}
+
+      {showEditCourseModal && (
+        <Modal
+          title="Edit Course"
+          body={``}
+          item={selectedCourse}
+          onConfirm={() => handleConfirm(selectedCourse)}
+          onCancel={handleCancel}
+          editCourse
         />
       )}
     </div>

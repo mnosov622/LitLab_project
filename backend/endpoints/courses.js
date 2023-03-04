@@ -175,4 +175,30 @@ router.delete("/:name", (req, res) => {
   });
 });
 
+//edit course - admin endpoint
+
+router.put("/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const updatedCourse = req.body.updatedCourse;
+    const db = client.db("courses");
+    const collection = db.collection("courses");
+
+    const filter = { id: Number(id) };
+    const update = {
+      $set: { name: updatedCourse.name, price: updatedCourse.price },
+    };
+    const options = { returnOriginal: false };
+    const course = await collection.findOneAndUpdate(filter, update, options);
+
+    if (!course.value) {
+      return res.status(404).json({ message: "Course not found" });
+    }
+    res.status(200).json(course.value);
+  } catch (err) {
+    console.log("err", err);
+    res.status(500).json({ message: err.message });
+  }
+});
+
 module.exports = router;

@@ -9,6 +9,7 @@ const Modal = ({
   onCancel,
   item,
   editUser,
+  editCourse,
   name,
   email,
   id,
@@ -16,8 +17,12 @@ const Modal = ({
   const [userData, setUserData] = useState([]);
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
-  const alert = useAlert();
+  const [courseName, setCourseName] = useState("");
+  const [coursePrice, setCoursePrice] = useState("");
+  const [singleCourse, setSingleCourse] = useState({ name: "", price: "" });
 
+  const alert = useAlert();
+  console.log("selected course", item);
   useEffect(() => {
     console.log("id is", id);
     fetch(`http://localhost:8000/users/${id}`)
@@ -28,7 +33,16 @@ const Modal = ({
         setUserName(data.name);
         console.log("user data", data.name);
       });
-  }, [editUser, id]);
+
+    fetch(`http://localhost:8000/courses/${item}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setSingleCourse(data.course);
+        setCourseName(data.course.name);
+        setCoursePrice(data.course.price);
+      });
+  }, [editUser, id, item]);
+
   const handleSave = (id) => {
     const updatedUser = { name: userName, email: userEmail };
 
@@ -39,7 +53,37 @@ const Modal = ({
     }).then((res) => {
       if (res.status === 200) {
         onCancel();
-        alert.success("User is successfully edited", {
+        alert.success("User is successfully updated", {
+          position: positions.BOTTOM_CENTER,
+          timeout: 2000,
+        });
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      }
+    });
+  };
+
+  const handleSaveCourse = (id) => {
+    const updatedCourse = {
+      name: singleCourse.name,
+      price: singleCourse.price,
+    };
+    console.log("updated", updatedCourse);
+
+    console.log("id of saved course", id);
+
+    fetch(`http://localhost:8000/courses/${Number(id)}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ updatedCourse }),
+    }).then((res) => {
+      if (res.status === 200) {
+        onCancel();
+        alert.success("Course is successfully updated", {
           position: positions.BOTTOM_CENTER,
           timeout: 2000,
         });
@@ -76,7 +120,9 @@ const Modal = ({
           </div>
           <div className="modal-body">
             {body}{" "}
-            <span className={editUser ? "d-none" : `fw-bold`}>{item} ?</span>
+            <span className={editUser || editCourse ? "d-none" : `fw-bold`}>
+              {item} ?
+            </span>
             {editUser && (
               <>
                 <input
@@ -92,6 +138,36 @@ const Modal = ({
                 value={userEmail}
                 onChange={(e) => setUserEmail(e.target.value)}
               />
+            )}
+            {editCourse && (
+              <>
+                <label htmlFor="name" className="mt-1 mb-1 fw-bold">
+                  Name
+                </label>
+                <input
+                  id="name"
+                  className="form-control"
+                  value={singleCourse.name}
+                  onChange={(e) =>
+                    setSingleCourse({ ...singleCourse, name: e.target.value })
+                  }
+                />
+              </>
+            )}
+            {editCourse && (
+              <>
+                <label htmlFor="price" className="mt-1 mb-1 fw-bold">
+                  Price
+                </label>
+                <input
+                  id="price"
+                  className="form-control"
+                  value={singleCourse.price}
+                  onChange={(e) =>
+                    setSingleCourse({ ...singleCourse, price: e.target.value })
+                  }
+                />
+              </>
             )}
           </div>
           <div className="modal-footer">
@@ -109,6 +185,14 @@ const Modal = ({
                 type="button"
                 className="btn btn-danger"
                 onClick={() => handleSave(userData._id)}
+              >
+                Save
+              </button>
+            ) : editCourse ? (
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={() => handleSaveCourse(singleCourse.id)}
               >
                 Save
               </button>

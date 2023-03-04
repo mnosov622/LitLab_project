@@ -340,12 +340,6 @@ app.put("/creator-courses/:id/courses/:courseId", (req, res) => {
 
 //TODO: Update course for all courses section
 app.put("/courses/:name", (req, res) => {
-  console.log(
-    "updated course received",
-    req.body.updatedCourse.name,
-    req.body.updatedCourse.price
-  );
-  console.log("course name before uodateing", req.params.name);
   const db = client.db("courses");
   db.collection("courses").findOne(
     { name: req.params.name },
