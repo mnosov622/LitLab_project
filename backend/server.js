@@ -22,7 +22,7 @@ const search = require("./endpoints/search/search");
 const contactUs = require("./endpoints/contact-us");
 const forgotPassword = require("./endpoints/forgotPassword");
 const resetPassword = require("./endpoints/resetPassword");
-
+const buyCourse = require("./endpoints/buy-course");
 const dotenv = require("dotenv");
 const client = require("./mongodb");
 const { User } = require("./models/users");
@@ -43,6 +43,7 @@ app.use(express.json());
 
 //routes for courses
 app.use("/courses", coursesRouter);
+
 //routes for users
 app.use("/users", usersRouter);
 
@@ -67,63 +68,8 @@ app.use("/forgot-password", forgotPassword);
 //reset password
 app.use("/reset-password", resetPassword);
 
-app.use("/reset-password", resetPassword);
-
 //buy course
-app.post("/buy-course", (req, res) => {
-  const token = req.headers.authorization;
-  const decoded = jwt.verify(token, secret);
-  const userId = decoded.id;
-
-  MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
-    if (err) {
-      console.error(err);
-      return res.send({ success: false, error: err });
-    }
-
-    const db = client.db("users");
-    const users = db.collection("users");
-
-    users.findOne({ _id: new ObjectId(userId) }, (err, user) => {
-      if (err) {
-        console.error(err);
-        client.close();
-        return res.send({ success: false, error: err });
-      }
-
-      if (!user.courses) {
-        user.courses = [];
-      }
-
-      let courses;
-      if (Array.isArray(req.body.courses)) {
-        courses = req.body.courses;
-      } else {
-        courses = [req.body.courses];
-      }
-
-      // Add the courses to the user's courses list
-      courses.forEach((course) => {
-        user.courses.push(course);
-      });
-
-      // Update the user document in the database
-      users.updateOne(
-        { _id: user._id },
-        { $set: { courses: user.courses } },
-        (err) => {
-          if (err) {
-            console.error(err);
-            client.close();
-            return res.send({ success: false, error: err });
-          }
-          client.close();
-          res.send({ success: true });
-        }
-      );
-    });
-  });
-});
+app.use("/buy-course", buyCourse);
 
 MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
   if (err) throw err;
@@ -242,58 +188,6 @@ MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
     res.set("Content-Type", "image/jpeg");
 
     downloadStream.pipe(res);
-  });
-});
-
-app.put("/certificate/:id", (req, res) => {
-  const userId = req.params.id;
-  console.log(userId);
-  const coursesCompleted = req.body.coursesCompleted;
-  console.log("name", req.body.courseName);
-  // Find the user by ID
-
-  MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
-    if (err) {
-      console.error(err);
-      return;
-    }
-
-    const db = client.db("users");
-    const users = db.collection("users");
-
-    users.findOne({ _id: new ObjectId(userId) }, (err, user) => {
-      if (err) {
-        console.error(err);
-        client.close();
-        return;
-      }
-
-      if (!user.coursesCompleted) {
-        user.coursesCompleted = [];
-      }
-
-      // Add the course to the user's courses list
-      user.coursesCompleted.push({
-        id: req.body.courseId,
-        courseName: req.body.name,
-        instructor: req.body.instructor,
-        courseImage: req.body.courseImage,
-        price: req.body.price,
-      });
-
-      // Update the user document in the database
-      users.updateOne(
-        { _id: user._id },
-        { $set: { coursesCompleted: user.coursesCompleted } },
-        (err) => {
-          if (err) {
-            console.error(err);
-          }
-          client.close();
-          res.send({ success: true });
-        }
-      );
-    });
   });
 });
 
@@ -462,7 +356,5 @@ app.put("/users/:userEmail/courses/:id", (req, res) => {
       res.status(500).json({ error: "Failed to update the course" });
     });
 });
-
-//
 
 app.listen(8000, () => console.log("Server is up on port 8000"));

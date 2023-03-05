@@ -1,6 +1,7 @@
 const express = require("express");
 const client = require("../mongodb");
 const router = express.Router();
+const jwt = require("jsonwebtoken");
 
 router.put("/:id", (req, res) => {
   const userId = req.params.id;

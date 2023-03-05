@@ -176,7 +176,6 @@ router.delete("/:name", (req, res) => {
 });
 
 //edit course - admin endpoint
-
 router.put("/:id", async (req, res) => {
   try {
     const id = req.params.id;

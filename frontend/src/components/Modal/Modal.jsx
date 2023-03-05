@@ -70,9 +70,6 @@ const Modal = ({
       name: singleCourse.name,
       price: singleCourse.price,
     };
-    console.log("updated", updatedCourse);
-
-    console.log("id of saved course", id);
 
     fetch(`http://localhost:8000/courses/${Number(id)}`, {
       method: "PUT",
