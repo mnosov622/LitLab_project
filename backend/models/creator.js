@@ -19,12 +19,35 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
+
 const userSchema = new mongoose.Schema({
     profileImage: { type: Buffer},
     bio: { type: String}
   });
 
   const User = mongoose.model('User', userSchema);
+
+
+  // Insert new user profile into database
+const newProfile = new UserProfile({
+  profileImage: 'John Doe',
+  bio: 'I am a software developer.'
+});
+newProfile.save((err, profile) => {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log('Profile saved successfully:', profile);
+  }
+});
+
+UserProfile.findOne({ profileImage: 'John Doe' }, (err, profile) => {
+  if (err) {
+    console.error(err);
+  } else {
+    console.log('Profile found:', profile);
+  }
+});
 
 module.exports = {
     User,
