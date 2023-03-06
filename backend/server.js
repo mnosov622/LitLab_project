@@ -23,6 +23,8 @@ const contactUs = require("./endpoints/contact-us");
 const forgotPassword = require("./endpoints/forgotPassword");
 const resetPassword = require("./endpoints/resetPassword");
 const buyCourse = require("./endpoints/buy-course");
+const creatorInfo = require("./endpoints/creator");
+
 const dotenv = require("dotenv");
 const client = require("./mongodb");
 const { User } = require("./models/users");
@@ -70,6 +72,8 @@ app.use("/reset-password", resetPassword);
 
 //buy course
 app.use("/buy-course", buyCourse);
+
+app.use("/creator", creatorInfo);
 
 MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
   if (err) throw err;

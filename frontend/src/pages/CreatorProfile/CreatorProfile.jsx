@@ -1,20 +1,53 @@
 import jwtDecode from "jwt-decode";
 import React, { useEffect, useState } from "react";
 import "./CreatorProfile.scss";
+import { useAlert, positions } from "react-alert";
 
 const CreatorProfile = () => {
   const token = localStorage.getItem("token");
   const decoded = jwtDecode(token);
   const [profileData, setProfileData] = useState([]);
+  const [profileImage, setProfileImage] = useState("");
+  const [bio, setBio] = useState("");
+  const [socialLink, setSocialLink] = useState("");
+  const [major, setMajor] = useState("");
+  const alert = useAlert();
 
   useEffect(() => {
     fetch(`http://localhost:8000/users/${decoded.id}`)
       .then((response) => response.json())
       .then((data) => {
         setProfileData(data);
+        setBio(data.bio);
+        setSocialLink(data.social);
+        setMajor(data.major);
         console.log(data);
       });
-  }, []);
+  }, [decoded.id]);
+
+  const handleSave = () => {
+    const formData = new FormData();
+    formData.append("profileImage", profileImage);
+    formData.append("bio", bio);
+    formData.append("social", socialLink);
+    formData.append("major", major);
+    console.log("bio and image", bio, profileImage);
+
+    fetch(`http://localhost:8000/creator/${decoded.id}`, {
+      method: "POST",
+      body: formData,
+    }).then((res) => {
+      console.log(res);
+      if (res.status === 200) {
+        console.log("success");
+        alert.success("Profile is successfully updated", {
+          position: positions.BOTTOM_RIGHT,
+          timeout: 2000,
+        });
+      }
+    });
+  };
+
   return (
     <div>
       <div className="bg-light shadow text-center p-2 fs-2 mb-4">
@@ -22,12 +55,23 @@ const CreatorProfile = () => {
       </div>
       <div className="profile-container">
         <div className="profile-header">
-          {profileData.image ? (
-            <img
-              className="profile-header__avatar rounded-circle"
-              src="https://i.pravatar.cc/150?img=5"
-              alt="avatar"
-            />
+          {profileData.profileImage ? (
+            <>
+              <img
+                className="profile-header__avatar rounded w-25"
+                src={`http://localhost:8000/images/${profileData.profileImage}`}
+                alt="avatar"
+              />
+              <div className="">
+                <p className="text-info">Upload an image</p>
+                <input
+                  type="file"
+                  onChange={(e) => {
+                    setProfileImage(e.target.files[0]);
+                  }}
+                />
+              </div>
+            </>
           ) : (
             <>
               <svg
@@ -42,7 +86,12 @@ const CreatorProfile = () => {
               </svg>
               <div className="">
                 <p className="text-info">Upload an image</p>
-                <input type="file" />
+                <input
+                  type="file"
+                  onChange={(e) => {
+                    setProfileImage(e.target.files[0]);
+                  }}
+                />
               </div>
             </>
           )}
@@ -56,11 +105,13 @@ const CreatorProfile = () => {
             placeholder="Your Bio..."
             resize="none"
             rows="5"
+            value={bio}
+            onChange={(e) => setBio(e.target.value)}
           ></textarea>
 
           <ul className="profile-body__contact-list">
             <li>
-              <span className="profile-body__contact-list__label">
+              <span className="profile-body__contact-list__label fw-bold">
                 Email: &nbsp;
               </span>
               {profileData.email}
@@ -72,13 +123,36 @@ const CreatorProfile = () => {
               {profileData.education}
             </li>
             <li>
-              <input type="text" placeholder="Link to your socials" />
+              <span className="profile-body__contact-list__label fw-bold">
+                Socials: &nbsp;
+              </span>
+              <input
+                id="socials"
+                type="text"
+                placeholder="Link to your socials"
+                value={socialLink}
+                onChange={(e) => setSocialLink(e.target.value)}
+              />
+            </li>
+            <li>
+              <span className="profile-body__contact-list__label fw-bold">
+                Major: &nbsp;
+              </span>
+              <input
+                id="major"
+                type="text"
+                placeholder="Major"
+                value={major}
+                onChange={(e) => setMajor(e.target.value)}
+              />
             </li>
           </ul>
         </div>
       </div>
       <div className="button-wrapper text-center">
-        <button className="btn btn-primary btn-lg w-25">Save Changes</button>
+        <button className="btn btn-primary btn-lg w-25" onClick={handleSave}>
+          Save Changes
+        </button>
       </div>
     </div>
   );
