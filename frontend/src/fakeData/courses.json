@@ -31,7 +31,21 @@
       }
     ],
     "creatorReview": [
-
+      {
+        "name": "John Doe",
+        "rating": 4,
+        "comment": "Simona Gareth's teaching style is engaging and easy to follow. I was able to grasp the concepts of React quickly thanks to her clear explanations and examples."
+        },
+        {
+        "name": "Jane Smith",
+        "rating": 5,
+        "comment": "Simona Gareth is an excellent React instructor! She breaks down complex topics into manageable chunks and is always available to answer questions. I highly recommend her course!"
+        },
+        {
+        "name": "Bob Johnson",
+        "rating": 3,
+        "comment": "Simona Gareth's React course is decent, but it could use some improvements. There were times when I found myself confused, and the explanations weren't always clear. Overall, though, it was still helpful."
+        }
     ],
     "pointsToLearn": [
       { "point": "basics of angular" },
@@ -148,7 +162,21 @@
         }
     ],
     "creatorReview": [
-
+      {
+        "name": "Jessica Lee",
+        "rating": 5,
+        "comment": "Murray Thompson is an excellent JavaScript instructor! His course is well-structured and easy to follow. He explains things clearly and provides plenty of examples. I highly recommend his class!"
+        },
+        {
+        "name": "Mark Davis",
+        "rating": 4,
+        "comment": "I took Murray Thompson's JavaScript course and found it very helpful. He's a great teacher and does a good job of explaining difficult concepts. The only thing I wish was that the course went a bit more in-depth on some topics."
+        },
+        {
+        "name": "Sarah Patel",
+        "rating": 3,
+        "comment": "Murray Thompson's JavaScript course was okay. I didn't find it particularly engaging, and some of the explanations were a bit confusing. However, I did learn some useful things, so I'd say it was worth it overall."
+        }
     ],
     "pointsToLearn": [
       { "point": "Introduction to Javascript" },
@@ -266,7 +294,21 @@
         }        
     ],
     "creatorReview": [
-
+      {
+        "name": "Alice Chen",
+        "rating": 4,
+        "comment": "Marc Williamson is an amazing instructor when it comes to the psychology of persuasion! His course is full of real-life examples and practical tips that I have already started applying in my personal and professional life. Highly recommend!"
+        },
+        {
+        "name": "David Kim",
+        "rating": 4,
+        "comment": "I really enjoyed Marc Williamson's course on the psychology of persuasion. He is an engaging speaker and clearly knows his stuff. The only thing I wish was that the course was a bit longer, as I felt like there was even more to learn!"
+        },
+        {
+        "name": "Emily Johnson",
+        "rating": 3,
+        "comment": "I found Marc Williamson's course on the psychology of persuasion to be helpful, but not amazing. Some of the concepts were a bit complex, and I didn't always feel like I had a firm grasp on everything. Still, I did learn some valuable information."
+        }
     ],
     "pointsToLearn": [
       { "point": "Introduction to the psychology of influence" },
@@ -386,7 +428,21 @@
       }
     ],
     "creatorReview": [
-
+      {
+        "name": "Alex Smith",
+        "rating": 4,
+        "comment": "Anya Selafinkov's Financial Markets course is fantastic! She explains complex financial concepts in a clear and concise way, and provides plenty of real-life examples. I feel much more confident about investing and managing my finances after taking her class."
+        },
+        {
+        "name": "Maria Rodriguez",
+        "rating": 3,
+        "comment": "I found Anya Selafinkov's Financial Markets course to be very helpful. She does a great job of breaking down difficult concepts into easy-to-understand language. The only downside is that the course could be a bit longer, as there is so much to cover in this field."
+        },
+        {
+        "name": "Tom Jones",
+        "rating": 3,
+        "comment": "Anya Selafinkov's Financial Markets course was okay, but it didn't completely blow me away. I did learn some useful things, but I didn't feel like I got as much out of it as I was hoping. Overall, though, it was still a decent class."
+        }
     ],
     "pointsToLearn": [
       { "point": "Introduction to financial markets" },
@@ -504,7 +560,21 @@
       }
     ],
     "creatorReview": [
-
+      {
+        "name": "Samantha Lee",
+        "rating": 4,
+        "comment": "Albert Nicholas's Communication Skills course is phenomenal! He teaches practical skills that I can apply immediately in both my personal and professional life. He is a gifted speaker and his passion for communication really shines through. Highly recommend!"
+        },
+        {
+        "name": "Michael Johnson",
+        "rating": 4,
+        "comment": "I found Albert Nicholas's Communication Skills course to be very helpful. He is a great teacher and presents information in an engaging and easy-to-understand way. The only thing I wish was that the course was a bit longer, as I would have loved to learn even more!"
+        },
+        {
+        "name": "Lauren Kim",
+        "rating": 2,
+        "comment": "Albert Nicholas's Communication Skills course was decent. I did learn some useful tips and tricks for improving my communication, but I didn't find it to be as groundbreaking as I was hoping. Still, it was a solid class overall."
+        }
     ],
     "pointsToLearn": [
       { "point": "Introduction to effective communication" },
@@ -622,7 +692,21 @@
       }
     ],
     "creatorReview": [
-
+      {
+        "name": "John Smith",
+        "rating": 5,
+        "comment": "Lin Song is an excellent Statistics instructor! She makes a subject that can be very intimidating feel accessible and even enjoyable. Her course is well-organized and full of helpful examples. Highly recommend!"
+        },
+        {
+        "name": "Sarah Johnson",
+        "rating": 4,
+        "comment": "I took Lin Song's Statistics course and found it to be very helpful. She is a great teacher and does a good job of explaining difficult concepts in a way that is easy to understand. The only downside is that the course could be a bit longer, as there is so much to cover in this field."
+        },
+        {
+        "name": "David Kim",
+        "rating": 3,
+        "comment": "Lin Song's Statistics course was okay. I didn't find it particularly engaging, and some of the explanations were a bit confusing. However, I did learn some useful things, so I'd say it was worth it overall."
+        }
     ],
     "pointsToLearn": [
       { "point": "Introduction to probability" },
@@ -740,7 +824,21 @@
       }
     ],
     "creatorReview": [
-
+      {
+        "name": "Emily Johnson",
+        "rating": 4,
+        "comment": "The Python course was really informative and the instructor was knowledgeable. My only complaint was that the pacing was a bit fast at times and I felt like I needed to review some of the material on my own after the class."
+        },
+        {
+        "name": "Alex Rodriguez",
+        "rating": 4,
+        "comment": "The Python instructor was great! He made the material easy to understand and provided plenty of examples. The only thing I wish was that there was more time for hands-on practice during the class."
+        },
+        {
+        "name": "David Kim",
+        "rating": 4,
+        "comment": "I found the Python course to be very helpful. The instructor was knowledgeable and explained everything clearly. The only reason I didn't give it 5 stars is because I think there could have been more interactive exercises during the class."
+        }
     ],
     "pointsToLearn": [
       { "point": "Advanced concepts in Python" },
@@ -857,7 +955,21 @@
       }
     ],
     "creatorReview": [
-
+      {
+        "name": "John Smith",
+        "rating": 3,
+        "comment": "I took Maria Rodriguez's Conversational Spanish course and found it to be okay. She provided some good examples and exercises, but I felt like there wasn't enough time for practice and conversation during the class."
+        },
+        {
+        "name": "Sarah Johnson",
+        "rating": 3,
+        "comment": "Maria Rodriguez's Conversational Spanish course was decent. She did a good job of explaining the material, but I felt like there could have been more opportunities for interaction and practice during the class."
+        },
+        {
+        "name": "David Kim",
+        "rating": 4,
+        "comment": "I enjoyed Maria Rodriguez's Conversational Spanish course. She was a good instructor and provided plenty of useful tips and examples. The only reason I didn't give it 5 stars is because I felt like the class could have been a bit longer."
+        }     
     ],
     "pointsToLearn": [
       { "point": "Introduction to Spanish pronunciation and grammar" },
@@ -952,7 +1064,21 @@
         }
     ],
     "creatorReview": [
-
+      {
+        "name": "Emily Johnson",
+        "rating": 5,
+        "comment": "Michelle Lewis is an amazing instructor for Artificial Intelligence! She is knowledgeable, engaging, and provides lots of real-world examples. I learned so much from her course and feel much more confident in my understanding of AI."
+        },
+        {
+        "name": "Alex Rodriguez",
+        "rating": 4,
+        "comment": "I took Michelle Lewis's Artificial Intelligence course and found it to be very informative. She is clearly an expert in the field and did a good job of breaking down complex concepts into understandable pieces. The only thing I wish was that the class was longer so we could delve even deeper into the subject."
+        },
+        {
+        "name": "David Kim",
+        "rating": 3,
+        "comment": "Michelle Lewis's Artificial Intelligence course was okay. She covered a lot of material and provided some good examples, but I found it to be a bit dry at times. Overall, though, I did learn some useful things from the class."
+        }
     ],
     "pointsToLearn": [
       { "point": "Introduction to artificial intelligence" },
@@ -1072,7 +1198,21 @@
         }
     ],
     "creatorReview": [
-
+      {
+        "name": "John Smith",
+        "rating": 4,
+        "comment": "I really enjoyed Lin Kong's Data Visualization course. He provided lots of useful tips and tricks for creating effective visualizations, and I appreciated the hands-on practice we got during the class. My only complaint is that I wish there was a bit more time for individualized feedback on our work."
+        },
+        {
+        "name": "Sarah Johnson",
+        "rating": 5,
+        "comment": "Lin Kong is an amazing instructor for Data Visualization! He is very knowledgeable and provides lots of real-world examples to help us understand the concepts. I learned so much from his course and feel much more confident in my ability to create effective visualizations."
+        },
+        {
+        "name": "David Kim",
+        "rating": 3,
+        "comment": "I took Lin Kong's Data Visualization course and found it to be decent. He covered a lot of material and provided some good examples, but I felt like there wasn't enough hands-on practice during the class. Overall, though, I did learn some useful things from the course."
+        }
     ],
     "pointsToLearn": [
       { "point": "Introduction to data visualization" },
@@ -1190,7 +1330,21 @@
         }
     ],
     "creatorReview": [
-
+      {
+        "name": "Emily Johnson",
+        "rating": 5,
+        "comment": "Ramirez Joaquin is an excellent instructor for Cloud Computing! He provided lots of useful information and hands-on practice that really helped me understand the concepts. He is clearly an expert in the field and I feel much more confident in my ability to work with cloud technologies after taking his course."
+        },
+        {
+        "name": "Alex Rodriguez",
+        "rating": 4,
+        "comment": "I enjoyed Ramirez Joaquin's Cloud Computing course. He did a good job of explaining the material and providing lots of examples, but I did feel like some of the more advanced topics were covered a bit too quickly. Overall, though, I learned a lot from the course."
+        },
+        {
+        "name": "David Kim",
+        "rating": 3,
+        "comment": "Ramirez Joaquin's Cloud Computing course was okay. He covered a lot of material, but I felt like there wasn't enough hands-on practice and some of the concepts were a bit hard to grasp. I did learn some useful things from the course, though."
+        }
     ],
     "pointsToLearn": [
       { "point": "Introduction to cloud computing" },
@@ -1308,7 +1462,21 @@
         }
     ],
     "creatorReview": [
-
+      {
+        "name": "Sarah Johnson",
+        "rating": 5,
+        "comment": "Michael Jackson is an amazing instructor for Cybersecurity! He is very knowledgeable and provided lots of real-world examples to help us understand the concepts. His hands-on approach really helped solidify the material and I feel much more confident in my ability to identify and prevent cyber threats after taking his course."
+        },
+        {
+        "name": "John Smith",
+        "rating": 5,
+        "comment": "I highly recommend Michael Jackson's Cybersecurity course! He provided lots of practical advice and tips for protecting against cyber threats. His explanations were clear and easy to understand, and he made the class engaging with lots of interactive examples. I feel much more prepared to keep myself and my company safe online."
+        },
+        {
+        "name": "David Kim",
+        "rating": 3,
+        "comment": "Michael Jackson's Cybersecurity course was decent. He covered a lot of material and provided some useful examples, but I found some of the topics to be a bit dry. Overall, though, I did learn some valuable things from the course."
+        }
     ],
     "pointsToLearn": [
       { "point": "fundamentals of network security" },
@@ -1425,7 +1593,21 @@
         }
     ],
     "creatorReview": [
-
+      {
+        "name": "Emily Johnson",
+        "rating": 4,
+        "comment": "Michelle Williams' Business Intelligence course was very informative. She provided lots of practical tips and examples for working with data and analytics. The course could have been a bit more engaging, but overall I learned a lot from it."
+        },
+        {
+        "name": "Alex Rodriguez",
+        "rating": 3,
+        "comment": "I took Michelle Williams' Business Intelligence course and found it to be okay. She covered a lot of material, but I felt like some of the concepts were a bit hard to grasp. The course could have been more engaging with more interactive examples."
+        },
+        {
+        "name": "Sarah Johnson",
+        "rating": 5,
+        "comment": "Michelle Williams is a great instructor for Business Intelligence! She provided lots of real-world examples and made the material easy to understand. Her course was engaging and interactive, and I feel much more confident in my ability to work with data and analytics after taking her course."
+        }
     ],
     "pointsToLearn": [
       { "point": "Introduction to Business Intelligence" },
@@ -1543,7 +1725,21 @@
         }
     ],
     "creatorReview": [
-
+      {
+        "name": "John Smith",
+        "rating": 4,
+        "comment": "Liu Wei Wei's Digital Marketing course was very informative. She covered a lot of material and provided lots of practical advice for creating successful marketing campaigns. Her examples were engaging and helped to clarify the concepts."
+        },
+        {
+        "name": "David Kim",
+        "rating": 3,
+        "comment": "I took Liu Wei Wei's Digital Marketing course and found it to be okay. She covered a lot of material, but I felt like some of the topics were a bit repetitive. The course could have been more engaging with more interactive examples."
+        },
+        {
+        "name": "Sarah Johnson",
+        "rating": 5,
+        "comment": "Liu Wei Wei is a great instructor for Digital Marketing! She provided lots of real-world examples and made the material easy to understand. Her course was engaging and interactive, and I feel much more confident in my ability to create successful marketing campaigns after taking her course."
+        }
     ],
     "pointsToLearn": [
       { "point": "Introduction to digital marketing" },
@@ -1661,7 +1857,21 @@
         }        
     ],
     "creatorReview": [
-
+      {
+        "name": "Andrew Nguyen",
+        "rating": 5,
+        "comment": "Emily Parker is an excellent teacher of Blockchain Development! Her course was well-structured and easy to follow, with lots of practical examples and exercises. Her explanations were clear and concise, and she provided great insights into the latest trends in blockchain technology. Highly recommended!"
+        },
+        {
+        "name": "Jennifer Lee",
+        "rating": 5,
+        "comment": "I thoroughly enjoyed Emily Parker's Blockchain Development course! She provided a great overview of the key concepts and technologies involved in blockchain development, and her hands-on approach really helped me understand how to build blockchain applications. Her course was challenging but very rewarding, and I would definitely recommend it to anyone interested in blockchain."
+        },
+        {
+        "name": "Michael Brown",
+        "rating": 5,
+        "comment": "Emily Parker is a fantastic instructor for Blockchain Development! Her course was very well-organized and covered all the essential topics in depth. She provided lots of real-world examples and her explanations were always clear and easy to follow. Thanks to her course, I feel confident in my ability to design and develop blockchain applications. Highly recommended!"
+        }
     ],
     "pointsToLearn": [
       { "point": "Introduction to blockchain technology" },
