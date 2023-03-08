@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
   resetPasswordExpires: { type: Number },
   profileImage: { type: String },
   bio: { type: String },
-  major: { type: String },
+  description: { type: String },
   social: { type: String },
   courses: [
     {

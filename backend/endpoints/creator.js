@@ -30,7 +30,7 @@ router.post("/:id", upload.single("profileImage"), async (req, res) => {
         profileImage: profileImage,
         bio: req.body.bio,
         social: req.body.social,
-        major: req.body.major,
+        description: req.body.description,
       },
       { new: true }
     );
@@ -39,6 +39,49 @@ router.post("/:id", upload.single("profileImage"), async (req, res) => {
     if (!user) {
       return res.status(404).send("User not found");
     }
+
+    return res.send("User updated in database");
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send("Error updating user");
+  }
+});
+
+router.post("/:email", upload.single("profileImage"), async (req, res) => {
+  try {
+    console.log("email", req.params.email);
+    const db = client.db("courses");
+    const bucket = new mongodb.GridFSBucket(db);
+    const storage = new multer.memoryStorage();
+
+    let profileImage = undefined;
+    if (req.file) {
+      const imageUploadStream = bucket.openUploadStream(req.file.originalname);
+      imageUploadStream.write(req.file.buffer);
+      imageUploadStream.end();
+      profileImage = req.file.originalname;
+    }
+
+    const collection = db.collection("courses");
+
+    collection
+      .updateOne(
+        { email: req.params.email }, // filter to match the document to update
+        {
+          $set: {
+            instructorImageURL: profileImage,
+            instructorBio: req.body.bio,
+            social: req.body.social,
+            instructorDescription: req.body.description,
+          },
+        }
+      )
+      .then((updatedDocument) => {
+        // handle success
+      })
+      .catch((error) => {
+        // handle error
+      });
 
     return res.send("User updated in database");
   } catch (err) {

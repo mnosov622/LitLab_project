@@ -16,6 +16,7 @@ router.get("/", async (req, res) => {
 
 router.get("/:id", async (req, res) => {
   try {
+    await client.connect();
     const db = client.db("courses");
     const course = await db
       .collection("courses")

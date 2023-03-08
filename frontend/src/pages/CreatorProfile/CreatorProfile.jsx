@@ -10,7 +10,7 @@ const CreatorProfile = () => {
   const [profileImage, setProfileImage] = useState("");
   const [bio, setBio] = useState("");
   const [socialLink, setSocialLink] = useState("");
-  const [major, setMajor] = useState("");
+  const [description, setDescription] = useState("");
   const alert = useAlert();
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const CreatorProfile = () => {
         setProfileData(data);
         setBio(data.bio);
         setSocialLink(data.social);
-        setMajor(data.major);
+        setDescription(data.description);
         console.log(data);
       });
   }, [decoded.id]);
@@ -30,8 +30,7 @@ const CreatorProfile = () => {
     formData.append("profileImage", profileImage);
     formData.append("bio", bio);
     formData.append("social", socialLink);
-    formData.append("major", major);
-    console.log("bio and image", bio, profileImage);
+    formData.append("description", description);
 
     fetch(`http://localhost:8000/creator/${decoded.id}`, {
       method: "POST",
@@ -46,6 +45,25 @@ const CreatorProfile = () => {
         });
       }
     });
+
+    fetch(`http://localhost:8000/creator/${decoded.email}`, {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => {
+        console.log(res);
+        if (res.ok) {
+          return res.json();
+        } else {
+          throw new Error("Network response was not ok.");
+        }
+      })
+      .then((data) => {
+        console.log("Success:", data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   return (
@@ -127,7 +145,6 @@ const CreatorProfile = () => {
                 Socials: &nbsp;
               </span>
               <input
-                id="socials"
                 type="text"
                 placeholder="Link to your socials"
                 value={socialLink}
@@ -136,14 +153,13 @@ const CreatorProfile = () => {
             </li>
             <li>
               <span className="profile-body__contact-list__label fw-bold">
-                Major: &nbsp;
+                Your Description: &nbsp;
               </span>
               <input
-                id="major"
                 type="text"
-                placeholder="Major"
-                value={major}
-                onChange={(e) => setMajor(e.target.value)}
+                placeholder="Description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
               />
             </li>
           </ul>
