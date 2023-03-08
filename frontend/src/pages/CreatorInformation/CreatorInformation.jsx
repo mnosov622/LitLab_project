@@ -1,6 +1,8 @@
 import React from "react";
 import Img from "../../assets/creator.jpg";
 import { Container, Row, Col, Image, Card } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
+import { useState } from "react";
 import "./Info.styles.scss";
 import javascriptTeacher from "../../assets/javascript-teacher.jpg";
 import teacher1 from "../../assets/teacher-1.jpg";
@@ -18,6 +20,13 @@ const CreatorInformation = () => {
   const instructorCourses = courses.filter(
     (c) => c.instructorId === Number(id)
   );
+  const [rating, setRating] = useState(0);
+  const [hover, setHover] = useState(0);
+  
+  const handleRating = (value) => {
+    setRating(value);
+  };
+  
   console.log("INSTRUCTOR COURSES", instructorCourses);
   return (
     <Container>
@@ -70,6 +79,92 @@ const CreatorInformation = () => {
               rating={course.rating}
             />
           ))}
+          <div className="row mt-5">
+            <div className="mx-auto col-md-12">
+            <p className="fw-bold fs-2">Review</p>
+            <Row>
+              <Col xs={7}>
+              <div className="previous-reviews">
+                  <div  className="review-card">
+                    <h4>Name : XYZ</h4>
+                    <p>Rating : star</p>
+                    <p>Review: abc abc </p>
+                  </div>
+              </div>
+              <div className="previous-reviews">
+                  <div  className="review-card">
+                    <h4>Name : XYZ</h4>
+                    <p>Rating : star</p>
+                    <p>Review: abc abc </p>
+                  </div>
+              </div>
+              <div className="previous-reviews">
+                  <div  className="review-card">
+                    <h4>Name : XYZ</h4>
+                    <p>Rating : star</p>
+                    <p>Review: abc abc </p>
+                  </div>
+              </div>
+              <div className="previous-reviews">
+                  <div  className="review-card">
+                    <h4>Name : XYZ</h4>
+                    <p>Rating : star</p>
+                    <p>Review: abc abc </p>
+                  </div>
+              </div>
+              <div className="previous-reviews">
+                  <div  className="review-card">
+                    <h4>Name : XYZ</h4>
+                    <p>Rating : star</p>
+                    <p>Review: abc abc </p>
+                  </div>
+              </div>
+              </Col>
+              <Col xs={5}>
+              <Form className="review-form">
+                <Form.Group controlId="review">
+                  <Form.Label className="label_review"><h5>Your Review:</h5></Form.Label>
+                  <Form.Control className="label_review_area" as="textarea" rows={3} />
+                </Form.Group>
+                <Form.Group controlId="name">
+                  <Form.Label className="label_name"><h5>Your Name:</h5></Form.Label>
+                  <Form.Control className="label_name_area" as="input" />
+                </Form.Group>
+                <Form.Group controlId="rating">
+                  <Form.Label className="label_rating"><h5>Rating:</h5></Form.Label>
+                  <div className="rating">
+                    {[...Array(5)].map((star, i) => {
+                      const ratingValue = i + 1;
+                      return (
+                        <label key={i}>
+                          <input
+                            type="radio"
+                            name="rating"
+                            value={ratingValue}
+                            onClick={() => handleRating(ratingValue)}
+                          />
+                          <span
+                            className={
+                              ratingValue <= (hover || rating) ? "active" : "inactive"
+                            }
+                            onMouseEnter={() => setHover(ratingValue)}
+                            onMouseLeave={() => setHover(0)}
+                          >
+                            &#9733;
+                          </span>
+                        </label>
+                      );
+                    })}
+                  </div>
+                </Form.Group>
+                <Button className="btn_submit" variant="primary" type="submit">
+                  Submit
+                </Button>
+              </Form>
+            </Col>
+            </Row>     
+            </div>
+          </div>
           {/* <div className="col-md">
             <CourseCard
               name="React - The complete Guide"
