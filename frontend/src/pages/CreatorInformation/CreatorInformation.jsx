@@ -10,9 +10,18 @@ import CourseCard from "../../components/CourseCards/CourseCard";
 import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+import { useAlert, positions } from "react-alert";
+
 const CreatorInformation = () => {
+  const alert = useAlert();
   const [course, setCourse] = useState("");
   const { id } = useParams();
+
+  const [rating, setRating] = useState(0);
+  const [hover, setHover] = useState(0);
+  const [name, setName] = useState("");
+  const [review, setReview] = useState("");
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     fetch(`http://localhost:8000/courses/${id}`)
@@ -26,14 +35,51 @@ const CreatorInformation = () => {
   // const instructorCourses = courses.filter(
   //   (c) => c.instructorId === Number(id)
   // );
-  const [rating, setRating] = useState(0);
-  const [hover, setHover] = useState(0);
 
   const handleRating = (value) => {
     setRating(value);
+    setError(false);
   };
 
-  // console.log("INSTRUCTOR COURSES", instructorCourses);
+  const handleLeaveReview = (e) => {
+    e.preventDefault();
+    if (
+      review.trim().length === 0 ||
+      name.trim().length === 0 ||
+      rating.length === 0
+    ) {
+      setError(true);
+      return;
+    }
+    setError(false);
+
+    const newReview = {
+      star: rating,
+      name: name,
+      review: review,
+    };
+
+    fetch(`http://localhost:8000/review/creator/${Number(id)}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newReview),
+    }).then((res) => {
+      if (res.status === 201) {
+        alert.success("Your review has been added", {
+          position: positions.BOTTOM_RIGHT,
+          timeout: 2000,
+        });
+
+        fetch(`http://localhost:8000/courses/${Number(id)}`)
+          .then((response) => response.json())
+          .then((data) => {
+            setCourse(data.course);
+          });
+      }
+    });
+  };
 
   return (
     <Container>
@@ -48,15 +94,13 @@ const CreatorInformation = () => {
           </Col>
           <Col xs={12} md={9}>
             <div className="creatorName text-primary">{course.instructor}</div>
-            <div className="creatorInformation">
-              {course.instructorDescription}
-            </div>
+            <div className="creatorInformation">{course.instructorBio}</div>
           </Col>
         </Row>
         <Row className="middleLine">
           <div className="titleInfo">About Professional Career</div>
           <div className="aboutInfo">
-            <p>{course.instructorBio}</p>
+            <p>{course.instructorDescription}</p>
           </div>
         </Row>
         <div className="coursetitle">Courses</div>
@@ -79,44 +123,29 @@ const CreatorInformation = () => {
               <p className="fw-bold fs-2">Reviews</p>
               <Row>
                 <Col xs={7}>
-                  <div className="previous-reviews">
-                    <div className="review-card">
-                      <h4>Name : XYZ</h4>
-                      <p>Rating : star</p>
-                      <p>Review: abc abc </p>
-                    </div>
-                  </div>
-                  <div className="previous-reviews">
-                    <div className="review-card">
-                      <h4>Name : XYZ</h4>
-                      <p>Rating : star</p>
-                      <p>Review: abc abc </p>
-                    </div>
-                  </div>
-                  <div className="previous-reviews">
-                    <div className="review-card">
-                      <h4>Name : XYZ</h4>
-                      <p>Rating : star</p>
-                      <p>Review: abc abc </p>
-                    </div>
-                  </div>
-                  <div className="previous-reviews">
-                    <div className="review-card">
-                      <h4>Name : XYZ</h4>
-                      <p>Rating : star</p>
-                      <p>Review: abc abc </p>
-                    </div>
-                  </div>
-                  <div className="previous-reviews">
-                    <div className="review-card">
-                      <h4>Name : XYZ</h4>
-                      <p>Rating : star</p>
-                      <p>Review: abc abc </p>
-                    </div>
-                  </div>
+                  {course &&
+                    course.creatorReview &&
+                    course.creatorReview.map((review) => (
+                      <div
+                        className="previous-reviews mb-3 p-3"
+                        key={review.id}
+                      >
+                        <h4>{review.name}</h4>
+                        <p>
+                          Rating :{" "}
+                          {Array.from({ length: review.star }, (_, i) => (
+                            <span key={i}>⭐️</span>
+                          ))}
+                        </p>
+                        <p>{review.review} </p>
+                      </div>
+                    ))}
                 </Col>
                 <Col xs={5}>
-                  <Form className="review-form">
+                  <Form
+                    className="review-form"
+                    onSubmit={(e) => handleLeaveReview(e)}
+                  >
                     <Form.Group controlId="review">
                       <Form.Label className="label_review">
                         <h5>Your Review:</h5>
@@ -125,13 +154,24 @@ const CreatorInformation = () => {
                         className="label_review_area"
                         as="textarea"
                         rows={3}
+                        onChange={(e) => {
+                          setReview(e.target.value);
+                          setError(false);
+                        }}
                       />
                     </Form.Group>
                     <Form.Group controlId="name">
                       <Form.Label className="label_name">
                         <h5>Your Name:</h5>
                       </Form.Label>
-                      <Form.Control className="label_name_area" as="input" />
+                      <Form.Control
+                        className="label_name_area"
+                        as="input"
+                        onChange={(e) => {
+                          setName(e.target.value);
+                          setError(false);
+                        }}
+                      />
                     </Form.Group>
                     <Form.Group controlId="rating">
                       <Form.Label className="label_rating">
@@ -164,6 +204,11 @@ const CreatorInformation = () => {
                         })}
                       </div>
                     </Form.Group>
+                    {error && (
+                      <p className="text-danger m-0">
+                        Please fill in all fields.
+                      </p>
+                    )}
                     <Button
                       className="btn_submit"
                       variant="primary"
