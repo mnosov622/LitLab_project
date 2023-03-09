@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Img from "../../assets/creator.jpg";
 import { Container, Row, Col, Image, Card } from "react-bootstrap";
 import { Form, Button } from "react-bootstrap";
-import { useState } from "react";
 import "./Info.styles.scss";
 import javascriptTeacher from "../../assets/javascript-teacher.jpg";
 import teacher1 from "../../assets/teacher-1.jpg";
@@ -24,9 +23,9 @@ const CreatorInformation = () => {
       });
   }, []);
 
-  const instructorCourses = courses.filter(
-    (c) => c.instructorId === Number(id)
-  );
+  // const instructorCourses = courses.filter(
+  //   (c) => c.instructorId === Number(id)
+  // );
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
 
@@ -34,7 +33,8 @@ const CreatorInformation = () => {
     setRating(value);
   };
 
-  console.log("INSTRUCTOR COURSES", instructorCourses);
+  // console.log("INSTRUCTOR COURSES", instructorCourses);
+
   return (
     <Container>
       <div className="divlayout">
@@ -73,10 +73,10 @@ const CreatorInformation = () => {
             />
 <<<<<<< HEAD
           ))} */}
-          ======= ))}
+
           <div className="row mt-5">
             <div className="mx-auto col-md-12">
-              <p className="fw-bold fs-2">Review</p>
+              <p className="fw-bold fs-2">Reviews</p>
               <Row>
                 <Col xs={7}>
                   <div className="previous-reviews">
@@ -176,7 +176,7 @@ const CreatorInformation = () => {
               </Row>
             </div>
           </div>
-          >>>>>>> c8c397a4e078e975acaa7262b9589f1f8b2f94bb
+
           {/* <div className="col-md">
             <CourseCard
               name="React - The complete Guide"

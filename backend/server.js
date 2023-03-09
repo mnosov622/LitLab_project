@@ -24,6 +24,7 @@ const forgotPassword = require("./endpoints/forgotPassword");
 const resetPassword = require("./endpoints/resetPassword");
 const buyCourse = require("./endpoints/buy-course");
 const creatorInfo = require("./endpoints/creator");
+const review = require("./endpoints/review");
 
 const dotenv = require("dotenv");
 const client = require("./mongodb");
@@ -73,7 +74,11 @@ app.use("/reset-password", resetPassword);
 //buy course
 app.use("/buy-course", buyCourse);
 
+//update creator info
 app.use("/creator", creatorInfo);
+
+//leave a review
+app.use("/review", review);
 
 MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
   if (err) throw err;

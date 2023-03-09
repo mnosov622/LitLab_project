@@ -28,16 +28,16 @@ li {
   margin-bottom: 500px;
 }
 
-.previous-reviews{
+.previous-reviews {
   border: 0.5px ridge black;
   border-radius: 5px;
   padding: 6px 6px;
   margin: 5px;
 }
-.label_name{
+.label_name {
   padding-top: 10px;
 }
-.btn_submit{
+.btn_submit {
   margin: 20px 0;
 }
 .review-form {
@@ -51,7 +51,6 @@ li {
     label {
       margin-right: 1rem;
       cursor: pointer;
-      
 
       input[type="radio"] {
         display: none;
@@ -80,4 +79,7 @@ li {
   button[type="submit"] {
     margin-top: 1rem;
   }
+}
+
+.review-card {
 }

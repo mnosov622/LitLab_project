@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
-import { Container, Row, Col, Card, Carousel } from 'react-bootstrap';
+import { Container, Row, Col, Card, Carousel } from "react-bootstrap";
 import courseImage from "../../assets/courseImage.jpg";
 // import starIcon from "../../assets/star.svg";
 import learningImage from "../../assets/learning.png";
@@ -42,6 +42,10 @@ const CourseDescription = () => {
   const loggedIn = useSelector((state) => state.loggedInAsLearner);
   const itemsInCart = useSelector((state) => state.increaseItemsAmount);
   const [imageSource, setImageSource] = useState("");
+
+  const [name, setName] = useState("");
+  const [review, setReview] = useState("");
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -133,18 +137,59 @@ const CourseDescription = () => {
       navigate("/payment");
     }
   };
-    
+
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
-  
+
   const handleRating = (value) => {
     setRating(value);
+    setError(false);
   };
-  
+
+  const handleLeaveReview = (e) => {
+    e.preventDefault();
+    if (
+      review.trim().length === 0 ||
+      name.trim().length === 0 ||
+      rating.length === 0
+    ) {
+      setError(true);
+      return;
+    }
+    setError(false);
+
+    const newReview = {
+      star: rating,
+      name: name,
+      review: review,
+    };
+
+    fetch(`http://localhost:8000/review/${Number(id)}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newReview),
+    }).then((res) => {
+      if (res.status === 201) {
+        alert.success("Your review has been added", {
+          position: positions.BOTTOM_RIGHT,
+          timeout: 2000,
+        });
+
+        fetch(`http://localhost:8000/courses/${Number(id)}`)
+          .then((response) => response.json())
+          .then((data) => {
+            setCourse(data.course);
+            console.log("11", data.course);
+            setLoading(false);
+          });
+      }
+    });
+  };
 
   useEffect(() => {
     localStorage.setItem("shopping_cart", JSON.stringify(cartItems));
-    console.log("items11", cartItems);
   }, [cartItems]);
 
   return (
@@ -378,88 +423,108 @@ const CourseDescription = () => {
 
           <div className="row mt-5">
             <div className="mx-auto col-md-8">
-            <p className="fw-bold fs-2">Review</p>
-            <Row>
-              <Col xs={7}>
-              <div className="previous-reviews">
-                  <div  className="review-card">
-                    <h4>Name : XYZ</h4>
-                    <p>Rating : star</p>
-                    <p>Review: abc abc </p>
-                  </div>
-              </div>
-              <div className="previous-reviews">
-                  <div  className="review-card">
-                    <h4>Name : XYZ</h4>
-                    <p>Rating : star</p>
-                    <p>Review: abc abc </p>
-                  </div>
-              </div>
-              <div className="previous-reviews">
-                  <div  className="review-card">
-                    <h4>Name : XYZ</h4>
-                    <p>Rating : star</p>
-                    <p>Review: abc abc </p>
-                  </div>
-              </div>
-              <div className="previous-reviews">
-                  <div  className="review-card">
-                    <h4>Name : XYZ</h4>
-                    <p>Rating : star</p>
-                    <p>Review: abc abc </p>
-                  </div>
-              </div>
-              <div className="previous-reviews">
-                  <div  className="review-card">
-                    <h4>Name : XYZ</h4>
-                    <p>Rating : star</p>
-                    <p>Review: abc abc </p>
-                  </div>
-              </div>
-              </Col>
-              <Col>
-              <Form className="review-form">
-                <Form.Group controlId="review">
-                  <Form.Label className="label_review"><h5>Your Review:</h5></Form.Label>
-                  <Form.Control className="label_review_area" as="textarea" rows={3} />
-                </Form.Group>
-                <Form.Group controlId="name">
-                  <Form.Label className="label_name"><h5>Your Name:</h5></Form.Label>
-                  <Form.Control className="label_name_area" as="input" />
-                </Form.Group>
-                <Form.Group controlId="rating">
-                  <Form.Label className="label_rating"><h5>Rating:</h5></Form.Label>
-                  <div className="rating">
-                    {[...Array(5)].map((star, i) => {
-                      const ratingValue = i + 1;
-                      return (
-                        <label key={i}>
-                          <input
-                            type="radio"
-                            name="rating"
-                            value={ratingValue}
-                            onClick={() => handleRating(ratingValue)}
-                          />
-                          <span
-                            className={
-                              ratingValue <= (hover || rating) ? "active" : "inactive"
-                            }
-                            onMouseEnter={() => setHover(ratingValue)}
-                            onMouseLeave={() => setHover(0)}
-                          >
-                            &#9733;
-                          </span>
-                        </label>
-                      );
-                    })}
-                  </div>
-                </Form.Group>
-                <Button className="btn_submit" variant="primary" type="submit">
-                  Submit
-                </Button>
-              </Form>
-            </Col>
-            </Row>     
+              <p className="fw-bold fs-2">Reviews</p>
+              <Row>
+                <Col xs={7}>
+                  {course &&
+                    course.courseReview &&
+                    course.courseReview.map((review) => (
+                      <div
+                        className="previous-reviews mb-3 p-3"
+                        key={review.id}
+                      >
+                        <h4>{review.name}</h4>
+                        <p>
+                          Rating :{" "}
+                          {Array.from({ length: review.star }, (_, i) => (
+                            <span key={i}>⭐️</span>
+                          ))}
+                        </p>
+                        <p>{review.review} </p>
+                      </div>
+                    ))}
+                </Col>
+                <Col>
+                  <Form
+                    className="review-form"
+                    onSubmit={(e) => handleLeaveReview(e)}
+                  >
+                    <Form.Group controlId="review">
+                      <Form.Label className="label_review">
+                        <h5>Your Review:</h5>
+                      </Form.Label>
+                      <Form.Control
+                        className="label_review_area"
+                        as="textarea"
+                        rows={3}
+                        onChange={(e) => {
+                          setReview(e.target.value);
+                          setError(false);
+                        }}
+                      />
+                    </Form.Group>
+                    <Form.Group controlId="name">
+                      <Form.Label className="label_name">
+                        <h5>Your Name:</h5>
+                      </Form.Label>
+                      <Form.Control
+                        className="label_name_area"
+                        as="input"
+                        onChange={(e) => {
+                          setName(e.target.value);
+                          setError(false);
+                        }}
+                      />
+                    </Form.Group>
+                    <Form.Group controlId="rating">
+                      <Form.Label className="label_rating">
+                        <h5>Rating:</h5>
+                      </Form.Label>
+                      <div className="rating">
+                        {[...Array(5)].map((star, i) => {
+                          const ratingValue = i + 1;
+                          return (
+                            <label key={i}>
+                              <input
+                                type="radio"
+                                name="rating"
+                                value={ratingValue}
+                                onClick={() => {
+                                  handleRating(ratingValue);
+                                  console.log(ratingValue);
+                                }}
+                              />
+                              <span
+                                className={
+                                  ratingValue <= (hover || rating)
+                                    ? "active"
+                                    : "inactive"
+                                }
+                                onMouseEnter={() => setHover(ratingValue)}
+                                onMouseLeave={() => setHover(0)}
+                              >
+                                &#9733;
+                              </span>
+                            </label>
+                          );
+                        })}
+                      </div>
+                    </Form.Group>
+                    {error && (
+                      <p className="text-danger m-0">
+                        Please fill in all fields.
+                      </p>
+                    )}
+                    <Button
+                      className="btn_submit"
+                      variant="primary"
+                      type="submit"
+                    >
+                      Submit
+                    </Button>
+                  </Form>
+                </Col>
+              </Row>
             </div>
           </div>
         </>
@@ -467,5 +532,18 @@ const CourseDescription = () => {
     </div>
   );
 };
+
+function IconDisplay(props) {
+  const { value, icon } = props;
+
+  // create an array of icons based on the input value
+  const icons = [];
+  for (let i = 0; i < value; i++) {
+    icons.push(<span key={i}>{icon}</span>);
+  }
+
+  return <div>{icons}</div>;
+}
+<IconDisplay value={3} />;
 
 export default CourseDescription;
