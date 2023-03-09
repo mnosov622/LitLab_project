@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.post("/course/:id", async (req, res) => {
   const { id } = req.params;
-  const { name, star, review } = req.body;
+  const { name, star, review, reviewerId } = req.body;
 
   const db = client.db("courses");
   const collection = db.collection("courses");
@@ -16,7 +16,7 @@ router.post("/course/:id", async (req, res) => {
       { id: Number(id) },
       {
         $push: {
-          courseReview: { name, star, review },
+          courseReview: { name, star, review, reviewerId },
         },
       }
     );
@@ -34,7 +34,7 @@ router.post("/course/:id", async (req, res) => {
 
 router.post("/creator/:id", async (req, res) => {
   const { id } = req.params;
-  const { name, star, review } = req.body;
+  const { name, star, review, reviewerId } = req.body;
   const db = client.db("courses");
   const collection = db.collection("courses");
 
@@ -45,7 +45,7 @@ router.post("/creator/:id", async (req, res) => {
       { id: Number(id) },
       {
         $push: {
-          creatorReview: { name, star, review },
+          creatorReview: { name, star, review, reviewerId },
         },
       }
     );

@@ -11,6 +11,7 @@ import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import { useAlert, positions } from "react-alert";
+import jwtDecode from "jwt-decode";
 
 const CreatorInformation = () => {
   const alert = useAlert();
@@ -22,6 +23,10 @@ const CreatorInformation = () => {
   const [name, setName] = useState("");
   const [review, setReview] = useState("");
   const [error, setError] = useState(false);
+
+  const token = localStorage.getItem("token");
+  const decoded = jwtDecode(token);
+  const userId = decoded.id;
 
   useEffect(() => {
     fetch(`http://localhost:8000/courses/${id}`)
@@ -43,6 +48,19 @@ const CreatorInformation = () => {
 
   const handleLeaveReview = (e) => {
     e.preventDefault();
+
+    const hasSubmittedReview = course.creatorReview.some(
+      (course) => course.reviewerId === userId
+    );
+
+    if (hasSubmittedReview) {
+      alert.error("You already submitted a review", {
+        position: positions.BOTTOM_RIGHT,
+        timeout: 5000,
+      });
+      return;
+    }
+
     if (
       review.trim().length === 0 ||
       name.trim().length === 0 ||
@@ -57,6 +75,7 @@ const CreatorInformation = () => {
       star: rating,
       name: name,
       review: review,
+      reviewerId: userId,
     };
 
     fetch(`http://localhost:8000/review/creator/${Number(id)}`, {

@@ -47,6 +47,10 @@ const CourseDescription = () => {
   const [review, setReview] = useState("");
   const [error, setError] = useState(false);
 
+  const token = localStorage.getItem("token");
+  const decoded = jwtDecode(token);
+  const userId = decoded.id;
+
   useEffect(() => {
     setLoading(true);
     fetch(`http://localhost:8000/courses/${Number(id)}`)
@@ -62,10 +66,6 @@ const CourseDescription = () => {
     if (localStorage.getItem("token") === null) {
       return navigate("/login");
     }
-
-    const token = localStorage.getItem("token");
-    const decoded = jwtDecode(token);
-    const userId = decoded.id;
 
     fetch(`http://localhost:8000/users/${userId}`)
       .then((response) => response.json())
@@ -148,6 +148,20 @@ const CourseDescription = () => {
 
   const handleLeaveReview = (e) => {
     e.preventDefault();
+
+    //checking if user has submitted a review
+    const hasSubmittedReview = course.courseReview.some(
+      (course) => course.reviewerId === userId
+    );
+
+    if (hasSubmittedReview) {
+      alert.error("You already submitted a review", {
+        position: positions.BOTTOM_RIGHT,
+        timeout: 5000,
+      });
+      return;
+    }
+
     if (
       review.trim().length === 0 ||
       name.trim().length === 0 ||
@@ -162,6 +176,7 @@ const CourseDescription = () => {
       star: rating,
       name: name,
       review: review,
+      reviewerId: userId,
     };
 
     fetch(`http://localhost:8000/review/course/${Number(id)}`, {
