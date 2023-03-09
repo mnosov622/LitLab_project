@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import jwtDecode from "jwt-decode";
 import { useState } from "react";
 import { Oval } from "react-loader-spinner";
+import Modal from "../../components/Modal/Modal";
 
 const LearnerCourses = () => {
   const [courses, setCourses] = useState([]);
@@ -13,6 +14,28 @@ const LearnerCourses = () => {
   const token = localStorage.getItem("token");
   const decoded = jwtDecode(token);
   const userId = decoded.id;
+
+  const [showModal, setShowModal] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState(null);
+
+
+  function handleRemoveCourse(course) {
+    fetch(`http://localhost:8000/users/${userId}/courses`, {
+        method: "DELETE",
+      }).then((res) => console.log(res));
+    setSelectedCourse(null);
+    setShowModal(false);
+  }
+
+  function handleShowModal(course) {
+    setSelectedCourse(course);
+    setShowModal(true);
+  }
+
+  function handleCloseModal() {
+    setSelectedCourse(null);
+    setShowModal(false);
+  }
 
   useEffect(() => {
     setLoader(true);
@@ -24,14 +47,14 @@ const LearnerCourses = () => {
     }
   }, [courses]);
 
-  const handleRemove = () => {
-    console.log("remvoe all");
+  /*const handleRemove = () => {
+    console.log("remove all");
     if (window.confirm("Are you sure you want to remove all courses ?")) {
       fetch(`http://localhost:8000/users/${userId}/courses`, {
         method: "DELETE",
       }).then((res) => console.log(res));
     }
-  };
+  };*/
 
   if (!courses || courses.length === 0) {
     return (
@@ -104,9 +127,15 @@ const LearnerCourses = () => {
           ))}
         </div>
         <div className="btn-container text-center mb-3">
-          <button className="btn btn-danger" onClick={handleRemove}>
+          <button className="btn btn-danger" onClick={handleShowModal}>
             Remove all courses
           </button>
+          {showModal && <Modal
+              title="Confirm Action"
+              body={`Are you sure you want to remove all courses`}
+              onConfirm={handleRemoveCourse}
+              onCancel={handleCloseModal}
+            />}
         </div>
       </>
     );

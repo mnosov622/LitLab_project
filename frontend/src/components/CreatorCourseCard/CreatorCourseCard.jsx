@@ -1,6 +1,8 @@
 import jwtDecode from "jwt-decode";
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import Modal from "../../components/Modal/Modal";
 
 const CreatorCourseCard = ({
   courseImage,
@@ -10,8 +12,48 @@ const CreatorCourseCard = ({
   instructorName,
   courseId,
 }) => {
+
+  const [showModal, setShowModal] = useState(false);
+
   console.log("");
-  const handleDelete = () => {
+
+  function handleDelete() {
+    const token = localStorage.getItem("token");
+    const decoded = jwtDecode(token);
+    const userEmail = decoded.email;
+    console.log("data", { email: userEmail, courseName: courseName });
+
+    fetch(`http://localhost:8000/courses/${courseName}`, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((e) => console.log(e));
+
+    console.log("course id", courseId);
+    fetch(`http://localhost:8000/users/${userEmail}/courses/${courseId}`, {
+      method: "DELETE",
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+      })
+      .catch((e) => console.log(e));
+    setShowModal(false);
+  }
+
+  function handleShowModal() {
+    setShowModal(true);
+  }
+
+  function handleCloseModal() {
+    setShowModal(false);
+  }
+
+  /*const handleDelete = () => {
     if (window.confirm("Are you sure you want to delete the course?")) {
       const token = localStorage.getItem("token");
       const decoded = jwtDecode(token);
@@ -38,7 +80,8 @@ const CreatorCourseCard = ({
         })
         .catch((e) => console.log(e));
     }
-  };
+  };*/
+
   return (
     <>
       <div className="w-25 mb-5 col-md-6">
@@ -64,9 +107,15 @@ const CreatorCourseCard = ({
               {" "}
               <button className="btn btn-dark text-white">Edit</button>{" "}
             </Link>
-            <button className="btn btn-danger" onClick={handleDelete}>
+            <button className="btn btn-danger" onClick={handleShowModal}>
               Delete
             </button>
+            {showModal && <Modal
+              title="Confirm Action"
+              body={`Are you sure you want to delete the course`}
+              onConfirm={handleDelete}
+              onCancel={handleCloseModal}
+            />}
           </div>
         </div>
       </div>
