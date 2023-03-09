@@ -41,3 +41,59 @@
 .aboutInfo {
     font-size: 15px;
 }
+
+
+.previous-reviews{
+    border: 0.5px ridge black;
+    border-radius: 5px;
+    padding: 6px 6px;
+    margin: 5px;
+  }
+  .label_name{
+    padding-top: 10px;
+  }
+  .btn_submit{
+    margin: 20px 0;
+  }
+  .review-form {
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+  
+    .rating {
+      display: inline-block;
+  
+      label {
+        margin-right: 1rem;
+        cursor: pointer;
+        
+  
+        input[type="radio"] {
+          display: none;
+  
+          &:checked ~ span {
+            color: #ffc107;
+          }
+        }
+  
+        span {
+          font-size: 2rem;
+          color: #ddd;
+          transition: color 0.2s ease-in-out;
+  
+          &:hover {
+            color: #ffc107;
+          }
+  
+          &.active {
+            color: #ffc107;
+          }
+        }
+      }
+    }
+  
+    button[type="submit"] {
+      margin-top: 1rem;
+    }
+  }
+  
