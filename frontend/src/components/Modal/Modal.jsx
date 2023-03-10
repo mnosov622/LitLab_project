@@ -10,6 +10,7 @@ const Modal = ({
   item,
   editUser,
   editCourse,
+  clearCart,
   name,
   email,
   id,
@@ -192,6 +193,14 @@ const Modal = ({
                 onClick={() => handleSaveCourse(singleCourse.id)}
               >
                 Save
+              </button>
+            ) : clearCart ? (
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={onConfirm}
+              >
+                Clear
               </button>
             ) : (
               <button

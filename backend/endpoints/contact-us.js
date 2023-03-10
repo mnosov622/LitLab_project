@@ -10,21 +10,53 @@ const transporter = nodemailer.createTransport({
   port: 465, // true for 465, false for other ports
   host: "smtp.gmail.com",
   auth: {
-    user: "mnosov622@gmail.com",
-    pass: "ywrvaepvdteobqkk",
+    user: "litlab200@gmail.com",
+    pass: "fbwvydwfqefelrmb",
   },
-  secure: true,
+  tls: {
+    rejectUnauthorized: false,
+  },
 });
 
 router.post("/", (req, res) => {
   const { email, subject, text, message, fullName } = req.body;
   console.log("email", email);
   const mailData = {
-    from: "mnosov622@gmail.com",
-    to: "mnosov622@gmail.com",
-    subject: subject,
+    from: "litlab200@gmail.com",
+    to: "litlab200@gmail.com",
+    subject: "Contact us request",
     text: text,
-    html: `${fullName} sent a message: ${message}. <br/> User email: ${email}`,
+    html: `
+    <style>
+    .contact-message {
+      background-color: #f5f5f5;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 20px;
+      margin: 20px;
+      max-width: 500px;
+    }
+    
+    .contact-message h2 {
+      font-size: 24px;
+      margin-top: 0;
+    }
+    
+    .contact-message p {
+      font-size: 18px;
+      margin: 10px 0;
+    }
+    
+    .contact-message strong {
+      font-weight: bold;
+    }
+    </style>
+    <div class="contact-message">
+    <h2>Contact Message</h2>
+    <p><strong>From:</strong> ${fullName} (${email})</p>
+    <p><strong>Subject:</strong> ${subject}</p>
+    <p><strong>Message:</strong> ${message}</p>
+  </div>`,
   };
 
   transporter.sendMail(mailData, (error, info) => {

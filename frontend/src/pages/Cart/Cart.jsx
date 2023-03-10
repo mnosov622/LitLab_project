@@ -24,13 +24,12 @@ const Cart = () => {
     setShoppingCartItems([]);
     localStorage.setItem("shopping_cart", JSON.stringify([]));
     setShowModal(false);
-    window.location.reload();
+    // window.location.reload();
   };
 
   const cancelClearCart = () => {
     setShowModal(false);
   };
-
 
   useEffect(() => {
     setShoppingCartItems(JSON.parse(localStorage.getItem("shopping_cart")));
@@ -98,13 +97,15 @@ const Cart = () => {
             <button className="btn btn-danger fs-5" onClick={clearCart}>
               Clear cart
             </button>
-            {showModal && 
-            <Modal
-              title="Confirm Action"
-              body={`Are you sure you want to clear the cart`}
-              onConfirm={confirmClearCart}
-              onCancel={cancelClearCart}
-            />}
+            {showModal && (
+              <Modal
+                title="Confirm Action"
+                body={`Are you sure you want to clear the cart`}
+                onConfirm={confirmClearCart}
+                onCancel={cancelClearCart}
+                clearCart
+              />
+            )}
 
             <button
               className="btn btn-primary btn-lg ml-auto mx-auto"
