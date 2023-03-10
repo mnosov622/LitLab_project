@@ -47,6 +47,7 @@ router.post("/:id", upload.single("profileImage"), async (req, res) => {
   }
 });
 
+//TODO: data is not updating
 router.post("/:email", upload.single("profileImage"), async (req, res) => {
   try {
     console.log("email", req.params.email);
