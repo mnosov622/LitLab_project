@@ -408,6 +408,7 @@ const CourseUpload = () => {
                 onChange={handleNumQuestionsChange}
                 className="form-control w-25"
               >
+                <option value=""></option>
                 <option value="1" selected>
                   1
                 </option>
