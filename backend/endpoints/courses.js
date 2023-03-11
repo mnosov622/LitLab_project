@@ -37,6 +37,30 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+router.get("/:name", async (req, res) => {
+  console.log("name", req.params.name);
+  try {
+    await client.connect();
+    const db = client.db("courses");
+    const course = await db
+      .collection("courses")
+      .findOne({ instructor: req.params.name });
+    if (!course) {
+      return res
+        .status(404)
+        .json({ message: "Course not found", name: req.params.name });
+    }
+
+    res.status(200).send({ course });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({
+      message: "Error getting course from the database",
+      error: err,
+    });
+  }
+});
+
 //when user pays the course, increase amount of enrollments by 1
 router.put("/:id/increase-enrollments", async (req, res) => {
   try {
@@ -91,6 +115,7 @@ router.post("/", async (req, res) => {
       pointsSummary,
       test,
       enrollments,
+      instructorId,
     } = req.body;
 
     console.log("points to learn recieved", pointsToLearn);
@@ -121,6 +146,7 @@ router.post("/", async (req, res) => {
       pointsSummary,
       test,
       enrollments,
+      instructorId: id,
     };
 
     const result = await client

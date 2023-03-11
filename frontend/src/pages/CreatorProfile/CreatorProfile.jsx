@@ -46,7 +46,7 @@ const CreatorProfile = () => {
       }
     });
 
-    fetch(`http://localhost:8000/creator/${decoded.email}`, {
+    fetch(`http://localhost:8000/creator/courses/${16}`, {
       method: "POST",
       body: formData,
     })
