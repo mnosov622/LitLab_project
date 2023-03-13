@@ -4,6 +4,8 @@ import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
 import { useRef } from "react";
 import { Oval } from "react-loader-spinner";
+import { Tabs, Tab } from "react-bootstrap";
+import "./CourseView.scss";
 
 const CourseView = () => {
   const { id } = useParams();
@@ -102,26 +104,11 @@ const CourseView = () => {
                 )
               )}
 
-              {/* <video
-            src={}
-            controls
-            width={"100%"}
-            onEnded={handleEnded}
-          ></video> */}
-
               <p className="fs-5 text-center mt-3">
                 Once you watch the course, you will be able to do a test &nbsp;
                 <i className="bi bi-chevron-double-down"></i>
               </p>
 
-              {/* <Link
-            to={`/test/${singleCourse.id}`}
-            className={`btn btn-primary btn-lg ${
-              !isFinished && "disabled"
-            } d-block mx-auto w-50`}
-          >
-            Complete test
-          </Link> */}
               <Link
                 to={`/test/${courseData?.id}`}
                 className={`btn btn-primary btn-lg d-block mx-auto w-50`}
@@ -130,21 +117,24 @@ const CourseView = () => {
               </Link>
             </div>
             <div className="col-md-6">
-              <p className="fs-1 text-center ">Course Content</p>
-              {courseData?.courseContent &&
-                courseData?.courseContent.map((content, index) => (
-                  <p key={index} className="week">
-                    <h3 className="text-primary">Week {index + 1}</h3>
-                    <ul>
-                      {content.week.map((week, i) => (
-                        <li key={i} className="week-item">
-                          {week}
-                        </li>
+              <Tabs id="my-tabs" className="col-md-6">
+                <Tab eventKey="content" title="Content">
+                  <div className="col-md-6">
+                    <p className="fs-1 text-center ">Course Content</p>
+                    {courseData?.courseContent &&
+                      courseData?.courseContent.map((content, index) => (
+                        <p key={index} className="week">
+                          <h3 className="text-primary">Week {index + 1}</h3>
+                          <ul>
+                            {content.week.map((week, i) => (
+                              <li key={i} className="week-item">
+                                {week}
+                              </li>
+                            ))}
+                          </ul>
+                        </p>
                       ))}
-                    </ul>
-                  </p>
-                ))}
-              {/* <div className="accordion" id="accordionExample">
+                    {/* <div className="accordion" id="accordionExample">
             <div className="accordion-item">
               <h2 className="accordion-header" id="headingOne">
                 <button
@@ -322,6 +312,15 @@ const CourseView = () => {
               </div>
             </div>
           </div> */}
+                  </div>
+                </Tab>
+                <Tab eventKey="chat" title="Notes">
+                  Notes
+                </Tab>
+                <Tab eventKey="notes" title="Chat">
+                  Chat
+                </Tab>
+              </Tabs>
             </div>
           </div>
         </>

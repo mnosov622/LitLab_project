@@ -108,6 +108,7 @@ router.post("/", async (req, res) => {
       shortDescription,
       longDescription,
       video,
+      instructorImage,
       courseImageURL,
       instructor,
       courseContent,
@@ -146,7 +147,7 @@ router.post("/", async (req, res) => {
       pointsSummary,
       test,
       enrollments,
-      instructorId: id,
+      instructorId: 16,
     };
 
     const result = await client
