@@ -26,11 +26,11 @@ const Navbar = () => {
 
   console.log(courses);
 
-  //const shoppingCart = JSON.parse(localStorage.getItem("shopping_cart"));
-  /*useEffect(() => {
+  const shoppingCart = JSON.parse(localStorage.getItem("shopping_cart"));
+  useEffect(() => {
     const numberOfItems = shoppingCart ? shoppingCart.length : 0;
     setNumberOfItems(numberOfItems);
-  }, [shoppingCart]);*/
+  }, [shoppingCart]);
 
   const logOut = () => {
     localStorage.removeItem("token");
