@@ -5,6 +5,9 @@ import { useState } from "react";
 import { useRef } from "react";
 import { Oval } from "react-loader-spinner";
 import { Tabs, Tab } from "react-bootstrap";
+import { Container, Row, Col, Button, Modal } from 'react-bootstrap';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 import "./CourseView.scss";
 
 const CourseView = () => {
@@ -15,6 +18,38 @@ const CourseView = () => {
   const [loading, setLoading] = useState(false);
   const [fakeVideo, setFakeVideo] = useState(false);
   const [uploadedVideo, setUploadedVideo] = useState(false);
+
+  // for note
+  const [notes, setNotes] = useState([]);
+  const [noteId, setNoteId] = useState(null);
+  const [noteBody, setNoteBody] = useState('');
+
+  const handleNoteClick = (note) => {
+    setNoteId(note.id);
+    setNoteBody(note.body);
+  };
+
+  const handleAddNoteClick = () => {
+    setNoteId(null);
+    setNoteBody('');
+  };
+
+  const handleNoteSave = () => {
+    const newNote = { id: noteId || Date.now(), body: noteBody };
+    const newNotes = [...notes.filter((note) => note.id !== newNote.id), newNote];
+    setNotes(newNotes);
+    setNoteId(null);
+    setNoteBody('');
+  };
+
+  const handleNoteDelete = () => {
+    const newNotes = notes.filter((note) => note.id !== noteId);
+    setNotes(newNotes);
+    setNoteId(null);
+    setNoteBody('');
+  };
+
+  //
 
   useEffect(() => {
     setLoading(true);
@@ -315,7 +350,42 @@ const CourseView = () => {
                   </div>
                 </Tab>
                 <Tab eventKey="chat" title="Notes">
-                  Notes
+                <Container className="my-3">
+                <Row>
+                  <Col>
+                    <h1>Notes</h1>
+                  </Col>
+                  <Col className="justify-content-left">
+                    <Button onClick={handleAddNoteClick}>Add Note</Button>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md={8}>
+                    <h3>{noteId ? 'Edit Note' : 'Add Note'}</h3>
+                    <ReactQuill value={noteBody} onChange={(value) => setNoteBody(value)} className="noteBody" />
+                    <div className="text-end mt-3">
+                      {noteId && (
+                        <Button className="me-2" variant="danger" onClick={handleNoteDelete}>
+                          Delete
+                        </Button>
+                      )}
+                      <Button className="btnSave" variant="primary" onClick={handleNoteSave}>
+                        Save
+                      </Button>
+                    </div>
+                  </Col>
+                </Row>
+                <Row>
+                <Col md={4}>
+                    <h3>Notes List</h3>
+                    {notes.map((note) => (
+                      <div key={note.id} className="my-3 p-3 border" onClick={() => handleNoteClick(note)}>
+                        <div dangerouslySetInnerHTML={{ __html: note.body }}></div>
+                      </div>
+                    ))}
+                  </Col>
+                </Row>
+              </Container>
                 </Tab>
                 <Tab eventKey="notes" title="Chat">
                   Chat
