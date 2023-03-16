@@ -361,7 +361,7 @@ const CourseView = () => {
                 </Row>
                 <Row>
                   <Col md={8}>
-                    <h3>{noteId ? 'Edit Note' : 'Add Note'}</h3>
+                    <h6>{noteId ? 'Edit Note' : 'Add Note'}</h6>
                     <ReactQuill value={noteBody} onChange={(value) => setNoteBody(value)} className="noteBody" />
                     <div className="text-end mt-3">
                       {noteId && (
