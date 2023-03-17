@@ -62,7 +62,7 @@ function App() {
     if (localStorage.getItem("resettingPassword") !== null) {
       return;
     }
-
+    
     localStorage.removeItem("resettingPassword");
 
     if (localStorage.getItem("token") === null) {
