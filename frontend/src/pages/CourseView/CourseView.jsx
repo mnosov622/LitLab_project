@@ -277,20 +277,22 @@ const CourseView = () => {
                   </div>
 
                   <form onSubmit={sendMessage}>
-                    <input
-                      className="message-input"
-                      value={formValue}
-                      onChange={(e) => setFormValue(e.target.value)}
-                      placeholder="say something nice"
-                    />
+                    <div className="input-wrapper">
+                      <input
+                        className="message-input form-control"
+                        value={formValue}
+                        onChange={(e) => setFormValue(e.target.value)}
+                        placeholder="say something nice"
+                      />
 
-                    <button
-                      className="submit-btn"
-                      type="submit"
-                      disabled={!formValue}
-                    >
-                      🕊️
-                    </button>
+                      <button
+                        className="submit-btn btn"
+                        type="submit"
+                        disabled={!formValue}
+                      >
+                        🕊️
+                      </button>
+                    </div>
                   </form>
                 </Tab>
               </Tabs>
@@ -312,13 +314,10 @@ function ChatMessage(props) {
   return (
     <>
       <div className={`message`}>
-        <img
-          src={
-            photoURL || "https://api.adorable.io/avatars/23/abott@adorable.png"
-          }
-        />
-        <p>{text}</p>
-        <span>{userName}</span>
+        <img src={"https://api.adorable.io/avatars/23/abott@adorable.png"} />
+        <span className="text-message">{text}</span>
+        <span className="divider">-</span>
+        <span className="username">{userName}</span>
       </div>
     </>
   );
