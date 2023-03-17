@@ -166,8 +166,9 @@ const Charts = () => {
           <tr className="text-dark">
             <th>Name</th>
             <th>Email</th>
-            <th>Course Enrolled</th>
             <th></th>
+            <th>Course Enrolled</th>
+           
           </tr>
         </thead>
         <tbody>
@@ -175,20 +176,21 @@ const Charts = () => {
             <tr key={user.id}>
               <td className="text-dark"> <i class="bi bi-person"></i> &nbsp; {user.name}</td>
               <td className="text-dark">{user.email}</td>
+              <td><img className='img-react rounded-circle' src={image1} alt="courseimage" width={50} height={50} /></td>
               <td className="text-dark">{user.course}</td>
-              <td><img className='img-react' src={image1} alt="courseimage" width={50} height={50} /></td>
+              
              
               </tr>
         ))}
         </tbody>
       </table>
       </div>
-
+      
       <div className="row mt-5">
-            <div className="mx-auto col-md-8">
-            <h2 className="text-center mb-5">Reviews</h2>
+      <h2 className="text-center mb-5">Reviews</h2>
+            <div className="mx-auto col-md-8 d-flex justify-content-center">
               <Row>
-                <Col xs={7}>
+                <Col>
                   {instructorReviews.map((review) => (
                       <div
                         className="previous-reviews mb-3 p-3"
