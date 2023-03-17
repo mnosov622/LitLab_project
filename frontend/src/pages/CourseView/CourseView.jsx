@@ -72,7 +72,12 @@ const CourseView = () => {
 
     console.log("messageref", messagesRef);
     setFormValue("");
-    // dummy.current.scrollIntoView({ behavior: "smooth" });
+    dummy.current.scrollIntoView({ behavior: "smooth" });
+    const chatWindow = document.querySelector(".chat-window");
+    chatWindow.scrollTo({
+      top: chatWindow.scrollHeight,
+      behavior: "smooth",
+    });
   };
 
   const handleNoteClick = (note) => {
@@ -305,7 +310,7 @@ const CourseView = () => {
                         type="submit"
                         disabled={!formValue}
                       >
-                        🕊️
+                        <i class="bi bi-send"></i>
                       </button>
                     </div>
                   </form>
