@@ -44,3 +44,12 @@
   overflow: scroll;
   height: 350px;
 }
+
+.chat-window::-webkit-scrollbar {
+  width: 10px;
+  height: 20px;
+}
+.chat-window::-webkit-scrollbar-thumb {
+  background-color: #666; /* Set the color of the thumb */
+  border-radius: 8px; /* Set the radius of the thumb */
+}
