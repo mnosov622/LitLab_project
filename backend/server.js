@@ -172,8 +172,11 @@ MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
   });
 
   app.get("/videos/:filename", (req, res) => {
-    bucket.find().toArray((err, files) => {
-      console.log(files.map((file) => file.filename));
+    bucket.find({ filename: req.params.filename }).toArray((err, files) => {
+      if (err) {
+        return res.status(404).json({ message: "Video not found" });
+      }
+      // continue with the rest of the code
     });
 
     const downloadStream = bucket.openDownloadStreamByName(req.params.filename);

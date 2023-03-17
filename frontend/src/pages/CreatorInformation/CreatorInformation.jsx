@@ -33,7 +33,7 @@ const CreatorInformation = () => {
       .then((res) => res.json())
       .then((data) => {
         setCourse(data.course);
-        console.log("data", data);
+        console.log("data11", data);
       });
   }, []);
 

@@ -4,6 +4,11 @@ import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
 import { useRef } from "react";
 import { Oval } from "react-loader-spinner";
+import { Tabs, Tab } from "react-bootstrap";
+import { Container, Row, Col, Button, Modal } from 'react-bootstrap';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import "./CourseView.scss";
 
 const CourseView = () => {
   const { id } = useParams();
@@ -13,6 +18,38 @@ const CourseView = () => {
   const [loading, setLoading] = useState(false);
   const [fakeVideo, setFakeVideo] = useState(false);
   const [uploadedVideo, setUploadedVideo] = useState(false);
+
+  // for note
+  const [notes, setNotes] = useState([]);
+  const [noteId, setNoteId] = useState(null);
+  const [noteBody, setNoteBody] = useState('');
+
+  const handleNoteClick = (note) => {
+    setNoteId(note.id);
+    setNoteBody(note.body);
+  };
+
+  const handleAddNoteClick = () => {
+    setNoteId(null);
+    setNoteBody('');
+  };
+
+  const handleNoteSave = () => {
+    const newNote = { id: noteId || Date.now(), body: noteBody };
+    const newNotes = [...notes.filter((note) => note.id !== newNote.id), newNote];
+    setNotes(newNotes);
+    setNoteId(null);
+    setNoteBody('');
+  };
+
+  const handleNoteDelete = () => {
+    const newNotes = notes.filter((note) => note.id !== noteId);
+    setNotes(newNotes);
+    setNoteId(null);
+    setNoteBody('');
+  };
+
+  //
 
   useEffect(() => {
     setLoading(true);
@@ -102,26 +139,11 @@ const CourseView = () => {
                 )
               )}
 
-              {/* <video
-            src={}
-            controls
-            width={"100%"}
-            onEnded={handleEnded}
-          ></video> */}
-
               <p className="fs-5 text-center mt-3">
                 Once you watch the course, you will be able to do a test &nbsp;
                 <i className="bi bi-chevron-double-down"></i>
               </p>
 
-              {/* <Link
-            to={`/test/${singleCourse.id}`}
-            className={`btn btn-primary btn-lg ${
-              !isFinished && "disabled"
-            } d-block mx-auto w-50`}
-          >
-            Complete test
-          </Link> */}
               <Link
                 to={`/test/${courseData?.id}`}
                 className={`btn btn-primary btn-lg d-block mx-auto w-50`}
@@ -130,21 +152,24 @@ const CourseView = () => {
               </Link>
             </div>
             <div className="col-md-6">
-              <p className="fs-1 text-center ">Course Content</p>
-              {courseData?.courseContent &&
-                courseData?.courseContent.map((content, index) => (
-                  <p key={index} className="week">
-                    <h3 className="text-primary">Week {index + 1}</h3>
-                    <ul>
-                      {content.week.map((week, i) => (
-                        <li key={i} className="week-item">
-                          {week}
-                        </li>
+              <Tabs id="my-tabs" className="col-md-6">
+                <Tab eventKey="content" title="Content">
+                  <div className="col-md-6">
+                    <p className="fs-1 text-center ">Course Content</p>
+                    {courseData?.courseContent &&
+                      courseData?.courseContent.map((content, index) => (
+                        <p key={index} className="week">
+                          <h3 className="text-primary">Week {index + 1}</h3>
+                          <ul>
+                            {content.week.map((week, i) => (
+                              <li key={i} className="week-item">
+                                {week}
+                              </li>
+                            ))}
+                          </ul>
+                        </p>
                       ))}
-                    </ul>
-                  </p>
-                ))}
-              {/* <div className="accordion" id="accordionExample">
+                    {/* <div className="accordion" id="accordionExample">
             <div className="accordion-item">
               <h2 className="accordion-header" id="headingOne">
                 <button
@@ -322,6 +347,50 @@ const CourseView = () => {
               </div>
             </div>
           </div> */}
+                  </div>
+                </Tab>
+                <Tab eventKey="chat" title="Notes">
+                <Container className="my-3">
+                <Row>
+                  <Col>
+                    <h1>Notes</h1>
+                  </Col>
+                  <Col className="justify-content-left">
+                    <Button onClick={handleAddNoteClick}>Add Note</Button>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col md={8}>
+                    <h6>{noteId ? 'Edit Note' : 'Add Note'}</h6>
+                    <ReactQuill value={noteBody} onChange={(value) => setNoteBody(value)} className="noteBody" />
+                    <div className="text-end mt-3">
+                      {noteId && (
+                        <Button className="me-2" variant="danger" onClick={handleNoteDelete}>
+                          Delete
+                        </Button>
+                      )}
+                      <Button className="btnSave" variant="primary" onClick={handleNoteSave}>
+                        Save
+                      </Button>
+                    </div>
+                  </Col>
+                </Row>
+                <Row>
+                <Col md={4}>
+                    <h3>Notes List</h3>
+                    {notes.map((note) => (
+                      <div key={note.id} className="my-3 p-3 border" onClick={() => handleNoteClick(note)}>
+                        <div dangerouslySetInnerHTML={{ __html: note.body }}></div>
+                      </div>
+                    ))}
+                  </Col>
+                </Row>
+              </Container>
+                </Tab>
+                <Tab eventKey="notes" title="Chat">
+                  Chat
+                </Tab>
+              </Tabs>
             </div>
           </div>
         </>
