@@ -15,7 +15,6 @@ import dashboard from "../assets/dashboard.png";
 import myLearning from "../assets/my-learning.png";
 import allCourses from "../assets/all-courses.png";
 
-
 const Navbar = () => {
   const [name, setName] = useState("");
   const [numberOfItems, setNumberOfItems] = useState(0);
@@ -24,20 +23,19 @@ const Navbar = () => {
   const loginAsCreator = useSelector((state) => state.creatorLogin);
   const loginAsAdmin = useSelector((state) => state.adminLogin);
   const courses = useSelector((state) => state.coursesReducer);
- 
 
   console.log(courses);
 
-  //const shoppingCart = JSON.parse(localStorage.getItem("shopping_cart"));
-  /*useEffect(() => {
+  const shoppingCart = JSON.parse(localStorage.getItem("shopping_cart"));
+  useEffect(() => {
     const numberOfItems = shoppingCart ? shoppingCart.length : 0;
     setNumberOfItems(numberOfItems);
-  }, [shoppingCart]);*/
-  
+  }, [shoppingCart]);
+
   const logOut = () => {
     localStorage.removeItem("token");
-    window.location.reload();
     navigate("/");
+    window.location.reload();
   };
 
   const token = localStorage.getItem("token");
@@ -73,8 +71,8 @@ const Navbar = () => {
             </div>
           )}
 
-          {loggedInAsLearner && ( <SearchBar/>)}
-          
+          {loggedInAsLearner && <SearchBar />}
+
           {loggedInAsLearner ? (
             <div className="col-md-6 d-flex align-items-baseline justify-content-around">
               <p className="fs-5 text-black">

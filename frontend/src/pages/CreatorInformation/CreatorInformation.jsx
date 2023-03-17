@@ -33,7 +33,7 @@ const CreatorInformation = () => {
       .then((res) => res.json())
       .then((data) => {
         setCourse(data.course);
-        console.log("data", data);
+        console.log("data11", data);
       });
   }, []);
 
@@ -107,7 +107,10 @@ const CreatorInformation = () => {
           <Col xs={12} md={3}>
             <Image
               className="img"
-              src={course.instructorImageURL}
+              src={
+                course.instructorImageURL ||
+                `http://localhost:8000/images/${course.courseImageURL}`
+              }
               roundedCircle
             />
           </Col>

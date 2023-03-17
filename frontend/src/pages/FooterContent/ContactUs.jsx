@@ -166,7 +166,7 @@ const ContactUs = () => {
                       </div>
                       <div className="text pl-3">
                         <p>
-                          <span>Email:</span> info@litlab.com
+                          <span>Email:</span> litlab200@gmail.com
                         </p>
                       </div>
                     </div>

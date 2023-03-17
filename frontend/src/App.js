@@ -63,6 +63,8 @@ function App() {
       return;
     }
 
+    localStorage.removeItem("resettingPassword");
+
     if (localStorage.getItem("token") === null) {
       return navigate("/");
     }

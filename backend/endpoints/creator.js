@@ -47,9 +47,10 @@ router.post("/:id", upload.single("profileImage"), async (req, res) => {
   }
 });
 
-router.post("/:email", upload.single("profileImage"), async (req, res) => {
+//TODO: data is not updating
+router.post("/courses/:id", upload.single("profileImage"), async (req, res) => {
   try {
-    console.log("email", req.params.email);
+    console.log("email", req.params.id);
     const db = client.db("courses");
     const bucket = new mongodb.GridFSBucket(db);
     const storage = new multer.memoryStorage();
@@ -66,7 +67,7 @@ router.post("/:email", upload.single("profileImage"), async (req, res) => {
 
     collection
       .updateOne(
-        { email: req.params.email }, // filter to match the document to update
+        { instructorId: 16 }, // filter to match the document to update
         {
           $set: {
             instructorImageURL: profileImage,

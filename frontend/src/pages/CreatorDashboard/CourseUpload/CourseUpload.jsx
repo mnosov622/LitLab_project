@@ -16,6 +16,7 @@ import testImage from "../../../assets/test.png";
 const CourseUpload = () => {
   const [video, setVideo] = useState(null);
   const [image, setImage] = useState(null);
+  const [instructorImage, setInstructorImage] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
@@ -77,8 +78,13 @@ const CourseUpload = () => {
 
     console.log("response recieved", data);
 
+    fetch(`http://localhost:8000/users/${decoded.id}`)
+      .then((res) => res.json())
+      .then((data) => setInstructorImage(data.profileImage));
+
     const courseData = {
       video: data.video,
+      instructorImageURl: instructorImage,
       courseImageURL: data.image.originalname,
       instructorEmail: decoded.email,
       name: nameRef.current.value,
@@ -408,6 +414,7 @@ const CourseUpload = () => {
                 onChange={handleNumQuestionsChange}
                 className="form-control w-25"
               >
+                <option value=""></option>
                 <option value="1" selected>
                   1
                 </option>

@@ -10,6 +10,7 @@ const Modal = ({
   item,
   editUser,
   editCourse,
+  clearCart,
   name,
   email,
   id,
@@ -122,6 +123,9 @@ const Modal = ({
             </span>
             {editUser && (
               <>
+              <label htmlFor="name" className="mt-1 mb-1 fw-bold">
+                  Name
+                </label>
                 <input
                   className="form-control mb-3"
                   value={userName}
@@ -130,11 +134,16 @@ const Modal = ({
               </>
             )}
             {editUser && (
+              <>
+              <label htmlFor="name" className="mt-1 mb-1 fw-bold">
+              Email
+            </label>
               <input
                 className="form-control"
                 value={userEmail}
                 onChange={(e) => setUserEmail(e.target.value)}
               />
+              </>
             )}
             {editCourse && (
               <>
@@ -192,6 +201,14 @@ const Modal = ({
                 onClick={() => handleSaveCourse(singleCourse.id)}
               >
                 Save
+              </button>
+            ) : clearCart ? (
+              <button
+                type="button"
+                className="btn btn-danger"
+                onClick={onConfirm}
+              >
+                Clear
               </button>
             ) : (
               <button

@@ -4,6 +4,7 @@ import "./CourseCard.scss";
 
 import { Badge } from "react-bootstrap";
 import jwtDecode from "jwt-decode";
+import Modal from "../Modal/Modal";
 
 const CourseCard = ({
   name,
@@ -24,22 +25,12 @@ const CourseCard = ({
   courseImageURL,
 }) => {
   const [imageSource, setImageSource] = useState("");
+  const [showModal, setShowModal] = useState(false);
+  const [singlCourse, setSinglCourse] = useState([]);
 
   const handleRemove = (id) => (e) => {
     e.preventDefault();
-    if (
-      window.confirm(
-        "Are you sure you want to remove course from shopping cart? "
-      )
-    ) {
-      const shoppingCart = JSON.parse(localStorage.getItem("shopping_cart"));
-      const updatedShoppingCart = shoppingCart.filter((i) => i.id !== id);
-      localStorage.setItem(
-        "shopping_cart",
-        JSON.stringify(updatedShoppingCart)
-      );
-      window.location.reload();
-    }
+    setShowModal(true);
   };
 
   useEffect(() => {
@@ -49,8 +40,29 @@ const CourseCard = ({
     setImageSource(imageSource);
   }, []);
 
+  const confirmRemoveCourse = () => {
+    const shoppingCart = JSON.parse(localStorage.getItem("shopping_cart"));
+    const updatedShoppingCart = shoppingCart.filter((i) => i.id !== id);
+    localStorage.setItem("shopping_cart", JSON.stringify(updatedShoppingCart));
+    setShowModal(false);
+    window.location.reload();
+  };
+
+  const cancelRemoveCourse = () => {
+    setShowModal(false);
+  };
+
   return (
     <>
+      {showModal && (
+        <Modal
+          title="Confirm Action"
+          body={`Are you sure you want to delete course`}
+          onConfirm={confirmRemoveCourse}
+          onCancel={cancelRemoveCourse}
+        />
+      )}
+
       <div
         className={cardSmall ? "w-25 mb-5 col-md-6" : "w-100 mb-5"}
         style={{ position: "relative" }}

@@ -50,7 +50,6 @@ const CourseDescription = () => {
   const token = localStorage.getItem("token");
   const decoded = jwtDecode(token);
   const userId = decoded.id;
-
   useEffect(() => {
     setLoading(true);
     fetch(`http://localhost:8000/courses/${Number(id)}`)
@@ -304,6 +303,10 @@ const CourseDescription = () => {
                     ></i>
                   </span>
                 </p>
+                <p className="fs-5 mt-3">
+                  Price: <span className="fw-bold">{course?.price}$</span>
+                </p>
+
                 <p className="fs-5 mt-3">
                   Created by:&nbsp;
                   <Link to={`/creator/${course?.instructorId}`}>
