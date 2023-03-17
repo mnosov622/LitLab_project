@@ -5,10 +5,25 @@ import { useState } from "react";
 import { useRef } from "react";
 import { Oval } from "react-loader-spinner";
 import { Tabs, Tab } from "react-bootstrap";
-import { Container, Row, Col, Button, Modal } from 'react-bootstrap';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import { Container, Row, Col, Button, Modal } from "react-bootstrap";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 import "./CourseView.scss";
+import firebase from "firebase/app";
+import "firebase/firestore";
+import { useCollectionData } from "react-firebase-hooks/firestore";
+import jwtDecode from "jwt-decode";
+
+firebase.initializeApp({
+  apiKey: "AIzaSyBqxPkGhgTnyDyTIl_FolvL2QJlJUuG_14",
+  authDomain: "litlab-chat.firebaseapp.com",
+  projectId: "litlab-chat",
+  storageBucket: "litlab-chat.appspot.com",
+  messagingSenderId: "790318006402",
+  appId: "1:790318006402:web:8ea027078cf1a73e49749b",
+});
+
+const firestore = firebase.firestore();
 
 const CourseView = () => {
   const { id } = useParams();
@@ -22,7 +37,28 @@ const CourseView = () => {
   // for note
   const [notes, setNotes] = useState([]);
   const [noteId, setNoteId] = useState(null);
-  const [noteBody, setNoteBody] = useState('');
+  const [noteBody, setNoteBody] = useState("");
+
+  //chat
+  const dummy = useRef();
+  const messagesRef = firestore.collection("messages");
+  const query = messagesRef.orderBy("createdAt").limit(25);
+
+  const [messages] = useCollectionData(query, { idField: "id" });
+
+  const [formValue, setFormValue] = useState("");
+
+  const sendMessage = async (e) => {
+    e.preventDefault();
+
+    await messagesRef.add({
+      text: formValue,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+    });
+
+    setFormValue("");
+    dummy.current.scrollIntoView({ behavior: "smooth" });
+  };
 
   const handleNoteClick = (note) => {
     setNoteId(note.id);
@@ -31,22 +67,25 @@ const CourseView = () => {
 
   const handleAddNoteClick = () => {
     setNoteId(null);
-    setNoteBody('');
+    setNoteBody("");
   };
 
   const handleNoteSave = () => {
     const newNote = { id: noteId || Date.now(), body: noteBody };
-    const newNotes = [...notes.filter((note) => note.id !== newNote.id), newNote];
+    const newNotes = [
+      ...notes.filter((note) => note.id !== newNote.id),
+      newNote,
+    ];
     setNotes(newNotes);
     setNoteId(null);
-    setNoteBody('');
+    setNoteBody("");
   };
 
   const handleNoteDelete = () => {
     const newNotes = notes.filter((note) => note.id !== noteId);
     setNotes(newNotes);
     setNoteId(null);
-    setNoteBody('');
+    setNoteBody("");
   };
 
   //
@@ -172,45 +211,87 @@ const CourseView = () => {
                   </div>
                 </Tab>
                 <Tab eventKey="chat" title="Notes">
-                <Container className="my-3">
-                <Row>
-                  <Col>
-                    <h1>Notes</h1>
-                  </Col>
-                  <Col className="justify-content-left">
-                    <Button onClick={handleAddNoteClick}>Add Note</Button>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col md={8}>
-                    <h6>{noteId ? 'Edit Note' : 'Add Note'}</h6>
-                    <ReactQuill value={noteBody} onChange={(value) => setNoteBody(value)} className="noteBody" />
-                    <div className="text-end mt-3">
-                      {noteId && (
-                        <Button className="me-2" variant="danger" onClick={handleNoteDelete}>
-                          Delete
-                        </Button>
-                      )}
-                      <Button className="btnSave" variant="primary" onClick={handleNoteSave}>
-                        Save
-                      </Button>
-                    </div>
-                  </Col>
-                </Row>
-                <Row>
-                <Col md={4}>
-                    <h3>Notes List</h3>
-                    {notes.map((note) => (
-                      <div key={note.id} className="my-3 p-3 border" onClick={() => handleNoteClick(note)}>
-                        <div dangerouslySetInnerHTML={{ __html: note.body }}></div>
-                      </div>
-                    ))}
-                  </Col>
-                </Row>
-              </Container>
+                  <Container className="my-3">
+                    <Row>
+                      <Col>
+                        <h1>Notes</h1>
+                      </Col>
+                      <Col className="justify-content-left">
+                        <Button onClick={handleAddNoteClick}>Add Note</Button>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col md={8}>
+                        <h6>{noteId ? "Edit Note" : "Add Note"}</h6>
+                        <ReactQuill
+                          value={noteBody}
+                          onChange={(value) => setNoteBody(value)}
+                          className="noteBody"
+                        />
+                        <div className="text-end mt-3">
+                          {noteId && (
+                            <Button
+                              className="me-2"
+                              variant="danger"
+                              onClick={handleNoteDelete}
+                            >
+                              Delete
+                            </Button>
+                          )}
+                          <Button
+                            className="btnSave"
+                            variant="primary"
+                            onClick={handleNoteSave}
+                          >
+                            Save
+                          </Button>
+                        </div>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col md={4}>
+                        <h3>Notes List</h3>
+                        {notes.map((note) => (
+                          <div
+                            key={note.id}
+                            className="my-3 p-3 border"
+                            onClick={() => handleNoteClick(note)}
+                          >
+                            <div
+                              dangerouslySetInnerHTML={{ __html: note.body }}
+                            ></div>
+                          </div>
+                        ))}
+                      </Col>
+                    </Row>
+                  </Container>
                 </Tab>
                 <Tab eventKey="notes" title="Chat">
-                  Chat
+                  <div className="chat-window">
+                    {messages &&
+                      messages.map((msg) => (
+                        <ChatMessage key={msg.id} message={msg} />
+                      ))}
+
+                    <span ref={dummy}></span>
+                  </div>
+
+                  <form onSubmit={sendMessage}>
+                    <input
+                      className="message-input"
+                      value={formValue}
+                      onChange={(e) => setFormValue(e.target.value)}
+                      placeholder="say something nice"
+                    />
+
+                    <button
+                      className="submit-btn"
+                      type="submit"
+                      disabled={!formValue}
+                    >
+                      🕊️
+                    </button>
+                  </form>
                 </Tab>
               </Tabs>
             </div>
@@ -220,5 +301,27 @@ const CourseView = () => {
     </div>
   );
 };
+
+function ChatMessage(props) {
+  const { text, uid, photoURL } = props.message;
+  const token = localStorage.getItem("token");
+  const decoded = jwtDecode(token);
+  const userName = decoded.name;
+
+  console.log("decoded", decoded);
+  return (
+    <>
+      <div className={`message`}>
+        <img
+          src={
+            photoURL || "https://api.adorable.io/avatars/23/abott@adorable.png"
+          }
+        />
+        <p>{text}</p>
+        <span>{userName}</span>
+      </div>
+    </>
+  );
+}
 
 export default CourseView;
