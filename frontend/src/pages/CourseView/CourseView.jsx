@@ -51,13 +51,28 @@ const CourseView = () => {
   const sendMessage = async (e) => {
     e.preventDefault();
 
+    const token = localStorage.getItem("token");
+    const decoded = jwtDecode(token);
+    const userName = decoded.name;
+
+    const now = new Date();
+    const timeString = now.toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
     await messagesRef.add({
       text: formValue,
-      createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+      createdAt: now,
+      timeString: timeString,
+      userName: userName,
     });
 
     setFormValue("");
-    dummy.current.scrollIntoView({ behavior: "smooth" });
+
+    console.log("messageref", messagesRef);
+    setFormValue("");
+    // dummy.current.scrollIntoView({ behavior: "smooth" });
   };
 
   const handleNoteClick = (note) => {
@@ -305,12 +320,17 @@ const CourseView = () => {
 };
 
 function ChatMessage(props) {
-  const { text, uid, photoURL } = props.message;
-  const token = localStorage.getItem("token");
-  const decoded = jwtDecode(token);
-  const userName = decoded.name;
+  const { text, uid, photoURL, createdAt, timeString, userName } =
+    props.message;
 
-  console.log("decoded", decoded);
+  console.log("timestirn", timeString);
+
+  const messageDate = createdAt && createdAt.toDate().toLocaleString();
+  const dateObj = new Date(messageDate);
+  const timeStr = dateObj.toLocaleTimeString([], { hour12: false });
+  console.log("message data1", messageDate);
+
+  console.log(timeStr);
   return (
     <>
       <div className={`message`}>
@@ -318,6 +338,7 @@ function ChatMessage(props) {
         <span className="text-message">{text}</span>
         <span className="divider">-</span>
         <span className="username">{userName}</span>
+        <p>{timeString}</p>
       </div>
     </>
   );
