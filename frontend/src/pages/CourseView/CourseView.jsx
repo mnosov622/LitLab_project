@@ -479,7 +479,9 @@ function ChatMessage(props) {
         <span className="text-message">{text}</span>
         <span className="divider">-</span>
         <span className="username">{userName}</span>
-        <p>{timeString}</p>
+        <div className="time">
+          <p className="timeString">{timeString}</p>
+        </div>
       </div>
     </>
   );
