@@ -29,6 +29,31 @@ const firestore = firebase.firestore();
 
 const CourseView = () => {
   const chatWindowRef = useRef(null);
+  const [activeTab, setActiveTab] = useState("content");
+  const [chatWindowLoaded, setChatWindowLoaded] = useState(false);
+
+  const handleTabSelect = (tabKey) => {
+    if (tabKey === "chat") {
+      // Code to execute when the Chat tab is selected
+      console.log("Chat tab selected");
+    } else if (tabKey === "notes") {
+      // Code to execute when the Notes tab is selected
+      console.log("Notes tab selected");
+    }
+
+    setActiveTab(tabKey);
+  };
+
+  useEffect(() => {
+    if (activeTab === "chat" && chatWindowRef.current && chatWindowLoaded) {
+      console.log("active");
+      chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
+    }
+  }, [activeTab, chatWindowLoaded]);
+
+  const handleChatWindowLoad = () => {
+    setChatWindowLoaded(true);
+  };
 
   const { id } = useParams();
   const [isFinished, setIsFinished] = useState(false);
@@ -221,6 +246,17 @@ const CourseView = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const chatWindow = chatWindowRef.current;
+    if (chatWindow) {
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+  }, [chatWindowRef]);
+
+  const showChat = () => {
+    console.log("tab clicked");
+  };
+
   return (
     <div className={loading && "bottom"}>
       {loading ? (
@@ -280,7 +316,12 @@ const CourseView = () => {
               </Link>
             </div>
             <div className="col-md-6">
-              <Tabs id="my-tabs" className="col-md-6">
+              <Tabs
+                id="my-tabs"
+                className="col-md-6"
+                activeKey={activeTab}
+                onSelect={handleTabSelect}
+              >
                 <Tab eventKey="content" title="Content">
                   <div className="col-md-6">
                     <p className="fs-1 text-left ">Course Content</p>
@@ -299,7 +340,7 @@ const CourseView = () => {
                       ))}
                   </div>
                 </Tab>
-                <Tab eventKey="chat" title="Notes">
+                <Tab eventKey="notes" title="Notes">
                   <div className="my-3">
                     <Row>
                       <Col>
@@ -375,8 +416,17 @@ const CourseView = () => {
                     </Col>
                   </div>
                 </Tab>
-                <Tab eventKey="notes" title="Chat">
-                  <div className="chat-window" ref={chatWindowRef}>
+                <Tab
+                  eventKey="chat"
+                  title="Chat"
+                  id="chat-tab"
+                  onClick={showChat}
+                >
+                  <div
+                    className="chat-window"
+                    ref={chatWindowRef}
+                    onLoad={handleChatWindowLoad}
+                  >
                     {messages &&
                       messages.map((msg) => (
                         <ChatMessage key={msg.id} message={msg} />
