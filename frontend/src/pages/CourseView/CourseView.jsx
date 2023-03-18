@@ -55,8 +55,6 @@ const CourseView = () => {
     setChatWindowLoaded(true);
   };
 
-  const [icon, setIcon] = useState(false);
-
   const handleClick = (icon) => {
     setFormValue((prevValue) => prevValue + icon.icon);
   };
