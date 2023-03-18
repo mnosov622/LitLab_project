@@ -26,6 +26,8 @@ firebase.initializeApp({
 const firestore = firebase.firestore();
 
 const CourseView = () => {
+  const chatWindowRef = useRef(null);
+
   const { id } = useParams();
   const [isFinished, setIsFinished] = useState(false);
   const videoRef = useRef(null);
@@ -38,8 +40,27 @@ const CourseView = () => {
   const [notes, setNotes] = useState([]);
   const [noteId, setNoteId] = useState(null);
   const [noteBody, setNoteBody] = useState("");
+  const [savedNotes, setSavedNotes] = useState("");
+
+  const token = localStorage.getItem("token");
+  const decoded = jwtDecode(token);
+  const userId = decoded.id;
+
+  useEffect(() => {
+    fetch(`http://localhost:8000/users/${userId}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("user data", data);
+        setSavedNotes(data.notes);
+      });
+  }, []);
 
   //chat
+  useEffect(() => {
+    const chatWindow = chatWindowRef.current;
+    chatWindow.scrollTop = chatWindow.scrollHeight;
+  }, []);
+
   const dummy = useRef();
   const messagesRef = firestore.collection("messages");
   const query = messagesRef.orderBy("createdAt").limit(25);
@@ -48,6 +69,7 @@ const CourseView = () => {
 
   const [formValue, setFormValue] = useState("");
 
+  const playAudio = () => {};
   const sendMessage = async (e) => {
     e.preventDefault();
 
@@ -70,7 +92,6 @@ const CourseView = () => {
 
     setFormValue("");
 
-    console.log("messageref", messagesRef);
     setFormValue("");
     dummy.current.scrollIntoView({ behavior: "smooth" });
     const chatWindow = document.querySelector(".chat-window");
@@ -78,6 +99,7 @@ const CourseView = () => {
       top: chatWindow.scrollHeight,
       behavior: "smooth",
     });
+    playAudio();
   };
 
   const handleNoteClick = (note) => {
@@ -91,6 +113,17 @@ const CourseView = () => {
   };
 
   const handleNoteSave = () => {
+    console.log("note body", noteBody);
+    const encodedText = encodeURIComponent(noteBody);
+
+    fetch(`http://localhost:8000/users/notes/${userId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ notebody: noteBody }),
+    }).then((res) => console.log(res));
+
     const newNote = { id: noteId || Date.now(), body: noteBody };
     const newNotes = [
       ...notes.filter((note) => note.id !== newNote.id),
@@ -271,23 +304,21 @@ const CourseView = () => {
                     <Row>
                       <Col md={4}>
                         <h3>Notes List</h3>
-                        {notes.map((note) => (
-                          <div
-                            key={note.id}
-                            className="my-3 p-3 border"
-                            onClick={() => handleNoteClick(note)}
-                          >
+
+                        {savedNotes &&
+                          savedNotes.map((note, index) => (
                             <div
-                              dangerouslySetInnerHTML={{ __html: note.body }}
+                              key={index}
+                              className="border p-5 text-center mb-3"
+                              dangerouslySetInnerHTML={{ __html: note }}
                             ></div>
-                          </div>
-                        ))}
+                          ))}
                       </Col>
                     </Row>
                   </Container>
                 </Tab>
                 <Tab eventKey="notes" title="Chat">
-                  <div className="chat-window">
+                  <div className="chat-window" ref={chatWindowRef}>
                     {messages &&
                       messages.map((msg) => (
                         <ChatMessage key={msg.id} message={msg} />
@@ -328,12 +359,9 @@ function ChatMessage(props) {
   const { text, uid, photoURL, createdAt, timeString, userName } =
     props.message;
 
-  console.log("timestirn", timeString);
-
   const messageDate = createdAt && createdAt.toDate().toLocaleString();
   const dateObj = new Date(messageDate);
   const timeStr = dateObj.toLocaleTimeString([], { hour12: false });
-  console.log("message data1", messageDate);
 
   console.log(timeStr);
   return (

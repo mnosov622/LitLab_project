@@ -18,6 +18,7 @@ const userSchema = new mongoose.Schema({
   bio: { type: String },
   description: { type: String },
   social: { type: String },
+  notes: [{ type: String }],
   courses: [
     {
       id: { type: Number, required: true },
@@ -26,6 +27,7 @@ const userSchema = new mongoose.Schema({
       courseImage: { type: String, required: true },
       price: { type: String, required: true },
       isCompleted: { type: Boolean },
+      notes: [{ type: String }],
     },
   ],
 });

@@ -429,10 +429,10 @@ const CourseDescription = () => {
                 <img
                   src={course?.instructorImageURL}
                   alt="Instructor profile"
-                  className="col-md-4 instructor-image"
+                  className="col-md-4 instructor-image img rounded-circle"
                 />
 
-                <p className="col-md-8 creator-description ">
+                <p className="col-md-7 creator-description ">
                   {course?.instructorBio}
                 </p>
               </div>

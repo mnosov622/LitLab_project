@@ -68,6 +68,23 @@ router.delete("/:id/courses", async (req, res) => {
   }
 });
 
+router.post("/notes/:id", async (req, res) => {
+  const id = req.params.id;
+  const noteText = req.body.notebody;
+
+  const updatedUser = await User.findByIdAndUpdate(
+    id,
+    { $push: { notes: noteText } },
+    { new: true }
+  );
+
+  if (!updatedUser) {
+    return res.status(404).json({ message: "User not found" });
+  }
+
+  res.json({ updatedUser });
+});
+
 //remove the user, functionality for admin only
 //TODO: Protect the route, so that only admin can do that
 router.delete("/:email", (req, res) => {
