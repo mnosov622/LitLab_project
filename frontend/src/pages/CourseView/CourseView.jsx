@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Form, Link, useParams } from "react-router-dom";
 import { useState } from "react";
 import { useRef } from "react";
 import { Oval } from "react-loader-spinner";
@@ -13,6 +13,8 @@ import firebase from "firebase/app";
 import "firebase/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import jwtDecode from "jwt-decode";
+import { Quill } from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 firebase.initializeApp({
   apiKey: "AIzaSyBqxPkGhgTnyDyTIl_FolvL2QJlJUuG_14",
@@ -41,6 +43,15 @@ const CourseView = () => {
   const [noteId, setNoteId] = useState(null);
   const [noteBody, setNoteBody] = useState("");
   const [savedNotes, setSavedNotes] = useState("");
+  const Color = Quill.import("attributors/style/color");
+  Quill.register(Color, true);
+
+  const toolbarOptions = [
+    ["bold", "italic", "underline"],
+    [{ list: "ordered" }, { list: "bullet" }],
+    [{ size: [] }],
+    [{ color: [] }, { background: [] }],
+  ];
 
   const token = localStorage.getItem("token");
   const decoded = jwtDecode(token);
@@ -102,27 +113,26 @@ const CourseView = () => {
     playAudio();
   };
 
-  const handleNoteClick = (note) => {
-    setNoteId(note.id);
-    setNoteBody(note.body);
-  };
-
   const handleAddNoteClick = () => {
     setNoteId(null);
     setNoteBody("");
   };
 
-  const handleNoteSave = () => {
-    console.log("note body", noteBody);
-    const encodedText = encodeURIComponent(noteBody);
-
+  const handleNoteSave = (e) => {
+    e.preventDefault();
     fetch(`http://localhost:8000/users/notes/${userId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ notebody: noteBody }),
-    }).then((res) => console.log(res));
+    }).then((res) => {
+      fetch(`http://localhost:8000/users/${userId}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setSavedNotes(data.notes);
+        });
+    });
 
     const newNote = { id: noteId || Date.now(), body: noteBody };
     const newNotes = [
@@ -134,6 +144,19 @@ const CourseView = () => {
     setNoteBody("");
   };
 
+  const handleDeleteNotes = () => {
+    console.log("clicked");
+    fetch(`http://localhost:8000/users/notes/${userId}`, {
+      method: "DELETE",
+    }).then((res) => {
+      fetch(`http://localhost:8000/users/${userId}`)
+        .then((res) => res.json())
+        .then((data) => {
+          console.log("notes", data.notes);
+          setSavedNotes(data.notes);
+        });
+    });
+  };
   const handleNoteDelete = () => {
     const newNotes = notes.filter((note) => note.id !== noteId);
     setNotes(newNotes);
@@ -247,7 +270,7 @@ const CourseView = () => {
               <Tabs id="my-tabs" className="col-md-6">
                 <Tab eventKey="content" title="Content">
                   <div className="col-md-6">
-                    <p className="fs-1 text-center ">Course Content</p>
+                    <p className="fs-1 text-left ">Course Content</p>
                     {courseData?.courseContent &&
                       courseData?.courseContent.map((content, index) => (
                         <p key={index} className="week">
@@ -264,58 +287,67 @@ const CourseView = () => {
                   </div>
                 </Tab>
                 <Tab eventKey="chat" title="Notes">
-                  <Container className="my-3">
+                  <div className="my-3">
                     <Row>
                       <Col>
                         <h1>Notes</h1>
                       </Col>
-                      <Col className="justify-content-left">
-                        <Button onClick={handleAddNoteClick}>Add Note</Button>
-                      </Col>
                     </Row>
                     <Row>
                       <Col md={8}>
-                        <h6>{noteId ? "Edit Note" : "Add Note"}</h6>
-                        <ReactQuill
-                          value={noteBody}
-                          onChange={(value) => setNoteBody(value)}
-                          className="noteBody"
-                        />
-                        <div className="text-end mt-3">
-                          {noteId && (
+                        <form action="" onSubmit={(e) => handleNoteSave(e)}>
+                          <ReactQuill
+                            modules={{ toolbar: toolbarOptions }}
+                            value={noteBody}
+                            onChange={(value) => setNoteBody(value)}
+                            className="noteBody"
+                          />
+                          <div className="text-end mt-3">
+                            {noteId && (
+                              <Button
+                                className="me-2"
+                                variant="danger"
+                                onClick={handleNoteDelete}
+                              >
+                                Delete
+                              </Button>
+                            )}
                             <Button
-                              className="me-2"
-                              variant="danger"
-                              onClick={handleNoteDelete}
+                              className="btnSave w-auto"
+                              variant="primary"
+                              type="submit"
                             >
-                              Delete
+                              Add
                             </Button>
-                          )}
-                          <Button
-                            className="btnSave"
-                            variant="primary"
-                            onClick={handleNoteSave}
-                          >
-                            Save
-                          </Button>
-                        </div>
+                          </div>
+                        </form>
                       </Col>
                     </Row>
-                    <Row>
-                      <Col md={4}>
-                        <h3>Notes List</h3>
+                    <Col md={8}>
+                      {savedNotes.length > 0 && (
+                        <h3 className="p-0">Notes List</h3>
+                      )}
 
-                        {savedNotes &&
-                          savedNotes.map((note, index) => (
-                            <div
-                              key={index}
-                              className="border p-5 text-center mb-3"
-                              dangerouslySetInnerHTML={{ __html: note }}
-                            ></div>
-                          ))}
-                      </Col>
-                    </Row>
-                  </Container>
+                      {savedNotes &&
+                        savedNotes.map((note, index) => (
+                          <div
+                            key={index}
+                            className="border p-3 mb-3 note w-100"
+                            dangerouslySetInnerHTML={{ __html: note }}
+                          ></div>
+                        ))}
+                    </Col>
+                    <Col md={8} className="mt-2 d-flex justify-content-end">
+                      {savedNotes.length > 0 && (
+                        <button
+                          className="btn btn-danger deleteBtn w-auto"
+                          onClick={handleDeleteNotes}
+                        >
+                          Delete notes
+                        </button>
+                      )}
+                    </Col>
+                  </div>
                 </Tab>
                 <Tab eventKey="notes" title="Chat">
                   <div className="chat-window" ref={chatWindowRef}>

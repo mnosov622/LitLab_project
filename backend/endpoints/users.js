@@ -68,6 +68,7 @@ router.delete("/:id/courses", async (req, res) => {
   }
 });
 
+//notes
 router.post("/notes/:id", async (req, res) => {
   const id = req.params.id;
   const noteText = req.body.notebody;
@@ -83,6 +84,26 @@ router.post("/notes/:id", async (req, res) => {
   }
 
   res.json({ updatedUser });
+});
+
+router.delete("/notes/:id", (req, res) => {
+  const userId = req.params.id;
+
+  User.findByIdAndUpdate(
+    userId,
+    { $unset: { notes: 1 } },
+    { new: true },
+    (err, user) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).json({ message: "Failed to remove notes" });
+      }
+      if (!user) {
+        return res.status(404).json({ message: "User not found" });
+      }
+      res.status(200).json({ user });
+    }
+  );
 });
 
 //remove the user, functionality for admin only
