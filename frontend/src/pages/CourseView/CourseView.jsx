@@ -55,6 +55,12 @@ const CourseView = () => {
     setChatWindowLoaded(true);
   };
 
+  const [icon, setIcon] = useState(false);
+
+  const handleClick = (icon) => {
+    setFormValue((prevValue) => prevValue + icon.icon);
+  };
+
   const { id } = useParams();
   const [isFinished, setIsFinished] = useState(false);
   const videoRef = useRef(null);
@@ -103,7 +109,7 @@ const CourseView = () => {
 
   const [messages] = useCollectionData(query, { idField: "id" });
 
-  const [formValue, setFormValue] = useState("");
+  const [formValue, setFormValue] = useState([]);
 
   const playAudio = () => {};
   const sendMessage = async (e) => {
@@ -443,7 +449,6 @@ const CourseView = () => {
                         onChange={(e) => setFormValue(e.target.value)}
                         placeholder="say something nice"
                       />
-
                       <button
                         className="submit-btn btn"
                         type="submit"
@@ -451,6 +456,26 @@ const CourseView = () => {
                       >
                         <i class="bi bi-send"></i>
                       </button>
+                      <div className="icons mt-3">
+                        <span onClick={() => handleClick({ icon: "😊" })}>
+                          😊
+                        </span>
+                        <span onClick={() => handleClick({ icon: "😂" })}>
+                          😂
+                        </span>
+                        <span onClick={() => handleClick({ icon: "🤣" })}>
+                          🤣
+                        </span>
+                        <span onClick={() => handleClick({ icon: "😔" })}>
+                          😔
+                        </span>
+                        <span onClick={() => handleClick({ icon: "😢" })}>
+                          😢
+                        </span>
+                        <span onClick={() => handleClick({ icon: "😱" })}>
+                          😱
+                        </span>
+                      </div>
                     </div>
                   </form>
                 </Tab>
