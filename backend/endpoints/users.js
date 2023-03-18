@@ -73,15 +73,21 @@ router.post("/notes/:id", async (req, res) => {
   const id = req.params.id;
   const noteText = req.body.notebody;
 
-  const updatedUser = await User.findByIdAndUpdate(
-    id,
-    { $push: { notes: noteText } },
-    { new: true }
-  );
+  const user = await User.findById(id);
 
-  if (!updatedUser) {
+  if (!user) {
     return res.status(404).json({ message: "User not found" });
   }
+
+  const lastNote = user.notes[user.notes.length - 1];
+  const lastNoteId = lastNote ? lastNote.id : 0;
+  const newNoteId = lastNoteId + 1;
+
+  const updatedUser = await User.findByIdAndUpdate(
+    id,
+    { $push: { notes: { text: noteText, id: newNoteId } } },
+    { new: true }
+  );
 
   res.json({ updatedUser });
 });
@@ -104,6 +110,35 @@ router.delete("/notes/:id", (req, res) => {
       res.status(200).json({ user });
     }
   );
+});
+
+//delete single note
+router.delete("/notes/:userId/:noteId", async (req, res) => {
+  const userId = req.params.userId;
+  const noteId = req.params.noteId;
+
+  try {
+    const user = await User.findById(userId);
+    console.log(user);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const noteIndex = user.notes.findIndex(
+      (note) => String(note.id) === String(noteId)
+    );
+    if (noteIndex === -1) {
+      return res.status(404).json({ message: "Note not found" });
+    }
+
+    user.notes.splice(noteIndex, 1);
+    await user.save();
+
+    res.status(200).json({ message: "Note removed successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to remove note" });
+  }
 });
 
 //remove the user, functionality for admin only

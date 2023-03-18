@@ -164,6 +164,19 @@ const CourseView = () => {
     setNoteBody("");
   };
 
+  const handleDeleteNote = (note) => {
+    console.log(note);
+
+    fetch(`http://localhost:8000/users/notes/${userId}/${note.id}`, {
+      method: "DELETE",
+    }).then((res) => {
+      fetch(`http://localhost:8000/users/${userId}`)
+        .then((res) => res.json())
+        .then((data) => {
+          setSavedNotes(data.notes);
+        });
+    });
+  };
   //
 
   useEffect(() => {
@@ -330,11 +343,24 @@ const CourseView = () => {
 
                       {savedNotes &&
                         savedNotes.map((note, index) => (
-                          <div
-                            key={index}
-                            className="border p-3 mb-3 note w-100"
-                            dangerouslySetInnerHTML={{ __html: note }}
-                          ></div>
+                          <div className="position-relative">
+                            <div
+                              key={index}
+                              className="border p-3 mb-3 note w-100"
+                              dangerouslySetInnerHTML={{ __html: note.text }}
+                            ></div>
+                            <span
+                              className="position-absolute cursor-pointer"
+                              onClick={() => handleDeleteNote(note)}
+                              style={{
+                                right: "5px",
+                                bottom: "5px",
+                                cursor: "pointer",
+                              }}
+                            >
+                              <i class="bi bi-trash3-fill"></i>
+                            </span>
+                          </div>
                         ))}
                     </Col>
                     <Col md={8} className="mt-2 d-flex justify-content-end">
@@ -343,7 +369,7 @@ const CourseView = () => {
                           className="btn btn-danger deleteBtn w-auto"
                           onClick={handleDeleteNotes}
                         >
-                          Delete notes
+                          Delete all notes
                         </button>
                       )}
                     </Col>
