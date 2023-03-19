@@ -46,10 +46,24 @@ const CourseDescription = () => {
   const [name, setName] = useState("");
   const [review, setReview] = useState("");
   const [error, setError] = useState(false);
+  const [userId, setUserId] = useState("");
 
   const token = localStorage.getItem("token");
-  const decoded = jwtDecode(token);
-  const userId = decoded.id;
+  useEffect(() => {
+    try {
+      const decoded = jwtDecode(token);
+      setUserId(decoded.id);
+    } catch (e) {
+      console.log(e);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/login", { state: { message: "Please login first!" } });
+    }
+  }, []);
+
   useEffect(() => {
     setLoading(true);
     fetch(`http://localhost:8000/courses/${Number(id)}`)
@@ -149,7 +163,7 @@ const CourseDescription = () => {
     e.preventDefault();
 
     //checking if user has submitted a review
-    const hasSubmittedReview = course.courseReview.some(
+    const hasSubmittedReview = course.courseReview?.some(
       (course) => course.reviewerId === userId
     );
 
@@ -205,6 +219,15 @@ const CourseDescription = () => {
   useEffect(() => {
     localStorage.setItem("shopping_cart", JSON.stringify(cartItems));
   }, [cartItems]);
+  const [showAllReviews, setShowAllReviews] = useState(false);
+
+  const handleShowAllReviews = () => {
+    setShowAllReviews(true);
+  };
+
+  const handleHideAllReviews = () => {
+    setShowAllReviews(false);
+  };
 
   return (
     <div className={loading && "bottom"}>
@@ -429,10 +452,10 @@ const CourseDescription = () => {
                 <img
                   src={course?.instructorImageURL}
                   alt="Instructor profile"
-                  className="col-md-4 instructor-image"
+                  className="col-md-4 instructor-image img rounded-circle"
                 />
 
-                <p className="col-md-8 creator-description ">
+                <p className="col-md-7 creator-description ">
                   {course?.instructorBio}
                 </p>
               </div>
@@ -446,21 +469,53 @@ const CourseDescription = () => {
                 <Col xs={7}>
                   {course &&
                     course.courseReview &&
-                    course.courseReview.map((review) => (
-                      <div
-                        className="previous-reviews mb-3 p-3"
-                        key={review.id}
+                    course.courseReview
+                      .slice(0, showAllReviews ? course.courseReview.length : 3)
+                      .map((review) => (
+                        <div
+                          className="previous-reviews mb-3 p-3"
+                          key={review.id}
+                        >
+                          <h4>{review.name}</h4>
+                          <p>
+                            Rating :{" "}
+                            {Array.from({ length: review.star }, (_, i) => (
+                              <span key={i}>⭐️</span>
+                            ))}
+                          </p>
+                          <p>{review.review} </p>
+                        </div>
+                      ))}
+                  {!showAllReviews &&
+                  course.courseReview &&
+                  course.courseReview?.length > 3 ? (
+                    <div className="text-center">
+                      <button
+                        onClick={handleShowAllReviews}
+                        className="btn btn-primary mb-3 w-100"
                       >
-                        <h4>{review.name}</h4>
-                        <p>
-                          Rating :{" "}
-                          {Array.from({ length: review.star }, (_, i) => (
-                            <span key={i}>⭐️</span>
-                          ))}
-                        </p>
-                        <p>{review.review} </p>
-                      </div>
-                    ))}
+                        Show more reviews
+                      </button>
+                    </div>
+                  ) : showAllReviews &&
+                    course.courseReview &&
+                    course.courseReview?.length > 3 ? (
+                    <div className="text-center">
+                      <button
+                        onClick={handleHideAllReviews}
+                        className="btn btn-primary mb-3 w-100"
+                      >
+                        Hide reviews
+                      </button>
+                    </div>
+                  ) : course.courseReview?.length === 0 ||
+                    !course.courseReview ? (
+                    <p className="text-primary fs-3">
+                      Be the first one to leave a review!
+                    </p>
+                  ) : (
+                    ""
+                  )}
                 </Col>
                 <Col>
                   <Form

@@ -2,10 +2,79 @@
   margin-top: 20px !important;
 }
 
-.btnSave{
+.btnSave {
   padding-top: -10px;
 }
 
-.noteBody{
+.noteBody {
   min-height: auto;
+}
+
+.text-message {
+  background: #0d6efd;
+  display: inline-block;
+  margin-top: 10px;
+  border-radius: 10px;
+  padding: 10px;
+  color: #fff;
+}
+
+.username {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.divider {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.input-wrapper {
+  position: relative;
+  margin-top: 20px;
+  width: 50%;
+}
+
+.submit-btn {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.chat-window {
+  margin-top: 10px;
+  overflow: scroll;
+  height: 380px;
+}
+
+.chat-window::-webkit-scrollbar {
+  width: 10px;
+  height: 20px;
+}
+.chat-window::-webkit-scrollbar-thumb {
+  background-color: #666; /* Set the color of the thumb */
+  border-radius: 8px; /* Set the radius of the thumb */
+}
+
+.note {
+  overflow-wrap: break-word;
+  width: 65%;
+}
+
+.deleteBtn {
+  width: 65%;
+}
+
+.time {
+  width: 25%;
+}
+
+.timeString {
+  text-align: left;
+  font-size: 12px;
+  margin-left: 5px;
+}
+
+.icons > span {
+  cursor: pointer;
+  margin-right: 15px;
 }
