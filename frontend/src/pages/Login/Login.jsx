@@ -33,6 +33,7 @@ const Login = () => {
 
   const [emailError, setEmailError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
+  const location = useLocation();
 
   // Define a function to validate the email input field
   function handleEmail() {
@@ -180,8 +181,8 @@ const Login = () => {
         </p>
       )}
 
-      {!userLoggedIn && (
-        <p className="fs-5 text-center text-danger">Please log in first</p>
+      {location.state && location.state.message && (
+        <p>{location.state.message}</p>
       )}
       <Container>
         <Row className="justify-content-md-center  mx-auto">

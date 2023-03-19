@@ -57,7 +57,7 @@ router.post("/", (req, res) => {
           isLearner: user?.isLearner,
           isCreator: user?.isCreator,
         };
-        const token = jwt.sign(payload, secret, { expiresIn: "24h" });
+        const token = jwt.sign(payload, secret, { expiresIn: "1m" });
 
         res.status(200).send({ user, token });
       }

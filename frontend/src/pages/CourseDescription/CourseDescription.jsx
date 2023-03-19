@@ -46,10 +46,24 @@ const CourseDescription = () => {
   const [name, setName] = useState("");
   const [review, setReview] = useState("");
   const [error, setError] = useState(false);
+  const [userId, setUserId] = useState("");
 
   const token = localStorage.getItem("token");
-  const decoded = jwtDecode(token);
-  const userId = decoded.id;
+  useEffect(() => {
+    try {
+      const decoded = jwtDecode(token);
+      setUserId(decoded.id);
+    } catch (e) {
+      console.log(e);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/login", { state: { message: "Please login first!" } });
+    }
+  }, []);
+
   useEffect(() => {
     setLoading(true);
     fetch(`http://localhost:8000/courses/${Number(id)}`)
