@@ -49,14 +49,9 @@ function App() {
   const navigate = useNavigate();
 
   const loggedInAsLearner = useSelector((state) => state.loggedInAsLearner);
-  // console.log("LOGGED IN AS LEARNER", logInAsLearner);
-  // console.log(logInAsLearner);
+
   const loggedInAsCreator = useSelector((state) => state.creatorLogin);
   const loggedInAsAdmin = useSelector((state) => state.adminLogin);
-
-  console.log("Creator is logged in ", loggedInAsCreator);
-  console.log("Learner is logged in ", loggedInAsCreator);
-  console.log("Admin is logged in ", loggedInAsAdmin);
 
   useEffect(() => {
     if (localStorage.getItem("resettingPassword") !== null) {
