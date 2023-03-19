@@ -149,7 +149,7 @@ const CourseDescription = () => {
     e.preventDefault();
 
     //checking if user has submitted a review
-    const hasSubmittedReview = course.courseReview.some(
+    const hasSubmittedReview = course.courseReview?.some(
       (course) => course.reviewerId === userId
     );
 
