@@ -279,10 +279,13 @@ const CourseView = () => {
       ) : (
         <>
           <div className="bg-light shadow text-center p-2 fs-2 mb-4">
-            <p>
+            <Link
+              to={`/course/${courseData.id}`}
+              className="text-underline courseName"
+            >
               {courseData?.name}
-              &nbsp;&nbsp;<i className="bi bi-person-video3"></i>
-            </p>
+            </Link>
+            &nbsp;&nbsp;<i className="bi bi-person-video3"></i>
           </div>
           <div className="row mb-5">
             <div className="col-md-6">

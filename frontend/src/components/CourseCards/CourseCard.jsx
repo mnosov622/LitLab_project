@@ -5,6 +5,7 @@ import "./CourseCard.scss";
 import { Badge } from "react-bootstrap";
 import jwtDecode from "jwt-decode";
 import Modal from "../Modal/Modal";
+
 const CourseCard = ({
   name,
   image,
@@ -143,17 +144,12 @@ const CourseCard = ({
                 </div>
               )}
               {courseCompleted && (
-                <div className="d-flex justify-content-between">
-                  <div className="text-center bg-primary p-2 rounded">
-                    <Link
-                      to={`/certificate/${id}`}
-                      className="text-center text-light"
-                    >
-                      Show Certificate
-                    </Link>
-                  </div>
-                  <Link to={`/course/${id}`} className="btn btn-success">
-                    Leave a review
+                <div className="text-center bg-primary p-2 rounded">
+                  <Link
+                    to={`/certificate/${id}`}
+                    className="text-center text-light"
+                  >
+                    Show Certificate
                   </Link>
                 </div>
               )}

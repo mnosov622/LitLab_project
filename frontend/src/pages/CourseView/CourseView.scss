@@ -78,3 +78,10 @@
   cursor: pointer;
   margin-right: 15px;
 }
+
+.courseName {
+  color: #0d6efd;
+  &:hover {
+    text-decoration: underline;
+  }
+}
