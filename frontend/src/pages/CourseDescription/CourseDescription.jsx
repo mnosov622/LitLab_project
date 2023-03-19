@@ -81,16 +81,20 @@ const CourseDescription = () => {
       return navigate("/login");
     }
 
-    fetch(`http://localhost:8000/users/${userId}`)
+    const token = localStorage.getItem("token");
+    const decoded = jwtDecode(token);
+
+    fetch(`http://localhost:8000/users/${decoded.id}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log("DATA", data);
+        console.log("data revicev", data.courses);
         setLearnerCourses(data.courses);
-        // learnerCourses.map((course) => {
-        //   if (course.id === Number(id)) {
-        //     setHasCourse(true);
-        //   }
-        // });
+        data.courses.forEach((course) => {
+          if (course.id === Number(id)) {
+            console.log("You already own this course");
+            setHasCourse(true);
+          }
+        });
       });
   }, []);
 
@@ -357,16 +361,24 @@ const CourseDescription = () => {
                 />
 
                 <div className="buttons d-flex flex-column">
-                  <button
-                    className="btn btn-outline-primary btn-lg mt-3"
-                    onClick={addCourseToCart}
-                  >
-                    Add to Cart
-                  </button>
+                  {!hasCourse && (
+                    <button
+                      className="btn btn-outline-primary btn-lg mt-3"
+                      onClick={addCourseToCart}
+                    >
+                      Add to Cart
+                    </button>
+                  )}
+
                   {hasCourse ? (
-                    <p className="fs-4 text-dark text-center">
-                      You already bought this course
-                    </p>
+                    <>
+                      <Link
+                        className="btn btn-lg btn-primary mt-4"
+                        to={`/course-view/${course.id}`}
+                      >
+                        Go to the course
+                      </Link>
+                    </>
                   ) : (
                     <button
                       className="btn btn-primary btn-lg mt-3"
@@ -430,10 +442,15 @@ const CourseDescription = () => {
               {course?.courseContent &&
                 course?.courseContent.map((content, index) => (
                   <p key={index} className="week">
-                    <h3 className="text-primary">Week {index + 1}</h3>
+                    <h3 className="text-primary mt-3 mb-3">
+                      Week {index + 1} <i class="bi bi-calendar-week"></i>
+                    </h3>
                     <ul>
                       {content.week.map((week, i) => (
-                        <li key={i} className="week-item">
+                        <li
+                          key={i}
+                          className="week-item bg-light rounded text-dark w-50 p-3"
+                        >
                           {week}
                         </li>
                       ))}
