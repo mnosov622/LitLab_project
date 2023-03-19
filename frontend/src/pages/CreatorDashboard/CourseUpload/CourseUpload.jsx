@@ -21,6 +21,7 @@ const CourseUpload = () => {
   const [imagePreview, setImagePreview] = useState(null);
 
   const [instructorImage, setInstructorImage] = useState("");
+  const [bio, setBio] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
@@ -47,6 +48,14 @@ const CourseUpload = () => {
     { point: "" },
   ]);
 
+  useEffect(() => {
+    fetch(`http://localhost:8000/users/${decoded.id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setInstructorImage(data.profileImage);
+        setBio(data.bio);
+      });
+  }, []);
   const [summary, setSummary] = useState("");
 
   const onSubmit = async (e) => {
@@ -82,13 +91,11 @@ const CourseUpload = () => {
 
     console.log("response recieved", data);
 
-    fetch(`http://localhost:8000/users/${decoded.id}`)
-      .then((res) => res.json())
-      .then((data) => setInstructorImage(data.profileImage));
+    console.log("profile iamge before sendibg", instructorImage);
 
     const courseData = {
       video: data.video,
-      instructorImageURl: instructorImage,
+      instructorImageURL: instructorImage,
       courseImageURL: data.image.originalname,
       instructorEmail: decoded.email,
       name: nameRef.current.value,
@@ -102,6 +109,7 @@ const CourseUpload = () => {
       pointsSummary: summary,
       test: questions,
       enrollments: 0,
+      instructorBio: bio,
     };
     setLoading(false);
 

@@ -5,7 +5,6 @@ import "./CourseCard.scss";
 import { Badge } from "react-bootstrap";
 import jwtDecode from "jwt-decode";
 import Modal from "../Modal/Modal";
-
 const CourseCard = ({
   name,
   image,
@@ -68,19 +67,21 @@ const CourseCard = ({
         style={{ position: "relative" }}
       >
         {courseCompleted && (
-          <Badge
-            variant="success"
-            className="w-75"
-            style={{
-              fontSize: "20px",
-              position: "absolute",
-              top: 0,
-              right: "12.5%",
-              zIndex: 1,
-            }}
-          >
-            Completed
-          </Badge>
+          <>
+            <Badge
+              variant="success"
+              className="w-75"
+              style={{
+                fontSize: "20px",
+                position: "absolute",
+                top: 0,
+                right: "12.5%",
+                zIndex: 1,
+              }}
+            >
+              Completed
+            </Badge>
+          </>
         )}
 
         <Link to={linkToCourseView ? `/course-view/${id}` : `/course/${id}`}>
@@ -142,12 +143,17 @@ const CourseCard = ({
                 </div>
               )}
               {courseCompleted && (
-                <div className="text-center bg-primary p-2 rounded">
-                  <Link
-                    to={`/certificate/${id}`}
-                    className="text-center text-light"
-                  >
-                    Show Certificate
+                <div className="d-flex justify-content-between">
+                  <div className="text-center bg-primary p-2 rounded">
+                    <Link
+                      to={`/certificate/${id}`}
+                      className="text-center text-light"
+                    >
+                      Show Certificate
+                    </Link>
+                  </div>
+                  <Link to={`/course/${id}`} className="btn btn-success">
+                    Leave a review
                   </Link>
                 </div>
               )}

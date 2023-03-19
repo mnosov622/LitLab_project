@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import { Container, Row, Col, Card, Carousel } from "react-bootstrap";
 import courseImage from "../../assets/courseImage.jpg";
@@ -42,6 +42,7 @@ const CourseDescription = () => {
   const loggedIn = useSelector((state) => state.loggedInAsLearner);
   const itemsInCart = useSelector((state) => state.increaseItemsAmount);
   const [imageSource, setImageSource] = useState("");
+  const [instuctorImageSource, setInstructorImageSource] = useState("");
 
   const [name, setName] = useState("");
   const [review, setReview] = useState("");
@@ -100,6 +101,14 @@ const CourseDescription = () => {
       : `http://localhost:8000/images/${course.courseImageURL}`;
     setImageSource(imageSource);
   }, [course, course?.coureseImageURL]);
+
+  useEffect(() => {
+    console.log(course);
+    const instructorSource = course?.instructorImageURL?.startsWith("https")
+      ? course?.instructorImageURL
+      : `http://localhost:8000/images/${course.instructorImageURL}`;
+    setInstructorImageSource(instructorSource);
+  }, [course, course?.instructorImageURL]);
 
   //TODO: Add all items from object to the cart
   const addCourseToCart = () => {
@@ -450,7 +459,7 @@ const CourseDescription = () => {
                   {course?.instructor}
                 </p>
                 <img
-                  src={course?.instructorImageURL}
+                  src={instuctorImageSource}
                   alt="Instructor profile"
                   className="col-md-4 instructor-image img rounded-circle"
                 />
@@ -589,6 +598,7 @@ const CourseDescription = () => {
                       </p>
                     )}
                     <Button
+                      id="reviews"
                       className="btn_submit"
                       variant="primary"
                       type="submit"
