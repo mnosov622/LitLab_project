@@ -117,13 +117,13 @@ const Modal = ({
             </button>
           </div>
           <div className="modal-body">
-            {body}{" "}
+            {body}
             <span className={editUser || editCourse ? "d-none" : `fw-bold`}>
               {item} ?
             </span>
             {editUser && (
               <>
-              <label htmlFor="name" className="mt-1 mb-1 fw-bold">
+                <label htmlFor="name" className="mt-1 mb-1 fw-bold">
                   Name
                 </label>
                 <input
@@ -135,14 +135,14 @@ const Modal = ({
             )}
             {editUser && (
               <>
-              <label htmlFor="name" className="mt-1 mb-1 fw-bold">
-              Email
-            </label>
-              <input
-                className="form-control"
-                value={userEmail}
-                onChange={(e) => setUserEmail(e.target.value)}
-              />
+                <label htmlFor="name" className="mt-1 mb-1 fw-bold">
+                  Email
+                </label>
+                <input
+                  className="form-control"
+                  value={userEmail}
+                  onChange={(e) => setUserEmail(e.target.value)}
+                />
               </>
             )}
             {editCourse && (
