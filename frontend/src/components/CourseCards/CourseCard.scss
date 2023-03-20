@@ -40,9 +40,9 @@
   transition: height 0.5s;
 }
 
-
 .hover_effect:hover .layer {
   height: 100%;
+  box-shadow: 0 5px 10px 0 rgba($color: #000000, $alpha: 0.2);
 }
 
 .descrition {
