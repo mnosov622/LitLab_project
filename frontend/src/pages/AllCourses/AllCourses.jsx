@@ -57,7 +57,7 @@ const AllCourses = () => {
           height={80}
           width={80}
           color="#0d6efd"
-          wrapperStyle= {{ position: "absolute", left: "50%", top: "40%" }}
+          wrapperStyle={{ position: "absolute", left: "50%", top: "40%" }}
           wrapperClass=""
           visible={true}
           ariaLabel="oval-loading"
@@ -78,6 +78,9 @@ const AllCourses = () => {
                   image={course.courseImageURL}
                   price={course.price}
                   teacherName={course.instructor}
+                  shortDescription={course.shortDescription}
+                  pointsToLearn={course.pointsToLearn}
+                  allCourses
                 />
               </div>
             ))}

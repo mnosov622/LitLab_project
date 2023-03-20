@@ -5,6 +5,7 @@ import "./CourseCard.scss";
 import { Badge } from "react-bootstrap";
 import jwtDecode from "jwt-decode";
 import Modal from "../Modal/Modal";
+import { useAlert, positions } from "react-alert";
 
 const CourseCard = ({
   name,
@@ -23,10 +24,15 @@ const CourseCard = ({
   deleteBtn,
   removable,
   courseImageURL,
+  allCourses,
+  shortDescription,
+  pointsToLearn,
 }) => {
   const [imageSource, setImageSource] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [singlCourse, setSinglCourse] = useState([]);
+
+  const alert = useAlert();
 
   const handleRemove = (id) => (e) => {
     e.preventDefault();
@@ -34,6 +40,7 @@ const CourseCard = ({
   };
 
   useEffect(() => {
+    console.log("short", shortDescription);
     const imageSource = courseImage?.startsWith("https")
       ? courseImage
       : `http://localhost:8000/images/${courseImage}`;
@@ -52,6 +59,36 @@ const CourseCard = ({
     setShowModal(false);
   };
 
+  const handleAddToCart = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const cartItems = JSON.parse(localStorage.getItem("shopping_cart")) || [];
+    const existingItem = cartItems.find((item) => item.id === id);
+
+    if (existingItem) {
+      alert.error("Item exists in cart", {
+        position: positions.BOTTOM_RIGHT,
+        timeout: 2000,
+      });
+      return;
+    }
+
+    const newItem = {
+      id: id,
+      name: name,
+      instructor: teacherName,
+      price: price,
+      courseImageURL: courseImage,
+    };
+
+    cartItems.push(newItem);
+    alert.success("Item added to cart", {
+      position: positions.BOTTOM_RIGHT,
+      timeout: 2000, // custom timeout just for this one alert
+    });
+
+    localStorage.setItem("shopping_cart", JSON.stringify(cartItems));
+  };
   return (
     <>
       {showModal && (
@@ -86,68 +123,54 @@ const CourseCard = ({
         )}
 
         <Link to={linkToCourseView ? `/course-view/${id}` : `/course/${id}`}>
-
           <div
-            className="card-item border position-relative hover_effect"
+            className={
+              allCourses
+                ? "card-item border position-relative hover_effect"
+                : "border"
+            }
             style={{ position: "relative" }}
           >
-            <div className="layer description">
-              <div className="descrition">Learn git configuration, commit, branching, merging, contributing and collaboration with other's project</div>
-              <span className="layer_point" style={{ color: "white"}}>
-              <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              >
-              <path
-              d="M21 7L9 19L3.5 13.5L4.91 12.09L9 16.17L19.59 5.59L21 7Z"
-              fill="#FFFFFF"
-              />
-              </svg>
-              Variables and data types in Javascript
-              </span>
-              
-              <span className="layer_point" style={{ color: "white"}}>
-              <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              >
-              <path
-              d="M21 7L9 19L3.5 13.5L4.91 12.09L9 16.17L19.59 5.59L21 7Z"
-              fill="#FFFFFF"
-              />
-              </svg>
-              Control structures and loops in Javascript
-              </span>
-              <span className="layer_point" style={{ color: "white"}}>
-              <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              >
-              <path
-              d="M21 7L9 19L3.5 13.5L4.91 12.09L9 16.17L19.59 5.59L21 7Z"
-              fill="#FFFFFF"
-              />
-              </svg>
-              Functions and objects in Javascript
-              </span>
-              <button
-              className="btn btn-outline-primary btn-lg mt-3 btn-light"
-              //onClick={addCourseToCart}
-              >
-              Add to Cart
-              </button>
-            </div>
+            {allCourses && (
+              <div className={allCourses ? "layer description" : ""}>
+                <div className="descrition">{shortDescription}</div>
+                {pointsToLearn &&
+                  pointsToLearn.map((point) => (
+                    <div className="d-flex  points">
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M21 7L9 19L3.5 13.5L4.91 12.09L9 16.17L19.59 5.59L21 7Z"
+                          fill="#FFFFFF"
+                        />
+                      </svg>
+                      <span
+                        className="layer_point m-auto"
+                        style={{ color: "white" }}
+                      >
+                        {point.point}
+                      </span>
+                    </div>
+                  ))}
 
-            
+                {allCourses && (
+                  <button
+                    className={
+                      "btn btn-outline-primary btn-lg mt-3 btn-light addBtn"
+                    }
+                    onClick={handleAddToCart}
+                  >
+                    Add to Cart
+                  </button>
+                )}
+              </div>
+            )}
+
             {creatorCourseImage && (
               <img
                 src={creatorCourseImage}
