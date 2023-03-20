@@ -429,7 +429,6 @@ const CourseDescription = () => {
                         </>
                       ))}
                   </div>
-
                   <p className="mt-5 fw-bold fs-5">{course?.pointsSummary}</p>
                 </div>
               </div>

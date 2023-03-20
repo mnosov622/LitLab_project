@@ -91,9 +91,58 @@ const CourseCard = ({
             className="card-item border position-relative hover_effect"
             style={{ position: "relative" }}
           >
-            <div className="layer">
-              <div className="descrition">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti ipsum delectus officiis voluptas eos pariatur, expedita numquam quisquam ut fugit id quas soluta exercitationem aperiam aut atque eaque, et quidem!</div>
+            <div className="layer description">
+              <div className="descrition">Learn git configuration, commit, branching, merging, contributing and collaboration with other's project</div>
+              <span className="layer_point" style={{ color: "white"}}>
+              <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              >
+              <path
+              d="M21 7L9 19L3.5 13.5L4.91 12.09L9 16.17L19.59 5.59L21 7Z"
+              fill="#FFFFFF"
+              />
+              </svg>
+              Variables and data types in Javascript
+              </span>
+              
+              <span className="layer_point" style={{ color: "white"}}>
+              <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              >
+              <path
+              d="M21 7L9 19L3.5 13.5L4.91 12.09L9 16.17L19.59 5.59L21 7Z"
+              fill="#FFFFFF"
+              />
+              </svg>
+              Control structures and loops in Javascript
+              </span>
+              <span className="layer_point" style={{ color: "white"}}>
+              <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              >
+              <path
+              d="M21 7L9 19L3.5 13.5L4.91 12.09L9 16.17L19.59 5.59L21 7Z"
+              fill="#FFFFFF"
+              />
+              </svg>
+              Functions and objects in Javascript
+              </span>
+
             </div>
+
+            
             {creatorCourseImage && (
               <img
                 src={creatorCourseImage}
