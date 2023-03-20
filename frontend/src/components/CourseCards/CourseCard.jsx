@@ -139,7 +139,12 @@ const CourseCard = ({
               </svg>
               Functions and objects in Javascript
               </span>
-
+              <button
+              className="btn btn-outline-primary btn-lg mt-3 btn-light"
+              //onClick={addCourseToCart}
+              >
+              Add to Cart
+              </button>
             </div>
 
             
