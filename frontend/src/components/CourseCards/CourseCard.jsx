@@ -86,10 +86,14 @@ const CourseCard = ({
         )}
 
         <Link to={linkToCourseView ? `/course-view/${id}` : `/course/${id}`}>
+
           <div
-            className="card-item border position-relative"
+            className="card-item border position-relative hover_effect"
             style={{ position: "relative" }}
           >
+            <div className="layer">
+              <div className="descrition">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Deleniti ipsum delectus officiis voluptas eos pariatur, expedita numquam quisquam ut fugit id quas soluta exercitationem aperiam aut atque eaque, et quidem!</div>
+            </div>
             {creatorCourseImage && (
               <img
                 src={creatorCourseImage}
