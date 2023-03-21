@@ -114,7 +114,6 @@ const CourseDescription = () => {
     setInstructorImageSource(instructorSource);
   }, [course, course?.instructorImageURL]);
 
-  //TODO: Add all items from object to the cart
   const addCourseToCart = () => {
     //Checking if added item exists in cart, if so, then show error, otherwise add item to cart
     const existingItem = cart.find((item) => item.id === singleCourse.id);
