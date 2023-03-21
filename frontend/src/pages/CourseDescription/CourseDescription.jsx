@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import { Container, Row, Col, Card, Carousel } from "react-bootstrap";
 import courseImage from "../../assets/courseImage.jpg";
@@ -42,14 +42,29 @@ const CourseDescription = () => {
   const loggedIn = useSelector((state) => state.loggedInAsLearner);
   const itemsInCart = useSelector((state) => state.increaseItemsAmount);
   const [imageSource, setImageSource] = useState("");
+  const [instuctorImageSource, setInstructorImageSource] = useState("");
 
   const [name, setName] = useState("");
   const [review, setReview] = useState("");
   const [error, setError] = useState(false);
+  const [userId, setUserId] = useState("");
 
   const token = localStorage.getItem("token");
-  const decoded = jwtDecode(token);
-  const userId = decoded.id;
+  useEffect(() => {
+    try {
+      const decoded = jwtDecode(token);
+      setUserId(decoded.id);
+    } catch (e) {
+      console.log(e);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!token) {
+      navigate("/login", { state: { message: "Please login first!" } });
+    }
+  }, []);
+
   useEffect(() => {
     setLoading(true);
     fetch(`http://localhost:8000/courses/${Number(id)}`)
@@ -66,16 +81,20 @@ const CourseDescription = () => {
       return navigate("/login");
     }
 
-    fetch(`http://localhost:8000/users/${userId}`)
+    const token = localStorage.getItem("token");
+    const decoded = jwtDecode(token);
+
+    fetch(`http://localhost:8000/users/${decoded.id}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log("DATA", data);
+        console.log("data revicev", data.courses);
         setLearnerCourses(data.courses);
-        // learnerCourses.map((course) => {
-        //   if (course.id === Number(id)) {
-        //     setHasCourse(true);
-        //   }
-        // });
+        data.courses.forEach((course) => {
+          if (course.id === Number(id)) {
+            console.log("You already own this course");
+            setHasCourse(true);
+          }
+        });
       });
   }, []);
 
@@ -86,6 +105,14 @@ const CourseDescription = () => {
       : `http://localhost:8000/images/${course.courseImageURL}`;
     setImageSource(imageSource);
   }, [course, course?.coureseImageURL]);
+
+  useEffect(() => {
+    console.log(course);
+    const instructorSource = course?.instructorImageURL?.startsWith("https")
+      ? course?.instructorImageURL
+      : `http://localhost:8000/images/${course.instructorImageURL}`;
+    setInstructorImageSource(instructorSource);
+  }, [course, course?.instructorImageURL]);
 
   //TODO: Add all items from object to the cart
   const addCourseToCart = () => {
@@ -149,7 +176,7 @@ const CourseDescription = () => {
     e.preventDefault();
 
     //checking if user has submitted a review
-    const hasSubmittedReview = course.courseReview.some(
+    const hasSubmittedReview = course.courseReview?.some(
       (course) => course.reviewerId === userId
     );
 
@@ -205,6 +232,15 @@ const CourseDescription = () => {
   useEffect(() => {
     localStorage.setItem("shopping_cart", JSON.stringify(cartItems));
   }, [cartItems]);
+  const [showAllReviews, setShowAllReviews] = useState(false);
+
+  const handleShowAllReviews = () => {
+    setShowAllReviews(true);
+  };
+
+  const handleHideAllReviews = () => {
+    setShowAllReviews(false);
+  };
 
   return (
     <div className={loading && "bottom"}>
@@ -325,16 +361,24 @@ const CourseDescription = () => {
                 />
 
                 <div className="buttons d-flex flex-column">
-                  <button
-                    className="btn btn-outline-primary btn-lg mt-3"
-                    onClick={addCourseToCart}
-                  >
-                    Add to Cart
-                  </button>
+                  {!hasCourse && (
+                    <button
+                      className="btn btn-outline-primary btn-lg mt-3"
+                      onClick={addCourseToCart}
+                    >
+                      Add to Cart
+                    </button>
+                  )}
+
                   {hasCourse ? (
-                    <p className="fs-4 text-dark text-center">
-                      You already bought this course
-                    </p>
+                    <>
+                      <Link
+                        className="btn btn-lg btn-primary mt-4"
+                        to={`/course-view/${course.id}`}
+                      >
+                        Go to the course
+                      </Link>
+                    </>
                   ) : (
                     <button
                       className="btn btn-primary btn-lg mt-3"
@@ -385,7 +429,6 @@ const CourseDescription = () => {
                         </>
                       ))}
                   </div>
-
                   <p className="mt-5 fw-bold fs-5">{course?.pointsSummary}</p>
                 </div>
               </div>
@@ -398,10 +441,15 @@ const CourseDescription = () => {
               {course?.courseContent &&
                 course?.courseContent.map((content, index) => (
                   <p key={index} className="week">
-                    <h3 className="text-primary">Week {index + 1}</h3>
+                    <h3 className="text-primary mt-3 mb-3">
+                      Week {index + 1} <i class="bi bi-calendar-week"></i>
+                    </h3>
                     <ul>
                       {content.week.map((week, i) => (
-                        <li key={i} className="week-item">
+                        <li
+                          key={i}
+                          className="week-item bg-light rounded text-dark w-50 p-3"
+                        >
                           {week}
                         </li>
                       ))}
@@ -427,12 +475,12 @@ const CourseDescription = () => {
                   {course?.instructor}
                 </p>
                 <img
-                  src={course?.instructorImageURL}
+                  src={instuctorImageSource}
                   alt="Instructor profile"
-                  className="col-md-4 instructor-image"
+                  className="col-md-4 instructor-image img rounded-circle"
                 />
 
-                <p className="col-md-8 creator-description ">
+                <p className="col-md-7 creator-description ">
                   {course?.instructorBio}
                 </p>
               </div>
@@ -446,21 +494,53 @@ const CourseDescription = () => {
                 <Col xs={7}>
                   {course &&
                     course.courseReview &&
-                    course.courseReview.map((review) => (
-                      <div
-                        className="previous-reviews mb-3 p-3"
-                        key={review.id}
+                    course.courseReview
+                      .slice(0, showAllReviews ? course.courseReview.length : 3)
+                      .map((review) => (
+                        <div
+                          className="previous-reviews mb-3 p-3"
+                          key={review.id}
+                        >
+                          <h4>{review.name}</h4>
+                          <p>
+                            Rating :{" "}
+                            {Array.from({ length: review.star }, (_, i) => (
+                              <span key={i}>⭐️</span>
+                            ))}
+                          </p>
+                          <p>{review.review} </p>
+                        </div>
+                      ))}
+                  {!showAllReviews &&
+                  course.courseReview &&
+                  course.courseReview?.length > 3 ? (
+                    <div className="text-center">
+                      <button
+                        onClick={handleShowAllReviews}
+                        className="btn btn-primary mb-3 w-100"
                       >
-                        <h4>{review.name}</h4>
-                        <p>
-                          Rating :{" "}
-                          {Array.from({ length: review.star }, (_, i) => (
-                            <span key={i}>⭐️</span>
-                          ))}
-                        </p>
-                        <p>{review.review} </p>
-                      </div>
-                    ))}
+                        Show more reviews
+                      </button>
+                    </div>
+                  ) : showAllReviews &&
+                    course.courseReview &&
+                    course.courseReview?.length > 3 ? (
+                    <div className="text-center">
+                      <button
+                        onClick={handleHideAllReviews}
+                        className="btn btn-primary mb-3 w-100"
+                      >
+                        Hide reviews
+                      </button>
+                    </div>
+                  ) : course.courseReview?.length === 0 ||
+                    !course.courseReview ? (
+                    <p className="text-primary fs-3">
+                      Be the first one to leave a review!
+                    </p>
+                  ) : (
+                    ""
+                  )}
                 </Col>
                 <Col>
                   <Form
@@ -534,6 +614,7 @@ const CourseDescription = () => {
                       </p>
                     )}
                     <Button
+                      id="reviews"
                       className="btn_submit"
                       variant="primary"
                       type="submit"

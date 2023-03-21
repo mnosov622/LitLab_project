@@ -49,14 +49,9 @@ function App() {
   const navigate = useNavigate();
 
   const loggedInAsLearner = useSelector((state) => state.loggedInAsLearner);
-  // console.log("LOGGED IN AS LEARNER", logInAsLearner);
-  // console.log(logInAsLearner);
+
   const loggedInAsCreator = useSelector((state) => state.creatorLogin);
   const loggedInAsAdmin = useSelector((state) => state.adminLogin);
-
-  console.log("Creator is logged in ", loggedInAsCreator);
-  console.log("Learner is logged in ", loggedInAsCreator);
-  console.log("Admin is logged in ", loggedInAsAdmin);
 
   useEffect(() => {
     if (localStorage.getItem("resettingPassword") !== null) {
@@ -66,29 +61,37 @@ function App() {
     localStorage.removeItem("resettingPassword");
 
     if (localStorage.getItem("token") === null) {
-      return navigate("/");
+      return navigate("/login");
     }
 
     const token = localStorage.getItem("token");
-    console.log("TOKEN is", token);
-    const decoded = jwtDecode(token);
-    console.log("decoded", decoded?.isAdmin);
 
-    if (token) {
-      if (decoded?.isLearner) {
-        console.log("logged in as learner");
-        dispatch(logInAsLearner());
-      } else if (decoded?.isCreator) {
-        console.log("logged in as creator");
-        dispatch(logInAsCreator());
-      } else if (decoded?.isAdmin) {
-        console.log("logged in as admin");
-        dispatch(loginAsAdmin());
+    if (!token) {
+      return navigate("/");
+    }
+    try {
+      const decoded = jwtDecode(token);
+      console.log("decoded", decoded?.exp);
+
+      if (decoded.exp * 1000 < Date.now()) {
+        localStorage.removeItem("token");
+        navigate("/login");
       } else {
-        console.log("not logged in");
+        if (decoded?.isLearner) {
+          console.log("logged in as learner");
+          dispatch(logInAsLearner());
+        } else if (decoded?.isCreator) {
+          console.log("logged in as creator");
+          dispatch(logInAsCreator());
+        } else if (decoded?.isAdmin) {
+          console.log("logged in as admin");
+          dispatch(loginAsAdmin());
+        } else {
+          console.log("not logged in");
+        }
       }
-    } else {
-      console.log("no token");
+    } catch (err) {
+      console.error(err);
     }
   }, []);
 

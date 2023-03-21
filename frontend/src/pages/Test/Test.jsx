@@ -97,6 +97,20 @@ const Test = () => {
     }
   }, [totalQuestions, correctAnswers]);
 
+  useEffect(() => {
+    if (question.length === 0) {
+      fetch(`http://localhost:8000/users/${userEmail}/courses/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userEmail: userEmail,
+          courseId: id,
+        }),
+      });
+    }
+  }, []);
   setTimeout(() => {
     setIsRunning(false);
   }, 3000);
@@ -129,10 +143,28 @@ const Test = () => {
         />
       ) : (
         <>
-          <p className="fs-1 text-center mb-5 d-flex justify-content-center align-items-center text-primary">
-            Complete a test to get certificate &nbsp;&nbsp;
-            <i className="bi bi-patch-check"></i>
-          </p>
+          {question.length > 0 ? (
+            <p className="fs-1 text-center mb-5 d-flex justify-content-center align-items-center text-primary">
+              Complete a test to get certificate &nbsp;&nbsp;
+              <i className="bi bi-patch-check"></i>
+            </p>
+          ) : (
+            <>
+              <p className="fs-1 text-center mb-5 d-flex justify-content-center align-items-center text-primary">
+                Content Creator didn't create a test
+              </p>
+              <div className="text-center">
+                <Link
+                  to={`/certificate/${id}`}
+                  role="button"
+                  className="btn btn-primary btn-lg mb-3"
+                >
+                  Get Certificate
+                </Link>
+              </div>
+            </>
+          )}
+
           {question.map((question, index) => (
             <>
               <Question

@@ -15,8 +15,13 @@ import testImage from "../../../assets/test.png";
 
 const CourseUpload = () => {
   const [video, setVideo] = useState(null);
+  const [videoPreview, setVideoPreview] = useState(null);
+
   const [image, setImage] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
+
   const [instructorImage, setInstructorImage] = useState("");
+  const [bio, setBio] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
@@ -43,6 +48,14 @@ const CourseUpload = () => {
     { point: "" },
   ]);
 
+  useEffect(() => {
+    fetch(`http://localhost:8000/users/${decoded.id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setInstructorImage(data.profileImage);
+        setBio(data.bio);
+      });
+  }, []);
   const [summary, setSummary] = useState("");
 
   const onSubmit = async (e) => {
@@ -78,13 +91,11 @@ const CourseUpload = () => {
 
     console.log("response recieved", data);
 
-    fetch(`http://localhost:8000/users/${decoded.id}`)
-      .then((res) => res.json())
-      .then((data) => setInstructorImage(data.profileImage));
+    console.log("profile iamge before sendibg", instructorImage);
 
     const courseData = {
       video: data.video,
-      instructorImageURl: instructorImage,
+      instructorImageURL: instructorImage,
       courseImageURL: data.image.originalname,
       instructorEmail: decoded.email,
       name: nameRef.current.value,
@@ -98,6 +109,7 @@ const CourseUpload = () => {
       pointsSummary: summary,
       test: questions,
       enrollments: 0,
+      instructorBio: bio,
     };
     setLoading(false);
 
@@ -122,10 +134,12 @@ const CourseUpload = () => {
 
   const onChange = (e) => {
     setVideo(e.target.files[0]);
+    setVideoPreview(URL.createObjectURL(e.target.files[0]));
   };
 
   const handleImageChange = (event) => {
     setImage(event.target.files[0]);
+    setImagePreview(URL.createObjectURL(event.target.files[0]));
   };
 
   const handleChange = (index, event) => {
@@ -237,6 +251,15 @@ const CourseUpload = () => {
                   className="input-file"
                 />
               </div>
+              {videoPreview && (
+                <div className="mb-5">
+                  <p className="text-primary mt-5 fs-1">Preview video</p>
+                  <video controls className="video-preview">
+                    <source src={videoPreview} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              )}
             </div>
             <div className="upload-item">
               <h3 className="fs-2 text-primary">Upload a course image</h3>
@@ -252,6 +275,16 @@ const CourseUpload = () => {
                   className="input-file"
                 />
               </div>
+              {imagePreview && (
+                <div className="mb-5">
+                  <p className="text-primary mt-5 fs-1">Preview image</p>
+                  <img
+                    src={imagePreview}
+                    className="image-preview"
+                    alt="preview"
+                  />
+                </div>
+              )}
             </div>
             <h3 className="mt-3 text-primary">
               Specify what people will learn:
