@@ -515,7 +515,11 @@ const CourseView = () => {
                               value={emailAddress}
                               onChange={(e) => setEmailAddress(e.target.value)}
                               required
+                              pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                             />
+                            <div className="invalid-feedback">
+                              Please enter a valid email address.
+                            </div>
                           </div>
                           <div className="mb-3">
                             <label
@@ -531,7 +535,12 @@ const CourseView = () => {
                               value={emailSubject}
                               onChange={(e) => setEmailSubject(e.target.value)}
                               required
+                              pattern="[A-Za-z]+"
+                              title="Please enter letters only"
                             />
+                            <div className="invalid-feedback">
+                              Please enter letters only.
+                            </div>
                           </div>
                           <div className="mb-3">
                             <label htmlFor="emailBody" className="form-label">
@@ -544,6 +553,9 @@ const CourseView = () => {
                               onChange={(e) => setEmailBody(e.target.value)}
                               required
                             />
+                            <div className="invalid-feedback">
+                              Please enter your feedback.
+                            </div>
                           </div>
                           <button type="submit" className="btn btn-primary">
                             Send
