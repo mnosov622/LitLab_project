@@ -18,11 +18,10 @@ const LearnerCourses = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState(null);
 
-
   function handleRemoveCourse(course) {
     fetch(`http://localhost:8000/users/${userId}/courses`, {
-        method: "DELETE",
-      }).then((res) => console.log(res));
+      method: "DELETE",
+    }).then((res) => console.log(res));
     setSelectedCourse(null);
     setShowModal(false);
   }
@@ -45,7 +44,7 @@ const LearnerCourses = () => {
         .then((data) => setCourses(data.courses));
       setLoader(false);
     }
-  }, [courses]);
+  }, []);
 
   /*const handleRemove = () => {
     console.log("remove all");
@@ -130,12 +129,14 @@ const LearnerCourses = () => {
           <button className="btn btn-danger" onClick={handleShowModal}>
             Remove all courses
           </button>
-          {showModal && <Modal
+          {showModal && (
+            <Modal
               title="Confirm Action"
               body={`Are you sure you want to remove all courses`}
               onConfirm={handleRemoveCourse}
               onCancel={handleCloseModal}
-            />}
+            />
+          )}
         </div>
       </>
     );
