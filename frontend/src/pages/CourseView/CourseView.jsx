@@ -236,7 +236,6 @@ const CourseView = () => {
     setIsFinished(true);
     console.log("video is done");
   };
-  
 
   useEffect(() => {
     window.addEventListener("message", (e) => {
@@ -262,18 +261,16 @@ const CourseView = () => {
     console.log("tab clicked");
   };
   const [emailAddress, setEmailAddress] = useState("");
-const [emailSubject, setEmailSubject] = useState("");
-const [emailBody, setEmailBody] = useState("");
+  const [emailSubject, setEmailSubject] = useState("");
+  const [emailBody, setEmailBody] = useState("");
 
-const handleEmailSubmit = (e) => {
-  e.preventDefault();
-  console.log(`Sending email to ${emailAddress}`);
-  console.log(`Subject: ${emailSubject}`);
-  console.log(`Body: ${emailBody}`);
-  // Add logic to send email here
-}
-
-
+  const handleEmailSubmit = (e) => {
+    e.preventDefault();
+    console.log(`Sending email to ${emailAddress}`);
+    console.log(`Subject: ${emailSubject}`);
+    console.log(`Body: ${emailBody}`);
+    // Add logic to send email here
+  };
 
   return (
     <div className={loading && "bottom"}>
@@ -494,35 +491,68 @@ const handleEmailSubmit = (e) => {
                     </div>
                   </form>
                 </Tab>
-                <Tab eventKey="email" title="Email">
-  <div className="my-3">
-    <Row>
-      <Col>
-        <h1>Send Email</h1>
-      </Col>
-    </Row>
-    <Row>
-      <Col md={8}>
-        <form onSubmit={handleEmailSubmit}>
-          <div className="mb-3">
-            <label htmlFor="emailAddress" className="form-label">Email Address</label>
-            <input type="email" className="form-control" id="emailAddress" value={emailAddress} onChange={(e) => setEmailAddress(e.target.value)} required />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="emailSubject" className="form-label">Subject</label>
-            <input type="text" className="form-control" id="emailSubject" value={emailSubject} onChange={(e) => setEmailSubject(e.target.value)} required />
-          </div>
-          <div className="mb-3">
-            <label htmlFor="emailBody" className="form-label">Body</label>
-            <textarea className="form-control" id="emailBody" value={emailBody} onChange={(e) => setEmailBody(e.target.value)} required />
-          </div>
-          <button type="submit" className="btn btn-primary">Send</button>
-        </form>
-      </Col>
-    </Row>
-  </div>
-</Tab>
-
+                <Tab eventKey="email" title="Send Feedback">
+                  <div className="my-3">
+                    <Row>
+                      <Col>
+                        <h1>Send Feedback</h1>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col md={8}>
+                        <form onSubmit={handleEmailSubmit}>
+                          <div className="mb-3">
+                            <label
+                              htmlFor="emailAddress"
+                              className="form-label"
+                            >
+                              Email Address
+                            </label>
+                            <input
+                              type="email"
+                              className="form-control"
+                              id="emailAddress"
+                              value={emailAddress}
+                              onChange={(e) => setEmailAddress(e.target.value)}
+                              required
+                            />
+                          </div>
+                          <div className="mb-3">
+                            <label
+                              htmlFor="emailSubject"
+                              className="form-label"
+                            >
+                              Your Name
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="emailSubject"
+                              value={emailSubject}
+                              onChange={(e) => setEmailSubject(e.target.value)}
+                              required
+                            />
+                          </div>
+                          <div className="mb-3">
+                            <label htmlFor="emailBody" className="form-label">
+                              Feedback
+                            </label>
+                            <textarea
+                              className="form-control"
+                              id="emailBody"
+                              value={emailBody}
+                              onChange={(e) => setEmailBody(e.target.value)}
+                              required
+                            />
+                          </div>
+                          <button type="submit" className="btn btn-primary">
+                            Send
+                          </button>
+                        </form>
+                      </Col>
+                    </Row>
+                  </div>
+                </Tab>
               </Tabs>
             </div>
           </div>
