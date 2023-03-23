@@ -132,10 +132,7 @@ const CourseUpload = () => {
     console.log("created course", createdCourse);
   };
 
-  const onChange = (e) => {
-    setVideo(e.target.files[0]);
-    setVideoPreview(URL.createObjectURL(e.target.files[0]));
-  };
+ 
 
   const handleImageChange = (event) => {
     setImage(event.target.files[0]);
@@ -256,6 +253,43 @@ const CourseUpload = () => {
     }
   };
 
+//validating video file uploaded
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  function videoChange(event) {
+    const file = event.target.files[0];
+    setSelectedFile(file);
+    validateVideo(file);
+  }
+
+  function validateVideo(file) {
+    const allowedTypes = ["video/mp4", "video/mpeg", "video/quicktime", "video/mov"];
+    const maxFileSize = 100 * 1024 * 1024; // 100 MB
+
+    if (!allowedTypes.includes(file.type)) {
+      setErrorMessage("Invalid file type. Please upload an MP4, MPEG, MOV, or QuickTime video.");
+      setSelectedFile(null);
+      return;
+    }
+
+    if (file.size > maxFileSize) {
+      setErrorMessage("File size exceeds 100 MB. Please upload a smaller video.");
+      setSelectedFile(null);
+      return;
+    }
+
+    if (!/\.mp4$|\.mpeg$|\.mov$|\.quicktime$/i.test(file.name)) {
+      setErrorMessage("Invalid file type. Please upload an MP4, MPEG, MOV, or QuickTime video.");
+      setSelectedFile(null);
+      return;
+    }
+
+    setErrorMessage('');
+    setSelectedFile(file);
+  }
+
+
   return (
     <>
       {" "}
@@ -274,12 +308,14 @@ const CourseUpload = () => {
                 </p>
                 <input
                   type="file"
-                  onChange={onChange}
+                  onChange={videoChange}
                   required
                   id="video"
                   className="input-file"
                 />
               </div>
+              {errorMessage && (<div className="text-danger mt-2">{errorMessage}</div>)}
+
               {videoPreview && (
                 <div className="mb-5">
                   <p className="text-primary mt-5 fs-1">Preview video</p>
