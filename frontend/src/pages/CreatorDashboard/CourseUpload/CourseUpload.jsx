@@ -253,7 +253,7 @@ const CourseUpload = () => {
     }
   };
 
-//validating video file uploaded
+//validating uploaded video file
   const [selectedFile, setSelectedFile] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -289,6 +289,43 @@ const CourseUpload = () => {
     setSelectedFile(file);
   }
 
+//validating uploaded image file
+  const [imageFile, setImageFile] = useState(null);
+  const [imageErrorMsg, setImageErrorMsg] = useState('');
+
+  function imageChange(event) {
+    const file = event.target.files[0];
+
+    if (!file) {
+      setImageErrorMsg("Please select a file to upload.");
+      setImageFile(null);
+      return;
+    }
+
+    const allowedTypes = ["image/png", "image/jpeg", "image/jpg", "image/tif", "image/tiff"];
+    const maxFileSize = 10 * 1024 * 1024; // 10 MB
+
+    if (!allowedTypes.includes(file.type)) {
+      setImageErrorMsg("Invalid file type. Please upload a PNG, JPEG, TIF OR TIFF image.");
+      setImageFile(null);
+      return;
+    }
+
+    if (file.size > maxFileSize) {
+      setImageErrorMsg("File size exceeds 10 MB. Please upload a smaller image.");
+      setImageFile(null);
+      return;
+    }
+
+    if (!/\.(png|jpe?g|tif|tiff)$/i.test(file.name)) {
+      setImageErrorMsg("Invalid file type. Please upload a PNG, JPEG, TIF OR TIFF image.");
+      setImageFile(null);
+      return;
+    }
+
+    setImageErrorMsg('');
+    setImageFile(file);
+  }
 
   return (
     <>
@@ -334,12 +371,14 @@ const CourseUpload = () => {
                 </p>
                 <input
                   type="file"
-                  onChange={handleImageChange}
+                  onChange={imageChange}
                   required
                   id="photo"
                   className="input-file"
                 />
               </div>
+              {imageErrorMsg && (<div className="text-danger mt-2">{imageErrorMsg}</div>)}
+
               {imagePreview && (
                 <div className="mb-5">
                   <p className="text-primary mt-5 fs-1">Preview image</p>
