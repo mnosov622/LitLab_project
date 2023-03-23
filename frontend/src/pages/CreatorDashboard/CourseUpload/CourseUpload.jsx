@@ -191,27 +191,56 @@ const CourseUpload = () => {
     console.log("Q", questions);
   };
 
-  /*
+  
   // Define state variables for the input values and validation errors
   const [courseNameError, setCourseNameError] = useState(null);
   const [priceError, setPriceError] = useState(null);
+  const [shortDesError, setShortDesError] = useState(null);
+  const [longDesError, setLongDesError] = useState(null);
+
 
   function handleCourseName() {
-    // Ensure the subject contains only valid characters
-    if (!/^[a-zA-Z\s]*$/.test(nameRef)) {
-      return setCourseNameError("Course Name can only contain letters and spaces.");
+    const name = nameRef.current.value.trim();
+    if (!name) {
+      setCourseNameError('Please enter a course name');
+    } else if (/\d/.test(name)) {
+      setCourseNameError('Course name cannot contain numbers');
     }
-    return setCourseNameError(null);
-  }
+    else {
+      setCourseNameError(null);
+    }
+  };
 
   function handlePrice() {
-    // Ensure the subject contains only valid characters
-    if (!/^[0-9]+$/.test(priceRef)) {
-      return setPriceError("Price can only contain numbers.");
+    const price = priceRef.current.value.trim();
+    if (!price) {
+      setPriceError('Please enter a price');
+    } else if (!/^\d+$/.test(price)) {
+      setPriceError('Price must be a valid number');
+    } else {
+      setPriceError(null);
     }
-    return setPriceError(null);
-  }
-*/
+  };
+
+  function handleShortDes() {
+    const shortDes = shortDescr.current.value.trim();
+    if (!shortDes) {
+      setShortDesError('Please enter short description');
+    } 
+     else {
+      setShortDesError(null);
+    }
+  };
+
+  function handleLongDes() {
+    const longDes = longDescr.current.value.trim();
+    if (!longDes) {
+      setLongDesError('Please enter long description');
+    } 
+     else {
+      setLongDesError(null);
+    }
+  };
 
   return (
     <>
@@ -288,11 +317,11 @@ const CourseUpload = () => {
                 className="form-control"
                 id="floatingName"
                 placeholder="Name"
-                //onKeyUp={handleCourseName}
+                onKeyUp={handleCourseName}
                 autoFocus
               />
               <label for="floatingName">Name</label>
-              {/*{courseNameError && (<div className="text-danger mt-2">{courseNameError}</div>)}*/}
+              {courseNameError && (<div className="text-danger mt-2">{courseNameError}</div>)}
             </div>
 
             <div className="form-floating mb-3">
@@ -302,11 +331,11 @@ const CourseUpload = () => {
                 className="form-control"
                 id="floatingPrice"
                 placeholder="Price"
-                //onKeyUp={handlePrice}
+                onKeyUp={handlePrice}
                 required
               />
               <label for="floatingPrice">Price</label>
-              {/*{priceError && (<div className="text-danger mt-2">{priceError}</div>)}*/}
+              {priceError && (<div className="text-danger mt-2">{priceError}</div>)}
             </div>
 
             <div className="form-floating mb-3">
@@ -316,9 +345,11 @@ const CourseUpload = () => {
                 className="form-control"
                 id="floatingDescription"
                 placeholder="Description"
+                onKeyUp={handleShortDes}
                 required
               />
               <label for="floatingDescription">Short Description</label>
+              {shortDesError && (<div className="text-danger mt-2">{shortDesError}</div>)}
             </div>
             <div className="form-floating mb-3">
               <input
@@ -327,9 +358,11 @@ const CourseUpload = () => {
                 className="form-control"
                 id="floatingDescription"
                 placeholder="Description"
+                onKeyUp={handleLongDes}
                 required
               />
               <label for="floatingDescription">Long Description</label>
+              {longDesError && (<div className="text-danger mt-2">{longDesError}</div>)}
             </div>
             <h2 className="text-primary">Course Content</h2>
             {weeks.map((week, index) => (
