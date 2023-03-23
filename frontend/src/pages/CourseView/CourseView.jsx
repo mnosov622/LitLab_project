@@ -263,6 +263,7 @@ const CourseView = () => {
   const [emailAddress, setEmailAddress] = useState("");
   const [emailSubject, setEmailSubject] = useState("");
   const [emailBody, setEmailBody] = useState("");
+  const [EmailError, setEmailError] = useState("");
 
   const handleEmailSubmit = (e) => {
     e.preventDefault();
@@ -517,9 +518,10 @@ const CourseView = () => {
                               required
                               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
                             />
-                            <div className="invalid-feedback">
-                              Please enter a valid email address.
+                            <div className={`invalid-feedback ${EmailError ? 'error' : ''}`}>
+                            Please enter a valid email address.
                             </div>
+
                           </div>
                           <div className="mb-3">
                             <label
