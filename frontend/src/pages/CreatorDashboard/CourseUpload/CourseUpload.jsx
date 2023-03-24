@@ -59,8 +59,8 @@ const CourseUpload = () => {
   const [summary, setSummary] = useState("");
 
   const onSubmit = async (e) => {
+  
     e.preventDefault();
-
     const courseContentJSON = JSON.stringify(
       weeks.map((week) => ({ week: week.week }))
     );
@@ -134,18 +134,20 @@ const CourseUpload = () => {
 
  
 
-  const handleImageChange = (event) => {
+  /*const handleImageChange = (event) => {
     setImage(event.target.files[0]);
     setImagePreview(URL.createObjectURL(event.target.files[0]));
-  };
+  };*/
 
-  const handleChange = (index, event) => {
-    const values = [...weeks];
-    values[index].week[event.target.name] = event.target.value;
-    setWeeks(values);
-  };
+  const [pointErrorMsg, setPointErrorMsg] = useState('');
+
 
   const handlePointChange = (index, value) => {
+    if (value.length > 40) {
+      setPointErrorMsg('Each point should have 40 characters or less.');
+    } else {
+      setPointErrorMsg('');
+    }
     const newPointsToLearn = [...pointsToLearn];
     newPointsToLearn[index].point = value;
     setPointsToLearn(newPointsToLearn);
@@ -327,6 +329,33 @@ const CourseUpload = () => {
     setImageFile(file);
   }
 
+  //const [showError, setShowError] = useState(false);
+
+  const handleChange = (index, event) => {
+    const values = [...weeks];
+    values[index].week[event.target.name] = event.target.value;
+    setWeeks(values);
+  };
+
+  /*const handleSubmit = (event) => {
+    event.preventDefault();
+    setShowError(false);
+
+    // check if course content is not empty
+    for (let i = 0; i < weeks.length; i++) {
+      for (let j = 0; j < weeks[i].week.length; j++) {
+        if (weeks[i].week[j] === "") {
+          setShowError(true);
+          return;
+        }
+      }
+    }
+
+    // if course content is not empty, continue with form submission
+    setLoading(true);
+    // submit form
+  }*/
+
   return (
     <>
       {" "}
@@ -403,6 +432,7 @@ const CourseUpload = () => {
                   onChange={(e) => handlePointChange(index, e.target.value)}
                   className="form-control w-50"
                 />
+                {pointErrorMsg && (<div className="text-danger">{pointErrorMsg}</div>)}
               </div>
             ))}
             <h4 className="mt-3">Summary of points</h4>
@@ -472,6 +502,7 @@ const CourseUpload = () => {
               <label for="floatingDescription">Long Description</label>
               {longDesError && (<div className="text-danger mt-2">{longDesError}</div>)}
             </div>
+
             <h2 className="text-primary">Course Content</h2>
             {weeks.map((week, index) => (
               <div key={index}>
@@ -502,7 +533,6 @@ const CourseUpload = () => {
                 />
               </div>
             ))}
-
             <button
               className="btn btn-success btn-lg"
               onClick={(e) => {
