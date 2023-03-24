@@ -25,8 +25,6 @@ firebase.initializeApp({
   appId: "1:790318006402:web:8ea027078cf1a73e49749b",
 });
 
-
-
 const firestore = firebase.firestore();
 
 const CourseView = () => {
@@ -269,19 +267,19 @@ const CourseView = () => {
   const [feedbackError, setFeedbackError] = useState("");
 
   // Define a function to validate the email input field
-function handleEmail() {
-  // Ensure the email is not empty
-  if (emailAddress == null) {
-    return setEmailError("Email cannot be empty.");
-  }
+  function handleEmail() {
+    // Ensure the email is not empty
+    if (emailAddress == null) {
+      return setEmailError("Email cannot be empty.");
+    }
 
-  // Ensure the email is in a valid format
-  if (!/\S+@\S+\.\S+/.test(emailAddress)) {
-    return setEmailError("Email must be in a valid format.");
-  }
+    // Ensure the email is in a valid format
+    if (!/\S+@\S+\.\S+/.test(emailAddress)) {
+      return setEmailError("Email must be in a valid format.");
+    }
 
-  // If all checks pass, return null to indicate success
-  return setEmailError(null);
+    // If all checks pass, return null to indicate success
+    return setEmailError(null);
   }
 
   // Define a function to validate the name input field
@@ -311,19 +309,30 @@ function handleEmail() {
       return setFeedbackError("Feedback cannot be empty.");
     }
 
-    if (feedback.length == 0) {
+    if (feedback.length === 0) {
       return setFeedbackError("Feedback cannot be empty.");
     }
-    
+
     return setFeedbackError(null);
   };
 
   const handleEmailSubmit = (e) => {
     e.preventDefault();
-    console.log(`Sending email to ${emailAddress}`);
-    console.log(`Subject: ${name}`);
-    console.log(`Body: ${feedback}`);
-    // Add logic to send email here
+    const nameError = handleName();
+    const emailError = handleEmail();
+    const feedbackError = handleFeedback();
+
+    if (
+      name.trim().length !== 0 &&
+      emailAddress.trim().length !== 0 &&
+      feedback.trim().length !== 0
+    ) {
+      console.log("name is correct");
+      console.log(`Sending email to ${emailAddress}`);
+      console.log(`Name: ${name}`);
+      console.log(`Body: ${feedback}`);
+      // Add logic to send email here
+    }
   };
 
   return (
@@ -545,89 +554,77 @@ function handleEmail() {
                     </div>
                   </form>
                 </Tab>
-                <Tab eventKey="email" title="Send Feedback">
-                  <div className="my-3">
-                    <Row>
-                      <Col>
-                        <h1>Send Feedback</h1>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col md={8}>
-                        <form onSubmit={handleEmailSubmit}>
-                          <div className="mb-3">
-                            <label
-                              htmlFor="emailAddress"
-                              className="form-label"
-                            >
-                              Email Address
-                            </label>
-                            <input
-                              type="email"
-                              className="form-control"
-                              id="emailAddress"
-                              placeholder="Enter email"
-                              value={emailAddress}
-                              onChange={(e) => setEmailAddress(e.target.value)}
-                              required
-                              onKeyUp={handleEmail}
-                              />
-                              {emailError && (
-                                <div className="text-danger mt-2">{emailError}</div>
-                              )}
-                          
-                        
-                          </div>
-                          <div className="mb-3">
-                            <label
-                              htmlFor="name"
-                              className="form-label"
-                            >
-                              Your Name
-                            </label>
-                            <input
-                              type="text"
-                              className="form-control"
-                              id="name"
-                              placeholder="Enter name"
-                              value={name}
-                              onChange={(e) => setName(e.target.value)}
-                              required
-                              onKeyUp={handleName}
-                            />
-                            {nameError && (
-                             <div className="text-danger mt-2">{nameError}</div>
-                            )}
-                    
-                          </div>
-                          <div className="mb-3">
-                            <label htmlFor="emailBody" className="form-label">
-                              Feedback
-                            </label>
-                            <textarea
-                              className="form-control"
-                              id="feedback"
-                              value={feedback}
-                              placeholder="Enter your feedback"
-                              onChange={(e) => setFeedback(e.target.value)}
-                              required
-                              onKeyUp={handleFeedback}
-                            />
-                            {feedbackError && (
-                             <div className="text-danger mt-2">{feedbackError}</div>
-                            )}
-                          </div>
-                          <button type="submit" className="btn btn-primary">
-                            Send
-                          </button>
-                        </form>
-                      </Col>
-                    </Row>
-                  </div>
-                </Tab>
               </Tabs>
             </div>
           </div>
+
+          <Tabs defaultActiveKey={""}>
+            <Tab eventKey="email" title="Send Feedback" className="w-50 ">
+              <div className="my-3">
+                <Row>
+                  <Col md={8}>
+                    <form onSubmit={handleEmailSubmit}>
+                      <div className="mb-3">
+                        <label htmlFor="emailAddress" className="form-label">
+                          Email Address
+                        </label>
+                        <input
+                          type="email"
+                          className="form-control"
+                          id="emailAddress"
+                          placeholder="Enter email"
+                          value={emailAddress}
+                          onChange={(e) => setEmailAddress(e.target.value)}
+                          onKeyUp={handleEmail}
+                        />
+                        {emailError && (
+                          <div className="text-danger mt-2">{emailError}</div>
+                        )}
+                      </div>
+                      <div className="mb-3">
+                        <label htmlFor="name" className="form-label">
+                          Your Name
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="name"
+                          placeholder="Enter name"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          onKeyUp={handleName}
+                        />
+                        {nameError && (
+                          <div className="text-danger mt-2">{nameError}</div>
+                        )}
+                      </div>
+                      <div className="mb-3">
+                        <label htmlFor="emailBody" className="form-label">
+                          Feedback
+                        </label>
+                        <textarea
+                          className="form-control"
+                          id="feedback"
+                          value={feedback}
+                          placeholder="Enter your feedback"
+                          onChange={(e) => setFeedback(e.target.value)}
+                          onKeyUp={handleFeedback}
+                        />
+                        {feedbackError && (
+                          <div className="text-danger mt-2">
+                            {feedbackError}
+                          </div>
+                        )}
+                      </div>
+                      <button type="submit" className="btn btn-primary">
+                        Send
+                      </button>
+                    </form>
+                  </Col>
+                </Row>
+              </div>
+            </Tab>
+          </Tabs>
         </>
       )}
     </div>

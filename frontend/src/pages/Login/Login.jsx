@@ -98,12 +98,17 @@ const Login = () => {
 
       if (response.status === 200) {
         const data = await response.json();
+        localStorage.setItem("lastVisit", data.dateString);
         console.log(data.user, data.token);
-        if (data.user) localStorage.setItem("token", data.token);
+        console.log("data", data);
+        if (data.user) {
+          localStorage.setItem("token", data.token);
+        }
         setNoAccountError(false);
         setWrongCredentials(false);
         if (data?.user?.isLearner) {
           dispatch(logInAsLearner());
+          localStorage.setItem("lastVisit", data.dateString);
           navigate("/");
         } else {
           dispatch(logInAsCreator());
@@ -146,7 +151,10 @@ const Login = () => {
       if (response.status === 200) {
         const data = await response.json();
         console.log(data.user, data.token);
-        if (data.user) localStorage.setItem("token", data.token);
+        if (data.user) {
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("lastVisit", data.dateString);
+        }
         setNoAccountError(false);
         setWrongCredentials(false);
         if (data?.user?.isLearner) {
