@@ -25,7 +25,6 @@ const AllCourses = () => {
       fetch("http://localhost:8000/courses")
         .then((response) => response.json())
         .then((data) => {
-          console.log("data", data);
           setCourses(data);
           setLoading(false);
         });
@@ -35,7 +34,6 @@ const AllCourses = () => {
           .then((response) => response.json())
           .then((data) => {
             setUserCourses(data.courses);
-            console.log("user courses", data.courses);
           });
       }
     } else {
@@ -43,7 +41,6 @@ const AllCourses = () => {
       fetch("http://localhost:8000/courses")
         .then((response) => response.json())
         .then((data) => {
-          console.log("data", data);
           setCourses(data);
           setLoading(false);
         });

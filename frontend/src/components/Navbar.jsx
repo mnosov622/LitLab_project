@@ -24,13 +24,16 @@ const Navbar = () => {
   const loginAsAdmin = useSelector((state) => state.adminLogin);
   const courses = useSelector((state) => state.coursesReducer);
 
-  console.log(courses);
+  const amount = useSelector((state) => state.increaseItemsAmount);
+  console.log("amount", amount);
 
   const shoppingCart = JSON.parse(localStorage.getItem("shopping_cart"));
   useEffect(() => {
     const numberOfItems = shoppingCart ? shoppingCart.length : 0;
     setNumberOfItems(numberOfItems);
-  }, [shoppingCart]);
+    console.log("useffect run");
+    console.log("amount is", amount);
+  }, [numberOfItems, shoppingCart, amount]);
 
   const logOut = () => {
     localStorage.removeItem("token");

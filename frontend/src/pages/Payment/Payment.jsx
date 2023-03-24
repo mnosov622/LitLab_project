@@ -8,8 +8,6 @@ import CourseCard from "../../components/CourseCards/CourseCard";
 import PaymentLogo from "../../assets/PaymentLogo.png";
 
 const Payment = () => {
-  //TODO: Add sockets, so that user don't have to refresh page when he buys the course
-
   const alert = useAlert();
 
   const navigate = useNavigate();
@@ -124,22 +122,22 @@ const Payment = () => {
           });
         });
 
-        // fetch("http://localhost:8000/buy-course", {
-        //   method: "POST",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //     Authorization: token,
-        //   },
-        //   body: JSON.stringify({ courses }),
-        // });
-        // alert.success("Courses were succesfully purchased", {
-        //   position: positions.BOTTOM_RIGHT,
-        //   timeout: 2000, // custom timeout just for this one alert
-        // });
-        // navigate("/");
-        // setTimeout(() => {
-        //   window.location.reload();
-        // }, 500);
+        fetch("http://localhost:8000/buy-course", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+          body: JSON.stringify({ courses }),
+        });
+        alert.success("Courses were succesfully purchased", {
+          position: positions.BOTTOM_RIGHT,
+          timeout: 2000, // custom timeout just for this one alert
+        });
+        navigate("/");
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
       } catch (e) {
         console.log("An error occured", e);
       }

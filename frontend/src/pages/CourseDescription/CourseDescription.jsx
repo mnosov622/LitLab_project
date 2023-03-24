@@ -114,6 +114,8 @@ const CourseDescription = () => {
     setInstructorImageSource(instructorSource);
   }, [course, course?.instructorImageURL]);
 
+  const amount = useSelector((state) => state.increaseItemsAmount);
+
   const addCourseToCart = () => {
     //Checking if added item exists in cart, if so, then show error, otherwise add item to cart
     const existingItem = cart.find((item) => item.id === singleCourse.id);
@@ -129,16 +131,19 @@ const CourseDescription = () => {
 
       alert.success("Item added to cart", {
         position: positions.BOTTOM_RIGHT,
-        timeout: 2000, // custom timeout just for this one alert
+        timeout: 2000,
       });
       dispatch(addToCart(newItem));
       dispatch(itemsAmount());
+
       setCartItems((prev) => [...(Array.isArray(prev) ? prev : []), newItem]);
-      console.log("AMOUNT Of items", itemsAmount);
+      const cartItems = JSON.parse(localStorage.getItem("shopping_cart")) || [];
+      cartItems.push(newItem);
+      localStorage.setItem("amountOfItems", JSON.stringify(cartItems.length));
     } else {
       alert.error("Item exists in cart", {
         position: positions.BOTTOM_RIGHT,
-        timeout: 2000, // custom timeout just for this one alert
+        timeout: 2000,
       });
     }
   };
