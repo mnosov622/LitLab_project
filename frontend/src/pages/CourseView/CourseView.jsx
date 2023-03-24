@@ -25,13 +25,14 @@ firebase.initializeApp({
   appId: "1:790318006402:web:8ea027078cf1a73e49749b",
 });
 
+
+
 const firestore = firebase.firestore();
 
 const CourseView = () => {
   const chatWindowRef = useRef(null);
   const [activeTab, setActiveTab] = useState("content");
   const [chatWindowLoaded, setChatWindowLoaded] = useState(false);
-
   const handleTabSelect = (tabKey) => {
     if (tabKey === "chat") {
       // Code to execute when the Chat tab is selected
@@ -260,6 +261,70 @@ const CourseView = () => {
   const showChat = () => {
     console.log("tab clicked");
   };
+  const [emailAddress, setEmailAddress] = useState("");
+  const [name, setName] = useState("");
+  const [feedback, setFeedback] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [nameError, setNameError] = useState("");
+  const [feedbackError, setFeedbackError] = useState("");
+
+  // Define a function to validate the email input field
+function handleEmail() {
+  // Ensure the email is not empty
+  if (emailAddress == null) {
+    return setEmailError("Email cannot be empty.");
+  }
+
+  // Ensure the email is in a valid format
+  if (!/\S+@\S+\.\S+/.test(emailAddress)) {
+    return setEmailError("Email must be in a valid format.");
+  }
+
+  // If all checks pass, return null to indicate success
+  return setEmailError(null);
+  }
+
+  // Define a function to validate the name input field
+  const handleName = () => {
+    // Ensure the name is not empty
+    if (name == null) {
+      return setNameError("Name cannot be empty.");
+    }
+
+    // Ensure the name is not too short or too long
+    if (name.length < 2 || name.length > 50) {
+      return setNameError("Name must be between 2 and 50 characters.");
+    }
+
+    // Ensure the name contains only valid characters
+    if (!/^[a-zA-Z\s]*$/.test(name)) {
+      return setNameError("Name can only contain letters and spaces.");
+    }
+
+    // If all checks pass, return null to indicate success
+    return setNameError(null);
+  };
+
+  const handleFeedback = () => {
+    // Ensure the name is not empty
+    if (feedback == null) {
+      return setFeedbackError("Feedback cannot be empty.");
+    }
+
+    if (feedback.length == 0) {
+      return setFeedbackError("Feedback cannot be empty.");
+    }
+    
+    return setFeedbackError(null);
+  };
+
+  const handleEmailSubmit = (e) => {
+    e.preventDefault();
+    console.log(`Sending email to ${emailAddress}`);
+    console.log(`Subject: ${name}`);
+    console.log(`Body: ${feedback}`);
+    // Add logic to send email here
+  };
 
   return (
     <div className={loading && "bottom"}>
@@ -479,6 +544,86 @@ const CourseView = () => {
                       </div>
                     </div>
                   </form>
+                </Tab>
+                <Tab eventKey="email" title="Send Feedback">
+                  <div className="my-3">
+                    <Row>
+                      <Col>
+                        <h1>Send Feedback</h1>
+                      </Col>
+                    </Row>
+                    <Row>
+                      <Col md={8}>
+                        <form onSubmit={handleEmailSubmit}>
+                          <div className="mb-3">
+                            <label
+                              htmlFor="emailAddress"
+                              className="form-label"
+                            >
+                              Email Address
+                            </label>
+                            <input
+                              type="email"
+                              className="form-control"
+                              id="emailAddress"
+                              placeholder="Enter email"
+                              value={emailAddress}
+                              onChange={(e) => setEmailAddress(e.target.value)}
+                              required
+                              onKeyUp={handleEmail}
+                              />
+                              {emailError && (
+                                <div className="text-danger mt-2">{emailError}</div>
+                              )}
+                          
+                        
+                          </div>
+                          <div className="mb-3">
+                            <label
+                              htmlFor="name"
+                              className="form-label"
+                            >
+                              Your Name
+                            </label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              id="name"
+                              placeholder="Enter name"
+                              value={name}
+                              onChange={(e) => setName(e.target.value)}
+                              required
+                              onKeyUp={handleName}
+                            />
+                            {nameError && (
+                             <div className="text-danger mt-2">{nameError}</div>
+                            )}
+                    
+                          </div>
+                          <div className="mb-3">
+                            <label htmlFor="emailBody" className="form-label">
+                              Feedback
+                            </label>
+                            <textarea
+                              className="form-control"
+                              id="feedback"
+                              value={feedback}
+                              placeholder="Enter your feedback"
+                              onChange={(e) => setFeedback(e.target.value)}
+                              required
+                              onKeyUp={handleFeedback}
+                            />
+                            {feedbackError && (
+                             <div className="text-danger mt-2">{feedbackError}</div>
+                            )}
+                          </div>
+                          <button type="submit" className="btn btn-primary">
+                            Send
+                          </button>
+                        </form>
+                      </Col>
+                    </Row>
+                  </div>
                 </Tab>
               </Tabs>
             </div>
