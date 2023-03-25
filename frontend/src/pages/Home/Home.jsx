@@ -139,6 +139,7 @@ const Home = () => {
           <CourseCategoryCard name="Personal Development" courseCount="133" />
         </div>
       </div>
+
       <div className="row mt-5">
         <div className="col-md-12 text-center fs-1 mt-5">
           What people say about us

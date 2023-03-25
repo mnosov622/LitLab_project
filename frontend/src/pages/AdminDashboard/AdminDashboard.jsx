@@ -13,7 +13,7 @@ const AdminDashboard = () => {
     <div>
       <Topbar />
       <FeaturedInfo />
-      <Chart />
+      {/* <Chart /> */}
       <Users />
       {/* <RecentUsers/> */}
       {/* <WidgetLg/>

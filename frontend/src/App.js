@@ -57,7 +57,7 @@ function App() {
     if (localStorage.getItem("resettingPassword") !== null) {
       return;
     }
-    
+
     localStorage.removeItem("resettingPassword");
 
     if (localStorage.getItem("token") === null) {
@@ -196,7 +196,7 @@ function App() {
               <Route path="/contact-us" element={<ContactUs />} />
               <Route path="/thankyou" element={<ThankYou />} />
               <Route path="/admin" element={<AdminDashboard />} />
-
+              <Route path="/search" element={<SearchResults />} />
               <Route
                 path="/cccommunity"
                 element={<ContentCreatorCommunity />}
