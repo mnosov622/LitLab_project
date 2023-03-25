@@ -64,6 +64,9 @@ const AllCourses = () => {
         />
       ) : (
         <>
+          <div className="bg-light shadow text-center p-2 fs-2 mb-4">
+            <p>All Courses</p>
+          </div>
           <div className="row">
             {courses.map((course) => (
               <div className="col-md-4 mt-2">

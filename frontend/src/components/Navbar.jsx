@@ -4,7 +4,7 @@ import { Button } from "react-bootstrap";
 import logo from "../assets/logo.png";
 import { useState } from "react";
 import "./Navbar.style.scss";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector, useStore } from "react-redux";
 import { logInAsLearner } from "../store/actions";
 import { loggedIn } from "../store/reducers/login";
 import { logInAsCreator } from "../store/actions/index";
@@ -25,9 +25,11 @@ const Navbar = () => {
   const courses = useSelector((state) => state.coursesReducer);
 
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const [rotateIcon, setRotateIcon] = useState(false);
 
   const handleToggleNav = () => {
     setIsNavOpen(!isNavOpen);
+    setRotateIcon(!rotateIcon);
   };
 
   const amount = useSelector((state) => state.increaseItemsAmount);
@@ -220,13 +222,22 @@ const Navbar = () => {
               </Link>
             </div>
 
+            <div className="my-cart" style={{ marginLeft: "auto" }}>
+              <Link to="/cart" className="dashboard-item cart fs-5">
+                My Cart
+                <span className="amount">{numberOfItems}</span>
+              </Link>
+            </div>
             <div className="logoutBtn">
               <button className="btn btn-dark" onClick={logOut}>
                 Log out
               </button>
             </div>
 
-            <div className="hamburger-icon d-none" onClick={handleToggleNav}>
+            <div
+              className={`hamburger-icon d-none ${rotateIcon ? "rotate" : ""}`}
+              onClick={handleToggleNav}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="34"
@@ -244,6 +255,9 @@ const Navbar = () => {
                 className={`${isNavOpen ? "mobile-menu show" : "mobile-menu"}`}
               >
                 <ul>
+                  <p className=" fs-5 text-black">
+                    Welcome back, <span className="text-primary">{name}</span>
+                  </p>
                   <li className="mobile-nav-items" onClick={handleToggleNav}>
                     <Link to="/">My Courses</Link>
                   </li>

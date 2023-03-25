@@ -43,6 +43,11 @@
   margin-left: auto;
   position: relative;
   z-index: 199;
+  transition: all 0.3s ease-in;
+}
+
+.rotate {
+  transform: rotate(90deg);
 }
 
 .mobile-menu {
@@ -53,7 +58,7 @@
   width: 60%;
   background-color: #fff;
   z-index: 99;
-  transition: all 0.3s ease-in;
+  transition: all 0.5s ease-in;
   padding-top: 20%;
 }
 
@@ -111,7 +116,7 @@
   }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 700px) {
   .all-courses,
   .logoutBtn {
     display: none;
@@ -126,6 +131,13 @@
     margin-left: auto !important;
   }
 }
+
+@media screen and (max-width: 500px) {
+  .my-cart {
+    display: none;
+  }
+}
+
 .logoutBtn {
   margin-left: auto;
 }
