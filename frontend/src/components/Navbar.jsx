@@ -433,6 +433,86 @@ const Navbar = () => {
             </div>
           </div>
         )}
+
+        {!loginAsCreator && !loginAsAdmin && !loggedInAsLearner && (
+          <div className="container-fluid mobile-nav d-flex align-items-center">
+            <div className="d-flex align-items-center">
+              <div className="col-md-2 logo-img" style={{ width: "20%" }}>
+                <Link to="/" className="">
+                  <img className="logo" src={logo} alt="logo" />
+                </Link>
+              </div>
+              {!loginAsCreator && (
+                <div className="all-courses fs-5" style={{ width: "35%" }}>
+                  <Link to="/all-courses">
+                    Explore All Courses &nbsp;
+                    <img src={allCourses} alt="" width={"8%"} />
+                  </Link>
+                </div>
+              )}
+
+              <div className="logoutBtn d-flex justify-content-between">
+                <div className="">
+                  <Link to="login" className="">
+                    <button className="btn btn-secondary">Log in</button>
+                  </Link>
+                </div>
+                <div className="" style={{ marginLeft: "10px" }}>
+                  <Link to="signup" className="">
+                    <button className="btn btn-primary">Sign up</button>
+                  </Link>
+                </div>
+              </div>
+
+              <div
+                className={`hamburger-icon d-none ${
+                  rotateIcon ? "rotate" : ""
+                }`}
+                onClick={handleToggleNav}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="34"
+                  height="34"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    fill="#0d6efc"
+                    d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"
+                  />
+                </svg>
+              </div>
+              {isNavOpen && (
+                <nav
+                  className={`${
+                    isNavOpen ? "mobile-menu show" : "mobile-menu"
+                  }`}
+                >
+                  <ul>
+                    <li onClick={handleToggleNav}>
+                      <Link to="/all-courses">
+                        Explore All Courses &nbsp;
+                        <img src={allCourses} alt="" width={"8%"} />
+                      </Link>
+                    </li>
+                    <li onClick={handleToggleNav}>
+                      <Link to="login" className="">
+                        <button className="btn btn-secondary">Log in</button>
+                      </Link>
+                    </li>
+                    <li onClick={handleToggleNav}>
+                      <Link to="signup" className="">
+                        <button className="btn btn-primary">Sign up</button>
+                      </Link>
+                    </li>
+                  </ul>
+                </nav>
+              )}
+
+              <div className={isNavOpen ? "overlay show" : "overlay"}></div>
+            </div>
+          </div>
+        )}
       </nav>
     </>
   );

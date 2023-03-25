@@ -12,7 +12,6 @@ const CreatorCourseCard = ({
   instructorName,
   courseId,
 }) => {
-
   const [showModal, setShowModal] = useState(false);
 
   console.log("");
@@ -84,7 +83,7 @@ const CreatorCourseCard = ({
 
   return (
     <>
-      <div className="w-25 mb-5 col-md-6">
+      <div className="w-25 mb-5 col-md-6 course-card">
         <div className="card-item border">
           <img
             src={`http://localhost:8000/images/${courseImage}`}
@@ -110,12 +109,14 @@ const CreatorCourseCard = ({
             <button className="btn btn-danger" onClick={handleShowModal}>
               Delete
             </button>
-            {showModal && <Modal
-              title="Confirm Action"
-              body={`Are you sure you want to delete the course`}
-              onConfirm={handleDelete}
-              onCancel={handleCloseModal}
-            />}
+            {showModal && (
+              <Modal
+                title="Confirm Action"
+                body={`Are you sure you want to delete the course`}
+                onConfirm={handleDelete}
+                onCancel={handleCloseModal}
+              />
+            )}
           </div>
         </div>
       </div>
