@@ -27,6 +27,7 @@ const CourseCard = ({
   allCourses,
   shortDescription,
   pointsToLearn,
+  homeImage,
 }) => {
   const [imageSource, setImageSource] = useState("");
   const [showModal, setShowModal] = useState(false);
@@ -170,18 +171,28 @@ const CourseCard = ({
               </div>
             )}
 
-            {creatorCourseImage && (
+            {homeImage && (
+              <img
+                src={image}
+                className="card-img-top img-fluid card-image"
+                alt="Course"
+              />
+            )}
+
+            {creatorCourseImage && !homeImage && (
               <img
                 src={creatorCourseImage}
                 className="card-img-top img-fluid card-image"
                 alt="Course"
               />
             )}
-            <img
-              src={imageSource}
-              className="card-img-top img-fluid card-image"
-              alt="Course"
-            />
+            {!homeImage && (
+              <img
+                src={imageSource}
+                className="card-img-top img-fluid card-image"
+                alt="Course"
+              />
+            )}
 
             <div className="card-body">
               <h5 className="card-title">{name}</h5>

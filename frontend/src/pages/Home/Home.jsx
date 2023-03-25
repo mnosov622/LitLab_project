@@ -93,6 +93,7 @@ const Home = () => {
                 image={teacher1}
                 price="45"
                 teacherName="Simona Gareth"
+                homeImage
               />
             </div>
             <div className="col-md-4">
@@ -102,6 +103,7 @@ const Home = () => {
                 image={javascriptTeacher}
                 price="55"
                 teacherName="Kyle Thompson"
+                homeImage
               />
             </div>
             <div className="col-md-4">
@@ -111,6 +113,7 @@ const Home = () => {
                 image={influenceTeacher}
                 price="45"
                 teacherName="Mark Forgheit"
+                homeImage
               />
             </div>
           </div>

@@ -1,7 +1,11 @@
 .category {
   transition: all 0.3s ease-in;
+  height: 120px !important;
+  border-radius: 1px solid black;
+  box-shadow: 0 0px 5px 0 rgba($color: #000000, $alpha: 0.2);
   &:hover {
     cursor: pointer;
     box-shadow: 0 5px 10px 0 rgba($color: #000000, $alpha: 0.2);
+    transform: translateY(-5px);
   }
 }
