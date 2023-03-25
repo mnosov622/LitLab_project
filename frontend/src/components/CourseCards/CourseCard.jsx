@@ -100,7 +100,7 @@ const CourseCard = ({
       )}
 
       <div
-        className={cardSmall ? "w-25 mb-5 col-md-6" : "w-100 mb-5"}
+        className={cardSmall ? "w-25 mb-5 col-md-6 course-card" : "w-100 mb-5 "}
         style={{ position: "relative" }}
       >
         {courseCompleted && (

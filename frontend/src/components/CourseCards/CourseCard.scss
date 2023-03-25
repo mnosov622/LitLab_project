@@ -68,3 +68,9 @@
   width: 85%;
   font-size: 1.1em;
 }
+
+@media screen and (max-width: 1160px) {
+  .course-card {
+    width: 100% !important;
+  }
+}
