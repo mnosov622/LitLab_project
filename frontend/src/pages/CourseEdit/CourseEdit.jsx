@@ -218,34 +218,6 @@ const CourseEdit = () => {
                 ></video>
               )}
             </div>
-            <div className="col-md-6">
-              <p className="fs-4">Course Content</p>
-
-              {singleCourse &&
-                singleCourse.courseContent &&
-                singleCourse.courseContent.map((week, weekIndex) => (
-                  <div key={weekIndex}>
-                    <p className="fs-3">Week {weekIndex + 1}</p>
-                    {week &&
-                      week.week &&
-                      week.week.map((item, itemIndex) => (
-                        <>
-                          <p className="fw-bold">Lesson {itemIndex + 1}</p>
-                          <div key={itemIndex}>
-                            <input
-                              type="text"
-                              className="form-control mb-3"
-                              value={item}
-                              onChange={(e) =>
-                                handleWeekChange(weekIndex, itemIndex, e)
-                              }
-                            />
-                          </div>
-                        </>
-                      ))}
-                  </div>
-                ))}
-            </div>
           </div>
           <div className="button-wrapper text-center mt-5">
             <button type="submit" className="btn btn-primary btn-lg">

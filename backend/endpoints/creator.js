@@ -115,4 +115,104 @@ router.get("/users/:id", (req, res) => {
   });
 });
 
+//send email
+const nodemailer = require("nodemailer");
+
+router.post("/feedback", (req, res) => {
+  const { userEmail, creatorEmail, message, name } = req.body;
+  console.log("data recived", userEmail, creatorEmail, message, name);
+  const transporter = nodemailer.createTransport({
+    port: 465, // true for 465, false for other ports
+    host: "smtp.gmail.com",
+    auth: {
+      user: "litlab200@gmail.com",
+      pass: "fbwvydwfqefelrmb",
+    },
+    tls: {
+      rejectUnauthorized: false,
+    },
+  });
+
+  console.log("email", email);
+  const mailData = {
+    from: "mnosov622@gmail.com",
+    to: "mnosov622@gmail.com",
+    subject: "Feedback from learner",
+    html: `
+    <style>
+    .contact-message {
+      background-color: #f5f5f5;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 20px;
+      margin: 20px;
+      max-width: 500px;
+    }
+
+    .contact-message h2 {
+      font-size: 24px;
+      margin-top: 0;
+    }
+
+    .contact-message p {
+      font-size: 18px;
+      margin: 10px 0;
+    }
+
+    .contact-message strong {
+      font-weight: bold;
+    }
+    </style>
+    <div class="contact-message">
+    <h2>Contact Message</h2>
+    <p><strong>From:</strong> ${name} (${userEmail})</p>
+    <p><strong>Message:</strong> ${message}</p>
+  </div>`,
+  };
+
+  transporter.sendMail(mailData, (error, info) => {
+    if (error) {
+      res.status(505).send({ error: "Server error" });
+      return console.log("errpr", error);
+    }
+    res.status(200).send({
+      message: "Mail send",
+      message_id: info.messageId,
+      success: true,
+    });
+  });
+});
+
+router.post("/reviews", async (req, res) => {
+  try {
+    const { name, email, course } = req.body;
+
+    // Find the user by name
+    const user = await db.collection("users").findOne({ name: name });
+
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    // If the user doesn't have a reviews array, create it
+    if (!user.reviews) {
+      user.reviews = [];
+    }
+
+    // Create the review object
+    const review = { name: name, email: email, course: course };
+
+    // Add the new review to the array
+    user.reviews.push(review);
+
+    // Update the user in the database
+    await db.collection("users").updateOne({ _id: user._id }, { $set: user });
+
+    res.status(201).json({ message: "Review added successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
 module.exports = router;

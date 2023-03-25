@@ -214,7 +214,7 @@ const CourseView = () => {
       .then((data) => {
         setCourseData(data.course);
         setLoading(false);
-        console.log("data", courseData);
+        console.log("course", data.course);
       });
   }, []);
 
@@ -321,17 +321,26 @@ const CourseView = () => {
     const nameError = handleName();
     const emailError = handleEmail();
     const feedbackError = handleFeedback();
-
+    const data = {
+      userEmail: emailAddress,
+      message: feedback,
+      creatorEmail: courseData.email,
+      name: name,
+    };
+    console.log("data", data);
     if (
       name.trim().length !== 0 &&
       emailAddress.trim().length !== 0 &&
       feedback.trim().length !== 0
     ) {
-      console.log("name is correct");
-      console.log(`Sending email to ${emailAddress}`);
-      console.log(`Name: ${name}`);
-      console.log(`Body: ${feedback}`);
-      // Add logic to send email here
+      console.log("object passed", data);
+      fetch(`http://localhost:8000/creator/feedback`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }).then((res) => console.log("response", res));
     }
   };
 

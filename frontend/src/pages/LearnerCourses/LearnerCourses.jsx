@@ -24,6 +24,8 @@ const LearnerCourses = () => {
     }).then((res) => console.log(res));
     setSelectedCourse(null);
     setShowModal(false);
+
+    window.location.reload();
   }
 
   function handleShowModal(course) {
@@ -38,12 +40,10 @@ const LearnerCourses = () => {
 
   useEffect(() => {
     setLoader(true);
-    if (userId) {
-      fetch(`http://localhost:8000/users/${userId}`)
-        .then((response) => response.json())
-        .then((data) => setCourses(data.courses));
-      setLoader(false);
-    }
+    fetch(`http://localhost:8000/users/${userId}`)
+      .then((response) => response.json())
+      .then((data) => setCourses(data.courses));
+    setLoader(false);
   }, []);
 
   /*const handleRemove = () => {

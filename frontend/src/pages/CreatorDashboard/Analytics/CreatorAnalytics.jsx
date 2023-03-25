@@ -199,10 +199,10 @@ const Charts = () => {
           <h3>Total enrollments: {enrollmentsAmount}</h3>
         </div>
       </div>
-      <div className="charts-container mb-5">
+      {/* <div className="charts-container mb-5">
         <EnrollmentChart />
         <EarningsChart />
-      </div>
+      </div> */}
 
       <div>
         <h2 className="text-center mb-5">Enrolled Users</h2>
