@@ -194,51 +194,59 @@ const Charts = () => {
       </div>
       <div className="mb-5 row text-center">
         <div className="col-md-6 ml-auto">
-          <h3>Total courses: {coursesLength}</h3>
+          <h3>Total courses: {coursesLength || 0}</h3>
         </div>
         <div className="col-md-6">
-          <h3>Total enrollments: {enrollmentsAmount}</h3>
+          <h3>Total enrollments: {userData?.totalEnrollments || 0}</h3>
         </div>
       </div>
-      {/* <div className="charts-container mb-5">
-        <EnrollmentChart />
-        <EarningsChart />
-      </div> */}
 
-      <div>
-        <h2 className="text-center mb-5">Enrolled Users</h2>
-        <table className="table  table-light fs-5 border">
-          <thead className="border">
-            <tr className="text-dark">
-              <th>Name</th>
-              <th>Email</th>
-              <th></th>
-              <th>Course Enrolled</th>
-            </tr>
-          </thead>
-          <tbody>
-            {enrolledUsersData.map((user) => (
-              <tr key={user.id}>
-                <td className="text-dark">
-                  {" "}
-                  <i class="bi bi-person"></i> &nbsp; {user.name}
-                </td>
-                <td className="text-dark">{user.email}</td>
-                <td>
-                  <img
-                    className="img-react rounded-circle"
-                    src={image1}
-                    alt="courseimage"
-                    width={50}
-                    height={50}
-                  />
-                </td>
-                <td className="text-dark">{user.course}</td>
+      {userData?.usersEnrolled?.length === 0 ||
+        (!userData?.usersEnrolled && (
+          <p className="fs-2 text-primary text-center mb-5 mt-5">
+            No one is enrolled in your courses
+          </p>
+        ))}
+
+      {userData?.usersEnrolled?.length > 0 && (
+        <div>
+          <h2 className="text-center mb-5">Enrolled Users</h2>
+          <table className="table  table-light fs-5 border">
+            <thead className="border">
+              <tr className="text-dark">
+                <th>Name</th>
+                <th>Email</th>
+                <th colSpan={2} className="text-center">
+                  Course Enrolled
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {userData &&
+                userData.usersEnrolled &&
+                userData.usersEnrolled.length > 0 &&
+                userData.usersEnrolled.map((user) => (
+                  <tr key={user.id}>
+                    <td className="text-dark">
+                      {" "}
+                      <i class="bi bi-person"></i> &nbsp; {user.userName}
+                    </td>
+                    <td className="text-dark">{user.userEmail}</td>
+                    <td>
+                      <img
+                        className="img-react"
+                        src={`http://localhost:8000/images/${user.courseImage}`}
+                        alt="courseimage"
+                        width={100}
+                      />
+                    </td>
+                    <td className="text-dark">{user.courseName}</td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+        </div>
+      )}
 
       <div className="row mt-5">
         <h2 className="text-center mb-5">Reviews</h2>

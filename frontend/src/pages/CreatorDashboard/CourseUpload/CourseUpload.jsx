@@ -113,13 +113,16 @@ const CourseUpload = () => {
     setLoading(false);
 
     console.log("data from client", courseData);
-    const response = await fetch("https://backend-litlab.herokuapp.com/courses", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(courseData),
-    });
+    const response = await fetch(
+      "https://backend-litlab.herokuapp.com/courses",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(courseData),
+      }
+    );
     const courses = await response.json();
     console.log("response recived", courses);
 
@@ -131,10 +134,15 @@ const CourseUpload = () => {
     console.log("created course", createdCourse);
   };
 
-  /*const handleImageChange = (event) => {
+  const handleImageChange = (event) => {
     setImage(event.target.files[0]);
     setImagePreview(URL.createObjectURL(event.target.files[0]));
-  };*/
+  };
+
+  const handleVideoChange = (event) => {
+    setVideo(event.target.files[0]);
+    setVideoPreview(URL.createObjectURL(event.target.files[0]));
+  };
 
   const [pointErrorMsg, setPointErrorMsg] = useState("");
 
@@ -390,7 +398,7 @@ const CourseUpload = () => {
                 </p>
                 <input
                   type="file"
-                  onChange={videoChange}
+                  onChange={handleVideoChange}
                   required
                   id="video"
                   className="input-file"
@@ -422,7 +430,7 @@ const CourseUpload = () => {
                 </p>
                 <input
                   type="file"
-                  onChange={imageChange}
+                  onChange={handleImageChange}
                   required
                   id="photo"
                   className="input-file"
