@@ -231,4 +231,50 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+router.post("/creator", async (req, res) => {
+  const { courseName, courseImage, userName, email, userEmail } = req.body;
+  console.log(
+    "data recived",
+    courseName,
+    courseImage,
+    userName,
+    email,
+    userEmail
+  );
+
+  const db = client.db("users");
+  const user = await db.collection("users").findOne({ email });
+
+  if (!user) {
+    return res.status(404).send("User not found");
+  }
+
+  console.log("user is", user);
+
+  let updatedUser;
+  if (user.usersEnrolled) {
+    updatedUser = await db.collection("users").findOneAndUpdate(
+      { email },
+      {
+        $push: {
+          usersEnrolled: { courseName, courseImage, userName, userEmail },
+        },
+      },
+      { returnOriginal: false }
+    );
+  } else {
+    updatedUser = await db.collection("users").findOneAndUpdate(
+      { email },
+      {
+        $set: {
+          usersEnrolled: [{ courseName, courseImage, userName, userEmail }],
+        },
+      },
+      { returnOriginal: false }
+    );
+  }
+
+  res.json(updatedUser.value);
+});
+
 module.exports = router;

@@ -162,6 +162,7 @@ const CourseDescription = () => {
           price: course.price,
           instructor: course.instructor,
           courseImageURL: course.courseImageURL,
+          email: course.email,
         })
       );
       navigate("/payment");

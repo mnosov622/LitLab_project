@@ -25,7 +25,9 @@ const LearnerCourses = () => {
     setSelectedCourse(null);
     setShowModal(false);
 
-    window.location.reload();
+    // setTimeout(() => {
+    //   window.location.reload();
+    // }, 500);
   }
 
   function handleShowModal(course) {
