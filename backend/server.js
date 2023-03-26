@@ -37,7 +37,10 @@ const url = "mongodb+srv://max:LitLab@cluster0.qnyvkxl.mongodb.net";
 
 app.use(
   cors({
-    origin: "https://elaborate-blancmange-f0b7f1.netlify.app",
+    origin: [
+      "https://elaborate-blancmange-f0b7f1.netlify.app",
+      "http://localhost:3000",
+    ],
   })
 );
 

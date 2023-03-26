@@ -86,13 +86,16 @@ const Login = () => {
     console.log(res.accessToken, res.profileObj.email);
 
     try {
-      const response = await fetch("https://backend-litlab.herokuapp.com/googleLogin", {
-        method: "POST",
-        body: JSON.stringify({
-          email: res.profileObj.email,
-        }),
-        headers: { "Content-Type": "application/json" },
-      });
+      const response = await fetch(
+        "https://backend-litlab.herokuapp.com/googleLogin",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            email: res.profileObj.email,
+          }),
+          headers: { "Content-Type": "application/json" },
+        }
+      );
 
       console.log(response);
 
@@ -140,11 +143,14 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("https://backend-litlab.herokuapp.com/login", {
-        method: "POST",
-        body: JSON.stringify({ email, password }),
-        headers: { "Content-Type": "application/json" },
-      });
+      const response = await fetch(
+        "https://backend-litlab.herokuapp.com/login",
+        {
+          method: "POST",
+          body: JSON.stringify({ email, password }),
+          headers: { "Content-Type": "application/json" },
+        }
+      );
 
       console.log(response);
 
@@ -196,7 +202,7 @@ const Login = () => {
         <Row className="justify-content-md-center  mx-auto">
           <Col className="form mt-5 ">
             <Form
-              className="mx-auto w-50"
+              className="mx-auto w-50 login"
               action="/login"
               method="POST"
               onSubmit={handleSubmit}
