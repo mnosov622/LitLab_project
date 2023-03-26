@@ -484,7 +484,7 @@ const CourseView = () => {
                         </form>
                       </Col>
                     </Row>
-                    <Col md={8}>
+                    <Col md={12}>
                       {savedNotes.length > 0 && (
                         <h3 className="p-0">Notes List</h3>
                       )}
@@ -511,7 +511,7 @@ const CourseView = () => {
                           </div>
                         ))}
                     </Col>
-                    <Col md={8} className="mt-2 d-flex justify-content-end">
+                    <Col md={12} className="mt-2 d-flex justify-content-end">
                       {savedNotes.length > 0 && (
                         <button
                           className="btn btn-danger deleteBtn w-auto"
