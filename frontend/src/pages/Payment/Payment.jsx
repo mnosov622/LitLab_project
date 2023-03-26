@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import CourseCard from "../../components/CourseCards/CourseCard";
 import PaymentLogo from "../../assets/PaymentLogo.png";
+import jwtDecode from "jwt-decode";
 
 const Payment = () => {
   const alert = useAlert();
@@ -18,7 +19,10 @@ const Payment = () => {
   const [expiryDate, setExpiryDate] = useState("");
   const [cvv, setCvv] = useState("");
   const [totalAmount, setTotalAmount] = useState(0);
+  const [userData, setUserData] = useState([]);
   const token = localStorage.getItem("token");
+  const decoded = jwtDecode(token);
+  const userId = decoded.id;
   const item = localStorage.getItem("item_to_buy");
   const item_to_buy = JSON.parse(item);
   console.log("course name", item_to_buy);
@@ -60,6 +64,11 @@ const Payment = () => {
       const pricesTotal = prices.reduce((sum, item) => sum + item, 0);
       setTotalAmount(pricesTotal);
     }
+    fetch(`http://localhost:8000/users/${userId}`)
+      .then((res) => res.json())
+      .then((data) => setUserData(data));
+
+    console.log("item", item_to_buy);
   }, []);
 
   const handlePayment = async (event) => {
@@ -82,6 +91,27 @@ const Payment = () => {
           isCompleted: false,
         };
 
+        fetch("http://localhost:8000/courses/creator", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            courseName: item_to_buy.name,
+            courseImage: item_to_buy.courseImageURL,
+            userName: userData.name,
+            userEmail: userData.email,
+            email: item_to_buy.email,
+          }),
+        }).then((res) => console.log("res", res));
+
+        fetch("http://localhost:8000/courses/creator/enrollments", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email: item_to_buy.email }),
+        }).then((res) => console.log("res", res));
         fetch(
           `https://backend-litlab.herokuapp.com/courses/${item_to_buy.id}/increase-enrollments`,
           {
@@ -89,7 +119,7 @@ const Payment = () => {
           }
         );
 
-        fetch("https://backend-litlab.herokuapp.com/buy-course", {
+        await fetch("https://backend-litlab.herokuapp.com/buy-course", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -102,9 +132,6 @@ const Payment = () => {
           timeout: 2000, // custom timeout just for this one alert
         });
         navigate("/");
-        setTimeout(() => {
-          window.location.reload();
-        }, 500);
       } catch (e) {
         console.log("An error occured", e);
       }

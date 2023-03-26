@@ -1,7 +1,7 @@
 const express = require("express");
 const { ObjectId } = require("mongodb");
 const { creator } = require("../models/creator");
-const { User } = require("../models/users");
+const { User, MyUser } = require("../models/users");
 const client = require("../mongodb");
 const router = express.Router();
 const multer = require("multer");
@@ -181,38 +181,6 @@ router.post("/feedback", (req, res) => {
       success: true,
     });
   });
-});
-
-router.post("/reviews", async (req, res) => {
-  try {
-    const { name, email, course } = req.body;
-
-    // Find the user by name
-    const user = await db.collection("users").findOne({ name: name });
-
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
-
-    // If the user doesn't have a reviews array, create it
-    if (!user.reviews) {
-      user.reviews = [];
-    }
-
-    // Create the review object
-    const review = { name: name, email: email, course: course };
-
-    // Add the new review to the array
-    user.reviews.push(review);
-
-    // Update the user in the database
-    await db.collection("users").updateOne({ _id: user._id }, { $set: user });
-
-    res.status(201).json({ message: "Review added successfully" });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Server error" });
-  }
 });
 
 module.exports = router;

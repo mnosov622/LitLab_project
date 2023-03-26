@@ -161,6 +161,7 @@ const Charts = () => {
   const [coursesLength, setCoursesLength] = useState([]);
   const [enrollmentsAmount, setEnrollmentsAmount] = useState(0);
   const [course, setCourse] = useState([]);
+  const [userData, setUserData] = useState([]);
 
   //const [enrolledUsers, setEnrolledUsers]= useState([]);
   //const enrolledUsers = enrolledUsersData.filter(user => user.courseId === courseId);
@@ -171,7 +172,7 @@ const Charts = () => {
       .then((data) => {
         setCourses(data.courses);
         setCoursesLength(data.courses.length);
-
+        setUserData(data);
         console.log(
           "courses enrollemtns",
           data.courses.map((course) => course.enrollments)
@@ -256,6 +257,30 @@ const Charts = () => {
                   <p>{review.review} </p>
                 </div>
               ))}
+              {userData &&
+                userData.reviews &&
+                userData.reviews.map((review) => (
+                  <div
+                    className="previous-reviews mb-3 p-3 position-relative"
+                    key={review.id}
+                  >
+                    <p className="text-primary">{review.course} course</p>
+                    <h4>{review.name}</h4>
+                    <span
+                      className="text-muted position-absolute"
+                      style={{ right: "15px", top: "15px" }}
+                    >
+                      {review.date}
+                    </span>
+                    <p>
+                      Rating :
+                      {Array.from({ length: review.star }, (_, i) => (
+                        <span key={i}>⭐️</span>
+                      ))}
+                    </p>
+                    <p>{review.review} </p>
+                  </div>
+                ))}
             </Col>
           </Row>
         </div>

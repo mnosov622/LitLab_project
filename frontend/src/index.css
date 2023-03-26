@@ -88,4 +88,7 @@ footer {
   .points-input {
     width: 100% !important;
   }
+  .login {
+    width: 100% !important;
+  }
 }

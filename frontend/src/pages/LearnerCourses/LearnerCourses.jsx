@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import CourseCard from "../../components/CourseCards/CourseCard";
 import empty from "../../assets/no-courses.gif";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import jwtDecode from "jwt-decode";
 import { useState } from "react";
@@ -18,13 +18,15 @@ const LearnerCourses = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState(null);
 
-  function handleRemoveCourse(course) {
-    fetch(`https://backend-litlab.herokuapp.com/users/${userId}/courses`, {
-      method: "DELETE",
-    }).then((res) => console.log(res));
+  async function handleRemoveCourse(course) {
+    await fetch(
+      `https://backend-litlab.herokuapp.com/users/${userId}/courses`,
+      {
+        method: "DELETE",
+      }
+    ).then((res) => console.log(res));
     setSelectedCourse(null);
     setShowModal(false);
-
     window.location.reload();
   }
 

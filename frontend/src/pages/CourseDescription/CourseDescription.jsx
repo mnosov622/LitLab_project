@@ -162,6 +162,7 @@ const CourseDescription = () => {
           price: course.price,
           instructor: course.instructor,
           courseImageURL: course.courseImageURL,
+          email: course.email,
         })
       );
       navigate("/payment");
@@ -178,19 +179,46 @@ const CourseDescription = () => {
 
   const handleLeaveReview = (e) => {
     e.preventDefault();
+    const date = new Date().toLocaleDateString("en-US");
+
+    const newReview = {
+      star: rating,
+      name: name,
+      review: review,
+      reviewerId: userId,
+      email: course.email,
+    };
+
+    fetch("http://localhost:8000/review/creator", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: course.email,
+        star: rating,
+        name: name,
+        reviewText: review,
+        date: date,
+        course: course.name,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
 
     //checking if user has submitted a review
     const hasSubmittedReview = course.courseReview?.some(
       (course) => course.reviewerId === userId
     );
 
-    if (hasSubmittedReview) {
-      alert.error("You already submitted a review", {
-        position: positions.BOTTOM_RIGHT,
-        timeout: 5000,
-      });
-      return;
-    }
+    // if (hasSubmittedReview) {
+    //   alert.error("You already submitted a review", {
+    //     position: positions.BOTTOM_RIGHT,
+    //     timeout: 5000,
+    //   });
+    //   return;
+    // }
 
     if (
       review.trim().length === 0 ||
@@ -201,13 +229,6 @@ const CourseDescription = () => {
       return;
     }
     setError(false);
-
-    const newReview = {
-      star: rating,
-      name: name,
-      review: review,
-      reviewerId: userId,
-    };
 
     fetch(`https://backend-litlab.herokuapp.com/review/course/${Number(id)}`, {
       method: "POST",
@@ -402,11 +423,11 @@ const CourseDescription = () => {
                   <span className="mr-2" style={{ marginRight: "20px" }}>
                     What you will learn{" "}
                   </span>
-                  <img
+                  {/* <img
                     src={learningImage}
                     alt="What you will learn"
                     width={"5%"}
-                  />
+                  /> */}
                 </div>
                 <div className="mt-4">
                   <div className="learn">
