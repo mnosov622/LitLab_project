@@ -35,6 +35,7 @@ const secret = "secret";
 
 const url = "mongodb+srv://max:LitLab@cluster0.qnyvkxl.mongodb.net";
 
+//update this line to handle cors issues
 app.use(
   cors({
     origin: "http://localhost:3000",

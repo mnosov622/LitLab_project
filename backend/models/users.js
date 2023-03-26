@@ -18,6 +18,14 @@ const userSchema = new mongoose.Schema({
   bio: { type: String },
   description: { type: String },
   social: { type: String },
+  reviews: [
+    {
+      name: String,
+      emai: String,
+      course: String,
+      star: String,
+    },
+  ],
   notes: [
     {
       text: String,
