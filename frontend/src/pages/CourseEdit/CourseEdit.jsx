@@ -149,7 +149,7 @@ const CourseEdit = () => {
                 </label>
                 <input
                   id="courseName"
-                  className="form-control w-50"
+                  className="form-control w-50 points-input"
                   type="text"
                   value={(singleCourse && courseName) || ""}
                   onChange={(e) => setCourseName(e.target.value)}
@@ -162,7 +162,7 @@ const CourseEdit = () => {
                 </label>
                 <textarea
                   id="shortDescription"
-                  className="form-control w-50"
+                  className="form-control w-50 points-input"
                   type="text"
                   value={(singleCourse && shortDescription) || ""}
                   onChange={(e) => setShortDescription(e.target.value)}
@@ -176,7 +176,7 @@ const CourseEdit = () => {
                 </label>
                 <textarea
                   id="longDescription"
-                  className="form-control w-50"
+                  className="form-control w-50 points-input"
                   type="text"
                   value={(singleCourse && longDescription) || ""}
                   onChange={(e) => setLongDescription(e.target.value)}
@@ -190,7 +190,7 @@ const CourseEdit = () => {
                 </label>
                 <input
                   id="longDescription"
-                  className="form-control w-50"
+                  className="form-control w-50 points-input"
                   type="number"
                   value={(singleCourse && price) || ""}
                   onChange={(e) => setPrice(e.target.value)}
@@ -205,6 +205,7 @@ const CourseEdit = () => {
                   src={`http://localhost:8000/images/${singleCourse.courseImageURL}`}
                   width={"30%"}
                   alt="Course"
+                  className="points-input"
                 />
               )}
 
@@ -215,6 +216,7 @@ const CourseEdit = () => {
                   controls
                   src={`http://localhost:8000/videos/${singleCourse.video}`}
                   width={"50%"}
+                  className="points-input"
                 ></video>
               )}
             </div>

@@ -59,7 +59,6 @@ const CourseUpload = () => {
   const [summary, setSummary] = useState("");
 
   const onSubmit = async (e) => {
-  
     e.preventDefault();
     const courseContentJSON = JSON.stringify(
       weeks.map((week) => ({ week: week.week }))
@@ -132,21 +131,18 @@ const CourseUpload = () => {
     console.log("created course", createdCourse);
   };
 
- 
-
   /*const handleImageChange = (event) => {
     setImage(event.target.files[0]);
     setImagePreview(URL.createObjectURL(event.target.files[0]));
   };*/
 
-  const [pointErrorMsg, setPointErrorMsg] = useState('');
-
+  const [pointErrorMsg, setPointErrorMsg] = useState("");
 
   const handlePointChange = (index, value) => {
     if (value.length > 40) {
-      setPointErrorMsg('Each point should have 40 characters or less.');
+      setPointErrorMsg("Each point should have 40 characters or less.");
     } else {
-      setPointErrorMsg('');
+      setPointErrorMsg("");
     }
     const newPointsToLearn = [...pointsToLearn];
     newPointsToLearn[index].point = value;
@@ -204,60 +200,55 @@ const CourseUpload = () => {
     console.log("Q", questions);
   };
 
-  
   // Define state variables for the input values and validation errors
   const [courseNameError, setCourseNameError] = useState(null);
   const [priceError, setPriceError] = useState(null);
   const [shortDesError, setShortDesError] = useState(null);
   const [longDesError, setLongDesError] = useState(null);
 
-
   function handleCourseName() {
     const name = nameRef.current.value.trim();
     if (!name) {
-      setCourseNameError('Please enter a course name');
+      setCourseNameError("Please enter a course name");
     } else if (/\d/.test(name)) {
-      setCourseNameError('Course name cannot contain numbers');
-    }
-    else {
+      setCourseNameError("Course name cannot contain numbers");
+    } else {
       setCourseNameError(null);
     }
-  };
+  }
 
   function handlePrice() {
     const price = priceRef.current.value.trim();
     if (!price) {
-      setPriceError('Please enter a price');
+      setPriceError("Please enter a price");
     } else if (!/^\d+$/.test(price)) {
-      setPriceError('Price must be a valid number');
+      setPriceError("Price must be a valid number");
     } else {
       setPriceError(null);
     }
-  };
+  }
 
   function handleShortDes() {
     const shortDes = shortDescr.current.value.trim();
     if (!shortDes) {
-      setShortDesError('Please enter short description');
-    } 
-     else {
+      setShortDesError("Please enter short description");
+    } else {
       setShortDesError(null);
     }
-  };
+  }
 
   function handleLongDes() {
     const longDes = longDescr.current.value.trim();
     if (!longDes) {
-      setLongDesError('Please enter long description');
-    } 
-     else {
+      setLongDesError("Please enter long description");
+    } else {
       setLongDesError(null);
     }
-  };
+  }
 
-//validating uploaded video file
+  //validating uploaded video file
   const [selectedFile, setSelectedFile] = useState(null);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState("");
 
   function videoChange(event) {
     const file = event.target.files[0];
@@ -266,34 +257,45 @@ const CourseUpload = () => {
   }
 
   function validateVideo(file) {
-    const allowedTypes = ["video/mp4", "video/mpeg", "video/quicktime", "video/mov"];
+    const allowedTypes = [
+      "video/mp4",
+      "video/mpeg",
+      "video/quicktime",
+      "video/mov",
+    ];
     const maxFileSize = 100 * 1024 * 1024; // 100 MB
 
     if (!allowedTypes.includes(file.type)) {
-      setErrorMessage("Invalid file type. Please upload an MP4, MPEG, MOV, or QuickTime video.");
+      setErrorMessage(
+        "Invalid file type. Please upload an MP4, MPEG, MOV, or QuickTime video."
+      );
       setSelectedFile(null);
       return;
     }
 
     if (file.size > maxFileSize) {
-      setErrorMessage("File size exceeds 100 MB. Please upload a smaller video.");
+      setErrorMessage(
+        "File size exceeds 100 MB. Please upload a smaller video."
+      );
       setSelectedFile(null);
       return;
     }
 
     if (!/\.mp4$|\.mpeg$|\.mov$|\.quicktime$/i.test(file.name)) {
-      setErrorMessage("Invalid file type. Please upload an MP4, MPEG, MOV, or QuickTime video.");
+      setErrorMessage(
+        "Invalid file type. Please upload an MP4, MPEG, MOV, or QuickTime video."
+      );
       setSelectedFile(null);
       return;
     }
 
-    setErrorMessage('');
+    setErrorMessage("");
     setSelectedFile(file);
   }
 
-//validating uploaded image file
+  //validating uploaded image file
   const [imageFile, setImageFile] = useState(null);
-  const [imageErrorMsg, setImageErrorMsg] = useState('');
+  const [imageErrorMsg, setImageErrorMsg] = useState("");
 
   function imageChange(event) {
     const file = event.target.files[0];
@@ -304,28 +306,40 @@ const CourseUpload = () => {
       return;
     }
 
-    const allowedTypes = ["image/png", "image/jpeg", "image/jpg", "image/tif", "image/tiff"];
+    const allowedTypes = [
+      "image/png",
+      "image/jpeg",
+      "image/jpg",
+      "image/tif",
+      "image/tiff",
+    ];
     const maxFileSize = 10 * 1024 * 1024; // 10 MB
 
     if (!allowedTypes.includes(file.type)) {
-      setImageErrorMsg("Invalid file type. Please upload a PNG, JPEG, TIF OR TIFF image.");
+      setImageErrorMsg(
+        "Invalid file type. Please upload a PNG, JPEG, TIF OR TIFF image."
+      );
       setImageFile(null);
       return;
     }
 
     if (file.size > maxFileSize) {
-      setImageErrorMsg("File size exceeds 10 MB. Please upload a smaller image.");
+      setImageErrorMsg(
+        "File size exceeds 10 MB. Please upload a smaller image."
+      );
       setImageFile(null);
       return;
     }
 
     if (!/\.(png|jpe?g|tif|tiff)$/i.test(file.name)) {
-      setImageErrorMsg("Invalid file type. Please upload a PNG, JPEG, TIF OR TIFF image.");
+      setImageErrorMsg(
+        "Invalid file type. Please upload a PNG, JPEG, TIF OR TIFF image."
+      );
       setImageFile(null);
       return;
     }
 
-    setImageErrorMsg('');
+    setImageErrorMsg("");
     setImageFile(file);
   }
 
@@ -367,8 +381,10 @@ const CourseUpload = () => {
         <div className="row">
           <div className="col-md-6">
             <div className="upload-item">
-              <h3 className="fs-2 text-primary">Upload a course video</h3>
-              <div class="input-container d-flex  justify-content-center align-items-center">
+              <h3 className="fs-2 text-primary file-input-text">
+                Upload a course video
+              </h3>
+              <div class="input-container d-flex  justify-content-center align-items-center file-input">
                 <p className="fs-4">
                   <i className="bi bi-upload fs-1"></i>
                 </p>
@@ -380,11 +396,15 @@ const CourseUpload = () => {
                   className="input-file"
                 />
               </div>
-              {errorMessage && (<div className="text-danger mt-2">{errorMessage}</div>)}
+              {errorMessage && (
+                <div className="text-danger mt-2">{errorMessage}</div>
+              )}
 
               {videoPreview && (
                 <div className="mb-5">
-                  <p className="text-primary mt-5 fs-1">Preview video</p>
+                  <p className="text-primary mt-5 fs-1 file-input-text">
+                    Preview video
+                  </p>
                   <video controls className="video-preview">
                     <source src={videoPreview} type="video/mp4" />
                     Your browser does not support the video tag.
@@ -393,8 +413,10 @@ const CourseUpload = () => {
               )}
             </div>
             <div className="upload-item">
-              <h3 className="fs-2 text-primary">Upload a course image</h3>
-              <div class="input-container d-flex  justify-content-center align-items-center">
+              <h3 className="fs-2 text-primary file-input-text">
+                Upload a course image
+              </h3>
+              <div class="input-container d-flex  justify-content-center align-items-center file-input">
                 <p className="fs-4">
                   <i className="bi bi-upload fs-1"></i>
                 </p>
@@ -406,7 +428,9 @@ const CourseUpload = () => {
                   className="input-file"
                 />
               </div>
-              {imageErrorMsg && (<div className="text-danger mt-2">{imageErrorMsg}</div>)}
+              {imageErrorMsg && (
+                <div className="text-danger mt-2">{imageErrorMsg}</div>
+              )}
 
               {imagePreview && (
                 <div className="mb-5">
@@ -430,16 +454,18 @@ const CourseUpload = () => {
                   id={`point-${index}`}
                   value={point.point}
                   onChange={(e) => handlePointChange(index, e.target.value)}
-                  className="form-control w-50"
+                  className="form-control w-50 points-input"
                 />
-                {pointErrorMsg && (<div className="text-danger">{pointErrorMsg}</div>)}
+                {pointErrorMsg && (
+                  <div className="text-danger">{pointErrorMsg}</div>
+                )}
               </div>
             ))}
             <h4 className="mt-3">Summary of points</h4>
             <textarea
               type="text"
               placeholder="Summary"
-              className="form-control w-50"
+              className="form-control w-50 points-input"
               value={summary}
               onChange={(e) => setSummary(e.target.value)}
             />
@@ -459,7 +485,9 @@ const CourseUpload = () => {
                 autoFocus
               />
               <label for="floatingName">Name</label>
-              {courseNameError && (<div className="text-danger mt-2">{courseNameError}</div>)}
+              {courseNameError && (
+                <div className="text-danger mt-2">{courseNameError}</div>
+              )}
             </div>
 
             <div className="form-floating mb-3">
@@ -473,7 +501,9 @@ const CourseUpload = () => {
                 required
               />
               <label for="floatingPrice">Price</label>
-              {priceError && (<div className="text-danger mt-2">{priceError}</div>)}
+              {priceError && (
+                <div className="text-danger mt-2">{priceError}</div>
+              )}
             </div>
 
             <div className="form-floating mb-3">
@@ -487,7 +517,9 @@ const CourseUpload = () => {
                 required
               />
               <label for="floatingDescription">Short Description</label>
-              {shortDesError && (<div className="text-danger mt-2">{shortDesError}</div>)}
+              {shortDesError && (
+                <div className="text-danger mt-2">{shortDesError}</div>
+              )}
             </div>
             <div className="form-floating mb-3">
               <input
@@ -500,7 +532,9 @@ const CourseUpload = () => {
                 required
               />
               <label for="floatingDescription">Long Description</label>
-              {longDesError && (<div className="text-danger mt-2">{longDesError}</div>)}
+              {longDesError && (
+                <div className="text-danger mt-2">{longDesError}</div>
+              )}
             </div>
 
             <h2 className="text-primary">Course Content</h2>

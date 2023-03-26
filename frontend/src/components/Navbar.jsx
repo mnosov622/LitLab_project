@@ -287,7 +287,7 @@ const Navbar = () => {
                   <img className="logo" src={logo} alt="logo" />
                 </Link>
               </div>
-              <div className="mt-4 fs-5 d-flex align-items-center dashboard-link">
+              <div className="fs-5 d-flex align-items-center dashboard-link">
                 <Link
                   to="/"
                   className="d-flex align-items-center justify-content-center"

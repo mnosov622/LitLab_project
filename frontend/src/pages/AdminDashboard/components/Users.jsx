@@ -121,88 +121,93 @@ const Users = () => {
   return (
     <div>
       <h2 className="text-center mb-5">All Users</h2>
-      <table className="table  table-light fs-5 border">
-        <thead className="border">
-          <tr className="text-dark">
-            <th>Name</th>
-            <th>Email</th>
-            <th></th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {usersData.map((user) => (
-            <tr key={user.id}>
-              <td className="text-dark">{user.name}</td>
-              <td className="text-dark">{user.email}</td>
-              <td className="text-dark">
-                <a href={`mailto:${user.email}`} className="btn btn-primary">
-                  Contact
-                </a>
-              </td>
-              <td className="buttons-wrapper">
-                <button
-                  className="btn btn-danger"
-                  onClick={() => handleShowDeleteUserModal(user.email)}
-                >
-                  Delete user
-                </button>
-                &nbsp; &nbsp;
-                <button
-                  className="btn btn-info"
-                  onClick={() => handleOpenEditModal(user._id, user.email)}
-                >
-                  Edit User Information
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      <div className="row mt-5">
-        <h2 className="text-center mb-5">All Courses</h2>
-        <Table bordered hover className="text-dark fs-5 table-light">
-          <thead>
-            <tr>
+      <div className="table-responsive">
+        <table className="table table-light fs-5 border w-100">
+          <thead className="border">
+            <tr className="text-dark">
               <th>Name</th>
-              <th>
-                Instructor <i class="bi bi-person"></i>
-              </th>
-              <th>Price $</th>
-              <th>Enrollments</th>
-              <th className="text-center">Actions</th>
+              <th>Email</th>
+              <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
-            {coursesData.map((course) => (
-              <tr key={course.name}>
-                <td>{course.name}</td>
-                <td cl>{course.instructor}</td>
-                <td>{course.price}</td>
-                <td>{course.enrollments}</td>
-                <td className="d-flex justify-content-between border-0">
+            {usersData.map((user) => (
+              <tr key={user.id}>
+                <td className="text-dark">{user.name}</td>
+                <td className="text-dark">{user.email}</td>
+                <td className="text-dark">
+                  <a href={`mailto:${user.email}`} className="btn btn-primary">
+                    Contact
+                  </a>
+                </td>
+                <td className="buttons-wrapper">
                   <button
                     className="btn btn-danger"
-                    onClick={() => handleShowModal(course.name)}
+                    onClick={() => handleShowDeleteUserModal(user.email)}
                   >
-                    Delete course
+                    Delete user
                   </button>
-
+                  &nbsp; &nbsp;
                   <button
                     className="btn btn-info"
-                    onClick={() =>
-                      handleOpenEditCourseModal(course.name, course.id)
-                    }
+                    onClick={() => handleOpenEditModal(user._id, user.email)}
                   >
-                    Edit course
+                    Edit User Information
                   </button>
                 </td>
               </tr>
             ))}
           </tbody>
-        </Table>
+        </table>
       </div>
+
+      <div className="row mt-5">
+        <h2 className="text-center mb-5">All Courses</h2>
+        <div className="table-responsive">
+          <Table bordered hover className="text-dark fs-5 table-light w-100">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>
+                  Instructor <i class="bi bi-person"></i>
+                </th>
+                <th>Price $</th>
+                <th>Enrollments</th>
+                <th className="text-center">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {coursesData.map((course) => (
+                <tr key={course.name}>
+                  <td>{course.name}</td>
+                  <td cl>{course.instructor}</td>
+                  <td>{course.price}</td>
+                  <td>{course.enrollments}</td>
+                  <td className="d-flex justify-content-between border-0">
+                    <button
+                      className="btn btn-danger"
+                      onClick={() => handleShowModal(course.name)}
+                    >
+                      Delete course
+                    </button>
+
+                    <button
+                      className="btn btn-info"
+                      onClick={() =>
+                        handleOpenEditCourseModal(course.name, course.id)
+                      }
+                    >
+                      Edit course
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </div>
+      </div>
+
       {showDeleteCourseModal && (
         <Modal
           title="Confirm Action"
