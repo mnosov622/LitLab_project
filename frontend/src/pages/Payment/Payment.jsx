@@ -104,6 +104,14 @@ const Payment = () => {
             email: item_to_buy.email,
           }),
         }).then((res) => console.log("res", res));
+
+        fetch("http://localhost:8000/courses/creator/enrollments", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email: item_to_buy.email }),
+        }).then((res) => console.log("res", res));
         fetch(
           `https://backend-litlab.herokuapp.com/courses/${item_to_buy.id}/increase-enrollments`,
           {
@@ -111,7 +119,7 @@ const Payment = () => {
           }
         );
 
-        fetch("https://backend-litlab.herokuapp.com/buy-course", {
+        await fetch("https://backend-litlab.herokuapp.com/buy-course", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -123,10 +131,7 @@ const Payment = () => {
           position: positions.BOTTOM_RIGHT,
           timeout: 2000, // custom timeout just for this one alert
         });
-        // navigate("/");
-        // setTimeout(() => {
-        //   window.location.reload();
-        // }, 500);
+        navigate("/");
       } catch (e) {
         console.log("An error occured", e);
       }

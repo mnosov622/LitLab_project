@@ -277,4 +277,26 @@ router.post("/creator", async (req, res) => {
   res.json(updatedUser.value);
 });
 
+router.put("/creator/enrollments", async (req, res) => {
+  const { email } = req.body;
+  const db = client.db("users");
+  const user = await db.collection("users").findOne({ email });
+
+  if (!user) {
+    return res.status(404).send("User not found");
+  }
+
+  console.log("user is", user);
+
+  const updatedUser = await db
+    .collection("users")
+    .findOneAndUpdate(
+      { email },
+      { $inc: { totalEnrollments: 1 } },
+      { returnOriginal: false }
+    );
+
+  res.json(updatedUser.value);
+});
+
 module.exports = router;
