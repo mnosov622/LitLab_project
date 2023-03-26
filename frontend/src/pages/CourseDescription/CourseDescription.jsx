@@ -402,11 +402,11 @@ const CourseDescription = () => {
                   <span className="mr-2" style={{ marginRight: "20px" }}>
                     What you will learn{" "}
                   </span>
-                  <img
+                  {/* <img
                     src={learningImage}
                     alt="What you will learn"
                     width={"5%"}
-                  />
+                  /> */}
                 </div>
                 <div className="mt-4">
                   <div className="learn">
