@@ -187,6 +187,7 @@ const CourseDescription = () => {
       review: review,
       reviewerId: userId,
       email: course.email,
+      date: date,
     };
 
     fetch("http://localhost:8000/review/creator", {
@@ -247,7 +248,6 @@ const CourseDescription = () => {
           .then((response) => response.json())
           .then((data) => {
             setCourse(data.course);
-            console.log("11", data.course);
             setLoading(false);
           });
       }
@@ -523,9 +523,15 @@ const CourseDescription = () => {
                       .slice(0, showAllReviews ? course.courseReview.length : 3)
                       .map((review) => (
                         <div
-                          className="previous-reviews mb-3 p-3"
+                          className="previous-reviews mb-3 p-3 position-relative"
                           key={review.id}
                         >
+                          <span
+                            className="text-muted position-absolute"
+                            style={{ right: "15px", top: "15px" }}
+                          >
+                            {review.date}
+                          </span>
                           <h4>{review.name}</h4>
                           <p>
                             Rating :{" "}

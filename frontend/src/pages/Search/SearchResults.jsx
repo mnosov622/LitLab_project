@@ -23,12 +23,12 @@ function SearchResults(props) {
   return (
     <>
       <div className="row">
+        <h2 className="fs-2 mt-4 mb-4">
+          Results for <span className="text-primary">{searchValue}</span>
+        </h2>
         {searchResults && searchResults.length > 0 ? (
           searchResults.map((course) => (
             <>
-              <h2 className="fs-2 mt-4 mb-4">
-                Results for <span className="text-primary">{searchValue}</span>
-              </h2>
               <CourseCard
                 cardSmall
                 key={course.id}

@@ -5,10 +5,11 @@ const router = express.Router();
 
 router.post("/course/:id", async (req, res) => {
   const { id } = req.params;
-  const { name, star, review, reviewerId } = req.body;
+  const { name, star, review, reviewerId, date } = req.body;
 
   const db = client.db("courses");
   const collection = db.collection("courses");
+  console.log("date recived", date);
 
   try {
     await client.connect();
@@ -17,7 +18,7 @@ router.post("/course/:id", async (req, res) => {
       { id: Number(id) },
       {
         $push: {
-          courseReview: { name, star, review, reviewerId },
+          courseReview: { name, star, review, reviewerId, date },
         },
       }
     );
