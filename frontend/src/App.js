@@ -163,6 +163,10 @@ function App() {
                 element={<Certificate />}
               />
               <Route path="/certificate/:id" element={<Certificate />} />
+              <Route path="/help" element={<Help />} />
+              <Route path="/lcomminuty" element={<LearnerCommunity />} />
+              <Route path="/privacy" element={<Privacy />} />
+              <Route path="/term" element={<Term />} />
 
               <Route
                 path="/course/*"

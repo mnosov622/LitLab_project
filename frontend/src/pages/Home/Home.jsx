@@ -116,6 +116,11 @@ const Home = () => {
                 homeImage
               />
             </div>
+            <Link to="/all-courses" className="text-center ">
+              <button className="btn btn-primary btn-lg">
+                See other courses
+              </button>
+            </Link>
           </div>
         </div>
         <div className="row mt-5">

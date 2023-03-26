@@ -374,6 +374,7 @@ const CourseView = () => {
             <div className="col-md-6">
               {fakeVideo ? (
                 <iframe
+                  className="iframe-video"
                   ref={videoRef}
                   width="560"
                   height="315"
@@ -405,15 +406,15 @@ const CourseView = () => {
                 Complete test
               </Link>
             </div>
-            <div className="col-md-6">
+            <div className="col-md">
               <Tabs
                 id="my-tabs"
-                className="col-md-6"
+                className="col"
                 activeKey={activeTab}
                 onSelect={handleTabSelect}
               >
                 <Tab eventKey="content" title="Content">
-                  <div className="col-md-6">
+                  <div className="col">
                     <p className="fs-1 text-left ">Course Content</p>
                     {courseData?.courseContent &&
                       courseData?.courseContent.map((content, index) => (
@@ -438,7 +439,7 @@ const CourseView = () => {
                       </Col>
                     </Row>
                     <Row>
-                      <Col md={8}>
+                      <Col md={12}>
                         <form action="" onSubmit={(e) => handleNoteSave(e)}>
                           <ReactQuill
                             modules={{ toolbar: toolbarOptions }}
@@ -568,8 +569,15 @@ const CourseView = () => {
           </div>
 
           <Tabs defaultActiveKey={""}>
-            <Tab eventKey="email" title="Send Feedback" className="w-50 ">
+            <Tab
+              eventKey="email"
+              title="Send Feedback"
+              className="w-50 feedback"
+            >
               <div className="my-3">
+                <p className="fs-4">
+                  Send feedback to <b>{courseData.instructor}</b>
+                </p>
                 <Row>
                   <Col md={8}>
                     <form onSubmit={handleEmailSubmit}>

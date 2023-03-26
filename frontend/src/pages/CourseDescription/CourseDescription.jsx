@@ -438,7 +438,7 @@ const CourseDescription = () => {
               </div>
             </div>
           </div>
-          <div className="row mt-5">
+          <div className="row mt-5 course-content">
             <div className="mx-auto col-md-8">
               <p className="fs-3 fw-bold">Course Content</p>
 
@@ -465,7 +465,7 @@ const CourseDescription = () => {
 
           <div className="row mt-5">
             <div className="mx-auto col-md-8">
-              <p className="fs-3 fw-bold">Course Description</p>
+              <p className="fs-3 fw-bold ">Course Description</p>
               <p className="course-description">{course?.longDescription}</p>
             </div>
           </div>
@@ -495,7 +495,7 @@ const CourseDescription = () => {
             <div className="mx-auto col-md-8">
               <p className="fw-bold fs-2">Reviews</p>
               <Row>
-                <Col xs={7}>
+                <Col md={7}>
                   {course &&
                     course.courseReview &&
                     course.courseReview
@@ -546,7 +546,7 @@ const CourseDescription = () => {
                     ""
                   )}
                 </Col>
-                <Col>
+                <Col md={5}>
                   <Form
                     className="review-form"
                     onSubmit={(e) => handleLeaveReview(e)}

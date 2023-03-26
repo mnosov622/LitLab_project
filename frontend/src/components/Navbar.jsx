@@ -260,9 +260,13 @@ const Navbar = () => {
                     <li className="mobile-nav-items" onClick={handleToggleNav}>
                       <Link to="/cart">My Cart</Link>
                     </li>
+                    <li className="mobile-nav-items" onSubmit={handleToggleNav}>
+                      <SearchBar small />
+                    </li>
                     <li className="mobile-nav-items" onClick={handleToggleNav}>
                       <Link to="/all-courses">Explore All Courses</Link>
                     </li>
+
                     <button className="btn btn-dark" onClick={logOut}>
                       Log out
                     </button>

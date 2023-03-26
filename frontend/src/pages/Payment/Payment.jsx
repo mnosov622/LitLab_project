@@ -182,7 +182,7 @@ const Payment = () => {
               )}
             </div>
           </div>
-          <div className="p-4 offset-1 col-md-5 h-100 bg-light shadow">
+          <div className="p-4 mx-auto col-md-5 h-100 bg-light shadow">
             <form onSubmit={handlePayment}>
               <div class="form-group mb-2">
                 <label htmlFor="cardNumber">Card number</label>
