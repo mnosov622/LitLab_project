@@ -299,4 +299,70 @@ router.put("/creator/enrollments", async (req, res) => {
   res.json(updatedUser.value);
 });
 
+const nodemailer = require("nodemailer");
+
+router.post("/feedback", (req, res) => {
+  const { userEmail, creatorEmail, message, name } = req.body;
+  console.log("data recived", userEmail, creatorEmail, message, name);
+  const transporter = nodemailer.createTransport({
+    port: 465, // true for 465, false for other ports
+    host: "smtp.gmail.com",
+    auth: {
+      user: "litlab200@gmail.com",
+      pass: "fbwvydwfqefelrmb",
+    },
+    tls: {
+      rejectUnauthorized: false,
+    },
+  });
+
+  const mailData = {
+    from: "mnosov622@gmail.com",
+    to: creatorEmail,
+    subject: "Feedback from learner",
+    html: `
+    <style>
+    .contact-message {
+      background-color: #f5f5f5;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 20px;
+      margin: 20px;
+      max-width: 500px;
+    }
+
+    .contact-message h2 {
+      font-size: 24px;
+      margin-top: 0;
+    }
+
+    .contact-message p {
+      font-size: 18px;
+      margin: 10px 0;
+    }
+
+    .contact-message strong {
+      font-weight: bold;
+    }
+    </style>
+    <div class="contact-message">
+    <h2>Feedback</h2>
+    <p><strong>From:</strong> ${name} (${userEmail})</p>
+    <p><strong>Message:</strong> ${message}</p>
+  </div>`,
+  };
+
+  transporter.sendMail(mailData, (error, info) => {
+    if (error) {
+      res.status(505).send({ error: "Server error" });
+      return console.log("errpr", error);
+    }
+    res.status(200).send({
+      message: "Mail send",
+      message_id: info.messageId,
+      success: true,
+    });
+  });
+});
+
 module.exports = router;

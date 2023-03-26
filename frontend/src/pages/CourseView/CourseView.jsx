@@ -15,6 +15,7 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 import jwtDecode from "jwt-decode";
 import { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { useAlert, positions } from "react-alert";
 
 firebase.initializeApp({
   apiKey: "AIzaSyBqxPkGhgTnyDyTIl_FolvL2QJlJUuG_14",
@@ -42,6 +43,8 @@ const CourseView = () => {
 
     setActiveTab(tabKey);
   };
+
+  const alert = useAlert();
 
   useEffect(() => {
     if (activeTab === "chat" && chatWindowRef.current && chatWindowLoaded) {
@@ -195,9 +198,12 @@ const CourseView = () => {
   const handleDeleteNote = (note) => {
     console.log(note);
 
-    fetch(`https://backend-litlab.herokuapp.com/users/notes/${userId}/${note.id}`, {
-      method: "DELETE",
-    }).then((res) => {
+    fetch(
+      `https://backend-litlab.herokuapp.com/users/notes/${userId}/${note.id}`,
+      {
+        method: "DELETE",
+      }
+    ).then((res) => {
       fetch(`https://backend-litlab.herokuapp.com/users/${userId}`)
         .then((res) => res.json())
         .then((data) => {
@@ -321,26 +327,36 @@ const CourseView = () => {
     const nameError = handleName();
     const emailError = handleEmail();
     const feedbackError = handleFeedback();
-    const data = {
-      userEmail: emailAddress,
-      message: feedback,
-      creatorEmail: courseData.email,
-      name: name,
-    };
-    console.log("data", data);
+
     if (
       name.trim().length !== 0 &&
       emailAddress.trim().length !== 0 &&
       feedback.trim().length !== 0
     ) {
-      console.log("object passed", data);
-      fetch(`https://backend-litlab.herokuapp.com/creator/feedback`, {
+      fetch(`http://localhost:8000/courses/feedback`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
-      }).then((res) => console.log("response", res));
+        body: JSON.stringify({
+          userEmail: emailAddress,
+          message: feedback,
+          creatorEmail: courseData.email,
+          name: name,
+        }),
+      }).then((res) => {
+        if (res.status === 200) {
+          alert.success("Your message has been sent", {
+            position: positions.BOTTOM_RIGHT,
+            timeout: 2000,
+          });
+        } else {
+          alert.error("There was an error, try again", {
+            position: positions.BOTTOM_RIGHT,
+            timeout: 2000,
+          });
+        }
+      });
     }
   };
 

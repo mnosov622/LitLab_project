@@ -201,16 +201,9 @@ const Charts = () => {
         </div>
       </div>
 
-      {userData?.usersEnrolled?.length === 0 ||
-        (!userData?.usersEnrolled && (
-          <p className="fs-2 text-primary text-center mb-5 mt-5">
-            No one is enrolled in your courses
-          </p>
-        ))}
-
-      {userData?.usersEnrolled?.length > 0 && (
-        <div>
-          <h2 className="text-center mb-5">Enrolled Users</h2>
+      <div>
+        <h2 className="text-center mb-5">Enrolled Users</h2>
+        {userData?.usersEnrolled?.length > 0 && (
           <table className="table  table-light fs-5 border">
             <thead className="border">
               <tr className="text-dark">
@@ -245,43 +238,35 @@ const Charts = () => {
                 ))}
             </tbody>
           </table>
-        </div>
-      )}
+        )}
+      </div>
+      {userData?.usersEnrolled?.length === 0 ||
+        (!userData?.usersEnrolled && (
+          <p className="fs-2 text-primary text-center mb-5 mt-5">
+            No one is enrolled in your courses
+          </p>
+        ))}
 
       <div className="row mt-5">
         <h2 className="text-center mb-5">Reviews</h2>
-        <div className="mx-auto col-md-8 d-flex justify-content-center">
-          <Row>
-            <Col>
-              {instructorReviews.map((review) => (
-                <div className="previous-reviews mb-3 p-3" key={review.id}>
-                  <h4>{review.name}</h4>
-                  <p>
-                    Rating :{" "}
-                    {Array.from({ length: review.star }, (_, i) => (
-                      <span key={i}>⭐️</span>
-                    ))}
-                  </p>
-                  <p>{review.review} </p>
-                </div>
-              ))}
-              {userData &&
-                userData.reviews &&
-                userData.reviews.map((review) => (
+        {userData?.reviews?.length > 0 && (
+          <div className="mx-auto col-md-8 d-flex justify-content-center">
+            <Row>
+              <Col>
+                {instructorReviews.map((review) => (
                   <div
                     className="previous-reviews mb-3 p-3 position-relative"
                     key={review.id}
                   >
-                    <p className="text-primary">{review.course} course</p>
                     <h4>{review.name}</h4>
                     <span
                       className="text-muted position-absolute"
                       style={{ right: "15px", top: "15px" }}
                     >
-                      {review.date}
+                      3/20/2023
                     </span>
                     <p>
-                      Rating :
+                      Rating :{" "}
                       {Array.from({ length: review.star }, (_, i) => (
                         <span key={i}>⭐️</span>
                       ))}
@@ -289,9 +274,41 @@ const Charts = () => {
                     <p>{review.review} </p>
                   </div>
                 ))}
-            </Col>
-          </Row>
-        </div>
+                {userData &&
+                  userData.reviews &&
+                  userData.reviews.map((review) => (
+                    <div
+                      className="previous-reviews mb-3 p-3 position-relative"
+                      key={review.id}
+                    >
+                      <p className="text-primary">{review.course} course</p>
+                      <h4>{review.name}</h4>
+                      <span
+                        className="text-muted position-absolute"
+                        style={{ right: "15px", top: "15px" }}
+                      >
+                        {review.date}
+                      </span>
+                      <p>
+                        Rating :
+                        {Array.from({ length: review.star }, (_, i) => (
+                          <span key={i}>⭐️</span>
+                        ))}
+                      </p>
+                      <p>{review.review} </p>
+                    </div>
+                  ))}
+              </Col>
+            </Row>
+          </div>
+        )}
+
+        {userData?.reviews?.length === 0 ||
+          (!userData?.reviews && (
+            <p className="fs-2 text-primary text-center mb-5 mt-5">
+              You don't have reviews yet
+            </p>
+          ))}
       </div>
     </>
   );
