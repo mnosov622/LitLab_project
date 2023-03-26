@@ -86,7 +86,7 @@ const CourseView = () => {
   const userId = decoded.id;
 
   useEffect(() => {
-    fetch(`http://localhost:8000/users/${userId}`)
+    fetch(`https://backend-litlab.herokuapp.com/users/${userId}`)
       .then((res) => res.json())
       .then((data) => {
         console.log("user data", data);
@@ -148,14 +148,14 @@ const CourseView = () => {
 
   const handleNoteSave = (e) => {
     e.preventDefault();
-    fetch(`http://localhost:8000/users/notes/${userId}`, {
+    fetch(`https://backend-litlab.herokuapp.com/users/notes/${userId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ notebody: noteBody }),
     }).then((res) => {
-      fetch(`http://localhost:8000/users/${userId}`)
+      fetch(`https://backend-litlab.herokuapp.com/users/${userId}`)
         .then((res) => res.json())
         .then((data) => {
           setSavedNotes(data.notes);
@@ -174,10 +174,10 @@ const CourseView = () => {
 
   const handleDeleteNotes = () => {
     console.log("clicked");
-    fetch(`http://localhost:8000/users/notes/${userId}`, {
+    fetch(`https://backend-litlab.herokuapp.com/users/notes/${userId}`, {
       method: "DELETE",
     }).then((res) => {
-      fetch(`http://localhost:8000/users/${userId}`)
+      fetch(`https://backend-litlab.herokuapp.com/users/${userId}`)
         .then((res) => res.json())
         .then((data) => {
           console.log("notes", data.notes);
@@ -195,10 +195,10 @@ const CourseView = () => {
   const handleDeleteNote = (note) => {
     console.log(note);
 
-    fetch(`http://localhost:8000/users/notes/${userId}/${note.id}`, {
+    fetch(`https://backend-litlab.herokuapp.com/users/notes/${userId}/${note.id}`, {
       method: "DELETE",
     }).then((res) => {
-      fetch(`http://localhost:8000/users/${userId}`)
+      fetch(`https://backend-litlab.herokuapp.com/users/${userId}`)
         .then((res) => res.json())
         .then((data) => {
           setSavedNotes(data.notes);
@@ -209,7 +209,7 @@ const CourseView = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:8000/courses/${Number(id)}`)
+    fetch(`https://backend-litlab.herokuapp.com/courses/${Number(id)}`)
       .then((response) => response.json())
       .then((data) => {
         setCourseData(data.course);
@@ -227,7 +227,7 @@ const CourseView = () => {
       setUploadedVideo(true);
     }
     //   ? courseData
-    //   : `http://localhost:8000/images/${courseData.video}`;
+    //   : `https://backend-litlab.herokuapp.com/images/${courseData.video}`;
     // setVideoSource(videoSource);
   }, [courseData]);
 
@@ -334,7 +334,7 @@ const CourseView = () => {
       feedback.trim().length !== 0
     ) {
       console.log("object passed", data);
-      fetch(`http://localhost:8000/creator/feedback`, {
+      fetch(`https://backend-litlab.herokuapp.com/creator/feedback`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -387,7 +387,7 @@ const CourseView = () => {
                 uploadedVideo &&
                 courseData?.video && (
                   <video
-                    src={`http://localhost:8000/videos/${courseData.video}`}
+                    src={`https://backend-litlab.herokuapp.com/videos/${courseData.video}`}
                     controls
                     width={"100%"}
                   />

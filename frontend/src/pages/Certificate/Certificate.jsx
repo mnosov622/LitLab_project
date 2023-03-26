@@ -38,14 +38,14 @@ const Certificate = () => {
       today.getMonth() + 1 + "/" + today.getDate() + "/" + today.getFullYear();
     console.log(date);
     setDate(date);
-    fetch(`http://localhost:8000/courses/${Number(id)}`)
+    fetch(`https://backend-litlab.herokuapp.com/courses/${Number(id)}`)
       .then((response) => response.json())
       .then((data) => {
         setCourseData(data.course);
         console.log("course", data.course);
       });
 
-    fetch(`http://localhost:8000/users/${decoded.id}`)
+    fetch(`https://backend-litlab.herokuapp.com/users/${decoded.id}`)
       .then((response) => response.json())
       .then((data) => {
         setUserData(data);

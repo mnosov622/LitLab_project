@@ -27,7 +27,7 @@ const Login = () => {
     console.log("email", emailRef.current.value);
 
     e.preventDefault();
-    fetch("http://localhost:8000/forgot-password", {
+    fetch("https://backend-litlab.herokuapp.com/forgot-password", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

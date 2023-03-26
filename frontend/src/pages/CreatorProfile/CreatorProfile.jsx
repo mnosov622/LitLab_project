@@ -14,7 +14,7 @@ const CreatorProfile = () => {
   const alert = useAlert();
 
   useEffect(() => {
-    fetch(`http://localhost:8000/users/${decoded.id}`)
+    fetch(`https://backend-litlab.herokuapp.com/users/${decoded.id}`)
       .then((response) => response.json())
       .then((data) => {
         setProfileData(data);
@@ -32,7 +32,7 @@ const CreatorProfile = () => {
     formData.append("social", socialLink);
     formData.append("description", description);
 
-    fetch(`http://localhost:8000/creator/${decoded.id}`, {
+    fetch(`https://backend-litlab.herokuapp.com/creator/${decoded.id}`, {
       method: "POST",
       body: formData,
     }).then((res) => {
@@ -46,7 +46,7 @@ const CreatorProfile = () => {
       }
     });
 
-    fetch(`http://localhost:8000/creator/courses/${16}`, {
+    fetch(`https://backend-litlab.herokuapp.com/creator/courses/${16}`, {
       method: "POST",
       body: formData,
     })
@@ -80,7 +80,7 @@ const CreatorProfile = () => {
             <>
               <img
                 className="profile-header__avatar rounded w-25"
-                src={`http://localhost:8000/images/${profileData.profileImage}`}
+                src={`https://backend-litlab.herokuapp.com/images/${profileData.profileImage}`}
                 alt="avatar"
               />
               <div className="">

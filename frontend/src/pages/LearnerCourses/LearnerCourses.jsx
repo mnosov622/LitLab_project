@@ -19,7 +19,7 @@ const LearnerCourses = () => {
   const [selectedCourse, setSelectedCourse] = useState(null);
 
   function handleRemoveCourse(course) {
-    fetch(`http://localhost:8000/users/${userId}/courses`, {
+    fetch(`https://backend-litlab.herokuapp.com/users/${userId}/courses`, {
       method: "DELETE",
     }).then((res) => console.log(res));
     setSelectedCourse(null);
@@ -40,7 +40,7 @@ const LearnerCourses = () => {
 
   useEffect(() => {
     setLoader(true);
-    fetch(`http://localhost:8000/users/${userId}`)
+    fetch(`https://backend-litlab.herokuapp.com/users/${userId}`)
       .then((response) => response.json())
       .then((data) => setCourses(data.courses));
     setLoader(false);
@@ -49,7 +49,7 @@ const LearnerCourses = () => {
   /*const handleRemove = () => {
     console.log("remove all");
     if (window.confirm("Are you sure you want to remove all courses ?")) {
-      fetch(`http://localhost:8000/users/${userId}/courses`, {
+      fetch(`https://backend-litlab.herokuapp.com/users/${userId}/courses`, {
         method: "DELETE",
       }).then((res) => console.log(res));
     }

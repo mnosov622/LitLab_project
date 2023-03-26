@@ -25,7 +25,7 @@ const CreatorDashboard = () => {
     const userEmail = decoded.email;
     console.log(userEmail);
     setLoading(true);
-    fetch(`http://localhost:8000/users/${decoded.id}`)
+    fetch(`https://backend-litlab.herokuapp.com/users/${decoded.id}`)
       .then((response) => response.json())
       .then((data) => {
         console.log("data recieved", data);

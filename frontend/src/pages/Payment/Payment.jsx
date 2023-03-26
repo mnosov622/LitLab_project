@@ -83,13 +83,13 @@ const Payment = () => {
         };
 
         fetch(
-          `http://localhost:8000/courses/${item_to_buy.id}/increase-enrollments`,
+          `https://backend-litlab.herokuapp.com/courses/${item_to_buy.id}/increase-enrollments`,
           {
             method: "PUT",
           }
         );
 
-        fetch("http://localhost:8000/buy-course", {
+        fetch("https://backend-litlab.herokuapp.com/buy-course", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -122,7 +122,7 @@ const Payment = () => {
           });
         });
 
-        fetch("http://localhost:8000/buy-course", {
+        fetch("https://backend-litlab.herokuapp.com/buy-course", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

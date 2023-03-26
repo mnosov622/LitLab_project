@@ -67,7 +67,7 @@ const CourseDescription = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:8000/courses/${Number(id)}`)
+    fetch(`https://backend-litlab.herokuapp.com/courses/${Number(id)}`)
       .then((response) => response.json())
       .then((data) => {
         setCourse(data.course);
@@ -84,7 +84,7 @@ const CourseDescription = () => {
     const token = localStorage.getItem("token");
     const decoded = jwtDecode(token);
 
-    fetch(`http://localhost:8000/users/${decoded.id}`)
+    fetch(`https://backend-litlab.herokuapp.com/users/${decoded.id}`)
       .then((response) => response.json())
       .then((data) => {
         console.log("data revicev", data.courses);
@@ -102,7 +102,7 @@ const CourseDescription = () => {
     console.log(course);
     const imageSource = course?.courseImageURL?.startsWith("https")
       ? course?.courseImageURL
-      : `http://localhost:8000/images/${course.courseImageURL}`;
+      : `https://backend-litlab.herokuapp.com/images/${course.courseImageURL}`;
     setImageSource(imageSource);
   }, [course, course?.coureseImageURL]);
 
@@ -110,7 +110,7 @@ const CourseDescription = () => {
     console.log(course);
     const instructorSource = course?.instructorImageURL?.startsWith("https")
       ? course?.instructorImageURL
-      : `http://localhost:8000/images/${course.instructorImageURL}`;
+      : `https://backend-litlab.herokuapp.com/images/${course.instructorImageURL}`;
     setInstructorImageSource(instructorSource);
   }, [course, course?.instructorImageURL]);
 
@@ -209,7 +209,7 @@ const CourseDescription = () => {
       reviewerId: userId,
     };
 
-    fetch(`http://localhost:8000/review/course/${Number(id)}`, {
+    fetch(`https://backend-litlab.herokuapp.com/review/course/${Number(id)}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -222,7 +222,7 @@ const CourseDescription = () => {
           timeout: 2000,
         });
 
-        fetch(`http://localhost:8000/courses/${Number(id)}`)
+        fetch(`https://backend-litlab.herokuapp.com/courses/${Number(id)}`)
           .then((response) => response.json())
           .then((data) => {
             setCourse(data.course);

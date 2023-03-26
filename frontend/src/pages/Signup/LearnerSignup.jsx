@@ -97,7 +97,7 @@ const LearnerSignup = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:8000/register-with-google",
+        "https://backend-litlab.herokuapp.com/register-with-google",
         {
           method: "POST",
           body: JSON.stringify({
@@ -131,7 +131,7 @@ const LearnerSignup = () => {
     e.preventDefault();
     if (passwordMatch && !passwordError) {
       try {
-        const response = await fetch("http://localhost:8000/registerLearner", {
+        const response = await fetch("https://backend-litlab.herokuapp.com/registerLearner", {
           method: "POST",
           body: JSON.stringify({ name, email, password, isLearner: true }),
           headers: { "Content-Type": "application/json" },

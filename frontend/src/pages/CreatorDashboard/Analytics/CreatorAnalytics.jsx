@@ -166,7 +166,7 @@ const Charts = () => {
   //const enrolledUsers = enrolledUsersData.filter(user => user.courseId === courseId);
 
   useEffect(() => {
-    fetch(`http://localhost:8000/users/${userId}`)
+    fetch(`https://backend-litlab.herokuapp.com/users/${userId}`)
       .then((res) => res.json())
       .then((data) => {
         setCourses(data.courses);

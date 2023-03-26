@@ -41,14 +41,14 @@ const Users = () => {
   const handleConfirm = (name) => {
     // handle confirm action
     console.log(name);
-    fetch(`http://localhost:8000/courses/${name}`, {
+    fetch(`https://backend-litlab.herokuapp.com/courses/${name}`, {
       method: "DELETE",
     })
       .then((response) => {
         console.log(response);
         if (response.status === 200) {
           setShowDeleteUserModal(false);
-          fetch("http://localhost:8000/courses")
+          fetch("https://backend-litlab.herokuapp.com/courses")
             .then((res) => res.json())
             .then((data) => setCoursesData(data));
         }
@@ -59,13 +59,13 @@ const Users = () => {
   };
 
   const handleConfirmDeleteUser = (email) => {
-    fetch(`http://localhost:8000/users/${email}`, {
+    fetch(`https://backend-litlab.herokuapp.com/users/${email}`, {
       method: "DELETE",
     })
       .then((response) => {
         if (response.status === 200) {
           setShowDeleteUserModal(false);
-          fetch("http://localhost:8000/users")
+          fetch("https://backend-litlab.herokuapp.com/users")
             .then((res) => res.json())
             .then((data) => setUsersData(data));
         }
@@ -87,7 +87,7 @@ const Users = () => {
     setShowEditUserModal(true);
     setSelectedUser(email);
 
-    fetch(`http://localhost:8000/users/${id}`)
+    fetch(`https://backend-litlab.herokuapp.com/users/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setSingleUserData(data);
@@ -99,7 +99,7 @@ const Users = () => {
     console.log("id and name", id, name);
     setShowEditCourseModal(true);
     setSelectedCourse(id);
-    fetch(`http://localhost:8000/users/${id}`)
+    fetch(`https://backend-litlab.herokuapp.com/users/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setSingleUserData(data);
@@ -108,11 +108,11 @@ const Users = () => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:8000/users")
+    fetch("https://backend-litlab.herokuapp.com/users")
       .then((res) => res.json())
       .then((data) => setUsersData(data));
 
-    fetch("http://localhost:8000/courses")
+    fetch("https://backend-litlab.herokuapp.com/courses")
       .then((res) => res.json())
       .then((data) => setCoursesData(data))
       .catch((e) => console.log(e));
