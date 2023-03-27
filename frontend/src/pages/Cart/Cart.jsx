@@ -72,7 +72,7 @@ const Cart = () => {
           </div>
         </div>
       ) : (
-        <div className="row cart-items">
+        <div className="row ">
           {shoppingCartItems.map((item) => (
             <CourseCard
               cardSmall
