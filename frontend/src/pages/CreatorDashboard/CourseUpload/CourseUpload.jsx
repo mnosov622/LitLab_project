@@ -378,40 +378,118 @@ const CourseUpload = () => {
     // submit form
   }*/
 
-  const [currentItem, setCurrentItem] = useState(0);
+  const [currentGroup, setCurrentGroup] = useState(0);
 
-  const formItems = [
+  const groups = [
     {
-      label: "Name",
-      input: <input type="text" name="name" />,
+      heading: "General Information",
+      items: [
+        {
+          label: "Name",
+          input: <input type="text" name="name" className="form-control" />,
+        },
+        {
+          label: "Price",
+          input: <input type="number" name="price" className="form-control" />,
+        },
+        {
+          label: "Short Description",
+          input: <textarea name="shortDescription" className="form-control" />,
+        },
+        {
+          label: "Long Description",
+          input: <textarea name="longDescription" className="form-control" />,
+        },
+      ],
     },
     {
-      label: "Email",
-      input: <input type="email" name="email" />,
+      heading: "Upload Course Video",
+      items: [
+        {
+          label: "Upload a course video",
+          input: (
+            <div>
+              <div className="input-container d-flex justify-content-center align-items-center file-input">
+                <p className="fs-4">
+                  <i className="bi bi-upload fs-1"></i>
+                </p>
+                <input
+                  type="file"
+                  onChange={handleVideoChange}
+                  required
+                  id="video"
+                  className="input-file"
+                />
+              </div>
+              {videoPreview && (
+                <div className="mb-5">
+                  <p className="text-primary mt-5 fs-1 file-input-text">
+                    Preview video
+                  </p>
+                  <video controls className="video-preview">
+                    <source src={videoPreview} type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              )}
+            </div>
+          ),
+        },
+      ],
     },
     {
-      label: "Password",
-      input: <input type="password" name="password" />,
+      heading: "Additional Information",
+      items: [
+        {
+          label: "Course Description",
+          input: (
+            <textarea name="description" rows="5" className="form-control" />
+          ),
+        },
+        {
+          label: "Course Price",
+          input: <input type="number" name="price" className="form-control" />,
+        },
+        {
+          label: "Course Duration",
+          input: <input type="text" name="duration" className="form-control" />,
+        },
+      ],
     },
-    // add more items as needed
   ];
 
-  const handleNextClick = () => {
-    setCurrentItem(currentItem + 1);
-  };
+  const currentGroupItems = groups[currentGroup].items;
 
   return (
     <>
-      <div className="form-item">
-        <label>{formItems[currentItem].label}</label>
-        {formItems[currentItem].input}
-      </div>
-      <button
-        onClick={handleNextClick}
-        disabled={currentItem === formItems.length - 1}
-      >
-        Next
-      </button>
+      <form>
+        <h2 className="text-center fs-2 text-primary">
+          {groups[currentGroup].heading}
+        </h2>
+        {currentGroupItems.map((item) => (
+          <div className="form-item" key={item.label}>
+            <label>{item.label}</label>
+            {item.input}
+          </div>
+        ))}
+        <div className="text-center mt-5">
+          <button
+            disabled={currentGroup === 0}
+            onClick={() => setCurrentGroup(currentGroup - 1)}
+            className="btn btn-primary"
+          >
+            Previous
+          </button>
+          <button
+            disabled={currentGroup === groups.length - 1}
+            className="btn btn-primary"
+            onClick={() => setCurrentGroup(currentGroup + 1)}
+            style={{ marginLeft: "3%" }}
+          >
+            Next
+          </button>
+        </div>
+      </form>
 
       {/* <form onSubmit={onSubmit}>
         <div className="bg-light shadow text-center p-2 fs-2 mb-4">
