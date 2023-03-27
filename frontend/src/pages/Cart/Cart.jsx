@@ -54,14 +54,6 @@ const Cart = () => {
     navigate("/payment");
   };
 
-  /*const handleClearCart = () => {
-    if (window.confirm("Are you sure you want to clear the cart?")) {
-      localStorage.removeItem("shopping_cart");
-      const shoppingCartItems = localStorage.getItem("shopping_cart");
-      const items = JSON.parse(shoppingCartItems);
-      setShoppingCartItems(items);
-    }
-  };*/
   return (
     <>
       <div className="bg-light shadow text-center p-2 fs-2 mb-5">
@@ -80,7 +72,7 @@ const Cart = () => {
           </div>
         </div>
       ) : (
-        <div className="row">
+        <div className="row cart-items">
           {shoppingCartItems.map((item) => (
             <CourseCard
               cardSmall
