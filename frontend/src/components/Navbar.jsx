@@ -120,7 +120,7 @@ const Navbar = () => {
                   My courses
                 </Link>
                 <Link to="/upload" className="dashboard-item fs-5">
-                  Upload a course
+                  Create a course
                 </Link>
 
                 <Link to="/analytics" className="dashboard-item fs-5">
