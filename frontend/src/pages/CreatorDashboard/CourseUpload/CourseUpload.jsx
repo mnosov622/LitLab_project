@@ -622,7 +622,7 @@ const CourseUpload = () => {
       ],
     },
     {
-      heading: "",
+      heading: "Final step - create a course for learners",
       items: [
         {
           label: "",
@@ -758,7 +758,7 @@ const CourseUpload = () => {
           <button
             disabled={currentGroup === 0}
             onClick={() => setCurrentGroup(currentGroup - 1)}
-            className="btn btn-primary"
+            className="btn btn-secondary"
             type="button"
           >
             Previous
@@ -776,13 +776,26 @@ const CourseUpload = () => {
           )}
 
           {currentGroup === groups.length - 1 && (
-            <button
-              type="submit"
+            <Button
               className="btn btn-primary"
-              style={{ marginLeft: "3%" }}
+              style={{ marginLeft: "5%" }}
+              variant="primary"
+              type="submit"
             >
-              Create a course
-            </button>
+              {loading ? (
+                <Bars
+                  height="30"
+                  width="55"
+                  color="#fff"
+                  ariaLabel="bars-loading"
+                  wrapperStyle={{}}
+                  wrapperClass=""
+                  visible={true}
+                />
+              ) : (
+                <span> Create A Course</span>
+              )}
+            </Button>
           )}
         </div>
       </form>
