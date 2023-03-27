@@ -378,10 +378,42 @@ const CourseUpload = () => {
     // submit form
   }*/
 
+  const [currentItem, setCurrentItem] = useState(0);
+
+  const formItems = [
+    {
+      label: "Name",
+      input: <input type="text" name="name" />,
+    },
+    {
+      label: "Email",
+      input: <input type="email" name="email" />,
+    },
+    {
+      label: "Password",
+      input: <input type="password" name="password" />,
+    },
+    // add more items as needed
+  ];
+
+  const handleNextClick = () => {
+    setCurrentItem(currentItem + 1);
+  };
+
   return (
     <>
-      {" "}
-      <form onSubmit={onSubmit}>
+      <div className="form-item">
+        <label>{formItems[currentItem].label}</label>
+        {formItems[currentItem].input}
+      </div>
+      <button
+        onClick={handleNextClick}
+        disabled={currentItem === formItems.length - 1}
+      >
+        Next
+      </button>
+
+      {/* <form onSubmit={onSubmit}>
         <div className="bg-light shadow text-center p-2 fs-2 mb-4">
           <p>Upload your course</p>
         </div>
@@ -605,7 +637,7 @@ const CourseUpload = () => {
             )}
           </Button>
         </div>
-      </form>
+      </form> */}
       {showModal && (
         <div className="modal">
           <div ref={modalRef} className="modal-content">
