@@ -134,16 +134,6 @@ const CourseUpload = () => {
     console.log("created course", createdCourse);
   };
 
-  const handleImageChange = (event) => {
-    setImage(event.target.files[0]);
-    setImagePreview(URL.createObjectURL(event.target.files[0]));
-  };
-
-  const handleVideoChange = (event) => {
-    setVideo(event.target.files[0]);
-    setVideoPreview(URL.createObjectURL(event.target.files[0]));
-  };
-
   const [pointErrorMsg, setPointErrorMsg] = useState("");
 
   const handlePointChange = (index, value) => {
@@ -379,6 +369,22 @@ const CourseUpload = () => {
   }*/
 
   const [currentGroup, setCurrentGroup] = useState(0);
+  const [inputValues, setInputValues] = useState({});
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setInputValues((prevState) => ({ ...prevState, [name]: value }));
+  };
+
+  const handleImageChange = (event) => {
+    setImage(event.target.files[0]);
+    setImagePreview(URL.createObjectURL(event.target.files[0]));
+  };
+
+  const handleVideoChange = (event) => {
+    setVideo(event.target.files[0]);
+    setVideoPreview(URL.createObjectURL(event.target.files[0]));
+  };
 
   const groups = [
     {
@@ -386,19 +392,49 @@ const CourseUpload = () => {
       items: [
         {
           label: "Name",
-          input: <input type="text" name="name" className="form-control" />,
+          input: (
+            <input
+              type="text"
+              name="name"
+              className="form-control"
+              value={inputValues.name || ""}
+              onChange={handleInputChange}
+            />
+          ),
         },
         {
           label: "Price",
-          input: <input type="number" name="price" className="form-control" />,
+          input: (
+            <input
+              type="number"
+              name="price"
+              className="form-control"
+              value={inputValues.price || ""}
+              onChange={handleInputChange}
+            />
+          ),
         },
         {
           label: "Short Description",
-          input: <textarea name="shortDescription" className="form-control" />,
+          input: (
+            <textarea
+              name="shortDescription"
+              className="form-control"
+              value={inputValues.shortDescription || ""}
+              onChange={handleInputChange}
+            />
+          ),
         },
         {
           label: "Long Description",
-          input: <textarea name="longDescription" className="form-control" />,
+          input: (
+            <textarea
+              name="longDescription"
+              className="form-control"
+              value={inputValues.longDescription || ""}
+              onChange={handleInputChange}
+            />
+          ),
         },
       ],
     },
@@ -406,10 +442,9 @@ const CourseUpload = () => {
       heading: "Upload Course Video",
       items: [
         {
-          label: "Upload a course video",
           input: (
             <div>
-              <div className="input-container d-flex justify-content-center align-items-center file-input">
+              <div className="input-container d-flex justify-content-center align-items-center file-input mx-auto">
                 <p className="fs-4">
                   <i className="bi bi-upload fs-1"></i>
                 </p>
@@ -421,8 +456,9 @@ const CourseUpload = () => {
                   className="input-file"
                 />
               </div>
+
               {videoPreview && (
-                <div className="mb-5">
+                <div className="mb-5 text-center">
                   <p className="text-primary mt-5 fs-1 file-input-text">
                     Preview video
                   </p>
@@ -438,21 +474,77 @@ const CourseUpload = () => {
       ],
     },
     {
-      heading: "Additional Information",
+      heading: "Upload Course Image",
       items: [
         {
-          label: "Course Description",
           input: (
-            <textarea name="description" rows="5" className="form-control" />
+            <div>
+              <div className="input-container d-flex justify-content-center align-items-center file-input mx-auto">
+                <p className="fs-4">
+                  <i className="bi bi-upload fs-1"></i>
+                </p>
+                <input
+                  type="file"
+                  onChange={handleImageChange}
+                  required
+                  id="video"
+                  className="input-file"
+                />
+              </div>
+              {imagePreview && (
+                <div className="mb-5 text-center">
+                  <p className="text-primary mt-5 fs-1">Preview image</p>
+                  <img
+                    src={imagePreview}
+                    className="image-preview"
+                    alt="preview"
+                  />
+                </div>
+              )}
+            </div>
           ),
         },
+      ],
+    },
+
+    {
+      heading: "Course Content",
+      items: [
         {
-          label: "Course Price",
-          input: <input type="number" name="price" className="form-control" />,
-        },
-        {
-          label: "Course Duration",
-          input: <input type="text" name="duration" className="form-control" />,
+          label: "",
+          input: (
+            <div>
+              {weeks.map((week, index) => (
+                <div key={index}>
+                  <h4>Week {index + 1}</h4>
+                  <input
+                    type="text"
+                    name="0"
+                    value={week.week[0]}
+                    onChange={(event) => handleChange(index, event)}
+                    placeholder="Lesson 1"
+                    className="form-control mb-3"
+                  />
+                  <input
+                    type="text"
+                    name="1"
+                    value={week.week[1]}
+                    onChange={(event) => handleChange(index, event)}
+                    placeholder="Lesson 2"
+                    className="form-control mb-3"
+                  />
+                  <input
+                    type="text"
+                    name="2"
+                    value={week.week[2]}
+                    onChange={(event) => handleChange(index, event)}
+                    placeholder="Lesson 3"
+                    className="form-control mb-3"
+                  />
+                </div>
+              ))}
+            </div>
+          ),
         },
       ],
     },
@@ -460,15 +552,20 @@ const CourseUpload = () => {
 
   const currentGroupItems = groups[currentGroup].items;
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // handle form submission logic
+  };
+
   return (
     <>
-      <form>
+      <form onSubmit={handleSubmit}>
         <h2 className="text-center fs-2 text-primary">
           {groups[currentGroup].heading}
         </h2>
         {currentGroupItems.map((item) => (
           <div className="form-item" key={item.label}>
-            <label>{item.label}</label>
+            <label className="d-block ">{item.label}</label>
             {item.input}
           </div>
         ))}
@@ -488,6 +585,15 @@ const CourseUpload = () => {
           >
             Next
           </button>
+          {currentGroup === groups.length - 1 && (
+            <button
+              type="submit"
+              className="btn btn-primary"
+              style={{ marginLeft: "3%" }}
+            >
+              Submit
+            </button>
+          )}
         </div>
       </form>
 
