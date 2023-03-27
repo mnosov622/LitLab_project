@@ -58,82 +58,6 @@ const CourseUpload = () => {
   }, []);
   const [summary, setSummary] = useState("");
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    const courseContentJSON = JSON.stringify(
-      weeks.map((week) => ({ week: week.week }))
-    );
-    const pointsToLearnJSON = JSON.stringify(
-      pointsToLearn.map((point) => ({ point: point.point }))
-    );
-    const questionsJSON = JSON.stringify(questions);
-    setLoading(true);
-    const formData = new FormData();
-    formData.append("files", video);
-    formData.append("files", image);
-    formData.append("email", decoded.email);
-    formData.append("courseName", nameRef.current.value);
-    formData.append("price", priceRef.current.value);
-    formData.append("shortDescription", shortDescr.current.value);
-    formData.append("longDescription", longDescr.current.value);
-    formData.append("pointsToLearn", pointsToLearnJSON);
-    formData.append("pointsSummary", summary);
-    formData.append("courseContent", courseContentJSON);
-    formData.append("test", questionsJSON);
-    formData.append("enrollments", 0);
-
-    const res = await fetch("https://backend-litlab.herokuapp.com/upload", {
-      method: "POST",
-      body: formData,
-    });
-    const data = await res.json();
-
-    console.log("response recieved", data);
-
-    console.log("profile iamge before sendibg", instructorImage);
-
-    const courseData = {
-      video: data.video,
-      instructorImageURL: instructorImage,
-      courseImageURL: data.image.originalname,
-      instructorEmail: decoded.email,
-      name: nameRef.current.value,
-      price: priceRef.current.value,
-      shortDescription: shortDescr.current.value,
-      longDescription: longDescr.current.value,
-      email: decoded.email,
-      instructor: decoded.name,
-      courseContent: weeks.map((week) => ({ week: week.week })),
-      pointsToLearn: pointsToLearn.map((point) => ({ point: point.point })),
-      pointsSummary: summary,
-      test: questions,
-      enrollments: 0,
-      instructorBio: bio,
-    };
-    setLoading(false);
-
-    console.log("data from client", courseData);
-    const response = await fetch(
-      "https://backend-litlab.herokuapp.com/courses",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(courseData),
-      }
-    );
-    const courses = await response.json();
-    console.log("response recived", courses);
-
-    if (response.status === 200) {
-      navigate("/", { state: { success: true } });
-    }
-
-    console.log("course", courses.course);
-    console.log("created course", createdCourse);
-  };
-
   const [pointErrorMsg, setPointErrorMsg] = useState("");
 
   const handlePointChange = (index, value) => {
@@ -386,6 +310,93 @@ const CourseUpload = () => {
     setVideoPreview(URL.createObjectURL(event.target.files[0]));
   };
 
+  const onSubmit = async (e) => {
+    e.preventDefault();
+    console.log(
+      "input",
+      video,
+      image,
+      inputValues.name,
+      inputValues.price,
+      inputValues.shortDescription,
+      inputValues.longDescription
+    );
+    console.log("submit");
+
+    const courseContentJSON = JSON.stringify(
+      weeks.map((week) => ({ week: week.week }))
+    );
+    const pointsToLearnJSON = JSON.stringify(
+      pointsToLearn.map((point) => ({ point: point.point }))
+    );
+    const questionsJSON = JSON.stringify(questions);
+    setLoading(true);
+    const formData = new FormData();
+    formData.append("files", video);
+    formData.append("files", image);
+    formData.append("email", decoded.email);
+    formData.append("courseName", inputValues.name);
+    formData.append("price", inputValues.price);
+    formData.append("shortDescription", inputValues.shortDescription);
+    formData.append("longDescription", inputValues.longDescription);
+    formData.append("pointsToLearn", pointsToLearnJSON);
+    formData.append("pointsSummary", summary);
+    formData.append("courseContent", courseContentJSON);
+    formData.append("test", questionsJSON);
+    formData.append("enrollments", 0);
+
+    const res = await fetch("https://backend-litlab.herokuapp.com/upload", {
+      method: "POST",
+      body: formData,
+    });
+    const data = await res.json();
+
+    console.log("response recieved", data);
+
+    console.log("profile iamge before sendibg", instructorImage);
+
+    const courseData = {
+      video: data.video,
+      instructorImageURL: instructorImage,
+      courseImageURL: data.image.originalname,
+      instructorEmail: decoded.email,
+      name: inputValues.name,
+      price: inputValues.price,
+      shortDescription: inputValues.shortDescription,
+      longDescription: inputValues.longDescription,
+      email: decoded.email,
+      instructor: decoded.name,
+      courseContent: weeks.map((week) => ({ week: week.week })),
+      pointsToLearn: pointsToLearn.map((point) => ({ point: point.point })),
+      pointsSummary: summary,
+      test: questions,
+      enrollments: 0,
+      instructorBio: bio,
+    };
+    setLoading(false);
+
+    console.log("data from client", courseData);
+    const response = await fetch(
+      "https://backend-litlab.herokuapp.com/courses",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(courseData),
+      }
+    );
+    const courses = await response.json();
+    console.log("response recived", courses);
+
+    if (response.status === 200) {
+      navigate("/", { state: { success: true } });
+    }
+
+    console.log("course", courses.course);
+    console.log("created course", createdCourse);
+  };
+
   const groups = [
     {
       heading: "General Information",
@@ -468,6 +479,19 @@ const CourseUpload = () => {
                   </video>
                 </div>
               )}
+              {videoPreview && (
+                <div className="text-center">
+                  <button
+                    className="btn btn-danger text-center"
+                    onClick={(event) => {
+                      setVideo(null);
+                      setVideoPreview(null);
+                    }}
+                  >
+                    Remove video
+                  </button>
+                </div>
+              )}
             </div>
           ),
         },
@@ -487,7 +511,7 @@ const CourseUpload = () => {
                   type="file"
                   onChange={handleImageChange}
                   required
-                  id="video"
+                  id="image"
                   className="input-file"
                 />
               </div>
@@ -499,6 +523,20 @@ const CourseUpload = () => {
                     className="image-preview"
                     alt="preview"
                   />
+                </div>
+              )}
+
+              {imagePreview && (
+                <div className="text-center">
+                  <button
+                    className="btn btn-danger text-center"
+                    onClick={(event) => {
+                      setImage(null);
+                      setImagePreview(null);
+                    }}
+                  >
+                    Remove image
+                  </button>
                 </div>
               )}
             </div>
@@ -548,18 +586,165 @@ const CourseUpload = () => {
         },
       ],
     },
+    {
+      heading: "Points to Learn",
+      items: [
+        {
+          label: "",
+          input: (
+            <div className="mx-auto">
+              {pointsToLearn.map((point, index) => (
+                <div key={index} className="mx-auto text-left">
+                  <h4 className="mt-3">Point {index + 1}</h4>
+                  <input
+                    type="text"
+                    id={`point-${index}`}
+                    value={point.point}
+                    onChange={(e) => handlePointChange(index, e.target.value)}
+                    className="form-control w-100 points-input form-item"
+                  />
+                  {pointErrorMsg && (
+                    <div className="text-danger">{pointErrorMsg}</div>
+                  )}
+                </div>
+              ))}
+              <h4 className="mt-3">Summary of points</h4>
+              <textarea
+                type="text"
+                placeholder="Summary"
+                className="form-control w-100 points-input"
+                value={summary}
+                onChange={(e) => setSummary(e.target.value)}
+              />
+            </div>
+          ),
+        },
+      ],
+    },
+    {
+      heading: "",
+      items: [
+        {
+          label: "",
+          input: (
+            <div ref={modalRef} className="modal-content">
+              <span
+                className="close position-absolute right-0"
+                style={{ right: "20px", top: "5px" }}
+                onClick={() => setShowModal(false)}
+              >
+                &times;
+              </span>
+              <h2 className="text-center">
+                Create a test <img src={testImage} alt="test" width={"8%"} />
+              </h2>
+              <div>
+                <label htmlFor="num-questions">Number of questions:</label>
+                <select
+                  id="num-questions"
+                  value={numQuestions}
+                  onChange={handleNumQuestionsChange}
+                  className="form-control w-25"
+                >
+                  <option value=""></option>
+                  <option value="1" selected>
+                    1
+                  </option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+
+                {numQuestions > 0 && (
+                  <div>
+                    <h2>Questions:</h2>
+                    {Array.from(
+                      { length: numQuestions },
+                      (_, questionIndex) => (
+                        <div key={questionIndex}>
+                          <label
+                            htmlFor={`question-${questionIndex}`}
+                            className="fw-bold fs-4 mt-2 mb-2"
+                          >
+                            Question {questionIndex + 1}:
+                          </label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            id={`question-${questionIndex}`}
+                            value={questions[questionIndex].question}
+                            onChange={(event) =>
+                              handleQuestionChange(event, questionIndex)
+                            }
+                          />
+
+                          <h5 className="mt-3 mb-2 fs-4">Options:</h5>
+                          {questions[questionIndex].options.map(
+                            (option, optionIndex) => (
+                              <div key={optionIndex} className="mb-2 ">
+                                <label
+                                  htmlFor={`question-${questionIndex}-option-${optionIndex}`}
+                                  className="mt-2 mb-2"
+                                >
+                                  Option {optionIndex + 1}:
+                                </label>
+                                <input
+                                  type="text"
+                                  id={`question-${questionIndex}-option-${optionIndex}`}
+                                  value={option}
+                                  className="form-control"
+                                  onChange={(event) =>
+                                    handleOptionChange(
+                                      event,
+                                      questionIndex,
+                                      optionIndex
+                                    )
+                                  }
+                                />
+                              </div>
+                            )
+                          )}
+
+                          <label
+                            htmlFor={`question-${questionIndex}-correct-answer`}
+                            className="mt-2 mb-2"
+                          >
+                            Correct answer:
+                          </label>
+                          <input
+                            type="text"
+                            id={`question-${questionIndex}-correct-answer`}
+                            value={questions[questionIndex].correctAnswer}
+                            className="form-control"
+                            onChange={(event) =>
+                              handleCorrectAnswerChange(event, questionIndex)
+                            }
+                          />
+                        </div>
+                      )
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          ),
+        },
+      ],
+    },
   ];
 
   const currentGroupItems = groups[currentGroup].items;
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log("submit");
     // handle form submission logic
   };
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={onSubmit}>
         <h2 className="text-center fs-2 text-primary">
           {groups[currentGroup].heading}
         </h2>
@@ -574,24 +759,29 @@ const CourseUpload = () => {
             disabled={currentGroup === 0}
             onClick={() => setCurrentGroup(currentGroup - 1)}
             className="btn btn-primary"
+            type="button"
           >
             Previous
           </button>
-          <button
-            disabled={currentGroup === groups.length - 1}
-            className="btn btn-primary"
-            onClick={() => setCurrentGroup(currentGroup + 1)}
-            style={{ marginLeft: "3%" }}
-          >
-            Next
-          </button>
+          {currentGroup !== groups.length - 1 && (
+            <button
+              disabled={currentGroup === groups.length - 1}
+              className="btn btn-primary"
+              onClick={() => setCurrentGroup(currentGroup + 1)}
+              style={{ marginLeft: "3%" }}
+              type="button"
+            >
+              Next
+            </button>
+          )}
+
           {currentGroup === groups.length - 1 && (
             <button
               type="submit"
               className="btn btn-primary"
               style={{ marginLeft: "3%" }}
             >
-              Submit
+              Create a course
             </button>
           )}
         </div>
