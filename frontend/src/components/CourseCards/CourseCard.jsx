@@ -5,6 +5,7 @@ import "./CourseCard.scss";
 import { Badge } from "react-bootstrap";
 import jwtDecode from "jwt-decode";
 import Modal from "../Modal/Modal";
+import { useAlert, positions } from "react-alert";
 
 const CourseCard = ({
   name,
@@ -23,10 +24,16 @@ const CourseCard = ({
   deleteBtn,
   removable,
   courseImageURL,
+  allCourses,
+  shortDescription,
+  pointsToLearn,
+  homeImage,
 }) => {
   const [imageSource, setImageSource] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [singlCourse, setSinglCourse] = useState([]);
+
+  const alert = useAlert();
 
   const handleRemove = (id) => (e) => {
     e.preventDefault();
@@ -36,7 +43,7 @@ const CourseCard = ({
   useEffect(() => {
     const imageSource = courseImage?.startsWith("https")
       ? courseImage
-      : `http://localhost:8000/images/${courseImage}`;
+      : `https://backend-litlab.herokuapp.com/images/${courseImage}`;
     setImageSource(imageSource);
   }, []);
 
@@ -52,6 +59,36 @@ const CourseCard = ({
     setShowModal(false);
   };
 
+  const handleAddToCart = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const cartItems = JSON.parse(localStorage.getItem("shopping_cart")) || [];
+    const existingItem = cartItems.find((item) => item.id === id);
+
+    if (existingItem) {
+      alert.error("Item exists in cart", {
+        position: positions.BOTTOM_RIGHT,
+        timeout: 2000,
+      });
+      return;
+    }
+
+    const newItem = {
+      id: id,
+      name: name,
+      instructor: teacherName,
+      price: price,
+      courseImageURL: courseImage,
+    };
+
+    cartItems.push(newItem);
+    alert.success("Item added to cart", {
+      position: positions.BOTTOM_RIGHT,
+      timeout: 2000, // custom timeout just for this one alert
+    });
+
+    localStorage.setItem("shopping_cart", JSON.stringify(cartItems));
+  };
   return (
     <>
       {showModal && (
@@ -64,42 +101,102 @@ const CourseCard = ({
       )}
 
       <div
-        className={cardSmall ? "w-25 mb-5 col-md-6" : "w-100 mb-5"}
+        className={
+          cardSmall
+            ? "w-25 mb-5 col-md-6 course-card"
+            : "w-100 mb-5 course-card"
+        }
         style={{ position: "relative" }}
       >
         {courseCompleted && (
-          <Badge
-            variant="success"
-            className="w-75"
-            style={{
-              fontSize: "20px",
-              position: "absolute",
-              top: 0,
-              right: "12.5%",
-              zIndex: 1,
-            }}
-          >
-            Completed
-          </Badge>
+          <>
+            <Badge
+              variant="success"
+              className="w-75"
+              style={{
+                fontSize: "20px",
+                position: "absolute",
+                top: 0,
+                right: "12.5%",
+                zIndex: 1,
+              }}
+            >
+              Completed
+            </Badge>
+          </>
         )}
 
         <Link to={linkToCourseView ? `/course-view/${id}` : `/course/${id}`}>
           <div
-            className="card-item border position-relative"
+            className={
+              allCourses
+                ? "card-item border position-relative hover_effect"
+                : "border"
+            }
             style={{ position: "relative" }}
           >
-            {creatorCourseImage && (
+            {allCourses && (
+              <div className={allCourses ? "layer description" : ""}>
+                <div className="descrition">{shortDescription}</div>
+                {pointsToLearn &&
+                  pointsToLearn.map((point) => (
+                    <div className="d-flex  points">
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M21 7L9 19L3.5 13.5L4.91 12.09L9 16.17L19.59 5.59L21 7Z"
+                          fill="#FFFFFF"
+                        />
+                      </svg>
+                      <span
+                        className="layer_point m-auto"
+                        style={{ color: "white" }}
+                      >
+                        {point.point}
+                      </span>
+                    </div>
+                  ))}
+
+                {allCourses && (
+                  <button
+                    className={
+                      "btn btn-outline-primary btn-lg mt-3 btn-light addBtn"
+                    }
+                    onClick={handleAddToCart}
+                  >
+                    Add to Cart
+                  </button>
+                )}
+              </div>
+            )}
+
+            {homeImage && (
+              <img
+                src={image}
+                className="card-img-top img-fluid card-image"
+                alt="Course"
+              />
+            )}
+
+            {creatorCourseImage && !homeImage && (
               <img
                 src={creatorCourseImage}
                 className="card-img-top img-fluid card-image"
                 alt="Course"
               />
             )}
-            <img
-              src={imageSource}
-              className="card-img-top img-fluid card-image"
-              alt="Course"
-            />
+            {!homeImage && (
+              <img
+                src={imageSource}
+                className="card-img-top img-fluid card-image"
+                alt="Course"
+              />
+            )}
 
             <div className="card-body">
               <h5 className="card-title">{name}</h5>

@@ -15,6 +15,7 @@ import { useCollectionData } from "react-firebase-hooks/firestore";
 import jwtDecode from "jwt-decode";
 import { Quill } from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { useAlert, positions } from "react-alert";
 
 firebase.initializeApp({
   apiKey: "AIzaSyBqxPkGhgTnyDyTIl_FolvL2QJlJUuG_14",
@@ -31,7 +32,6 @@ const CourseView = () => {
   const chatWindowRef = useRef(null);
   const [activeTab, setActiveTab] = useState("content");
   const [chatWindowLoaded, setChatWindowLoaded] = useState(false);
-
   const handleTabSelect = (tabKey) => {
     if (tabKey === "chat") {
       // Code to execute when the Chat tab is selected
@@ -43,6 +43,8 @@ const CourseView = () => {
 
     setActiveTab(tabKey);
   };
+
+  const alert = useAlert();
 
   useEffect(() => {
     if (activeTab === "chat" && chatWindowRef.current && chatWindowLoaded) {
@@ -87,7 +89,7 @@ const CourseView = () => {
   const userId = decoded.id;
 
   useEffect(() => {
-    fetch(`http://localhost:8000/users/${userId}`)
+    fetch(`https://backend-litlab.herokuapp.com/users/${userId}`)
       .then((res) => res.json())
       .then((data) => {
         console.log("user data", data);
@@ -149,14 +151,14 @@ const CourseView = () => {
 
   const handleNoteSave = (e) => {
     e.preventDefault();
-    fetch(`http://localhost:8000/users/notes/${userId}`, {
+    fetch(`https://backend-litlab.herokuapp.com/users/notes/${userId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ notebody: noteBody }),
     }).then((res) => {
-      fetch(`http://localhost:8000/users/${userId}`)
+      fetch(`https://backend-litlab.herokuapp.com/users/${userId}`)
         .then((res) => res.json())
         .then((data) => {
           setSavedNotes(data.notes);
@@ -175,10 +177,10 @@ const CourseView = () => {
 
   const handleDeleteNotes = () => {
     console.log("clicked");
-    fetch(`http://localhost:8000/users/notes/${userId}`, {
+    fetch(`https://backend-litlab.herokuapp.com/users/notes/${userId}`, {
       method: "DELETE",
     }).then((res) => {
-      fetch(`http://localhost:8000/users/${userId}`)
+      fetch(`https://backend-litlab.herokuapp.com/users/${userId}`)
         .then((res) => res.json())
         .then((data) => {
           console.log("notes", data.notes);
@@ -196,10 +198,13 @@ const CourseView = () => {
   const handleDeleteNote = (note) => {
     console.log(note);
 
-    fetch(`http://localhost:8000/users/notes/${userId}/${note.id}`, {
-      method: "DELETE",
-    }).then((res) => {
-      fetch(`http://localhost:8000/users/${userId}`)
+    fetch(
+      `https://backend-litlab.herokuapp.com/users/notes/${userId}/${note.id}`,
+      {
+        method: "DELETE",
+      }
+    ).then((res) => {
+      fetch(`https://backend-litlab.herokuapp.com/users/${userId}`)
         .then((res) => res.json())
         .then((data) => {
           setSavedNotes(data.notes);
@@ -210,12 +215,12 @@ const CourseView = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:8000/courses/${Number(id)}`)
+    fetch(`https://backend-litlab.herokuapp.com/courses/${Number(id)}`)
       .then((response) => response.json())
       .then((data) => {
         setCourseData(data.course);
         setLoading(false);
-        console.log("data", courseData);
+        console.log("course", data.course);
       });
   }, []);
 
@@ -228,7 +233,7 @@ const CourseView = () => {
       setUploadedVideo(true);
     }
     //   ? courseData
-    //   : `http://localhost:8000/images/${courseData.video}`;
+    //   : `https://backend-litlab.herokuapp.com/images/${courseData.video}`;
     // setVideoSource(videoSource);
   }, [courseData]);
 
@@ -260,6 +265,100 @@ const CourseView = () => {
   const showChat = () => {
     console.log("tab clicked");
   };
+  const [emailAddress, setEmailAddress] = useState("");
+  const [name, setName] = useState("");
+  const [feedback, setFeedback] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [nameError, setNameError] = useState("");
+  const [feedbackError, setFeedbackError] = useState("");
+
+  // Define a function to validate the email input field
+  function handleEmail() {
+    // Ensure the email is not empty
+    if (emailAddress == null) {
+      return setEmailError("Email cannot be empty.");
+    }
+
+    // Ensure the email is in a valid format
+    if (!/\S+@\S+\.\S+/.test(emailAddress)) {
+      return setEmailError("Email must be in a valid format.");
+    }
+
+    // If all checks pass, return null to indicate success
+    return setEmailError(null);
+  }
+
+  // Define a function to validate the name input field
+  const handleName = () => {
+    // Ensure the name is not empty
+    if (name == null) {
+      return setNameError("Name cannot be empty.");
+    }
+
+    // Ensure the name is not too short or too long
+    if (name.length < 2 || name.length > 50) {
+      return setNameError("Name must be between 2 and 50 characters.");
+    }
+
+    // Ensure the name contains only valid characters
+    if (!/^[a-zA-Z\s]*$/.test(name)) {
+      return setNameError("Name can only contain letters and spaces.");
+    }
+
+    // If all checks pass, return null to indicate success
+    return setNameError(null);
+  };
+
+  const handleFeedback = () => {
+    // Ensure the name is not empty
+    if (feedback == null) {
+      return setFeedbackError("Feedback cannot be empty.");
+    }
+
+    if (feedback.length === 0) {
+      return setFeedbackError("Feedback cannot be empty.");
+    }
+
+    return setFeedbackError(null);
+  };
+
+  const handleEmailSubmit = (e) => {
+    e.preventDefault();
+    const nameError = handleName();
+    const emailError = handleEmail();
+    const feedbackError = handleFeedback();
+
+    if (
+      name.trim().length !== 0 &&
+      emailAddress.trim().length !== 0 &&
+      feedback.trim().length !== 0
+    ) {
+      fetch(`http://localhost:8000/courses/feedback`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userEmail: emailAddress,
+          message: feedback,
+          creatorEmail: courseData.email,
+          name: name,
+        }),
+      }).then((res) => {
+        if (res.status === 200) {
+          alert.success("Your message has been sent", {
+            position: positions.BOTTOM_RIGHT,
+            timeout: 2000,
+          });
+        } else {
+          alert.error("There was an error, try again", {
+            position: positions.BOTTOM_RIGHT,
+            timeout: 2000,
+          });
+        }
+      });
+    }
+  };
 
   return (
     <div className={loading && "bottom"}>
@@ -279,15 +378,19 @@ const CourseView = () => {
       ) : (
         <>
           <div className="bg-light shadow text-center p-2 fs-2 mb-4">
-            <p>
+            <Link
+              to={`/course/${courseData.id}`}
+              className="text-underline courseName"
+            >
               {courseData?.name}
-              &nbsp;&nbsp;<i className="bi bi-person-video3"></i>
-            </p>
+            </Link>
+            &nbsp;&nbsp;<i className="bi bi-person-video3"></i>
           </div>
           <div className="row mb-5">
             <div className="col-md-6">
               {fakeVideo ? (
                 <iframe
+                  className="iframe-video"
                   ref={videoRef}
                   width="560"
                   height="315"
@@ -300,7 +403,7 @@ const CourseView = () => {
                 uploadedVideo &&
                 courseData?.video && (
                   <video
-                    src={`http://localhost:8000/videos/${courseData.video}`}
+                    src={`https://backend-litlab.herokuapp.com/videos/${courseData.video}`}
                     controls
                     width={"100%"}
                   />
@@ -319,15 +422,15 @@ const CourseView = () => {
                 Complete test
               </Link>
             </div>
-            <div className="col-md-6">
+            <div className="col-md">
               <Tabs
                 id="my-tabs"
-                className="col-md-6"
+                className="col"
                 activeKey={activeTab}
                 onSelect={handleTabSelect}
               >
                 <Tab eventKey="content" title="Content">
-                  <div className="col-md-6">
+                  <div className="col">
                     <p className="fs-1 text-left ">Course Content</p>
                     {courseData?.courseContent &&
                       courseData?.courseContent.map((content, index) => (
@@ -352,7 +455,7 @@ const CourseView = () => {
                       </Col>
                     </Row>
                     <Row>
-                      <Col md={8}>
+                      <Col md={12}>
                         <form action="" onSubmit={(e) => handleNoteSave(e)}>
                           <ReactQuill
                             modules={{ toolbar: toolbarOptions }}
@@ -381,7 +484,7 @@ const CourseView = () => {
                         </form>
                       </Col>
                     </Row>
-                    <Col md={8}>
+                    <Col md={12}>
                       {savedNotes.length > 0 && (
                         <h3 className="p-0">Notes List</h3>
                       )}
@@ -408,7 +511,7 @@ const CourseView = () => {
                           </div>
                         ))}
                     </Col>
-                    <Col md={8} className="mt-2 d-flex justify-content-end">
+                    <Col md={12} className="mt-2 d-flex justify-content-end">
                       {savedNotes.length > 0 && (
                         <button
                           className="btn btn-danger deleteBtn w-auto"
@@ -480,6 +583,81 @@ const CourseView = () => {
               </Tabs>
             </div>
           </div>
+
+          <Tabs defaultActiveKey={""}>
+            <Tab
+              eventKey="email"
+              title="Send Feedback"
+              className="w-50 feedback"
+            >
+              <div className="my-3">
+                <p className="fs-4">
+                  Send feedback to <b>{courseData.instructor}</b>
+                </p>
+                <Row>
+                  <Col md={8}>
+                    <form onSubmit={handleEmailSubmit}>
+                      <div className="mb-3">
+                        <label htmlFor="emailAddress" className="form-label">
+                          Email Address
+                        </label>
+                        <input
+                          type="email"
+                          className="form-control"
+                          id="emailAddress"
+                          placeholder="Enter email"
+                          value={emailAddress}
+                          onChange={(e) => setEmailAddress(e.target.value)}
+                          onKeyUp={handleEmail}
+                        />
+                        {emailError && (
+                          <div className="text-danger mt-2">{emailError}</div>
+                        )}
+                      </div>
+                      <div className="mb-3">
+                        <label htmlFor="name" className="form-label">
+                          Your Name
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id="name"
+                          placeholder="Enter name"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          onKeyUp={handleName}
+                        />
+                        {nameError && (
+                          <div className="text-danger mt-2">{nameError}</div>
+                        )}
+                      </div>
+                      <div className="mb-3">
+                        <label htmlFor="emailBody" className="form-label">
+                          Feedback
+                        </label>
+                        <textarea
+                          className="form-control"
+                          id="feedback"
+                          value={feedback}
+                          placeholder="Enter your feedback"
+                          onChange={(e) => setFeedback(e.target.value)}
+                          onKeyUp={handleFeedback}
+                        />
+                        {feedbackError && (
+                          <div className="text-danger mt-2">
+                            {feedbackError}
+                          </div>
+                        )}
+                      </div>
+                      <button type="submit" className="btn btn-primary">
+                        Send
+                      </button>
+                    </form>
+                  </Col>
+                </Row>
+              </div>
+            </Tab>
+          </Tabs>
         </>
       )}
     </div>

@@ -38,39 +38,18 @@ const Certificate = () => {
       today.getMonth() + 1 + "/" + today.getDate() + "/" + today.getFullYear();
     console.log(date);
     setDate(date);
-    fetch(`http://localhost:8000/courses/${Number(id)}`)
+    fetch(`https://backend-litlab.herokuapp.com/courses/${Number(id)}`)
       .then((response) => response.json())
       .then((data) => {
         setCourseData(data.course);
         console.log("course", data.course);
       });
 
-    fetch(`http://localhost:8000/users/${decoded.id}`)
+    fetch(`https://backend-litlab.herokuapp.com/users/${decoded.id}`)
       .then((response) => response.json())
       .then((data) => {
         setUserData(data);
       });
-
-    // const saveSertificate = async () => {
-    //   const response = await fetch(
-    //     `http://localhost:8000/certificate/${decoded.id}`,
-    //     {
-    //       method: "PUT",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify({
-    //         courseName: courseData.name,
-    //         id: courseData.id,
-    //         instructor: courseData.instructor,
-    //         courseImage: courseData.courseImage,
-    //       }),
-    //     }
-    //   );
-    //   console.log(response);
-    // };
-
-    // saveSertificate();
   }, []);
 
   const handleDownload = () => {

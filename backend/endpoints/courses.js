@@ -108,7 +108,7 @@ router.post("/", async (req, res) => {
       shortDescription,
       longDescription,
       video,
-      instructorImage,
+      instructorImageURL,
       courseImageURL,
       instructor,
       courseContent,
@@ -117,6 +117,7 @@ router.post("/", async (req, res) => {
       test,
       enrollments,
       instructorId,
+      instructorBio,
     } = req.body;
 
     console.log("points to learn recieved", pointsToLearn);
@@ -148,6 +149,8 @@ router.post("/", async (req, res) => {
       test,
       enrollments,
       instructorId: 16,
+      instructorImageURL,
+      instructorBio,
     };
 
     const result = await client
@@ -226,6 +229,140 @@ router.put("/:id", async (req, res) => {
     console.log("err", err);
     res.status(500).json({ message: err.message });
   }
+});
+
+router.post("/creator", async (req, res) => {
+  const { courseName, courseImage, userName, email, userEmail } = req.body;
+  console.log(
+    "data recived",
+    courseName,
+    courseImage,
+    userName,
+    email,
+    userEmail
+  );
+
+  const db = client.db("users");
+  const user = await db.collection("users").findOne({ email });
+
+  if (!user) {
+    return res.status(404).send("User not found");
+  }
+
+  console.log("user is", user);
+
+  let updatedUser;
+  if (user.usersEnrolled) {
+    updatedUser = await db.collection("users").findOneAndUpdate(
+      { email },
+      {
+        $push: {
+          usersEnrolled: { courseName, courseImage, userName, userEmail },
+        },
+      },
+      { returnOriginal: false }
+    );
+  } else {
+    updatedUser = await db.collection("users").findOneAndUpdate(
+      { email },
+      {
+        $set: {
+          usersEnrolled: [{ courseName, courseImage, userName, userEmail }],
+        },
+      },
+      { returnOriginal: false }
+    );
+  }
+
+  res.json(updatedUser.value);
+});
+
+router.put("/creator/enrollments", async (req, res) => {
+  const { email } = req.body;
+  const db = client.db("users");
+  const user = await db.collection("users").findOne({ email });
+
+  if (!user) {
+    return res.status(404).send("User not found");
+  }
+
+  console.log("user is", user);
+
+  const updatedUser = await db
+    .collection("users")
+    .findOneAndUpdate(
+      { email },
+      { $inc: { totalEnrollments: 1 } },
+      { returnOriginal: false }
+    );
+
+  res.json(updatedUser.value);
+});
+
+const nodemailer = require("nodemailer");
+
+router.post("/feedback", (req, res) => {
+  const { userEmail, creatorEmail, message, name } = req.body;
+  console.log("data recived", userEmail, creatorEmail, message, name);
+  const transporter = nodemailer.createTransport({
+    port: 465, // true for 465, false for other ports
+    host: "smtp.gmail.com",
+    auth: {
+      user: "litlab200@gmail.com",
+      pass: "fbwvydwfqefelrmb",
+    },
+    tls: {
+      rejectUnauthorized: false,
+    },
+  });
+
+  const mailData = {
+    from: "mnosov622@gmail.com",
+    to: creatorEmail,
+    subject: "Feedback from learner",
+    html: `
+    <style>
+    .contact-message {
+      background-color: #f5f5f5;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 20px;
+      margin: 20px;
+      max-width: 500px;
+    }
+
+    .contact-message h2 {
+      font-size: 24px;
+      margin-top: 0;
+    }
+
+    .contact-message p {
+      font-size: 18px;
+      margin: 10px 0;
+    }
+
+    .contact-message strong {
+      font-weight: bold;
+    }
+    </style>
+    <div class="contact-message">
+    <h2>Feedback</h2>
+    <p><strong>From:</strong> ${name} (${userEmail})</p>
+    <p><strong>Message:</strong> ${message}</p>
+  </div>`,
+  };
+
+  transporter.sendMail(mailData, (error, info) => {
+    if (error) {
+      res.status(505).send({ error: "Server error" });
+      return console.log("errpr", error);
+    }
+    res.status(200).send({
+      message: "Mail send",
+      message_id: info.messageId,
+      success: true,
+    });
+  });
 });
 
 module.exports = router;

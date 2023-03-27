@@ -38,7 +38,7 @@ const CourseEdit = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:8000/users/${decoded.id}`)
+    fetch(`https://backend-litlab.herokuapp.com/users/${decoded.id}`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -46,7 +46,7 @@ const CourseEdit = () => {
         setLoading(false);
       });
 
-    fetch(`http://localhost:8000/courses`)
+    fetch(`https://backend-litlab.herokuapp.com/courses`)
       .then((res) => res.json())
       .then((data) => {
         setCourses(data);
@@ -79,7 +79,7 @@ const CourseEdit = () => {
       price: price,
     };
     fetch(
-      `http://localhost:8000/creator-courses/${decoded.id}/courses/${courseId}`,
+      `https://backend-litlab.herokuapp.com/creator-courses/${decoded.id}/courses/${courseId}`,
       {
         method: "PUT",
         headers: {
@@ -98,7 +98,7 @@ const CourseEdit = () => {
       });
 
     //TODO: Update course for all courses section
-    fetch(`http://localhost:8000/courses/${singleCourseName}`, {
+    fetch(`https://backend-litlab.herokuapp.com/courses/${singleCourseName}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -149,7 +149,7 @@ const CourseEdit = () => {
                 </label>
                 <input
                   id="courseName"
-                  className="form-control w-50"
+                  className="form-control w-50 points-input"
                   type="text"
                   value={(singleCourse && courseName) || ""}
                   onChange={(e) => setCourseName(e.target.value)}
@@ -162,7 +162,7 @@ const CourseEdit = () => {
                 </label>
                 <textarea
                   id="shortDescription"
-                  className="form-control w-50"
+                  className="form-control w-50 points-input"
                   type="text"
                   value={(singleCourse && shortDescription) || ""}
                   onChange={(e) => setShortDescription(e.target.value)}
@@ -176,7 +176,7 @@ const CourseEdit = () => {
                 </label>
                 <textarea
                   id="longDescription"
-                  className="form-control w-50"
+                  className="form-control w-50 points-input"
                   type="text"
                   value={(singleCourse && longDescription) || ""}
                   onChange={(e) => setLongDescription(e.target.value)}
@@ -190,7 +190,7 @@ const CourseEdit = () => {
                 </label>
                 <input
                   id="longDescription"
-                  className="form-control w-50"
+                  className="form-control w-50 points-input"
                   type="number"
                   value={(singleCourse && price) || ""}
                   onChange={(e) => setPrice(e.target.value)}
@@ -202,9 +202,10 @@ const CourseEdit = () => {
               <p className="fs-4">Course Image</p>
               {singleCourse && singleCourse.courseImageURL && (
                 <img
-                  src={`http://localhost:8000/images/${singleCourse.courseImageURL}`}
+                  src={`https://backend-litlab.herokuapp.com/images/${singleCourse.courseImageURL}`}
                   width={"30%"}
                   alt="Course"
+                  className="points-input"
                 />
               )}
 
@@ -213,38 +214,11 @@ const CourseEdit = () => {
               {singleCourse && (
                 <video
                   controls
-                  src={`http://localhost:8000/videos/${singleCourse.video}`}
+                  src={`https://backend-litlab.herokuapp.com/videos/${singleCourse.video}`}
                   width={"50%"}
+                  className="points-input"
                 ></video>
               )}
-            </div>
-            <div className="col-md-6">
-              <p className="fs-4">Course Content</p>
-
-              {singleCourse &&
-                singleCourse.courseContent &&
-                singleCourse.courseContent.map((week, weekIndex) => (
-                  <div key={weekIndex}>
-                    <p className="fs-3">Week {weekIndex + 1}</p>
-                    {week &&
-                      week.week &&
-                      week.week.map((item, itemIndex) => (
-                        <>
-                          <p className="fw-bold">Lesson {itemIndex + 1}</p>
-                          <div key={itemIndex}>
-                            <input
-                              type="text"
-                              className="form-control mb-3"
-                              value={item}
-                              onChange={(e) =>
-                                handleWeekChange(weekIndex, itemIndex, e)
-                              }
-                            />
-                          </div>
-                        </>
-                      ))}
-                  </div>
-                ))}
             </div>
           </div>
           <div className="button-wrapper text-center mt-5">

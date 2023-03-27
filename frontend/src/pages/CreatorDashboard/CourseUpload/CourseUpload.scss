@@ -62,3 +62,15 @@
 .image-preview {
   width: 40%;
 }
+
+@media screen and (max-width: 768px) {
+  .file-input {
+    width: 100% !important;
+  }
+  .file-input-text {
+    text-align: center;
+  }
+  .points-input {
+    width: 100% !important;
+  }
+}

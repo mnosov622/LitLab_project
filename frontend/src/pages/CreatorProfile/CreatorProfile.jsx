@@ -14,7 +14,7 @@ const CreatorProfile = () => {
   const alert = useAlert();
 
   useEffect(() => {
-    fetch(`http://localhost:8000/users/${decoded.id}`)
+    fetch(`https://backend-litlab.herokuapp.com/users/${decoded.id}`)
       .then((response) => response.json())
       .then((data) => {
         setProfileData(data);
@@ -32,7 +32,7 @@ const CreatorProfile = () => {
     formData.append("social", socialLink);
     formData.append("description", description);
 
-    fetch(`http://localhost:8000/creator/${decoded.id}`, {
+    fetch(`https://backend-litlab.herokuapp.com/creator/${decoded.id}`, {
       method: "POST",
       body: formData,
     }).then((res) => {
@@ -46,7 +46,7 @@ const CreatorProfile = () => {
       }
     });
 
-    fetch(`http://localhost:8000/creator/courses/${16}`, {
+    fetch(`https://backend-litlab.herokuapp.com/creator/courses/${16}`, {
       method: "POST",
       body: formData,
     })
@@ -71,13 +71,16 @@ const CreatorProfile = () => {
       <div className="bg-light shadow text-center p-2 fs-2 mb-4">
         <p>My Profile</p>
       </div>
+      <h3 className="profile-header__name mt-5 text-center">
+        {profileData.name}
+      </h3>
       <div className="profile-container">
         <div className="profile-header">
           {profileData.profileImage ? (
             <>
               <img
                 className="profile-header__avatar rounded w-25"
-                src={`http://localhost:8000/images/${profileData.profileImage}`}
+                src={`https://backend-litlab.herokuapp.com/images/${profileData.profileImage}`}
                 alt="avatar"
               />
               <div className="">
@@ -103,20 +106,27 @@ const CreatorProfile = () => {
                 <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z" />
               </svg>
               <div className="">
-                <p className="text-info">Upload an image</p>
-                <input
-                  type="file"
-                  onChange={(e) => {
-                    setProfileImage(e.target.files[0]);
-                  }}
-                />
+                <p className="text-primary">Upload an image</p>
+                <div class="input-container d-flex  justify-content-center align-items-center file-input">
+                  <p className="fs-4">
+                    <i className="bi bi-upload fs-1"></i>
+                  </p>
+                  <input
+                    type="file"
+                    onChange={(e) => {
+                      setProfileImage(e.target.files[0]);
+                    }}
+                    required
+                    id="photo"
+                    className="input-file"
+                  />
+                </div>
               </div>
             </>
           )}
-
-          <h1 className="profile-header__name mt-5">{profileData.name}</h1>
         </div>
         <div className="profile-body">
+          <p className="fs-3 mt-5 mb-5">Your description</p>
           <textarea
             className="profile-body__bio form-control mb-5"
             type="text"
@@ -140,33 +150,11 @@ const CreatorProfile = () => {
               </span>
               {profileData.education}
             </li>
-            <li>
-              <span className="profile-body__contact-list__label fw-bold">
-                Socials: &nbsp;
-              </span>
-              <input
-                type="text"
-                placeholder="Link to your socials"
-                value={socialLink}
-                onChange={(e) => setSocialLink(e.target.value)}
-              />
-            </li>
-            <li>
-              <span className="profile-body__contact-list__label fw-bold">
-                Your Description: &nbsp;
-              </span>
-              <input
-                type="text"
-                placeholder="Description"
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-              />
-            </li>
           </ul>
         </div>
       </div>
       <div className="button-wrapper text-center">
-        <button className="btn btn-primary btn-lg w-25" onClick={handleSave}>
+        <button className="btn btn-primary btn-lg" onClick={handleSave}>
           Save Changes
         </button>
       </div>

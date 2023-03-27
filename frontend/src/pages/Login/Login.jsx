@@ -86,24 +86,32 @@ const Login = () => {
     console.log(res.accessToken, res.profileObj.email);
 
     try {
-      const response = await fetch("http://localhost:8000/googleLogin", {
-        method: "POST",
-        body: JSON.stringify({
-          email: res.profileObj.email,
-        }),
-        headers: { "Content-Type": "application/json" },
-      });
+      const response = await fetch(
+        "https://backend-litlab.herokuapp.com/googleLogin",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            email: res.profileObj.email,
+          }),
+          headers: { "Content-Type": "application/json" },
+        }
+      );
 
       console.log(response);
 
       if (response.status === 200) {
         const data = await response.json();
+        localStorage.setItem("lastVisit", data.dateString);
         console.log(data.user, data.token);
-        if (data.user) localStorage.setItem("token", data.token);
+        console.log("data", data);
+        if (data.user) {
+          localStorage.setItem("token", data.token);
+        }
         setNoAccountError(false);
         setWrongCredentials(false);
         if (data?.user?.isLearner) {
           dispatch(logInAsLearner());
+          localStorage.setItem("lastVisit", data.dateString);
           navigate("/");
         } else {
           dispatch(logInAsCreator());
@@ -135,18 +143,24 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:8000/login", {
-        method: "POST",
-        body: JSON.stringify({ email, password }),
-        headers: { "Content-Type": "application/json" },
-      });
+      const response = await fetch(
+        "https://backend-litlab.herokuapp.com/login",
+        {
+          method: "POST",
+          body: JSON.stringify({ email, password }),
+          headers: { "Content-Type": "application/json" },
+        }
+      );
 
       console.log(response);
 
       if (response.status === 200) {
         const data = await response.json();
         console.log(data.user, data.token);
-        if (data.user) localStorage.setItem("token", data.token);
+        if (data.user) {
+          localStorage.setItem("token", data.token);
+          localStorage.setItem("lastVisit", data.dateString);
+        }
         setNoAccountError(false);
         setWrongCredentials(false);
         if (data?.user?.isLearner) {
@@ -188,7 +202,7 @@ const Login = () => {
         <Row className="justify-content-md-center  mx-auto">
           <Col className="form mt-5 ">
             <Form
-              className="mx-auto w-50"
+              className="mx-auto w-50 login"
               action="/login"
               method="POST"
               onSubmit={handleSubmit}

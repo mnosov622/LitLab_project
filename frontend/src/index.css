@@ -77,3 +77,18 @@ footer {
 .empty {
   width: 5% !important;
 }
+
+@media screen and (max-width: 768px) {
+  .file-input {
+    width: 100% !important;
+  }
+  .file-input-text {
+    text-align: center;
+  }
+  .points-input {
+    width: 100% !important;
+  }
+  .login {
+    width: 100% !important;
+  }
+}

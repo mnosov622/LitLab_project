@@ -1,7 +1,7 @@
 const express = require("express");
 const { ObjectId } = require("mongodb");
 const { creator } = require("../models/creator");
-const { User } = require("../models/users");
+const { User, MyUser } = require("../models/users");
 const client = require("../mongodb");
 const router = express.Router();
 const multer = require("multer");
@@ -114,5 +114,7 @@ router.get("/users/:id", (req, res) => {
     }
   });
 });
+
+//send email
 
 module.exports = router;

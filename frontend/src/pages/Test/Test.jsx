@@ -74,7 +74,7 @@ const Test = () => {
     if (correctAnswers === totalQuestions) {
       const fetchData = async () => {
         const response = await fetch(
-          `http://localhost:8000/users/${userEmail}/courses/${id}`,
+          `https://backend-litlab.herokuapp.com/users/${userEmail}/courses/${id}`,
           {
             method: "PUT",
             headers: {
@@ -99,7 +99,7 @@ const Test = () => {
 
   useEffect(() => {
     if (question.length === 0) {
-      fetch(`http://localhost:8000/users/${userEmail}/courses/${id}`, {
+      fetch(`https://backend-litlab.herokuapp.com/users/${userEmail}/courses/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -117,7 +117,7 @@ const Test = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:8000/courses/${Number(id)}`)
+    fetch(`https://backend-litlab.herokuapp.com/courses/${Number(id)}`)
       .then((response) => response.json())
       .then((data) => {
         setQuestions(data.course.test);

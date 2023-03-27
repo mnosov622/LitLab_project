@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
 import { Container, Row, Col, Card, Carousel } from "react-bootstrap";
 import courseImage from "../../assets/courseImage.jpg";
@@ -42,6 +42,7 @@ const CourseDescription = () => {
   const loggedIn = useSelector((state) => state.loggedInAsLearner);
   const itemsInCart = useSelector((state) => state.increaseItemsAmount);
   const [imageSource, setImageSource] = useState("");
+  const [instuctorImageSource, setInstructorImageSource] = useState("");
 
   const [name, setName] = useState("");
   const [review, setReview] = useState("");
@@ -66,7 +67,7 @@ const CourseDescription = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:8000/courses/${Number(id)}`)
+    fetch(`https://backend-litlab.herokuapp.com/courses/${Number(id)}`)
       .then((response) => response.json())
       .then((data) => {
         setCourse(data.course);
@@ -80,16 +81,20 @@ const CourseDescription = () => {
       return navigate("/login");
     }
 
-    fetch(`http://localhost:8000/users/${userId}`)
+    const token = localStorage.getItem("token");
+    const decoded = jwtDecode(token);
+
+    fetch(`https://backend-litlab.herokuapp.com/users/${decoded.id}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log("DATA", data);
+        console.log("data revicev", data.courses);
         setLearnerCourses(data.courses);
-        // learnerCourses.map((course) => {
-        //   if (course.id === Number(id)) {
-        //     setHasCourse(true);
-        //   }
-        // });
+        data.courses.forEach((course) => {
+          if (course.id === Number(id)) {
+            console.log("You already own this course");
+            setHasCourse(true);
+          }
+        });
       });
   }, []);
 
@@ -97,11 +102,20 @@ const CourseDescription = () => {
     console.log(course);
     const imageSource = course?.courseImageURL?.startsWith("https")
       ? course?.courseImageURL
-      : `http://localhost:8000/images/${course.courseImageURL}`;
+      : `https://backend-litlab.herokuapp.com/images/${course.courseImageURL}`;
     setImageSource(imageSource);
   }, [course, course?.coureseImageURL]);
 
-  //TODO: Add all items from object to the cart
+  useEffect(() => {
+    console.log(course);
+    const instructorSource = course?.instructorImageURL?.startsWith("https")
+      ? course?.instructorImageURL
+      : `https://backend-litlab.herokuapp.com/images/${course.instructorImageURL}`;
+    setInstructorImageSource(instructorSource);
+  }, [course, course?.instructorImageURL]);
+
+  const amount = useSelector((state) => state.increaseItemsAmount);
+
   const addCourseToCart = () => {
     //Checking if added item exists in cart, if so, then show error, otherwise add item to cart
     const existingItem = cart.find((item) => item.id === singleCourse.id);
@@ -117,16 +131,19 @@ const CourseDescription = () => {
 
       alert.success("Item added to cart", {
         position: positions.BOTTOM_RIGHT,
-        timeout: 2000, // custom timeout just for this one alert
+        timeout: 2000,
       });
       dispatch(addToCart(newItem));
       dispatch(itemsAmount());
+
       setCartItems((prev) => [...(Array.isArray(prev) ? prev : []), newItem]);
-      console.log("AMOUNT Of items", itemsAmount);
+      const cartItems = JSON.parse(localStorage.getItem("shopping_cart")) || [];
+      cartItems.push(newItem);
+      localStorage.setItem("amountOfItems", JSON.stringify(cartItems.length));
     } else {
       alert.error("Item exists in cart", {
         position: positions.BOTTOM_RIGHT,
-        timeout: 2000, // custom timeout just for this one alert
+        timeout: 2000,
       });
     }
   };
@@ -145,6 +162,7 @@ const CourseDescription = () => {
           price: course.price,
           instructor: course.instructor,
           courseImageURL: course.courseImageURL,
+          email: course.email,
         })
       );
       navigate("/payment");
@@ -161,19 +179,47 @@ const CourseDescription = () => {
 
   const handleLeaveReview = (e) => {
     e.preventDefault();
+    const date = new Date().toLocaleDateString("en-US");
+
+    const newReview = {
+      star: rating,
+      name: name,
+      review: review,
+      reviewerId: userId,
+      email: course.email,
+      date: date,
+    };
+
+    fetch("http://localhost:8000/review/creator", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: course.email,
+        star: rating,
+        name: name,
+        reviewText: review,
+        date: date,
+        course: course.name,
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
 
     //checking if user has submitted a review
     const hasSubmittedReview = course.courseReview?.some(
       (course) => course.reviewerId === userId
     );
 
-    if (hasSubmittedReview) {
-      alert.error("You already submitted a review", {
-        position: positions.BOTTOM_RIGHT,
-        timeout: 5000,
-      });
-      return;
-    }
+    // if (hasSubmittedReview) {
+    //   alert.error("You already submitted a review", {
+    //     position: positions.BOTTOM_RIGHT,
+    //     timeout: 5000,
+    //   });
+    //   return;
+    // }
 
     if (
       review.trim().length === 0 ||
@@ -185,14 +231,7 @@ const CourseDescription = () => {
     }
     setError(false);
 
-    const newReview = {
-      star: rating,
-      name: name,
-      review: review,
-      reviewerId: userId,
-    };
-
-    fetch(`http://localhost:8000/review/course/${Number(id)}`, {
+    fetch(`https://backend-litlab.herokuapp.com/review/course/${Number(id)}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -205,11 +244,10 @@ const CourseDescription = () => {
           timeout: 2000,
         });
 
-        fetch(`http://localhost:8000/courses/${Number(id)}`)
+        fetch(`https://backend-litlab.herokuapp.com/courses/${Number(id)}`)
           .then((response) => response.json())
           .then((data) => {
             setCourse(data.course);
-            console.log("11", data.course);
             setLoading(false);
           });
       }
@@ -348,16 +386,24 @@ const CourseDescription = () => {
                 />
 
                 <div className="buttons d-flex flex-column">
-                  <button
-                    className="btn btn-outline-primary btn-lg mt-3"
-                    onClick={addCourseToCart}
-                  >
-                    Add to Cart
-                  </button>
+                  {!hasCourse && (
+                    <button
+                      className="btn btn-outline-primary btn-lg mt-3"
+                      onClick={addCourseToCart}
+                    >
+                      Add to Cart
+                    </button>
+                  )}
+
                   {hasCourse ? (
-                    <p className="fs-4 text-dark text-center">
-                      You already bought this course
-                    </p>
+                    <>
+                      <Link
+                        className="btn btn-lg btn-primary mt-4"
+                        to={`/course-view/${course.id}`}
+                      >
+                        Go to the course
+                      </Link>
+                    </>
                   ) : (
                     <button
                       className="btn btn-primary btn-lg mt-3"
@@ -377,11 +423,11 @@ const CourseDescription = () => {
                   <span className="mr-2" style={{ marginRight: "20px" }}>
                     What you will learn{" "}
                   </span>
-                  <img
+                  {/* <img
                     src={learningImage}
                     alt="What you will learn"
                     width={"5%"}
-                  />
+                  /> */}
                 </div>
                 <div className="mt-4">
                   <div className="learn">
@@ -408,23 +454,27 @@ const CourseDescription = () => {
                         </>
                       ))}
                   </div>
-
                   <p className="mt-5 fw-bold fs-5">{course?.pointsSummary}</p>
                 </div>
               </div>
             </div>
           </div>
-          <div className="row mt-5">
+          <div className="row mt-5 course-content">
             <div className="mx-auto col-md-8">
               <p className="fs-3 fw-bold">Course Content</p>
 
               {course?.courseContent &&
                 course?.courseContent.map((content, index) => (
                   <p key={index} className="week">
-                    <h3 className="text-primary">Week {index + 1}</h3>
+                    <h3 className="text-primary mt-3 mb-3">
+                      Week {index + 1} <i class="bi bi-calendar-week"></i>
+                    </h3>
                     <ul>
                       {content.week.map((week, i) => (
-                        <li key={i} className="week-item">
+                        <li
+                          key={i}
+                          className="week-item bg-light rounded text-dark w-50 p-3"
+                        >
                           {week}
                         </li>
                       ))}
@@ -436,7 +486,7 @@ const CourseDescription = () => {
 
           <div className="row mt-5">
             <div className="mx-auto col-md-8">
-              <p className="fs-3 fw-bold">Course Description</p>
+              <p className="fs-3 fw-bold ">Course Description</p>
               <p className="course-description">{course?.longDescription}</p>
             </div>
           </div>
@@ -450,7 +500,7 @@ const CourseDescription = () => {
                   {course?.instructor}
                 </p>
                 <img
-                  src={course?.instructorImageURL}
+                  src={instuctorImageSource}
                   alt="Instructor profile"
                   className="col-md-4 instructor-image img rounded-circle"
                 />
@@ -466,16 +516,22 @@ const CourseDescription = () => {
             <div className="mx-auto col-md-8">
               <p className="fw-bold fs-2">Reviews</p>
               <Row>
-                <Col xs={7}>
+                <Col md={7}>
                   {course &&
                     course.courseReview &&
                     course.courseReview
                       .slice(0, showAllReviews ? course.courseReview.length : 3)
                       .map((review) => (
                         <div
-                          className="previous-reviews mb-3 p-3"
+                          className="previous-reviews mb-3 p-3 position-relative"
                           key={review.id}
                         >
+                          <span
+                            className="text-muted position-absolute"
+                            style={{ right: "15px", top: "15px" }}
+                          >
+                            {review.date}
+                          </span>
                           <h4>{review.name}</h4>
                           <p>
                             Rating :{" "}
@@ -517,7 +573,7 @@ const CourseDescription = () => {
                     ""
                   )}
                 </Col>
-                <Col>
+                <Col md={5}>
                   <Form
                     className="review-form"
                     onSubmit={(e) => handleLeaveReview(e)}
@@ -589,6 +645,7 @@ const CourseDescription = () => {
                       </p>
                     )}
                     <Button
+                      id="reviews"
                       className="btn_submit"
                       variant="primary"
                       type="submit"

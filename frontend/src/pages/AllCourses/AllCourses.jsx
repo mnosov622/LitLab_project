@@ -22,28 +22,25 @@ const AllCourses = () => {
       const userId = decoded.id;
 
       setLoading(true);
-      fetch("http://localhost:8000/courses")
+      fetch("https://backend-litlab.herokuapp.com/courses")
         .then((response) => response.json())
         .then((data) => {
-          console.log("data", data);
           setCourses(data);
           setLoading(false);
         });
 
       if (userId) {
-        fetch(`http://localhost:8000/users/${userId}`)
+        fetch(`https://backend-litlab.herokuapp.com/users/${userId}`)
           .then((response) => response.json())
           .then((data) => {
             setUserCourses(data.courses);
-            console.log("user courses", data.courses);
           });
       }
     } else {
       setLoading(true);
-      fetch("http://localhost:8000/courses")
+      fetch("https://backend-litlab.herokuapp.com/courses")
         .then((response) => response.json())
         .then((data) => {
-          console.log("data", data);
           setCourses(data);
           setLoading(false);
         });
@@ -57,7 +54,7 @@ const AllCourses = () => {
           height={80}
           width={80}
           color="#0d6efd"
-          wrapperStyle= {{ position: "absolute", left: "50%", top: "40%" }}
+          wrapperStyle={{ position: "absolute", left: "50%", top: "40%" }}
           wrapperClass=""
           visible={true}
           ariaLabel="oval-loading"
@@ -67,6 +64,9 @@ const AllCourses = () => {
         />
       ) : (
         <>
+          <div className="bg-light shadow text-center p-2 fs-2 mb-4">
+            <p>All Courses</p>
+          </div>
           <div className="row">
             {courses.map((course) => (
               <div className="col-md-4 mt-2">
@@ -78,6 +78,9 @@ const AllCourses = () => {
                   image={course.courseImageURL}
                   price={course.price}
                   teacherName={course.instructor}
+                  shortDescription={course.shortDescription}
+                  pointsToLearn={course.pointsToLearn}
+                  allCourses
                 />
               </div>
             ))}

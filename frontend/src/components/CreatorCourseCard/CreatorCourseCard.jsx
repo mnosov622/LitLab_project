@@ -12,7 +12,6 @@ const CreatorCourseCard = ({
   instructorName,
   courseId,
 }) => {
-
   const [showModal, setShowModal] = useState(false);
 
   console.log("");
@@ -23,7 +22,7 @@ const CreatorCourseCard = ({
     const userEmail = decoded.email;
     console.log("data", { email: userEmail, courseName: courseName });
 
-    fetch(`http://localhost:8000/courses/${courseName}`, {
+    fetch(`https://backend-litlab.herokuapp.com/courses/${courseName}`, {
       method: "DELETE",
     })
       .then((response) => response.json())
@@ -31,9 +30,12 @@ const CreatorCourseCard = ({
       .catch((e) => console.log(e));
 
     console.log("course id", courseId);
-    fetch(`http://localhost:8000/users/${userEmail}/courses/${courseId}`, {
-      method: "DELETE",
-    })
+    fetch(
+      `https://backend-litlab.herokuapp.com/users/${userEmail}/courses/${courseId}`,
+      {
+        method: "DELETE",
+      }
+    )
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -60,7 +62,7 @@ const CreatorCourseCard = ({
       const userEmail = decoded.email;
       console.log("data", { email: userEmail, courseName: courseName });
 
-      fetch(`http://localhost:8000/courses/${courseName}`, {
+      fetch(`https://backend-litlab.herokuapp.com/courses/${courseName}`, {
         method: "DELETE",
       })
         .then((response) => response.json())
@@ -68,7 +70,7 @@ const CreatorCourseCard = ({
         .catch((e) => console.log(e));
 
       console.log("course id", courseId);
-      fetch(`http://localhost:8000/users/${userEmail}/courses/${courseId}`, {
+      fetch(`https://backend-litlab.herokuapp.com/users/${userEmail}/courses/${courseId}`, {
         method: "DELETE",
       })
         .then((response) => response.json())
@@ -84,10 +86,10 @@ const CreatorCourseCard = ({
 
   return (
     <>
-      <div className="w-25 mb-5 col-md-6">
+      <div className="w-25 mb-5 col-md-6 course-card">
         <div className="card-item border">
           <img
-            src={`http://localhost:8000/images/${courseImage}`}
+            src={`https://backend-litlab.herokuapp.com/images/${courseImage}`}
             className="card-img-top img-fluid card-image"
             alt="Course"
           />
@@ -110,12 +112,14 @@ const CreatorCourseCard = ({
             <button className="btn btn-danger" onClick={handleShowModal}>
               Delete
             </button>
-            {showModal && <Modal
-              title="Confirm Action"
-              body={`Are you sure you want to delete the course`}
-              onConfirm={handleDelete}
-              onCancel={handleCloseModal}
-            />}
+            {showModal && (
+              <Modal
+                title="Confirm Action"
+                body={`Are you sure you want to delete the course`}
+                onConfirm={handleDelete}
+                onCancel={handleCloseModal}
+              />
+            )}
           </div>
         </div>
       </div>

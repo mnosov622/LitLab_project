@@ -93,6 +93,7 @@ const Home = () => {
                 image={teacher1}
                 price="45"
                 teacherName="Simona Gareth"
+                homeImage
               />
             </div>
             <div className="col-md-4">
@@ -102,6 +103,7 @@ const Home = () => {
                 image={javascriptTeacher}
                 price="55"
                 teacherName="Kyle Thompson"
+                homeImage
               />
             </div>
             <div className="col-md-4">
@@ -111,8 +113,14 @@ const Home = () => {
                 image={influenceTeacher}
                 price="45"
                 teacherName="Mark Forgheit"
+                homeImage
               />
             </div>
+            <Link to="/all-courses" className="text-center ">
+              <button className="btn btn-primary btn-lg">
+                See other courses
+              </button>
+            </Link>
           </div>
         </div>
         <div className="row mt-5">
@@ -136,6 +144,7 @@ const Home = () => {
           <CourseCategoryCard name="Personal Development" courseCount="133" />
         </div>
       </div>
+
       <div className="row mt-5">
         <div className="col-md-12 text-center fs-1 mt-5">
           What people say about us

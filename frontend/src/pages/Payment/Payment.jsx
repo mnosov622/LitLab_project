@@ -6,10 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import CourseCard from "../../components/CourseCards/CourseCard";
 import PaymentLogo from "../../assets/PaymentLogo.png";
+import jwtDecode from "jwt-decode";
 
 const Payment = () => {
-  //TODO: Add sockets, so that user don't have to refresh page when he buys the course
-
   const alert = useAlert();
 
   const navigate = useNavigate();
@@ -20,7 +19,10 @@ const Payment = () => {
   const [expiryDate, setExpiryDate] = useState("");
   const [cvv, setCvv] = useState("");
   const [totalAmount, setTotalAmount] = useState(0);
+  const [userData, setUserData] = useState([]);
   const token = localStorage.getItem("token");
+  const decoded = jwtDecode(token);
+  const userId = decoded.id;
   const item = localStorage.getItem("item_to_buy");
   const item_to_buy = JSON.parse(item);
   console.log("course name", item_to_buy);
@@ -62,6 +64,11 @@ const Payment = () => {
       const pricesTotal = prices.reduce((sum, item) => sum + item, 0);
       setTotalAmount(pricesTotal);
     }
+    fetch(`http://localhost:8000/users/${userId}`)
+      .then((res) => res.json())
+      .then((data) => setUserData(data));
+
+    console.log("item", item_to_buy);
   }, []);
 
   const handlePayment = async (event) => {
@@ -84,14 +91,35 @@ const Payment = () => {
           isCompleted: false,
         };
 
+        fetch("http://localhost:8000/courses/creator", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            courseName: item_to_buy.name,
+            courseImage: item_to_buy.courseImageURL,
+            userName: userData.name,
+            userEmail: userData.email,
+            email: item_to_buy.email,
+          }),
+        }).then((res) => console.log("res", res));
+
+        fetch("http://localhost:8000/courses/creator/enrollments", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email: item_to_buy.email }),
+        }).then((res) => console.log("res", res));
         fetch(
-          `http://localhost:8000/courses/${item_to_buy.id}/increase-enrollments`,
+          `https://backend-litlab.herokuapp.com/courses/${item_to_buy.id}/increase-enrollments`,
           {
             method: "PUT",
           }
         );
 
-        fetch("http://localhost:8000/buy-course", {
+        await fetch("https://backend-litlab.herokuapp.com/buy-course", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -104,9 +132,6 @@ const Payment = () => {
           timeout: 2000, // custom timeout just for this one alert
         });
         navigate("/");
-        // setTimeout(() => {
-        //   window.location.reload();
-        // }, 500);
       } catch (e) {
         console.log("An error occured", e);
       }
@@ -124,22 +149,23 @@ const Payment = () => {
           });
         });
 
-        // fetch("http://localhost:8000/buy-course", {
-        //   method: "POST",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //     Authorization: token,
-        //   },
-        //   body: JSON.stringify({ courses }),
-        // });
-        // alert.success("Courses were succesfully purchased", {
-        //   position: positions.BOTTOM_RIGHT,
-        //   timeout: 2000, // custom timeout just for this one alert
-        // });
-        // navigate("/");
-        // setTimeout(() => {
-        //   window.location.reload();
-        // }, 500);
+        fetch("https://backend-litlab.herokuapp.com/buy-course", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+          body: JSON.stringify({ courses }),
+        });
+        alert.success("Courses were succesfully purchased", {
+          position: positions.BOTTOM_RIGHT,
+          timeout: 2000, // custom timeout just for this one alert
+        });
+
+        navigate("/");
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
       } catch (e) {
         console.log("An error occured", e);
       }
@@ -183,10 +209,10 @@ const Payment = () => {
               )}
             </div>
           </div>
-          <div className="p-4 col-md-6 h-100 bg-light shadow">
+          <div className="p-4 mx-auto col-md-5 h-100 bg-light shadow">
             <form onSubmit={handlePayment}>
-              <div class="form-group">
-                <label htmlFor="cardNumber">Card Number:</label>
+              <div class="form-group mb-2">
+                <label htmlFor="cardNumber">Card number</label>
                 <input
                   class="form-control"
                   type="text"
@@ -198,13 +224,14 @@ const Payment = () => {
                   onChange={(event) => setCardNumber(event.target.value)}
                   onKeyUp={handleCardNo}
                   required
+                  style={{ width: "72%" }}
                 />
                 {cardNoError && (
                   <div className="text-danger mt-2">{cardNoError}</div>
                 )}
               </div>
-              <div class="form-group">
-                <label htmlFor="cardHolderName">Card Holder Name:</label>
+              <div class="form-group mb-2">
+                <label htmlFor="cardHolderName">Cardholder name</label>
                 <input
                   class="form-control"
                   type="text"
@@ -215,39 +242,77 @@ const Payment = () => {
                   onChange={(event) => setCardHolderName(event.target.value)}
                   onKeyUp={handleCardName}
                   required
+                  style={{ width: "72%" }}
                 />
                 {cardNameError && (
                   <div className="text-danger mt-2">{cardNameError}</div>
                 )}
               </div>
-              <div class="form-group">
-                <label htmlFor="expiryDate">Expiry Date:</label>
-                <input
-                  class="form-control"
-                  type="date"
-                  id="expiryDate"
-                  value={expiryDate}
-                  min={new Date().toISOString().split("T")[0]}
-                  onChange={(event) => setExpiryDate(event.target.value)}
-                  required
-                />
-              </div>
 
-              <div class="form-group">
-                <label htmlFor="cvv">CVV:</label>
-                <input
-                  class="form-control"
-                  type="text"
-                  id="cvv"
-                  value={cvv}
-                  maxLength="3"
-                  placeholder="000"
-                  pattern="[0-9]*"
-                  onChange={(event) => setCvv(event.target.value)}
-                  onKeyUp={handleCvv}
-                  required
-                />
-                {cvvError && <div className="text-danger mt-2">{cvvError}</div>}
+              <div className="d-flex">
+                <div style={{ width: "70%" }}>
+                  <label htmlFor="expirationDate">Expiration Date</label>
+                  <div className="d-flex">
+                    <select
+                      class="form-control "
+                      id="expirationDate"
+                      required
+                      style={{ width: "90% !important" }}
+                    >
+                      <option value="" disabled selected>
+                        Select a month
+                      </option>
+                      <option value="01">01</option>
+                      <option value="02">02</option>
+                      <option value="03">03</option>
+                      <option value="04">04</option>
+                      <option value="05">05</option>
+                      <option value="06">06</option>
+                      <option value="07">07</option>
+                      <option value="08">08</option>
+                      <option value="09">09</option>
+                      <option value="10">10</option>
+                      <option value="11">11</option>
+                      <option value="12">12</option>
+                    </select>
+
+                    <select class="form-control" id="expiryYear" required>
+                      <option value="" disabled selected>
+                        Select a year
+                      </option>
+                      <option value="2023">2023</option>
+                      <option value="2024">2024</option>
+                      <option value="2025">2025</option>
+                      <option value="2026">2026</option>
+                      <option value="2027">2027</option>
+                      <option value="2028">2028</option>
+                      <option value="2029">2029</option>
+                      <option value="2030">2030</option>
+                      <option value="2030">2031</option>
+                      <option value="2030">2032</option>
+                    </select>
+                  </div>
+                </div>
+                <div className="item2" style={{ marginLeft: "15px" }}>
+                  <label htmlFor="cvv">CVV</label>
+
+                  <input
+                    class="form-control mb-2"
+                    type="text"
+                    id="cvv"
+                    value={cvv}
+                    maxLength="3"
+                    placeholder="000"
+                    pattern="[0-9]*"
+                    onChange={(event) => setCvv(event.target.value)}
+                    onKeyUp={handleCvv}
+                    required
+                    style={{ width: "30%" }}
+                  />
+                  {cvvError && (
+                    <div className="text-danger mt-2">{cvvError}</div>
+                  )}
+                </div>
               </div>
               <div class="form-group">
                 <img
@@ -261,7 +326,12 @@ const Payment = () => {
               <p className="fs-3">
                 Total: <span>{item_to_buy?.price}$</span>
               </p>
-              <button className="btn btn-primary btn-lg w-100">Pay</button>
+              <button
+                className="btn btn-primary btn-lg"
+                style={{ width: "63%" }}
+              >
+                Pay
+              </button>
             </form>
           </div>
         </div>
@@ -316,74 +386,124 @@ const Payment = () => {
             </div>
           )}
         </div>
-        <div className="p-4 col-md-6 h-100 bg-light shadow">
+        <div className="p-4 offset-1 col-md-5 h-100 bg-light shadow">
           <form onSubmit={handlePayment}>
-            <div class="form-group">
-              <label htmlFor="cardNumber">Card Number:</label>
+            <div class="form-group mb-2">
+              <label htmlFor="cardNumber">Card number</label>
               <input
                 class="form-control"
                 type="text"
                 id="cardNumber"
                 maxLength="16"
                 pattern="[0-9]*"
-                placeholder="1234-5678-1121-1121"
+                placeholder="1234-5678-1212-1213"
                 value={cardNumber}
                 onChange={(event) => setCardNumber(event.target.value)}
+                onKeyUp={handleCardNo}
                 required
+                style={{ width: "72%" }}
               />
+              {cardNoError && (
+                <div className="text-danger mt-2">{cardNoError}</div>
+              )}
             </div>
-            <div class="form-group">
-              <label htmlFor="cardHolderName">Card Holder Name:</label>
+            <div class="form-group mb-2">
+              <label htmlFor="cardHolderName">Cardholder name</label>
               <input
                 class="form-control"
                 type="text"
                 id="cardHolderName"
-                placeholder="Tom Croos"
+                maxLength="40"
+                placeholder="Jackie Chan"
                 value={cardHolderName}
                 onChange={(event) => setCardHolderName(event.target.value)}
+                onKeyUp={handleCardName}
                 required
+                style={{ width: "72%" }}
               />
-            </div>
-            <div class="form-group">
-              <label htmlFor="expiryDate">Expiry Date:</label>
-              <input
-                class="form-control"
-                type="date"
-                id="expiryDate"
-                value={expiryDate}
-                min={new Date().toISOString().split("T")[0]}
-                onChange={(event) => setExpiryDate(event.target.value)}
-                required
-              />
+              {cardNameError && (
+                <div className="text-danger mt-2">{cardNameError}</div>
+              )}
             </div>
 
-            <div class="form-group">
-              <label htmlFor="cvv">CVV:</label>
-              <input
-                class="form-control"
-                type="text"
-                id="cvv"
-                placeholder="000"
-                value={cvv}
-                maxLength="3"
-                pattern="[0-9]*"
-                onChange={(event) => setCvv(event.target.value)}
-                required
-              />
+            <div className="d-flex">
+              <div style={{ width: "70%" }}>
+                <label htmlFor="expirationDate">Expiration Date</label>
+                <div className="d-flex">
+                  <select
+                    class="form-control w-100"
+                    id="expirationDate"
+                    required
+                    style={{ width: "100% !important" }}
+                  >
+                    <option value="" disabled selected>
+                      Select a month
+                    </option>
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                  </select>
+
+                  <select class="form-control" id="expiryYear" required>
+                    <option value="" disabled selected>
+                      Select a year
+                    </option>
+                    <option value="2023">2023</option>
+                    <option value="2024">2024</option>
+                    <option value="2025">2025</option>
+                    <option value="2026">2026</option>
+                    <option value="2027">2027</option>
+                    <option value="2028">2028</option>
+                    <option value="2029">2029</option>
+                    <option value="2030">2030</option>
+                    <option value="2030">2031</option>
+                    <option value="2030">2032</option>
+                  </select>
+                </div>
+              </div>
+              <div className="item2" style={{ marginLeft: "10px" }}>
+                <label htmlFor="cvv">CVV</label>
+
+                <input
+                  class="form-control mb-2  "
+                  style={{ width: "30%" }}
+                  type="text"
+                  id="cvv"
+                  value={cvv}
+                  maxLength="3"
+                  placeholder="000"
+                  pattern="[0-9]*"
+                  onChange={(event) => setCvv(event.target.value)}
+                  onKeyUp={handleCvv}
+                  required
+                />
+                {cvvError && <div className="text-danger mt-2">{cvvError}</div>}
+              </div>
             </div>
             <div class="form-group">
               <img
                 src={PaymentLogo}
                 width="250"
                 height="50"
-                alt="Payment Logos"
+                alt="Payment logos"
               />
             </div>
 
             <p className="fs-3">
               Total: <span>{totalAmount}$</span>
             </p>
-            <button className="btn btn-primary btn-lg w-100">Pay</button>
+            <button className="btn btn-primary btn-lg" style={{ width: "63%" }}>
+              Pay
+            </button>
           </form>
         </div>
       </div>

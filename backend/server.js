@@ -35,6 +35,7 @@ const secret = "secret";
 
 const url = "mongodb+srv://max:LitLab@cluster0.qnyvkxl.mongodb.net";
 
+//update this line to handle cors issues
 app.use(
   cors({
     origin: "http://localhost:3000",
@@ -205,8 +206,6 @@ MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
 
 //update course for the user
 app.put("/creator-courses/:id/courses/:courseId", (req, res) => {
-  console.log("updated course received", req.body.updatedCourse);
-
   MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
     if (err) throw err;
     const dbo = db.db("users");
@@ -253,7 +252,6 @@ app.put("/courses/:name", (req, res) => {
       if (!course) {
         res.status(404).json({ message: "Course not found" });
       } else {
-        console.log("course is", course);
         db.collection("courses").updateOne(
           { name: req.params.name },
           {
@@ -278,7 +276,6 @@ app.put("/courses/:name", (req, res) => {
 });
 
 app.get("/user-course/:userId", (req, res) => {
-  console.log("user id", req.params.userId);
   MongoClient.connect(
     url,
     { useNewUrlParser: true, useUnifiedTopology: true },
@@ -369,4 +366,6 @@ app.put("/users/:userEmail/courses/:id", (req, res) => {
     });
 });
 
-app.listen(8000, () => console.log("Server is up on port 8000"));
+app.listen(process.env.PORT || 8000, () => {
+  console.log("Server is up and running on port " + process.env.PORT || 8000);
+});

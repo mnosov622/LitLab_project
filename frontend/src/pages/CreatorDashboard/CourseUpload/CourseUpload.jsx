@@ -21,6 +21,7 @@ const CourseUpload = () => {
   const [imagePreview, setImagePreview] = useState(null);
 
   const [instructorImage, setInstructorImage] = useState("");
+  const [bio, setBio] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
@@ -47,11 +48,18 @@ const CourseUpload = () => {
     { point: "" },
   ]);
 
+  useEffect(() => {
+    fetch(`https://backend-litlab.herokuapp.com/users/${decoded.id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setInstructorImage(data.profileImage);
+        setBio(data.bio);
+      });
+  }, []);
   const [summary, setSummary] = useState("");
 
   const onSubmit = async (e) => {
     e.preventDefault();
-
     const courseContentJSON = JSON.stringify(
       weeks.map((week) => ({ week: week.week }))
     );
@@ -74,7 +82,7 @@ const CourseUpload = () => {
     formData.append("test", questionsJSON);
     formData.append("enrollments", 0);
 
-    const res = await fetch("http://localhost:8000/upload", {
+    const res = await fetch("https://backend-litlab.herokuapp.com/upload", {
       method: "POST",
       body: formData,
     });
@@ -82,13 +90,11 @@ const CourseUpload = () => {
 
     console.log("response recieved", data);
 
-    fetch(`http://localhost:8000/users/${decoded.id}`)
-      .then((res) => res.json())
-      .then((data) => setInstructorImage(data.profileImage));
+    console.log("profile iamge before sendibg", instructorImage);
 
     const courseData = {
       video: data.video,
-      instructorImageURl: instructorImage,
+      instructorImageURL: instructorImage,
       courseImageURL: data.image.originalname,
       instructorEmail: decoded.email,
       name: nameRef.current.value,
@@ -102,17 +108,21 @@ const CourseUpload = () => {
       pointsSummary: summary,
       test: questions,
       enrollments: 0,
+      instructorBio: bio,
     };
     setLoading(false);
 
     console.log("data from client", courseData);
-    const response = await fetch("http://localhost:8000/courses", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(courseData),
-    });
+    const response = await fetch(
+      "https://backend-litlab.herokuapp.com/courses",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(courseData),
+      }
+    );
     const courses = await response.json();
     console.log("response recived", courses);
 
@@ -124,23 +134,24 @@ const CourseUpload = () => {
     console.log("created course", createdCourse);
   };
 
-  const onChange = (e) => {
-    setVideo(e.target.files[0]);
-    setVideoPreview(URL.createObjectURL(e.target.files[0]));
-  };
-
   const handleImageChange = (event) => {
     setImage(event.target.files[0]);
     setImagePreview(URL.createObjectURL(event.target.files[0]));
   };
 
-  const handleChange = (index, event) => {
-    const values = [...weeks];
-    values[index].week[event.target.name] = event.target.value;
-    setWeeks(values);
+  const handleVideoChange = (event) => {
+    setVideo(event.target.files[0]);
+    setVideoPreview(URL.createObjectURL(event.target.files[0]));
   };
 
+  const [pointErrorMsg, setPointErrorMsg] = useState("");
+
   const handlePointChange = (index, value) => {
+    if (value.length > 40) {
+      setPointErrorMsg("Each point should have 40 characters or less.");
+    } else {
+      setPointErrorMsg("");
+    }
     const newPointsToLearn = [...pointsToLearn];
     newPointsToLearn[index].point = value;
     setPointsToLearn(newPointsToLearn);
@@ -197,27 +208,175 @@ const CourseUpload = () => {
     console.log("Q", questions);
   };
 
-  /*
   // Define state variables for the input values and validation errors
   const [courseNameError, setCourseNameError] = useState(null);
   const [priceError, setPriceError] = useState(null);
+  const [shortDesError, setShortDesError] = useState(null);
+  const [longDesError, setLongDesError] = useState(null);
 
   function handleCourseName() {
-    // Ensure the subject contains only valid characters
-    if (!/^[a-zA-Z\s]*$/.test(nameRef)) {
-      return setCourseNameError("Course Name can only contain letters and spaces.");
+    const name = nameRef.current.value.trim();
+    if (!name) {
+      setCourseNameError("Please enter a course name");
+    } else if (/\d/.test(name)) {
+      setCourseNameError("Course name cannot contain numbers");
+    } else {
+      setCourseNameError(null);
     }
-    return setCourseNameError(null);
   }
 
   function handlePrice() {
-    // Ensure the subject contains only valid characters
-    if (!/^[0-9]+$/.test(priceRef)) {
-      return setPriceError("Price can only contain numbers.");
+    const price = priceRef.current.value.trim();
+    if (!price) {
+      setPriceError("Please enter a price");
+    } else if (!/^\d+$/.test(price)) {
+      setPriceError("Price must be a valid number");
+    } else {
+      setPriceError(null);
     }
-    return setPriceError(null);
   }
-*/
+
+  function handleShortDes() {
+    const shortDes = shortDescr.current.value.trim();
+    if (!shortDes) {
+      setShortDesError("Please enter short description");
+    } else {
+      setShortDesError(null);
+    }
+  }
+
+  function handleLongDes() {
+    const longDes = longDescr.current.value.trim();
+    if (!longDes) {
+      setLongDesError("Please enter long description");
+    } else {
+      setLongDesError(null);
+    }
+  }
+
+  //validating uploaded video file
+  const [selectedFile, setSelectedFile] = useState(null);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  function videoChange(event) {
+    const file = event.target.files[0];
+    setSelectedFile(file);
+    validateVideo(file);
+  }
+
+  function validateVideo(file) {
+    const allowedTypes = [
+      "video/mp4",
+      "video/mpeg",
+      "video/quicktime",
+      "video/mov",
+    ];
+    const maxFileSize = 100 * 1024 * 1024; // 100 MB
+
+    if (!allowedTypes.includes(file.type)) {
+      setErrorMessage(
+        "Invalid file type. Please upload an MP4, MPEG, MOV, or QuickTime video."
+      );
+      setSelectedFile(null);
+      return;
+    }
+
+    if (file.size > maxFileSize) {
+      setErrorMessage(
+        "File size exceeds 100 MB. Please upload a smaller video."
+      );
+      setSelectedFile(null);
+      return;
+    }
+
+    if (!/\.mp4$|\.mpeg$|\.mov$|\.quicktime$/i.test(file.name)) {
+      setErrorMessage(
+        "Invalid file type. Please upload an MP4, MPEG, MOV, or QuickTime video."
+      );
+      setSelectedFile(null);
+      return;
+    }
+
+    setErrorMessage("");
+    setSelectedFile(file);
+  }
+
+  //validating uploaded image file
+  const [imageFile, setImageFile] = useState(null);
+  const [imageErrorMsg, setImageErrorMsg] = useState("");
+
+  function imageChange(event) {
+    const file = event.target.files[0];
+
+    if (!file) {
+      setImageErrorMsg("Please select a file to upload.");
+      setImageFile(null);
+      return;
+    }
+
+    const allowedTypes = [
+      "image/png",
+      "image/jpeg",
+      "image/jpg",
+      "image/tif",
+      "image/tiff",
+    ];
+    const maxFileSize = 10 * 1024 * 1024; // 10 MB
+
+    if (!allowedTypes.includes(file.type)) {
+      setImageErrorMsg(
+        "Invalid file type. Please upload a PNG, JPEG, TIF OR TIFF image."
+      );
+      setImageFile(null);
+      return;
+    }
+
+    if (file.size > maxFileSize) {
+      setImageErrorMsg(
+        "File size exceeds 10 MB. Please upload a smaller image."
+      );
+      setImageFile(null);
+      return;
+    }
+
+    if (!/\.(png|jpe?g|tif|tiff)$/i.test(file.name)) {
+      setImageErrorMsg(
+        "Invalid file type. Please upload a PNG, JPEG, TIF OR TIFF image."
+      );
+      setImageFile(null);
+      return;
+    }
+
+    setImageErrorMsg("");
+    setImageFile(file);
+  }
+
+  //const [showError, setShowError] = useState(false);
+
+  const handleChange = (index, event) => {
+    const values = [...weeks];
+    values[index].week[event.target.name] = event.target.value;
+    setWeeks(values);
+  };
+
+  /*const handleSubmit = (event) => {
+    event.preventDefault();
+    setShowError(false);
+
+    // check if course content is not empty
+    for (let i = 0; i < weeks.length; i++) {
+      for (let j = 0; j < weeks[i].week.length; j++) {
+        if (weeks[i].week[j] === "") {
+          setShowError(true);
+          return;
+        }
+      }
+    }
+
+    // if course content is not empty, continue with form submission
+    setLoading(true);
+    // submit form
+  }*/
 
   return (
     <>
@@ -230,22 +389,30 @@ const CourseUpload = () => {
         <div className="row">
           <div className="col-md-6">
             <div className="upload-item">
-              <h3 className="fs-2 text-primary">Upload a course video</h3>
-              <div class="input-container d-flex  justify-content-center align-items-center">
+              <h3 className="fs-2 text-primary file-input-text">
+                Upload a course video
+              </h3>
+              <div class="input-container d-flex  justify-content-center align-items-center file-input">
                 <p className="fs-4">
                   <i className="bi bi-upload fs-1"></i>
                 </p>
                 <input
                   type="file"
-                  onChange={onChange}
+                  onChange={handleVideoChange}
                   required
                   id="video"
                   className="input-file"
                 />
               </div>
+              {errorMessage && (
+                <div className="text-danger mt-2">{errorMessage}</div>
+              )}
+
               {videoPreview && (
                 <div className="mb-5">
-                  <p className="text-primary mt-5 fs-1">Preview video</p>
+                  <p className="text-primary mt-5 fs-1 file-input-text">
+                    Preview video
+                  </p>
                   <video controls className="video-preview">
                     <source src={videoPreview} type="video/mp4" />
                     Your browser does not support the video tag.
@@ -254,8 +421,10 @@ const CourseUpload = () => {
               )}
             </div>
             <div className="upload-item">
-              <h3 className="fs-2 text-primary">Upload a course image</h3>
-              <div class="input-container d-flex  justify-content-center align-items-center">
+              <h3 className="fs-2 text-primary file-input-text">
+                Upload a course image
+              </h3>
+              <div class="input-container d-flex  justify-content-center align-items-center file-input">
                 <p className="fs-4">
                   <i className="bi bi-upload fs-1"></i>
                 </p>
@@ -267,6 +436,10 @@ const CourseUpload = () => {
                   className="input-file"
                 />
               </div>
+              {imageErrorMsg && (
+                <div className="text-danger mt-2">{imageErrorMsg}</div>
+              )}
+
               {imagePreview && (
                 <div className="mb-5">
                   <p className="text-primary mt-5 fs-1">Preview image</p>
@@ -289,15 +462,18 @@ const CourseUpload = () => {
                   id={`point-${index}`}
                   value={point.point}
                   onChange={(e) => handlePointChange(index, e.target.value)}
-                  className="form-control w-50"
+                  className="form-control w-50 points-input"
                 />
+                {pointErrorMsg && (
+                  <div className="text-danger">{pointErrorMsg}</div>
+                )}
               </div>
             ))}
             <h4 className="mt-3">Summary of points</h4>
             <textarea
               type="text"
               placeholder="Summary"
-              className="form-control w-50"
+              className="form-control w-50 points-input"
               value={summary}
               onChange={(e) => setSummary(e.target.value)}
             />
@@ -313,11 +489,13 @@ const CourseUpload = () => {
                 className="form-control"
                 id="floatingName"
                 placeholder="Name"
-                //onKeyUp={handleCourseName}
+                onKeyUp={handleCourseName}
                 autoFocus
               />
               <label for="floatingName">Name</label>
-              {/*{courseNameError && (<div className="text-danger mt-2">{courseNameError}</div>)}*/}
+              {courseNameError && (
+                <div className="text-danger mt-2">{courseNameError}</div>
+              )}
             </div>
 
             <div className="form-floating mb-3">
@@ -327,11 +505,13 @@ const CourseUpload = () => {
                 className="form-control"
                 id="floatingPrice"
                 placeholder="Price"
-                //onKeyUp={handlePrice}
+                onKeyUp={handlePrice}
                 required
               />
               <label for="floatingPrice">Price</label>
-              {/*{priceError && (<div className="text-danger mt-2">{priceError}</div>)}*/}
+              {priceError && (
+                <div className="text-danger mt-2">{priceError}</div>
+              )}
             </div>
 
             <div className="form-floating mb-3">
@@ -341,9 +521,13 @@ const CourseUpload = () => {
                 className="form-control"
                 id="floatingDescription"
                 placeholder="Description"
+                onKeyUp={handleShortDes}
                 required
               />
               <label for="floatingDescription">Short Description</label>
+              {shortDesError && (
+                <div className="text-danger mt-2">{shortDesError}</div>
+              )}
             </div>
             <div className="form-floating mb-3">
               <input
@@ -352,10 +536,15 @@ const CourseUpload = () => {
                 className="form-control"
                 id="floatingDescription"
                 placeholder="Description"
+                onKeyUp={handleLongDes}
                 required
               />
               <label for="floatingDescription">Long Description</label>
+              {longDesError && (
+                <div className="text-danger mt-2">{longDesError}</div>
+              )}
             </div>
+
             <h2 className="text-primary">Course Content</h2>
             {weeks.map((week, index) => (
               <div key={index}>
@@ -386,7 +575,6 @@ const CourseUpload = () => {
                 />
               </div>
             ))}
-
             <button
               className="btn btn-success btn-lg"
               onClick={(e) => {

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import CourseCard from "../../components/CourseCards/CourseCard";
 import empty from "../../assets/no-courses.gif";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import jwtDecode from "jwt-decode";
 import { useState } from "react";
@@ -18,13 +18,16 @@ const LearnerCourses = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState(null);
 
-
-  function handleRemoveCourse(course) {
-    fetch(`http://localhost:8000/users/${userId}/courses`, {
+  async function handleRemoveCourse(course) {
+    await fetch(
+      `https://backend-litlab.herokuapp.com/users/${userId}/courses`,
+      {
         method: "DELETE",
-      }).then((res) => console.log(res));
+      }
+    ).then((res) => console.log(res));
     setSelectedCourse(null);
     setShowModal(false);
+    window.location.reload();
   }
 
   function handleShowModal(course) {
@@ -39,18 +42,16 @@ const LearnerCourses = () => {
 
   useEffect(() => {
     setLoader(true);
-    if (userId) {
-      fetch(`http://localhost:8000/users/${userId}`)
-        .then((response) => response.json())
-        .then((data) => setCourses(data.courses));
-      setLoader(false);
-    }
-  }, [courses]);
+    fetch(`https://backend-litlab.herokuapp.com/users/${userId}`)
+      .then((response) => response.json())
+      .then((data) => setCourses(data.courses));
+    setLoader(false);
+  }, []);
 
   /*const handleRemove = () => {
     console.log("remove all");
     if (window.confirm("Are you sure you want to remove all courses ?")) {
-      fetch(`http://localhost:8000/users/${userId}/courses`, {
+      fetch(`https://backend-litlab.herokuapp.com/users/${userId}/courses`, {
         method: "DELETE",
       }).then((res) => console.log(res));
     }
@@ -130,12 +131,14 @@ const LearnerCourses = () => {
           <button className="btn btn-danger" onClick={handleShowModal}>
             Remove all courses
           </button>
-          {showModal && <Modal
+          {showModal && (
+            <Modal
               title="Confirm Action"
               body={`Are you sure you want to remove all courses`}
               onConfirm={handleRemoveCourse}
               onCancel={handleCloseModal}
-            />}
+            />
+          )}
         </div>
       </>
     );

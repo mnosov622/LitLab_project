@@ -16,3 +16,61 @@
   height: 150px;
   object-fit: cover; // it is important for scale of image
 }
+
+.hover_effect:hover {
+  transform: scale(1.05);
+}
+
+.layer {
+  width: 100%;
+  height: 0;
+  background: #0d6efd;
+  opacity: 0.95;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 20px;
+  text-align: center;
+  font-size: 14px;
+  transition: height 0.5s;
+}
+
+.hover_effect:hover .layer {
+  height: 100%;
+  box-shadow: 0 5px 10px 0 rgba($color: #000000, $alpha: 0.2);
+}
+
+.descrition {
+  color: white;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin: 15px 10px;
+}
+
+.layer_point {
+  padding-bottom: 5px;
+}
+
+.addBtn {
+  &:hover {
+    background-color: rgba($color: #000000, $alpha: 1);
+    color: #fff;
+  }
+}
+
+.points {
+  margin-bottom: 5px;
+  width: 85%;
+  font-size: 1.1em;
+}
+
+@media screen and (max-width: 1160px) {
+  .course-card {
+    width: 100% !important;
+  }
+}

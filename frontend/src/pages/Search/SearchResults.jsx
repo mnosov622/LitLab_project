@@ -12,7 +12,7 @@ function SearchResults(props) {
   const searchQuery = new URLSearchParams(location.search).get("q");
   useEffect(() => {
     setSearchValue(searchQuery);
-    fetch(`http://localhost:8000/search?q=${searchQuery}`)
+    fetch(`https://backend-litlab.herokuapp.com/search?q=${searchQuery}`)
       .then((res) => res.json())
       .then((data) => {
         setSearchResults(data);
@@ -23,12 +23,12 @@ function SearchResults(props) {
   return (
     <>
       <div className="row">
+        <h2 className="fs-2 mt-4 mb-4">
+          Results for <span className="text-primary">{searchValue}</span>
+        </h2>
         {searchResults && searchResults.length > 0 ? (
           searchResults.map((course) => (
             <>
-              <h2 className="fs-2 mt-4 mb-4">
-                Results for <span className="text-primary">{searchValue}</span>
-              </h2>
               <CourseCard
                 cardSmall
                 key={course.id}
