@@ -26,10 +26,6 @@ const CourseUpload = () => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const decoded = jwtDecode(token);
-  const nameRef = useRef();
-  const priceRef = useRef();
-  const shortDescr = useRef();
-  const longDescr = useRef();
   const dispatch = useDispatch();
   const createdCourse = useSelector((state) => state.createdCourse);
   const [showModal, setShowModal] = useState(false);
@@ -158,6 +154,7 @@ const CourseUpload = () => {
     }
   }
 
+  //validation for short description
   function handleShortDes(e) {
     const shortDescription = e.target.value;
     setInputValues({ ...inputValues, shortDescription });
@@ -169,6 +166,7 @@ const CourseUpload = () => {
     }
   }
 
+  //validation for long description
   function handleLongDes(e) {
     const longDescription = e.target.value;
     setInputValues({ ...inputValues, longDescription});
@@ -180,51 +178,21 @@ const CourseUpload = () => {
     }
   }
 
-  //validating uploaded video file
-  const [selectedFile, setSelectedFile] = useState(null);
+  //validation for uploaded video file
   const [errorMessage, setErrorMessage] = useState("");
 
   function videoChange(event) {
     const file = event.target.files[0];
-    setSelectedFile(file);
-    validateVideo(file);
-  }
-
-  function validateVideo(file) {
-    const allowedTypes = [
-      "video/mp4",
-      "video/mpeg",
-      "video/quicktime",
-      "video/mov",
-    ];
-    const maxFileSize = 100 * 1024 * 1024; // 100 MB
-
-    if (!allowedTypes.includes(file.type)) {
-      setErrorMessage(
-        "Invalid file type. Please upload an MP4, MPEG, MOV, or QuickTime video."
-      );
-      setSelectedFile(null);
-      return;
+    if (file && file.type.includes("video/")) {
+      setVideo(file);
+      setVideoPreview(URL.createObjectURL(event.target.files[0]));
+      setErrorMessage(null);
+    } else {
+      setVideo(null);
+      setVideoPreview(null);
+      setErrorMessage("Invalid file type. Please upload a valid video file.");
     }
-
-    if (file.size > maxFileSize) {
-      setErrorMessage(
-        "File size exceeds 100 MB. Please upload a smaller video."
-      );
-      setSelectedFile(null);
-      return;
-    }
-
-    if (!/\.mp4$|\.mpeg$|\.mov$|\.quicktime$/i.test(file.name)) {
-      setErrorMessage(
-        "Invalid file type. Please upload an MP4, MPEG, MOV, or QuickTime video."
-      );
-      setSelectedFile(null);
-      return;
-    }
-
-    setErrorMessage("");
-    setSelectedFile(file);
+    
   }
 
   //validating uploaded image file
@@ -304,21 +272,11 @@ const CourseUpload = () => {
     // submit form
   }*/
 
- 
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setInputValues((prevState) => ({ ...prevState, [name]: value }));
-  };
 
   const handleImageChange = (event) => {
     setImage(event.target.files[0]);
     setImagePreview(URL.createObjectURL(event.target.files[0]));
-  };
-
-  const handleVideoChange = (event) => {
-    setVideo(event.target.files[0]);
-    setVideoPreview(URL.createObjectURL(event.target.files[0]));
   };
 
   const onSubmit = async (e) => {
@@ -484,11 +442,14 @@ const CourseUpload = () => {
                 </p>
                 <input
                   type="file"
-                  onChange={handleVideoChange}
+                  onChange={videoChange}
                   required
                   id="video"
                   className="input-file"
                 />
+              </div>
+              <div className="d-flex justify-content-center align-items-center">
+              {errorMessage && (<div className="text-danger mt-2">{errorMessage}</div>)}
               </div>
 
               {videoPreview && (
