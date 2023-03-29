@@ -181,7 +181,7 @@ const CourseUpload = () => {
   //validation for uploaded video file
   const [errorMessage, setErrorMessage] = useState("");
 
-  function videoChange(event) {
+  function handleVideoChange(event) {
     const file = event.target.files[0];
     if (file && file.type.includes("video/")) {
       setVideo(file);
@@ -195,88 +195,28 @@ const CourseUpload = () => {
     
   }
 
-  //validating uploaded image file
-  const [imageFile, setImageFile] = useState(null);
+  //validation for uploaded image file
   const [imageErrorMsg, setImageErrorMsg] = useState("");
 
-  function imageChange(event) {
-    const file = event.target.files[0];
-
-    if (!file) {
-      setImageErrorMsg("Please select a file to upload.");
-      setImageFile(null);
-      return;
+  function handleImageChange(event) {
+    const selectedImage = event.target.files[0];
+    const imageTypes = ["image/png", "image/jpeg", "image/gif", "image/tif", "image/tiff"];
+    if (selectedImage && imageTypes.includes(selectedImage.type)) {
+      setImage(selectedImage);
+      setImagePreview(URL.createObjectURL(event.target.files[0]));
+      setImageErrorMsg(null);
+    } else {
+      setImage(null);
+      setImagePreview(null);
+      setImageErrorMsg("Invalid file type. Please upload a PNG, JPEG, TIF OR TIFF image.");
     }
-
-    const allowedTypes = [
-      "image/png",
-      "image/jpeg",
-      "image/jpg",
-      "image/tif",
-      "image/tiff",
-    ];
-    const maxFileSize = 10 * 1024 * 1024; // 10 MB
-
-    if (!allowedTypes.includes(file.type)) {
-      setImageErrorMsg(
-        "Invalid file type. Please upload a PNG, JPEG, TIF OR TIFF image."
-      );
-      setImageFile(null);
-      return;
-    }
-
-    if (file.size > maxFileSize) {
-      setImageErrorMsg(
-        "File size exceeds 10 MB. Please upload a smaller image."
-      );
-      setImageFile(null);
-      return;
-    }
-
-    if (!/\.(png|jpe?g|tif|tiff)$/i.test(file.name)) {
-      setImageErrorMsg(
-        "Invalid file type. Please upload a PNG, JPEG, TIF OR TIFF image."
-      );
-      setImageFile(null);
-      return;
-    }
-
-    setImageErrorMsg("");
-    setImageFile(file);
   }
 
-  //const [showError, setShowError] = useState(false);
 
   const handleChange = (index, event) => {
     const values = [...weeks];
     values[index].week[event.target.name] = event.target.value;
     setWeeks(values);
-  };
-
-  /*const handleSubmit = (event) => {
-    event.preventDefault();
-    setShowError(false);
-
-    // check if course content is not empty
-    for (let i = 0; i < weeks.length; i++) {
-      for (let j = 0; j < weeks[i].week.length; j++) {
-        if (weeks[i].week[j] === "") {
-          setShowError(true);
-          return;
-        }
-      }
-    }
-
-    // if course content is not empty, continue with form submission
-    setLoading(true);
-    // submit form
-  }*/
-
-
-
-  const handleImageChange = (event) => {
-    setImage(event.target.files[0]);
-    setImagePreview(URL.createObjectURL(event.target.files[0]));
   };
 
   const onSubmit = async (e) => {
@@ -442,7 +382,7 @@ const CourseUpload = () => {
                 </p>
                 <input
                   type="file"
-                  onChange={videoChange}
+                  onChange={handleVideoChange}
                   required
                   id="video"
                   className="input-file"
@@ -499,6 +439,10 @@ const CourseUpload = () => {
                   className="input-file"
                 />
               </div>
+              <div className="d-flex justify-content-center align-items-center">
+              {imageErrorMsg && (<div className="text-danger mt-2">{imageErrorMsg}</div>)}
+              </div>
+
               {imagePreview && (
                 <div className="mb-5 text-center">
                   <p className="text-primary mt-5 fs-1">Preview image</p>
