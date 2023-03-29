@@ -127,41 +127,53 @@ const CourseUpload = () => {
   const [priceError, setPriceError] = useState(null);
   const [shortDesError, setShortDesError] = useState(null);
   const [longDesError, setLongDesError] = useState(null);
+  const [currentGroup, setCurrentGroup] = useState(0);
+  const [inputValues, setInputValues] = useState({});
 
-  function handleCourseName() {
-    const name = nameRef.current.value.trim();
+  //validation for course name
+  function handleCourseName(e) {
+    const name = e.target.value;
+    setInputValues({ ...inputValues, name });
+    
     if (!name) {
-      setCourseNameError("Please enter a course name");
+      setCourseNameError("Please enter a course name.");
     } else if (/\d/.test(name)) {
-      setCourseNameError("Course name cannot contain numbers");
+      setCourseNameError("Course name cannot contain numbers.");
     } else {
       setCourseNameError(null);
     }
   }
 
-  function handlePrice() {
-    const price = priceRef.current.value.trim();
+  //validation for price of course
+  function handlePrice(e) {
+    const price = e.target.value;
+    setInputValues({ ...inputValues, price });
+  
     if (!price) {
-      setPriceError("Please enter a price");
+      setPriceError("Please enter a price.");
     } else if (!/^\d+$/.test(price)) {
-      setPriceError("Price must be a valid number");
+      setPriceError("Price must be a valid number.");
     } else {
       setPriceError(null);
     }
   }
 
-  function handleShortDes() {
-    const shortDes = shortDescr.current.value.trim();
-    if (!shortDes) {
+  function handleShortDes(e) {
+    const shortDescription = e.target.value;
+    setInputValues({ ...inputValues, shortDescription });
+    
+    if (!shortDescription) {
       setShortDesError("Please enter short description");
     } else {
       setShortDesError(null);
     }
   }
 
-  function handleLongDes() {
-    const longDes = longDescr.current.value.trim();
-    if (!longDes) {
+  function handleLongDes(e) {
+    const longDescription = e.target.value;
+    setInputValues({ ...inputValues, longDescription});
+   
+    if (!longDescription) {
       setLongDesError("Please enter long description");
     } else {
       setLongDesError(null);
@@ -292,8 +304,7 @@ const CourseUpload = () => {
     // submit form
   }*/
 
-  const [currentGroup, setCurrentGroup] = useState(0);
-  const [inputValues, setInputValues] = useState({});
+ 
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -404,47 +415,59 @@ const CourseUpload = () => {
         {
           label: "Name",
           input: (
+            <>
             <input
               type="text"
               name="name"
               className="form-control"
               value={inputValues.name || ""}
-              onChange={handleInputChange}
+              onChange={handleCourseName}
             />
+            {courseNameError && (<div className="text-danger mt-2">{courseNameError}</div>)}
+            </>
           ),
         },
         {
           label: "Price",
           input: (
+            <>
             <input
               type="number"
               name="price"
               className="form-control"
               value={inputValues.price || ""}
-              onChange={handleInputChange}
+              onChange={handlePrice}
             />
+            {priceError && (<div className="text-danger mt-2">{priceError}</div>)}
+            </>
           ),
         },
         {
           label: "Short Description",
           input: (
+            <>
             <textarea
               name="shortDescription"
               className="form-control"
               value={inputValues.shortDescription || ""}
-              onChange={handleInputChange}
+              onChange={handleShortDes}
             />
+            {shortDesError && (<div className="text-danger mt-2">{shortDesError}</div>)}
+            </>
           ),
         },
         {
           label: "Long Description",
           input: (
+            <>
             <textarea
               name="longDescription"
               className="form-control"
               value={inputValues.longDescription || ""}
-              onChange={handleInputChange}
+              onChange={handleLongDes}
             />
+            {longDesError && (<div className="text-danger mt-2">{longDesError}</div>)}
+            </>
           ),
         },
       ],
