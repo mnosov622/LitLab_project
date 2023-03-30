@@ -177,6 +177,7 @@ const Test = () => {
   };
 
   const handlePrev = () => {
+    setSelectedOption(null);
     setCurrentIndex(currentIndex - 1);
   };
 
