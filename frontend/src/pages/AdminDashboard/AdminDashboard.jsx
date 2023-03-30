@@ -9,6 +9,7 @@ import Users from "./components/Users";
 //import WidgetSm from "./components/WidgetSm";
 
 const AdminDashboard = () => {
+  const visitorCount = parseInt(localStorage.getItem('visitorCount')) || 0;
   return (
     <div>
       <Topbar />
@@ -17,9 +18,14 @@ const AdminDashboard = () => {
       <Users />
       {/* <RecentUsers/> */}
       {/* <WidgetLg/>
-        <WidgetSm/> */}
+      <WidgetSm/> */}
+  
+      {/* Add another div here */}
+      <div>
+      <h1>Home Page</h1>
+      <p>Total visitors: {visitorCount}</p>
+      </div>
     </div>
   );
 };
-
 export default AdminDashboard;

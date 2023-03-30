@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from 'react';
 import { Link } from "react-router-dom";
 import teacher from "../../assets/home_teacher.png";
 import styles from "./styles.module.scss";
@@ -22,6 +22,10 @@ const Home = () => {
   const courses = useSelector((state) => state.coursesReducer);
 
   const cart = useSelector((state) => state.cartReducer);
+  useEffect(() => {
+    const visitorCount = parseInt(localStorage.getItem('visitorCount')) || 0;
+    localStorage.setItem('visitorCount', visitorCount + 1);
+  }, []);
   console.log("CART", cart);
   return (
     <>
