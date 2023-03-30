@@ -379,7 +379,7 @@ const CourseView = () => {
         <>
           <div className="bg-light shadow text-center p-2 fs-2 mb-4">
             <Link
-              to={`/course/${courseData.id}`}
+              to={`/course/${courseData?.id}`}
               className="text-underline courseName"
             >
               {courseData?.name}
@@ -592,7 +592,7 @@ const CourseView = () => {
             >
               <div className="my-3">
                 <p className="fs-4">
-                  Send feedback to <b>{courseData.instructor}</b>
+                  Send feedback to <b>{courseData?.instructor}</b>
                 </p>
                 <Row>
                   <Col md={8}>
