@@ -3,13 +3,10 @@ import { Oval } from "react-loader-spinner";
 import { Link, useParams } from "react-router-dom";
 import Confetti from "react-confetti";
 import jwtDecode from "jwt-decode";
+import { Card, Button, Form } from 'react-bootstrap';
 
-const Question = ({
-  question,
-  options,
-  correctOption,
-  handleCorrectAnswer,
-}) => {
+
+const Question = ({ question, options, index, onNext, onPrev, onSubmit, correctOption, handleCorrectAnswer }) => {
   const [selectedOption, setSelectedOption] = useState(null);
 
   const handleOptionClick = (selectedOption) => {
@@ -22,36 +19,50 @@ const Question = ({
     }
   };
 
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    onSubmit(selectedOption);
+  };
+
   return (
-    <div className="mt-5 pb-3">
-      <h3 className="border-bottom">{question}</h3>
-      {options.map((option, index) => (
-        <div key={index}>
-          <input
-            type="radio"
-            name={option}
-            id={option}
-            value={option}
-            checked={selectedOption === option}
-            onChange={() => handleOptionClick(option)}
-          />
-          <label htmlFor={option}>{option}</label>
+    <div style={{ 
+      width: '80%',
+      maxWidth: '1000px',
+      padding: '2rem',
+      margin: '2rem auto',
+      backgroundColor: '#f7f7f7',
+      boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.2)',
+      borderRadius: '10px',
+      overflow: 'hidden'
+    }} className="flex items-center">
+      <div style={{textAlign:'center'}} >
+        <h2>{question}</h2>
+          {options.map((option, index) => (
+            <div key={index} style={{margin:'auto',width: '100%'}}>
+              <input 
+                type="radio" 
+                name={option} 
+                value={option} 
+                id={option} 
+                checked={selectedOption === option}
+                onChange={() => handleOptionClick(option)}
+                style={{width: '1.5em',transform: 'scale(1.5)'}}/>
+              <label htmlFor={option} style={{fontSize:'20px'}}>{option}</label>
+            </div>
+          ))}
         </div>
-      ))}
-      {selectedOption && (
-        <p>
-          {selectedOption === correctOption ? (
-            <>
-              <p className="text-success">Correct!</p>
-            </>
-          ) : (
-            <>
-              <p className="text-danger">Incorrect, try again.</p>
-            </>
-          )}
-        </p>
-      )}
-    </div>
+        <div>
+          <button className="btn btn-primary" style={{padding:'5px' ,paddingLeft:'15px',paddingRight:'15px', margin:'5px'}} onClick={onPrev}>Prev</button>
+          <button className="btn btn-primary" style={{padding:'5px' ,paddingLeft:'15px',paddingRight:'15px', margin:'5px'}}onClick={onNext}>Next</button>
+        </div>
+        <div>
+          <button className="btn btn-secondary" style={{padding:'5px' ,paddingLeft:'15px',paddingRight:'15px', margin:'5px'}} onClick={onSubmit}>Submit</button>
+        </div>
+      </div>
   );
 };
 
@@ -65,6 +76,39 @@ const Test = () => {
   const decoded = jwtDecode(token);
   const { id } = useParams();
   const userEmail = decoded.email;
+
+  // const questions = [
+  //   {
+  //     question: 'What is the capital of France?',
+  //     options: ['Paris', 'Berlin', 'Rome', 'Madrid'],
+  //   },
+  //   {
+  //     question: 'What is the largest planet in our solar system?',
+  //     options: ['Jupiter', 'Saturn', 'Mars', 'Venus'],
+  //   },
+  //   // Add more questions here
+  // ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [selectedAnswers, setSelectedAnswers] = useState(Array(question.length).fill(null));
+
+  const handleNext = () => {
+    setCurrentIndex(currentIndex + 1);
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex(currentIndex - 1);
+  };
+
+  const handleSubmit = (answer) => {
+    const newAnswers = [...selectedAnswers];
+    newAnswers[currentIndex] = answer;
+    setSelectedAnswers(newAnswers);
+    if (currentIndex < question.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+    }
+    // handle submission here
+  };
 
   const handleCorrectAnswer = () => {
     setCorrectAnswers(correctAnswers + 1);
@@ -126,76 +170,283 @@ const Test = () => {
       });
   }, []);
 
+
   return (
     <div className={loading && "bottom"}>
-      {loading ? (
-        <Oval
-          height={80}
-          width={80}
-          color="#0d6efd"
-          wrapperStyle={{ position: "absolute", left: "50%", top: "40%" }}
-          wrapperClass=""
-          visible={true}
-          ariaLabel="oval-loading"
-          secondaryColor="#0d6efd"
-          strokeWidth={2}
-          strokeWidthSecondary={2}
-        />
-      ) : (
-        <>
-          {question.length > 0 ? (
+    {loading ? (
+      <Oval
+        height={80}
+        width={80}
+        color="#0d6efd"
+        wrapperStyle={{ position: "absolute", left: "50%", top: "40%" }}
+        wrapperClass=""
+        visible={true}
+        ariaLabel="oval-loading"
+        secondaryColor="#0d6efd"
+        strokeWidth={2}
+        strokeWidthSecondary={2}
+      />
+    ) : (
+      <>
+        {question.length > 0 ? (
+          <p className="fs-1 text-center mb-5 d-flex justify-content-center align-items-center text-primary">
+            Complete a test to get certificate &nbsp;&nbsp;
+            <i className="bi bi-patch-check"></i>
+          </p>
+        ) : (
+          <>
             <p className="fs-1 text-center mb-5 d-flex justify-content-center align-items-center text-primary">
-              Complete a test to get certificate &nbsp;&nbsp;
-              <i className="bi bi-patch-check"></i>
+              Content Creator didn't create a test
             </p>
-          ) : (
-            <>
-              <p className="fs-1 text-center mb-5 d-flex justify-content-center align-items-center text-primary">
-                Content Creator didn't create a test
-              </p>
-              <div className="text-center">
-                <Link
-                  to={`/certificate/${id}`}
-                  role="button"
-                  className="btn btn-primary btn-lg mb-3"
-                >
-                  Get Certificate
-                </Link>
-              </div>
-            </>
-          )}
-
-          {question.map((question, index) => (
-            <>
-              <Question
-                key={index}
-                question={question.question}
-                options={question.options}
-                correctOption={question.correctAnswer}
-                handleCorrectAnswer={handleCorrectAnswer}
-              />
-            </>
-          ))}
-          {correctAnswers === totalQuestions && (
-            <>
-              {/* {running && <Confetti run={3000} shape="circle" />} */}
-
-              <p className="text-success">
-                You have answered all questions correctly!
-              </p>
+            <div className="text-center">
               <Link
                 to={`/certificate/${id}`}
                 role="button"
-                className="btn btn-primary mb-3"
+                className="btn btn-primary btn-lg mb-3"
               >
                 Get Certificate
               </Link>
-            </>
-          )}
-        </>
-      )}
-    </div>
+            </div>
+          </>
+        )}
+
+        {question.map((question, index) => (
+          <>
+            <Question
+              key={index}
+              question={question.question}
+              options={question.options}
+              correctOption={question.correctAnswer}
+              handleCorrectAnswer={handleCorrectAnswer}
+            />
+          </>
+        ))}
+        {correctAnswers === totalQuestions && (
+          <>
+            {/* {running && <Confetti run={3000} shape="circle" />} */}
+
+            <p className="text-success">
+              You have answered all questions correctly!
+            </p>
+            <Link
+              to={`/certificate/${id}`}
+              role="button"
+              className="btn btn-primary mb-3"
+            >
+              Get Certificate
+            </Link>
+          </>
+        )}
+      </>
+    )}
+    index={currentIndex}
+    onNext={handleNext}
+    onPrev={handlePrev}
+    onSubmit={handleSubmit}
+  </div>
+    // <div className="test-container">
+    //   <Question
+    //     question={question[currentIndex].question}
+    //     options={question[currentIndex].options}
+        
+    //   />
+    // </div>
   );
 };
+
+
+// const Question = ({
+//   question,
+//   options,
+//   correctOption,
+//   handleCorrectAnswer,
+// }) => {
+//   const [selectedOption, setSelectedOption] = useState(null);
+
+  // const handleOptionClick = (selectedOption) => {
+  //   setSelectedOption(selectedOption);
+  //   if (selectedOption === correctOption) {
+  //     console.log("correct");
+  //     handleCorrectAnswer();
+  //   } else {
+  //     console.log("bad");
+  //   }
+  // };
+
+//   return (
+//     <div className="mt-5 pb-3">
+//       <h3 className="border-bottom">{question}</h3>
+//       {options.map((option, index) => (
+//         <div key={index}>
+//           <input
+//             type="radio"
+//             name={option}
+//             id={option}
+//             value={option}
+//             checked={selectedOption === option}
+//             onChange={() => handleOptionClick(option)}
+//           />
+//           <label htmlFor={option}>{option}</label>
+//         </div>
+//       ))}
+//       {selectedOption && (
+//         <p>
+//           {selectedOption === correctOption ? (
+//             <>
+//               <p className="text-success">Correct!</p>
+//             </>
+//           ) : (
+//             <>
+//               <p className="text-danger">Incorrect, try again.</p>
+//             </>
+//           )}
+//         </p>
+//       )}
+//     </div>
+//   );
+// };
+
+// const Test = () => {
+  // const [question, setQuestions] = useState([]);
+  // const [loading, setLoading] = useState(false);
+  // const [correctAnswers, setCorrectAnswers] = useState(null);
+  // const totalQuestions = question.length;
+  // const [running, setIsRunning] = useState(true);
+  // const token = localStorage.getItem("token");
+  // const decoded = jwtDecode(token);
+  // const { id } = useParams();
+  // const userEmail = decoded.email;
+
+  // const handleCorrectAnswer = () => {
+  //   setCorrectAnswers(correctAnswers + 1);
+  // };
+  // useEffect(() => {
+  //   //If users answers all questions correctly, make a PUT request to set the value of Completed to true
+  //   if (correctAnswers === totalQuestions) {
+  //     const fetchData = async () => {
+  //       const response = await fetch(
+  //         `https://backend-litlab.herokuapp.com/users/${userEmail}/courses/${id}`,
+  //         {
+  //           method: "PUT",
+  //           headers: {
+  //             "Content-Type": "application/json",
+  //           },
+  //           body: JSON.stringify({
+  //             userEmail: userEmail,
+  //             courseId: id,
+  //           }),
+  //         }
+  //       );
+
+  //       console.log(response);
+  //       if (!response.ok) {
+  //         console.log("error");
+  //         throw new Error(response.statusText);
+  //       }
+  //     };
+  //     fetchData();
+  //   }
+  // }, [totalQuestions, correctAnswers]);
+
+  // useEffect(() => {
+  //   if (question.length === 0) {
+  //     fetch(`https://backend-litlab.herokuapp.com/users/${userEmail}/courses/${id}`, {
+  //       method: "PUT",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         userEmail: userEmail,
+  //         courseId: id,
+  //       }),
+  //     });
+  //   }
+  // }, []);
+  // setTimeout(() => {
+  //   setIsRunning(false);
+  // }, 3000);
+
+  // useEffect(() => {
+  //   setLoading(true);
+  //   fetch(`https://backend-litlab.herokuapp.com/courses/${Number(id)}`)
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setQuestions(data.course.test);
+  //       setLoading(false);
+  //       console.log("course", data);
+  //     });
+  // }, []);
+
+//   return (
+    // <div className={loading && "bottom"}>
+    //   {loading ? (
+    //     <Oval
+    //       height={80}
+    //       width={80}
+    //       color="#0d6efd"
+    //       wrapperStyle={{ position: "absolute", left: "50%", top: "40%" }}
+    //       wrapperClass=""
+    //       visible={true}
+    //       ariaLabel="oval-loading"
+    //       secondaryColor="#0d6efd"
+    //       strokeWidth={2}
+    //       strokeWidthSecondary={2}
+    //     />
+    //   ) : (
+    //     <>
+    //       {question.length > 0 ? (
+    //         <p className="fs-1 text-center mb-5 d-flex justify-content-center align-items-center text-primary">
+    //           Complete a test to get certificate &nbsp;&nbsp;
+    //           <i className="bi bi-patch-check"></i>
+    //         </p>
+    //       ) : (
+    //         <>
+    //           <p className="fs-1 text-center mb-5 d-flex justify-content-center align-items-center text-primary">
+    //             Content Creator didn't create a test
+    //           </p>
+    //           <div className="text-center">
+    //             <Link
+    //               to={`/certificate/${id}`}
+    //               role="button"
+    //               className="btn btn-primary btn-lg mb-3"
+    //             >
+    //               Get Certificate
+    //             </Link>
+    //           </div>
+    //         </>
+    //       )}
+
+    //       {question.map((question, index) => (
+    //         <>
+    //           <Question
+    //             key={index}
+    //             question={question.question}
+    //             options={question.options}
+    //             correctOption={question.correctAnswer}
+    //             handleCorrectAnswer={handleCorrectAnswer}
+    //           />
+    //         </>
+    //       ))}
+    //       {correctAnswers === totalQuestions && (
+    //         <>
+    //           {/* {running && <Confetti run={3000} shape="circle" />} */}
+
+    //           <p className="text-success">
+    //             You have answered all questions correctly!
+    //           </p>
+    //           <Link
+    //             to={`/certificate/${id}`}
+    //             role="button"
+    //             className="btn btn-primary mb-3"
+    //           >
+    //             Get Certificate
+    //           </Link>
+    //         </>
+    //       )}
+    //     </>
+    //   )}
+    // </div>
+//   );
+// };
 
 export default Test;
