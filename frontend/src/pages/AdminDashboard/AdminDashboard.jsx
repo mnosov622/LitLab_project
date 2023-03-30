@@ -9,9 +9,6 @@ import Users from "./components/Users";
 //import WidgetSm from "./components/WidgetSm";
 
 const AdminDashboard = () => {
-  const visitorCount = parseInt(localStorage.getItem('visitorCount')) || 0;
-  const learnerCount = parseInt(localStorage.getItem("learnerCount")) || 0;
-  const creatorVisitorCount = parseInt(localStorage.getItem("creatorVisitorCount")) || 0;
   return (
     <div>
       <Topbar />
@@ -21,14 +18,8 @@ const AdminDashboard = () => {
       {/* <RecentUsers/> */}
       {/* <WidgetLg/>
       <WidgetSm/> */}
-  
+
       {/* Add another div here */}
-      <div>
-      <h1>Page Visitor Analytics</h1>
-      <p>Home Page visitors: {visitorCount}</p>
-      <p>Learner Dashboard visitors: {learnerCount}</p>
-      <p>Content Creator Dashboard visitors: {creatorVisitorCount}</p>
-      </div>
     </div>
   );
 };
