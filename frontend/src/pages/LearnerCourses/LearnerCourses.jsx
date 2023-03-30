@@ -41,6 +41,8 @@ const LearnerCourses = () => {
   }
 
   useEffect(() => {
+    const visitorCount = parseInt(localStorage.getItem("learnerCount")) || 0;
+    localStorage.setItem("learnerCount", visitorCount + 1);
     setLoader(true);
     fetch(`https://backend-litlab.herokuapp.com/users/${userId}`)
       .then((response) => response.json())
