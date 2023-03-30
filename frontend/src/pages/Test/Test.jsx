@@ -272,72 +272,81 @@ const Test = () => {
         <>
           {question.length > 0 ? (
             <>
-              <p className="fs-1 text-center mb-5 d-flex justify-content-center align-items-center text-primary">
+              <p
+                className={`fs-1 text-center mb-5 d-flex justify-content-center align-items-center text-primary  ${
+                  correctAnswers === totalQuestions && "d-none"
+                }`}
+              >
                 Complete a test to get certificate &nbsp;&nbsp;
                 <i className="bi bi-patch-check"></i>
               </p>
               <div
-                className="form-item question"
-                key={question[currentIndex].question}
+                className={`${correctAnswers === totalQuestions && "d-none"}`}
               >
-                <h2 className="mb-3">{question[currentIndex].question}</h2>
-                {question[currentIndex].options.map((option) => (
-                  <>
-                    <div className="mb-2 d-flex align-items-center">
-                      <input
-                        type="radio"
-                        name={option}
-                        value={option}
-                        id={option}
-                        checked={selectedOption === option}
-                        onChange={() =>
-                          handleOptionClick(
-                            option,
-                            question[currentIndex].correctAnswer
-                          )
-                        }
-                        style={{ width: "1.5em", transform: "scale(1.5)" }}
-                      />
-                      <span>{option}</span>
-                    </div>
-                  </>
-                ))}
-                {selectedOption && (
-                  <p>
-                    {selectedOption === question[currentIndex].correctAnswer ? (
-                      <>
-                        <p className="text-success">Correct!</p>
-                      </>
-                    ) : (
-                      <>
-                        <p className="text-danger">Incorrect, try again.</p>
-                      </>
-                    )}
-                  </p>
-                )}
-
-                {question[currentIndex].input}
-              </div>
-
-              <div className="text-center mt-5 mb-5">
-                <button
-                  className="btn btn-secondary"
-                  style={{ marginRight: "3%" }}
-                  onClick={handlePrev}
-                  disabled={currentIndex === 0}
+                <div
+                  className="form-item question"
+                  key={question[currentIndex].question}
                 >
-                  Previous
-                </button>
-                <button
-                  className="btn btn-primary"
-                  onClick={handleNext}
-                  disabled={
-                    currentIndex === question.length - 1 ||
-                    selectedOption !== question[currentIndex].correctAnswer
-                  }
-                >
-                  Next
-                </button>
+                  <h2 className="mb-3">{question[currentIndex].question}</h2>
+                  {question[currentIndex].options.map((option) => (
+                    <>
+                      <div className="mb-2 d-flex align-items-center">
+                        <input
+                          type="radio"
+                          name={option}
+                          value={option}
+                          id={option}
+                          checked={selectedOption === option}
+                          onChange={() =>
+                            handleOptionClick(
+                              option,
+                              question[currentIndex].correctAnswer
+                            )
+                          }
+                          style={{ width: "1.5em", transform: "scale(1.5)" }}
+                        />
+                        <label htmlFor={option}>{option}</label>
+                      </div>
+                    </>
+                  ))}
+                  {selectedOption && (
+                    <p>
+                      {selectedOption ===
+                      question[currentIndex].correctAnswer ? (
+                        <>
+                          <p className="text-success">Correct!</p>
+                        </>
+                      ) : (
+                        <>
+                          <p className="text-danger">Incorrect, try again.</p>
+                        </>
+                      )}
+                    </p>
+                  )}
+
+                  {question[currentIndex].input}
+                </div>
+
+                <div className="text-center mt-5 mb-5">
+                  <button
+                    className="btn btn-secondary"
+                    style={{ marginRight: "3%" }}
+                    onClick={handlePrev}
+                    disabled={currentIndex === 0}
+                  >
+                    Previous
+                  </button>
+                  <button
+                    className="btn btn-primary"
+                    onClick={handleNext}
+                    disabled={
+                      currentIndex === question.length - 1 ||
+                      selectedOption !== question[currentIndex].correctAnswer
+                    }
+                  >
+                    Next
+                  </button>
+                </div>
               </div>
             </>
           ) : (
@@ -360,17 +369,18 @@ const Test = () => {
           {correctAnswers === totalQuestions && (
             <>
               {/* {running && <Confetti run={3000} shape="circle" />} */}
-
-              <p className="text-success">
-                You have answered all questions correctly!
-              </p>
-              <Link
-                to={`/certificate/${id}`}
-                role="button"
-                className="btn btn-primary mb-3"
-              >
-                Get Certificate
-              </Link>
+              <div className="text-center mt-5 mb-5">
+                <p className="text-success fs-2">
+                  You have answered all questions correctly!
+                </p>
+                <Link
+                  to={`/certificate/${id}`}
+                  role="button"
+                  className="btn btn-lg btn-primary mb-3 mt-4 "
+                >
+                  Get Certificate
+                </Link>
+              </div>
             </>
           )}
         </>
