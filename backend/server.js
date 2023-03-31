@@ -38,7 +38,7 @@ const url = "mongodb+srv://max:LitLab@cluster0.qnyvkxl.mongodb.net";
 //update this line to handle cors issues
 app.use(
   cors({
-    origin: "https://litlab-project.vercel.app",
+    origin: "https://lit-lab-project.vercel.app/",
   })
 );
 
