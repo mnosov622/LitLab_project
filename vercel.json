@@ -1,8 +1,17 @@
 {
-  "build": {
-    "env": {
-      "CI": "true",
-      "NPM_FLAGS": "--prefer-offline --no-audit --production"
+  "builds": [
+    {
+      "src": "frontend",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "build"
+      }
     }
-  }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/frontend/build/$1"
+    }
+  ]
 }
