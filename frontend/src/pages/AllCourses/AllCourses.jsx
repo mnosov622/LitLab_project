@@ -14,6 +14,43 @@ const AllCourses = () => {
   const [loading, setLoading] = useState(true);
   const [userCourses, setUserCourses] = useState([]);
 
+  //pagination
+  const [coursesPage, setCoursesPage] = useState([]);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(9);
+  const [nextPage, setNextPage] = useState(null);
+  const [prevPage, setPrevPage] = useState(null);
+  const [totalPages, setTotalPages] = useState(1);
+
+  useEffect(() => {
+    fetch(`http://localhost:8000/pagination?page=${page}&limit=${limit}`)
+      .then((response) => response.json())
+      .then((data) => {
+        setCoursesPage(data.results);
+        setNextPage(data.next);
+        setPrevPage(data.previous);
+      });
+
+    fetch(`http://localhost:8000/pagination?page=1&limit=1000`)
+      .then((response) => response.json())
+      .then((data) => {
+        const totalResults = data.results.length;
+        setTotalPages(Math.ceil(totalResults / limit));
+      });
+  }, [page, limit]);
+
+  const handleNextPage = () => {
+    window.scrollTo(0, 0);
+    setPage(nextPage.page);
+    setLimit(nextPage.limit);
+  };
+
+  const handlePrevPage = () => {
+    window.scrollTo(0, 0);
+    setPage(prevPage.page);
+    setLimit(prevPage.limit);
+  };
+
   useEffect(() => {
     //checking if user has a token (logged in)
     if (localStorage.getItem("token") !== null) {
@@ -65,10 +102,12 @@ const AllCourses = () => {
       ) : (
         <>
           <div className="bg-light shadow text-center p-2 fs-2 mb-4">
-            <p>All Courses</p>
+            <p>
+              All Courses - Page {page}/{totalPages}
+            </p>
           </div>
           <div className="row">
-            {courses.map((course) => (
+            {coursesPage.map((course) => (
               <div className="col-md-4 mt-2">
                 <CourseCard
                   key={course.id}
@@ -84,6 +123,23 @@ const AllCourses = () => {
                 />
               </div>
             ))}
+          </div>
+          <div className="text-center">
+            <button
+              onClick={handlePrevPage}
+              disabled={!prevPage}
+              className="btn btn-secondary"
+            >
+              Previous Page
+            </button>
+            <button
+              onClick={handleNextPage}
+              disabled={!nextPage}
+              className="btn btn-primary"
+              style={{ marginLeft: "2%" }}
+            >
+              Next Page
+            </button>
           </div>
         </>
       )}
