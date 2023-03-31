@@ -190,7 +190,7 @@ const CourseDescription = () => {
       date: date,
     };
 
-    fetch("http://localhost:8000/review/creator", {
+    fetch("https://backend-litlab.herokuapp.com/review/creator", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -231,7 +231,7 @@ const CourseDescription = () => {
     }
     setError(false);
 
-    fetch(`http://localhost:8000/review/course/${Number(id)}`, {
+    fetch(`https://backend-litlab.herokuapp.com/review/course/${Number(id)}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

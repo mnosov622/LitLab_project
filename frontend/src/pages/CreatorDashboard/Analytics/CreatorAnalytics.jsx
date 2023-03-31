@@ -228,7 +228,7 @@ const Charts = () => {
                     <td className="text-center">
                       <img
                         className="img-react"
-                        src={`http://localhost:8000/images/${user.courseImage}`}
+                        src={`https://backend-litlab.herokuapp.com/images/${user.courseImage}`}
                         alt="courseimage"
                         width={100}
                       />

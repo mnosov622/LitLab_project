@@ -64,7 +64,7 @@ const Payment = () => {
       const pricesTotal = prices.reduce((sum, item) => sum + item, 0);
       setTotalAmount(pricesTotal);
     }
-    fetch(`http://localhost:8000/users/${userId}`)
+    fetch(`https://backend-litlab.herokuapp.com/users/${userId}`)
       .then((res) => res.json())
       .then((data) => setUserData(data));
 
@@ -91,7 +91,7 @@ const Payment = () => {
           isCompleted: false,
         };
 
-        fetch("http://localhost:8000/courses/creator", {
+        fetch("https://backend-litlab.herokuapp.com/courses/creator", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -105,13 +105,16 @@ const Payment = () => {
           }),
         }).then((res) => console.log("res", res));
 
-        fetch("http://localhost:8000/courses/creator/enrollments", {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email: item_to_buy.email }),
-        }).then((res) => console.log("res", res));
+        fetch(
+          "https://backend-litlab.herokuapp.com/courses/creator/enrollments",
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email: item_to_buy.email }),
+          }
+        ).then((res) => console.log("res", res));
         fetch(
           `https://backend-litlab.herokuapp.com/courses/${item_to_buy.id}/increase-enrollments`,
           {

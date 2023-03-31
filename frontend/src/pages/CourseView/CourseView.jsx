@@ -333,7 +333,7 @@ const CourseView = () => {
       emailAddress.trim().length !== 0 &&
       feedback.trim().length !== 0
     ) {
-      fetch(`http://localhost:8000/courses/feedback`, {
+      fetch(`https://backend-litlab.herokuapp.com/courses/feedback`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
