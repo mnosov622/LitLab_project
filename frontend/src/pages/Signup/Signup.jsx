@@ -4,8 +4,11 @@ import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import image from "../../assets/background_home.png";
+import image1 from "../../assets/background_home1.png";
+import image2 from "../../assets/background_home2.png";
+import image3 from "../../assets/background_home3.png";
 import { Link } from "react-router-dom";
+import './signUp.scss'
 
 const Signup = () => {
   return (
@@ -45,8 +48,16 @@ const Signup = () => {
           </Button>
         </Link>
       </div>
-      <div className="d-flex align-items-center justify-content-between">
-        <img src={image} style={{ maxWidth:"60%", height:"auto", marginLeft:"auto", marginRight:"auto", marginTop:"100px", border: "1px solid #ddd", padding: "5px", boxShadow: "0 0 10px 5px rgba(0, 140, 186, 0.5)"}} />
+      <div class="row_bg">
+        <div class="column_bg">
+        <img src={image1} style={{ maxWidth:"100%", height:"auto", boxShadow: "0 0 10px 5px rgba(0, 140, 186, 0.5)"}} />
+        </div>
+        <div class="column_bg">
+        <img src={image2} style={{ maxWidth:"100%", height:"auto", boxShadow: "0 0 10px 5px rgba(0, 140, 186, 0.5)"}} />
+        </div>
+        <div class="column_bg">
+        <img src={image3} style={{ maxWidth:"100%", height:"auto", boxShadow: "0 0 10px 5px rgba(0, 140, 186, 0.5)"}} />
+        </div>
       </div>
     </>
   );
