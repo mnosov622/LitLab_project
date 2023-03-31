@@ -213,13 +213,13 @@ const CourseDescription = () => {
       (course) => course.reviewerId === userId
     );
 
-    // if (hasSubmittedReview) {
-    //   alert.error("You already submitted a review", {
-    //     position: positions.BOTTOM_RIGHT,
-    //     timeout: 5000,
-    //   });
-    //   return;
-    // }
+    if (hasSubmittedReview) {
+      alert.error("You already submitted a review", {
+        position: positions.BOTTOM_RIGHT,
+        timeout: 5000,
+      });
+      return;
+    }
 
     if (
       review.trim().length === 0 ||
