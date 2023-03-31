@@ -1,0 +1,9 @@
+{
+  "build": {
+    "env": {
+      "CI": "true",
+      "NPM_FLAGS": "--prefer-offline --no-audit --production"
+    },
+    "command": "npm install"
+  }
+}
