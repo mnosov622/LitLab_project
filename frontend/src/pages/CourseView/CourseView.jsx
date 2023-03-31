@@ -672,7 +672,6 @@ function ChatMessage(props) {
   const dateObj = new Date(messageDate);
   const timeStr = dateObj.toLocaleTimeString([], { hour12: false });
 
-  console.log(timeStr);
   return (
     <>
       <div className={`message`}>

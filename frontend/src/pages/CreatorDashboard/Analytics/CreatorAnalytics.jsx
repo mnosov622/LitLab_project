@@ -225,15 +225,17 @@ const Charts = () => {
                       <i class="bi bi-person"></i> &nbsp; {user.userName}
                     </td>
                     <td className="text-dark">{user.userEmail}</td>
-                    <td>
+                    <td className="text-center">
                       <img
                         className="img-react"
                         src={`http://localhost:8000/images/${user.courseImage}`}
                         alt="courseimage"
                         width={100}
                       />
+                      <span className="text-dark" style={{ marginLeft: "2%" }}>
+                        {user.courseName}
+                      </span>
                     </td>
-                    <td className="text-dark">{user.courseName}</td>
                   </tr>
                 ))}
             </tbody>

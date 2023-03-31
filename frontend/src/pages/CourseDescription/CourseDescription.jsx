@@ -231,7 +231,7 @@ const CourseDescription = () => {
     }
     setError(false);
 
-    fetch(`https://backend-litlab.herokuapp.com/review/course/${Number(id)}`, {
+    fetch(`http://localhost:8000/review/course/${Number(id)}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

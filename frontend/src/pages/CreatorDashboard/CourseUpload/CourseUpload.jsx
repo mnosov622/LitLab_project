@@ -130,7 +130,7 @@ const CourseUpload = () => {
   function handleCourseName(e) {
     const name = e.target.value;
     setInputValues({ ...inputValues, name });
-    
+
     if (!name) {
       setCourseNameError("Please enter a course name.");
     } else if (/\d/.test(name)) {
@@ -144,7 +144,7 @@ const CourseUpload = () => {
   function handlePrice(e) {
     const price = e.target.value;
     setInputValues({ ...inputValues, price });
-  
+
     if (!price) {
       setPriceError("Please enter a price.");
     } else if (!/^\d+$/.test(price)) {
@@ -158,7 +158,7 @@ const CourseUpload = () => {
   function handleShortDes(e) {
     const shortDescription = e.target.value;
     setInputValues({ ...inputValues, shortDescription });
-    
+
     if (!shortDescription) {
       setShortDesError("Please enter short description");
     } else {
@@ -169,8 +169,8 @@ const CourseUpload = () => {
   //validation for long description
   function handleLongDes(e) {
     const longDescription = e.target.value;
-    setInputValues({ ...inputValues, longDescription});
-   
+    setInputValues({ ...inputValues, longDescription });
+
     if (!longDescription) {
       setLongDesError("Please enter long description");
     } else {
@@ -192,7 +192,6 @@ const CourseUpload = () => {
       setVideoPreview(null);
       setErrorMessage("Invalid file type. Please upload a valid video file.");
     }
-    
   }
 
   //validation for uploaded image file
@@ -200,7 +199,13 @@ const CourseUpload = () => {
 
   function handleImageChange(event) {
     const selectedImage = event.target.files[0];
-    const imageTypes = ["image/png", "image/jpeg", "image/gif", "image/tif", "image/tiff"];
+    const imageTypes = [
+      "image/png",
+      "image/jpeg",
+      "image/gif",
+      "image/tif",
+      "image/tiff",
+    ];
     if (selectedImage && imageTypes.includes(selectedImage.type)) {
       setImage(selectedImage);
       setImagePreview(URL.createObjectURL(event.target.files[0]));
@@ -208,10 +213,11 @@ const CourseUpload = () => {
     } else {
       setImage(null);
       setImagePreview(null);
-      setImageErrorMsg("Invalid file type. Please upload a PNG, JPEG, TIF OR TIFF image.");
+      setImageErrorMsg(
+        "Invalid file type. Please upload a PNG, JPEG, TIF OR TIFF image."
+      );
     }
   }
-
 
   const handleChange = (index, event) => {
     const values = [...weeks];
@@ -314,14 +320,16 @@ const CourseUpload = () => {
           label: "Name",
           input: (
             <>
-            <input
-              type="text"
-              name="name"
-              className="form-control"
-              value={inputValues.name || ""}
-              onChange={handleCourseName}
-            />
-            {courseNameError && (<div className="text-danger mt-2">{courseNameError}</div>)}
+              <input
+                type="text"
+                name="name"
+                className="form-control"
+                value={inputValues.name || ""}
+                onChange={handleCourseName}
+              />
+              {courseNameError && (
+                <div className="text-danger mt-2">{courseNameError}</div>
+              )}
             </>
           ),
         },
@@ -329,14 +337,16 @@ const CourseUpload = () => {
           label: "Price",
           input: (
             <>
-            <input
-              type="number"
-              name="price"
-              className="form-control"
-              value={inputValues.price || ""}
-              onChange={handlePrice}
-            />
-            {priceError && (<div className="text-danger mt-2">{priceError}</div>)}
+              <input
+                type="number"
+                name="price"
+                className="form-control"
+                value={inputValues.price || ""}
+                onChange={handlePrice}
+              />
+              {priceError && (
+                <div className="text-danger mt-2">{priceError}</div>
+              )}
             </>
           ),
         },
@@ -344,13 +354,15 @@ const CourseUpload = () => {
           label: "Short Description",
           input: (
             <>
-            <textarea
-              name="shortDescription"
-              className="form-control"
-              value={inputValues.shortDescription || ""}
-              onChange={handleShortDes}
-            />
-            {shortDesError && (<div className="text-danger mt-2">{shortDesError}</div>)}
+              <textarea
+                name="shortDescription"
+                className="form-control"
+                value={inputValues.shortDescription || ""}
+                onChange={handleShortDes}
+              />
+              {shortDesError && (
+                <div className="text-danger mt-2">{shortDesError}</div>
+              )}
             </>
           ),
         },
@@ -358,13 +370,15 @@ const CourseUpload = () => {
           label: "Long Description",
           input: (
             <>
-            <textarea
-              name="longDescription"
-              className="form-control"
-              value={inputValues.longDescription || ""}
-              onChange={handleLongDes}
-            />
-            {longDesError && (<div className="text-danger mt-2">{longDesError}</div>)}
+              <textarea
+                name="longDescription"
+                className="form-control"
+                value={inputValues.longDescription || ""}
+                onChange={handleLongDes}
+              />
+              {longDesError && (
+                <div className="text-danger mt-2">{longDesError}</div>
+              )}
             </>
           ),
         },
@@ -389,7 +403,9 @@ const CourseUpload = () => {
                 />
               </div>
               <div className="d-flex justify-content-center align-items-center">
-              {errorMessage && (<div className="text-danger mt-2">{errorMessage}</div>)}
+                {errorMessage && (
+                  <div className="text-danger mt-2">{errorMessage}</div>
+                )}
               </div>
 
               {videoPreview && (
@@ -440,7 +456,9 @@ const CourseUpload = () => {
                 />
               </div>
               <div className="d-flex justify-content-center align-items-center">
-              {imageErrorMsg && (<div className="text-danger mt-2">{imageErrorMsg}</div>)}
+                {imageErrorMsg && (
+                  <div className="text-danger mt-2">{imageErrorMsg}</div>
+                )}
               </div>
 
               {imagePreview && (
