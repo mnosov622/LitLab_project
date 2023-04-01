@@ -229,8 +229,28 @@ const CourseUpload = () => {
     setWeeks(newWeeks);
   };
 
+  const [submitErrorMessage, setSubmitErrorMessage] = useState(false);
+
   const onSubmit = async (e) => {
     e.preventDefault();
+
+    if (
+      !video ||
+      !image ||
+      !inputValues.name ||
+      !inputValues.price ||
+      !inputValues.shortDescription ||
+      !inputValues.longDescription ||
+      pointsToLearn.length === 0 ||
+      weeks.length === 0 ||
+      questions.length === 0
+    ) {
+      setSubmitErrorMessage(true);
+      console.log("Please fill in all required fields");
+      return;
+    }
+    setSubmitErrorMessage(false);
+
     console.log(
       "input",
       video,
@@ -400,35 +420,21 @@ const CourseUpload = () => {
       ],
     },
     {
-      heading: "Upload Course Video",
+      heading: "",
       items: [
         {
           input: (
             <div>
-              <div className="input-container d-flex justify-content-center align-items-center file-input mx-auto">
-                <p className="fs-4">
-                  <i className="bi bi-upload fs-1"></i>
-                </p>
-                <input
-                  type="file"
-                  onChange={handleVideoChange}
-                  required
-                  id="video"
-                  className="input-file"
-                />
-              </div>
-              <div className="d-flex justify-content-center align-items-center">
-                {errorMessage && (
-                  <div className="text-danger mt-2">{errorMessage}</div>
-                )}
-              </div>
-
               {videoPreview && (
-                <div className="mb-5 text-center">
-                  <p className="text-primary mt-5 fs-1 file-input-text">
+                <div className="mb-2 text-center" style={{ marginTop: "-5%" }}>
+                  <p className="text-primary  fs-1 file-input-text">
                     Preview video
                   </p>
-                  <video controls className="video-preview">
+                  <video
+                    controls
+                    className="video-preview"
+                    style={{ marginTop: "-8%" }}
+                  >
                     <source src={videoPreview} type="video/mp4" />
                     Your browser does not support the video tag.
                   </video>
@@ -447,38 +453,75 @@ const CourseUpload = () => {
                   </button>
                 </div>
               )}
+              {!videoPreview && (
+                <>
+                  <h2
+                    className="text-center text-primary fs-2"
+                    style={{ marginTop: "-5%" }}
+                  >
+                    Upload a Course video
+                  </h2>
+                  <div className="input-container d-flex justify-content-center align-items-center file-input mx-auto">
+                    <p className="fs-4">
+                      <i className="bi bi-upload fs-1"></i>
+                    </p>
+                    <input
+                      type="file"
+                      onChange={handleVideoChange}
+                      required
+                      id="video"
+                      className="input-file"
+                    />
+                  </div>
+                  <div className="d-flex justify-content-center align-items-center">
+                    {errorMessage && (
+                      <div className="text-danger mt-2">{errorMessage}</div>
+                    )}
+                  </div>
+                </>
+              )}
             </div>
           ),
         },
       ],
     },
     {
-      heading: "Upload Course Image",
+      heading: "",
       items: [
         {
           input: (
             <div>
-              <div className="input-container d-flex justify-content-center align-items-center file-input mx-auto">
-                <p className="fs-4">
-                  <i className="bi bi-upload fs-1"></i>
-                </p>
-                <input
-                  type="file"
-                  onChange={handleImageChange}
-                  required
-                  id="image"
-                  className="input-file"
-                />
-              </div>
-              <div className="d-flex justify-content-center align-items-center">
-                {imageErrorMsg && (
-                  <div className="text-danger mt-2">{imageErrorMsg}</div>
-                )}
-              </div>
+              {!imagePreview && (
+                <>
+                  <h2
+                    className="text-center text-primary fs-2"
+                    style={{ marginTop: "-5%" }}
+                  >
+                    Upload a Course image
+                  </h2>
+                  <div className="input-container d-flex justify-content-center align-items-center file-input mx-auto">
+                    <p className="fs-4">
+                      <i className="bi bi-upload fs-1"></i>
+                    </p>
+                    <input
+                      type="file"
+                      onChange={handleImageChange}
+                      required
+                      id="image"
+                      className="input-file"
+                    />
+                  </div>
+                  <div className="d-flex justify-content-center align-items-center">
+                    {imageErrorMsg && (
+                      <div className="text-danger mt-2">{imageErrorMsg}</div>
+                    )}
+                  </div>
+                </>
+              )}
 
               {imagePreview && (
-                <div className="mb-5 text-center">
-                  <p className="text-primary mt-5 fs-1">Preview image</p>
+                <div className="mb-3 text-center" style={{ marginTop: "-5%" }}>
+                  <p className="text-primary fs-1">Preview image</p>
                   <img
                     src={imagePreview}
                     className="image-preview"
@@ -603,43 +646,37 @@ const CourseUpload = () => {
       ],
     },
     {
-      heading: "Final step - create a course for learners",
+      heading: "Final step - create a test for learners",
       items: [
         {
           label: "",
           input: (
             <div ref={modalRef} className="modal-content">
-              <span
-                className="close position-absolute right-0"
-                style={{ right: "20px", top: "5px" }}
-                onClick={() => setShowModal(false)}
-              >
-                &times;
-              </span>
               <h2 className="text-center">
                 Create a test <img src={testImage} alt="test" width={"8%"} />
               </h2>
               <div>
-                <label htmlFor="num-questions">Number of questions:</label>
-                <select
-                  id="num-questions"
-                  value={numQuestions}
-                  onChange={handleNumQuestionsChange}
-                  className="form-control w-25"
-                >
-                  <option value=""></option>
-                  <option value="1" selected>
-                    1
-                  </option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                </select>
+                <div className="text-center">
+                  <label htmlFor="num-questions">Number of questions:</label>
+                  <select
+                    id="num-questions"
+                    value={numQuestions}
+                    onChange={handleNumQuestionsChange}
+                    className="form-control w-25 mx-auto"
+                  >
+                    <option value=""></option>
+                    <option value="1" selected>
+                      1
+                    </option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                  </select>
+                </div>
 
                 {numQuestions > 0 && (
                   <div>
-                    <h2>Questions:</h2>
                     {Array.from(
                       { length: numQuestions },
                       (_, questionIndex) => (
@@ -726,7 +763,7 @@ const CourseUpload = () => {
   return (
     <>
       <form onSubmit={onSubmit}>
-        <h2 className="text-center fs-2 text-primary">
+        <h2 className="text-center fs-2 text-primary mt-5 pt-3 mb-4">
           {groups[currentGroup].heading}
         </h2>
         {currentGroupItems.map((item) => (
@@ -735,10 +772,18 @@ const CourseUpload = () => {
             {item.input}
           </div>
         ))}
+        {submitErrorMessage && (
+          <p className="text-danger mx-auto text-center fs-4">
+            Please fill all the fields to create a course
+          </p>
+        )}
         <div className="text-center mt-5">
           <button
             disabled={currentGroup === 0}
-            onClick={() => setCurrentGroup(currentGroup - 1)}
+            onClick={() => {
+              setCurrentGroup(currentGroup - 1);
+              setSubmitErrorMessage(false);
+            }}
             className="btn btn-secondary"
             type="button"
           >
