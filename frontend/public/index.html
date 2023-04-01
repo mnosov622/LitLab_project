@@ -36,6 +36,15 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <div class="chat-icon" id="chat-icon"></div>
+    <div class="iframe-container" id="iframe-container">
+      <div class="close-btn" id="close-btn">x</div>
+      <iframe
+        id="dialogflow-iframe"
+        src="https://console.dialogflow.com/api-client/demo/embedded/f4f72731-2a66-4ac0-963d-ea6b4979cedf"
+      ></iframe>
+    </div>
+
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
@@ -64,6 +73,20 @@
       gtag("js", new Date());
 
       gtag("config", "G-B5FTRSFV75");
+    </script>
+
+    <script>
+      const chatIconEl = document.getElementById("chat-icon");
+      const iframeContainerEl = document.getElementById("iframe-container");
+      const closeBtnEl = document.getElementById("close-btn");
+
+      chatIconEl.addEventListener("click", () => {
+        iframeContainerEl.style.bottom = "20px";
+      });
+
+      closeBtnEl.addEventListener("click", () => {
+        iframeContainerEl.style.bottom = "-430px";
+      });
     </script>
   </body>
 </html>
