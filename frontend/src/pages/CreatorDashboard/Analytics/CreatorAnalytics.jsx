@@ -167,7 +167,7 @@ const Charts = () => {
   //const enrolledUsers = enrolledUsersData.filter(user => user.courseId === courseId);
 
   useEffect(() => {
-    fetch(`https://backend-litlab.herokuapp.com/users/${userId}`)
+    fetch(`http://localhost:8000/users/${userId}`)
       .then((res) => res.json())
       .then((data) => {
         setCourses(data.courses);
@@ -228,7 +228,7 @@ const Charts = () => {
                     <td className="text-center">
                       <img
                         className="img-react"
-                        src={`https://backend-litlab.herokuapp.com/images/${user.courseImage}`}
+                        src={`http://localhost:8000/images/${user.courseImage}`}
                         alt="courseimage"
                         width={100}
                       />

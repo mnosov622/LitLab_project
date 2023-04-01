@@ -29,7 +29,7 @@ const CreatorInformation = () => {
   const userId = decoded.id;
 
   useEffect(() => {
-    fetch(`https://backend-litlab.herokuapp.com/courses/${id}`)
+    fetch(`http://localhost:8000/courses/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setCourse(data.course);
@@ -78,7 +78,7 @@ const CreatorInformation = () => {
       reviewerId: userId,
     };
 
-    fetch(`https://backend-litlab.herokuapp.com/review/creator/${Number(id)}`, {
+    fetch(`http://localhost:8000/review/creator/${Number(id)}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -91,7 +91,7 @@ const CreatorInformation = () => {
           timeout: 2000,
         });
 
-        fetch(`https://backend-litlab.herokuapp.com/courses/${Number(id)}`)
+        fetch(`http://localhost:8000/courses/${Number(id)}`)
           .then((response) => response.json())
           .then((data) => {
             setCourse(data.course);
@@ -109,7 +109,7 @@ const CreatorInformation = () => {
               className="img"
               src={
                 course.instructorImageURL ||
-                `https://backend-litlab.herokuapp.com/images/${course.courseImageURL}`
+                `http://localhost:8000/images/${course.courseImageURL}`
               }
               roundedCircle
             />

@@ -87,7 +87,7 @@ const Login = () => {
 
     try {
       const response = await fetch(
-        "https://backend-litlab.herokuapp.com/googleLogin",
+        "http://localhost:8000/googleLogin",
         {
           method: "POST",
           body: JSON.stringify({
@@ -144,7 +144,7 @@ const Login = () => {
 
     try {
       const response = await fetch(
-        "https://backend-litlab.herokuapp.com/login",
+        "http://localhost:8000/login",
         {
           method: "POST",
           body: JSON.stringify({ email, password }),

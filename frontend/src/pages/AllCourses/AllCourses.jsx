@@ -59,7 +59,7 @@ const AllCourses = () => {
       const userId = decoded.id;
 
       setLoading(true);
-      fetch("https://backend-litlab.herokuapp.com/courses")
+      fetch("http://localhost:8000/courses")
         .then((response) => response.json())
         .then((data) => {
           setCourses(data);
@@ -67,7 +67,7 @@ const AllCourses = () => {
         });
 
       if (userId) {
-        fetch(`https://backend-litlab.herokuapp.com/users/${userId}`)
+        fetch(`http://localhost:8000/users/${userId}`)
           .then((response) => response.json())
           .then((data) => {
             setUserCourses(data.courses);
@@ -75,7 +75,7 @@ const AllCourses = () => {
       }
     } else {
       setLoading(true);
-      fetch("https://backend-litlab.herokuapp.com/courses")
+      fetch("http://localhost:8000/courses")
         .then((response) => response.json())
         .then((data) => {
           setCourses(data);

@@ -114,7 +114,7 @@ const CreatorSignup = () => {
     e.preventDefault();
     if (passwordMatch) {
       try {
-        const response = await fetch("https://backend-litlab.herokuapp.com/registerCreator", {
+        const response = await fetch("http://localhost:8000/registerCreator", {
           method: "POST",
           body: JSON.stringify({
             name,

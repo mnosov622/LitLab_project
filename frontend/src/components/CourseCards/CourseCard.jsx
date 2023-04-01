@@ -43,7 +43,7 @@ const CourseCard = ({
   useEffect(() => {
     const imageSource = courseImage?.startsWith("https")
       ? courseImage
-      : `https://backend-litlab.herokuapp.com/images/${courseImage}`;
+      : `http://localhost:8000/images/${courseImage}`;
     setImageSource(imageSource);
   }, []);
 

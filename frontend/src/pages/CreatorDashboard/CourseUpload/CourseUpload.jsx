@@ -45,7 +45,7 @@ const CourseUpload = () => {
   ]);
 
   useEffect(() => {
-    fetch(`https://backend-litlab.herokuapp.com/users/${decoded.id}`)
+    fetch(`http://localhost:8000/users/${decoded.id}`)
       .then((res) => res.json())
       .then((data) => {
         setInstructorImage(data.profileImage);
@@ -260,7 +260,7 @@ const CourseUpload = () => {
     formData.append("test", questionsJSON);
     formData.append("enrollments", 0);
 
-    const res = await fetch("https://backend-litlab.herokuapp.com/upload", {
+    const res = await fetch("http://localhost:8000/upload", {
       method: "POST",
       body: formData,
     });
@@ -292,7 +292,7 @@ const CourseUpload = () => {
 
     console.log("data from client", courseData);
     const response = await fetch(
-      "https://backend-litlab.herokuapp.com/courses",
+      "http://localhost:8000/courses",
       {
         method: "POST",
         headers: {

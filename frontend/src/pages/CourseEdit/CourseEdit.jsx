@@ -38,7 +38,7 @@ const CourseEdit = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`https://backend-litlab.herokuapp.com/users/${decoded.id}`)
+    fetch(`http://localhost:8000/users/${decoded.id}`)
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -46,7 +46,7 @@ const CourseEdit = () => {
         setLoading(false);
       });
 
-    fetch(`https://backend-litlab.herokuapp.com/courses`)
+    fetch(`http://localhost:8000/courses`)
       .then((res) => res.json())
       .then((data) => {
         setCourses(data);
@@ -79,7 +79,7 @@ const CourseEdit = () => {
       price: price,
     };
     fetch(
-      `https://backend-litlab.herokuapp.com/creator-courses/${decoded.id}/courses/${courseId}`,
+      `http://localhost:8000/creator-courses/${decoded.id}/courses/${courseId}`,
       {
         method: "PUT",
         headers: {
@@ -98,7 +98,7 @@ const CourseEdit = () => {
       });
 
     //TODO: Update course for all courses section
-    fetch(`https://backend-litlab.herokuapp.com/courses/${singleCourseName}`, {
+    fetch(`http://localhost:8000/courses/${singleCourseName}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -202,7 +202,7 @@ const CourseEdit = () => {
               <p className="fs-4">Course Image</p>
               {singleCourse && singleCourse.courseImageURL && (
                 <img
-                  src={`https://backend-litlab.herokuapp.com/images/${singleCourse.courseImageURL}`}
+                  src={`http://localhost:8000/images/${singleCourse.courseImageURL}`}
                   width={"30%"}
                   alt="Course"
                   className="points-input"
@@ -214,7 +214,7 @@ const CourseEdit = () => {
               {singleCourse && (
                 <video
                   controls
-                  src={`https://backend-litlab.herokuapp.com/videos/${singleCourse.video}`}
+                  src={`http://localhost:8000/videos/${singleCourse.video}`}
                   width={"50%"}
                   className="points-input"
                 ></video>
