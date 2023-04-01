@@ -32,12 +32,7 @@ const CourseUpload = () => {
   const modalRef = useRef(null);
   const [selectedQuestionsAmount, setSelectedQuestionsAmount] = useState(null);
 
-  const [weeks, setWeeks] = useState([
-    { week: ["", "", ""] },
-    { week: ["", "", ""] },
-    { week: ["", "", ""] },
-  ]);
-
+  const [weeks, setWeeks] = useState([]);
   const [pointsToLearn, setPointsToLearn] = useState([
     { point: "" },
     { point: "" },
@@ -219,10 +214,19 @@ const CourseUpload = () => {
     }
   }
 
-  const handleChange = (index, event) => {
-    const values = [...weeks];
-    values[index].week[event.target.name] = event.target.value;
-    setWeeks(values);
+  const handleChange = (weekIndex, lessonIndex, event) => {
+    const newWeeks = weeks.map((week, index) => {
+      if (index !== weekIndex) {
+        return week;
+      }
+
+      const newWeek = { ...week };
+      newWeek.week[lessonIndex] = event.target.value;
+
+      return newWeek;
+    });
+
+    setWeeks(newWeeks);
   };
 
   const onSubmit = async (e) => {
@@ -241,6 +245,7 @@ const CourseUpload = () => {
     const courseContentJSON = JSON.stringify(
       weeks.map((week) => ({ week: week.week }))
     );
+    console.log("courseContenJson", courseContentJSON);
     const pointsToLearnJSON = JSON.stringify(
       pointsToLearn.map((point) => ({ point: point.point }))
     );
@@ -291,16 +296,13 @@ const CourseUpload = () => {
     setLoading(false);
 
     console.log("data from client", courseData);
-    const response = await fetch(
-      "http://localhost:8000/courses",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(courseData),
-      }
-    );
+    const response = await fetch("http://localhost:8000/courses", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(courseData),
+    });
     const courses = await response.json();
     console.log("response recived", courses);
 
@@ -310,6 +312,19 @@ const CourseUpload = () => {
 
     console.log("course", courses.course);
     console.log("created course", createdCourse);
+  };
+
+  const [numWeeks, setNumWeeks] = useState("");
+
+  const handleNumWeeksChange = (event) => {
+    const numWeeks = event.target.value;
+    setNumWeeks(numWeeks);
+
+    // Create an empty array with length equal to the selected number of weeks
+    const weeksArray = Array.from({ length: numWeeks }, () => ({
+      week: ["", "", ""],
+    }));
+    setWeeks(weeksArray);
   };
 
   const groups = [
@@ -498,14 +513,32 @@ const CourseUpload = () => {
           label: "",
           input: (
             <div>
-              {weeks.map((week, index) => (
-                <div key={index}>
-                  <h4>Week {index + 1}</h4>
+              <div>
+                <label htmlFor="num-weeks">Select number of weeks:</label>
+                <select
+                  id="num-weeks"
+                  value={numWeeks}
+                  onChange={handleNumWeeksChange}
+                  className="form-control w-25"
+                >
+                  <option value="" selected></option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+
+              {/* Render inputs for each week */}
+              {weeks.map((week, weekIndex) => (
+                <div key={weekIndex}>
+                  <h4>Week {weekIndex + 1}</h4>
                   <input
                     type="text"
                     name="0"
                     value={week.week[0]}
-                    onChange={(event) => handleChange(index, event)}
+                    onChange={(event) => handleChange(weekIndex, 0, event)}
                     placeholder="Lesson 1"
                     className="form-control mb-3"
                   />
@@ -513,7 +546,7 @@ const CourseUpload = () => {
                     type="text"
                     name="1"
                     value={week.week[1]}
-                    onChange={(event) => handleChange(index, event)}
+                    onChange={(event) => handleChange(weekIndex, 1, event)}
                     placeholder="Lesson 2"
                     className="form-control mb-3"
                   />
@@ -521,12 +554,16 @@ const CourseUpload = () => {
                     type="text"
                     name="2"
                     value={week.week[2]}
-                    onChange={(event) => handleChange(index, event)}
+                    onChange={(event) => handleChange(weekIndex, 2, event)}
                     placeholder="Lesson 3"
                     className="form-control mb-3"
                   />
                 </div>
               ))}
+
+              <button type="submit" className="btn btn-primary">
+                Save Weeks
+              </button>
             </div>
           ),
         },
