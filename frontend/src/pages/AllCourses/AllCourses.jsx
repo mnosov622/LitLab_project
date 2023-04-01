@@ -124,7 +124,7 @@ const AllCourses = () => {
               </div>
             ))}
           </div>
-          <div className="text-center">
+          <div className="text-center mb-5">
             <button
               onClick={handlePrevPage}
               disabled={!prevPage}

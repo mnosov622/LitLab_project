@@ -162,7 +162,7 @@ const CourseCard = ({
                     </div>
                   ))}
 
-                {allCourses && (
+                {allCourses && localStorage.getItem("token") !== null && (
                   <button
                     className={
                       "btn btn-outline-primary btn-lg mt-3 btn-light addBtn"
