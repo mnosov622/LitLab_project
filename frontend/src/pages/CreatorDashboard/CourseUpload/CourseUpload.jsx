@@ -513,13 +513,15 @@ const CourseUpload = () => {
           label: "",
           input: (
             <div>
-              <div>
-                <label htmlFor="num-weeks">Select number of weeks:</label>
+              <div className="text-center mt-3 mb-3">
+                <label htmlFor="num-weeks" className="fs-5">
+                  Select number of weeks:
+                </label>
                 <select
                   id="num-weeks"
                   value={numWeeks}
                   onChange={handleNumWeeksChange}
-                  className="form-control w-25"
+                  className="form-control w-25  mx-auto"
                 >
                   <option value="" selected></option>
                   <option value="1">1</option>
@@ -527,10 +529,10 @@ const CourseUpload = () => {
                   <option value="3">3</option>
                   <option value="4">4</option>
                   <option value="5">5</option>
+                  <option value="6">6</option>
                 </select>
               </div>
 
-              {/* Render inputs for each week */}
               {weeks.map((week, weekIndex) => (
                 <div key={weekIndex}>
                   <h4>Week {weekIndex + 1}</h4>
@@ -560,10 +562,6 @@ const CourseUpload = () => {
                   />
                 </div>
               ))}
-
-              <button type="submit" className="btn btn-primary">
-                Save Weeks
-              </button>
             </div>
           ),
         },
