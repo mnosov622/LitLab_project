@@ -30,12 +30,9 @@ const CreatorCourseCard = ({
       .catch((e) => console.log(e));
 
     console.log("course id", courseId);
-    fetch(
-      `http://localhost:8000/users/${userEmail}/courses/${courseId}`,
-      {
-        method: "DELETE",
-      }
-    )
+    fetch(`http://localhost:8000/users/${userEmail}/courses/${courseId}`, {
+      method: "DELETE",
+    })
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -54,35 +51,6 @@ const CreatorCourseCard = ({
   function handleCloseModal() {
     setShowModal(false);
   }
-
-  /*const handleDelete = () => {
-    if (window.confirm("Are you sure you want to delete the course?")) {
-      const token = localStorage.getItem("token");
-      const decoded = jwtDecode(token);
-      const userEmail = decoded.email;
-      console.log("data", { email: userEmail, courseName: courseName });
-
-      fetch(`http://localhost:8000/courses/${courseName}`, {
-        method: "DELETE",
-      })
-        .then((response) => response.json())
-        .then((data) => console.log(data))
-        .catch((e) => console.log(e));
-
-      console.log("course id", courseId);
-      fetch(`http://localhost:8000/users/${userEmail}/courses/${courseId}`, {
-        method: "DELETE",
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-          setTimeout(() => {
-            window.location.reload();
-          }, 500);
-        })
-        .catch((e) => console.log(e));
-    }
-  };*/
 
   return (
     <>

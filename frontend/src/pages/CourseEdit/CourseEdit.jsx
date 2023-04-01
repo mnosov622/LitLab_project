@@ -1,6 +1,7 @@
 import jwtDecode from "jwt-decode";
 import React, { useEffect, useRef, useState } from "react";
-import { Oval } from "react-loader-spinner";
+import { Button } from "react-bootstrap";
+import { Bars, Oval } from "react-loader-spinner";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -69,6 +70,7 @@ const CourseEdit = () => {
   };
 
   const handleSubmit = (e) => {
+    setLoading(true);
     console.log("course id", courseId);
     console.log(courseName);
     e.preventDefault();
@@ -93,11 +95,11 @@ const CourseEdit = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
+        setLoading(false);
         navigate("/");
         // Handle success or error response
       });
 
-    //TODO: Update course for all courses section
     fetch(`http://localhost:8000/courses/${singleCourseName}`, {
       method: "PUT",
       headers: {
@@ -109,9 +111,11 @@ const CourseEdit = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        navigate("/");
-        // Handle success or error response
+        fetch(`http://localhost:8000/users/${decoded.id}`)
+          .then((response) => response.json())
+          .then((data) => {
+            setCourses(data.courses);
+          });
       });
   };
   return (

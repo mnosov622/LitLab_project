@@ -25,8 +25,9 @@ const CreatorDashboard = () => {
     const decoded = jwtDecode(token);
     const userEmail = decoded.email;
     console.log(userEmail);
-    const creatorVisitorCount = parseInt(localStorage.getItem('creatorVisitorCount')) || 0;
-    localStorage.setItem('creatorVisitorCount', creatorVisitorCount + 1);
+    const creatorVisitorCount =
+      parseInt(localStorage.getItem("creatorVisitorCount")) || 0;
+    localStorage.setItem("creatorVisitorCount", creatorVisitorCount + 1);
     setVisitorCount(creatorVisitorCount + 1);
     setLoading(true);
     fetch(`http://localhost:8000/users/${decoded.id}`)
@@ -38,7 +39,7 @@ const CreatorDashboard = () => {
         setLoading(false);
       });
     //get request to the user to find all courses for content creator
-  }, []);
+  }, [location.state]);
 
   return (
     <div className={loading ? "bottom" : ""}>
