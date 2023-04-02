@@ -39,13 +39,13 @@
     <div class="chat-icon" id="chat-icon"></div>
     <div class="iframe-container" id="iframe-container">
       <div class="close-btn" id="close-btn">x</div>
-      <iframe
-        allow="microphone;"
-        width="350"
-        height="430"
-        src="https://console.dialogflow.com/api-client/demo/embedded/f4f72731-2a66-4ac0-963d-ea6b4979cedf"
-      >
-      </iframe>
+      <script src="https://www.gstatic.com/dialogflow-console/fast/messenger/bootstrap.js?v=1"></script>
+      <df-messenger
+        intent="WELCOME"
+        chat-title="Chat"
+        agent-id="f4f72731-2a66-4ac0-963d-ea6b4979cedf"
+        language-code="en"
+      ></df-messenger>
     </div>
 
     <!--
