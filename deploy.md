@@ -1,8 +1,8 @@
 frontend:
-https://lit-lab-project.vercel.app/
+https://lit-lab-project.vercel.app
 
 backend:
-https://litlab-backend1-teracle.vercel.app
+https://litlab-teracle.vercel.app
 
 deploy backend:
-git subtree push --prefix=backend heroku main
+vercel
