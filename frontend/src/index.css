@@ -165,3 +165,8 @@ footer {
 df-messenger {
   --df-messenger-button-titlebar-color: #0d6efd;
 }
+
+.container-item {
+  display: flex;
+  flex-wrap: wrap;
+}

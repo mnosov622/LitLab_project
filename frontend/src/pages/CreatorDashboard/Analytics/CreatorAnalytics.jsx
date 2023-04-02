@@ -199,15 +199,46 @@ const Charts = () => {
 
   return (
     <>
-      <div className="bg-light shadow text-center p-2 fs-2 mb-5">
+      <div className="bg-light shadow text-center p-2 fs-2 mb-2">
         <p>My Analytics</p>
       </div>
-      <div className="mb-5 row text-center">
-        <div className="col-md-6 ml-auto">
-          <h3>Total courses: {coursesLength || 0}</h3>
+      <div className="d-flex mb-3">
+        <div className="featured mt-3">
+          <div className="featuredItem">
+            <span className="featuredTitle">Total Courses</span>
+            <div className="featuredMoneyContainer">
+              <span className="featuredMoney">{coursesLength || 0}</span>
+              <span className="featuredMoneyRate">
+                <span className="featuredIcon negative" />
+              </span>
+            </div>
+          </div>
         </div>
-        <div className="col-md-6">
-          <h3>Total enrollments: {userData?.totalEnrollments || 0}</h3>
+        <div className="featured mt-3">
+          <div className="featuredItem">
+            <span className="featuredTitle">Total Enrollments</span>
+            <div className="featuredMoneyContainer">
+              <span className="featuredMoney">
+                {userData?.totalEnrollments || 0}
+              </span>
+              <span className="featuredMoneyRate">
+                <span className="featuredIcon negative" />
+              </span>
+            </div>
+          </div>
+        </div>
+        <div className="featured mt-3">
+          <div className="featuredItem">
+            <span className="featuredTitle">Money Earned</span>
+            <div className="featuredMoneyContainer">
+              <span className="featuredMoney">
+                {userData.moneyEarned || 0}$
+              </span>
+              <span className="featuredMoneyRate">
+                <span className="featuredIcon negative" />
+              </span>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -301,35 +332,30 @@ const Charts = () => {
                       Show more reviews
                     </button>
                   </div>
-                ) : showAllReviews &&
-                  userData.reviews &&
-                  userData.reviews?.length > 3 ? (
-                  <div className="text-center">
-                    <button
-                      onClick={handleHideAllReviews}
-                      className="btn btn-primary mb-3 w-100"
-                    >
-                      Hide reviews
-                    </button>
-                  </div>
-                ) : userData.reviews?.length === 0 || !userData.reviews ? (
-                  <p className="text-primary fs-3">
-                    Be the first one to leave a review!
-                  </p>
                 ) : (
-                  ""
+                  showAllReviews &&
+                  userData.reviews &&
+                  userData.reviews?.length > 3 && (
+                    <div className="text-center">
+                      <button
+                        onClick={handleHideAllReviews}
+                        className="btn btn-primary mb-3 w-100"
+                      >
+                        Hide reviews
+                      </button>
+                    </div>
+                  )
                 )}
               </Col>
             </Row>
           </div>
         )}
 
-        {userData?.reviews?.length === 0 ||
-          (!userData?.reviews && (
-            <p className="fs-2 text-primary text-center mb-5 mt-5">
-              You don't have reviews yet
-            </p>
-          ))}
+        {userData?.reviews?.length === 0 && (
+          <p className="fs-2 text-primary text-center mb-5 mt-5">
+            You don't have reviews yet
+          </p>
+        )}
       </div>
     </>
   );
