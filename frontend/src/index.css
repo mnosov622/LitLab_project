@@ -165,7 +165,3 @@ footer {
 df-messenger {
   --df-messenger-button-titlebar-color: #0d6efd;
 }
-
-.message-list-wrapper.minimized {
-  display: none !important;
-}

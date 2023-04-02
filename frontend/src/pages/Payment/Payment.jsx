@@ -105,16 +105,13 @@ const Payment = () => {
           }),
         }).then((res) => console.log("res", res));
 
-        fetch(
-          "http://localhost:8000/courses/creator/enrollments",
-          {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ email: item_to_buy.email }),
-          }
-        ).then((res) => console.log("res", res));
+        fetch("http://localhost:8000/courses/creator/enrollments", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email: item_to_buy.email }),
+        }).then((res) => console.log("res", res));
         fetch(
           `http://localhost:8000/courses/${item_to_buy.id}/increase-enrollments`,
           {
@@ -133,6 +130,18 @@ const Payment = () => {
         alert.success("Course was succesfully purchased", {
           position: positions.BOTTOM_RIGHT,
           timeout: 2000, // custom timeout just for this one alert
+        });
+
+        const formData = new URLSearchParams();
+        formData.append("email", item_to_buy.email);
+        formData.append("amount", item_to_buy.price);
+
+        await fetch("http://localhost:8000/creator/moneyEarned", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: formData,
         });
         navigate("/");
       } catch (e) {

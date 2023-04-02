@@ -187,6 +187,16 @@ const Charts = () => {
       });
   }, []);
 
+  const [showAllReviews, setShowAllReviews] = useState(false);
+
+  const handleShowAllReviews = () => {
+    setShowAllReviews(true);
+  };
+
+  const handleHideAllReviews = () => {
+    setShowAllReviews(false);
+  };
+
   return (
     <>
       <div className="bg-light shadow text-center p-2 fs-2 mb-5">
@@ -252,54 +262,63 @@ const Charts = () => {
       <div className="row mt-5">
         <h2 className="text-center mb-5">Reviews</h2>
         {userData?.reviews?.length > 0 && (
-          <div className="mx-auto col-md-8 d-flex justify-content-center">
+          <div className="mx-auto col-md-8">
             <Row>
               <Col>
-                {instructorReviews.map((review) => (
-                  <div
-                    className="previous-reviews mb-3 p-3 position-relative"
-                    key={review.id}
-                  >
-                    <h4>{review.name}</h4>
-                    <span
-                      className="text-muted position-absolute"
-                      style={{ right: "15px", top: "15px" }}
-                    >
-                      3/20/2023
-                    </span>
-                    <p>
-                      Rating :{" "}
-                      {Array.from({ length: review.star }, (_, i) => (
-                        <span key={i}>⭐️</span>
-                      ))}
-                    </p>
-                    <p>{review.review} </p>
-                  </div>
-                ))}
                 {userData &&
                   userData.reviews &&
-                  userData.reviews.map((review) => (
-                    <div
-                      className="previous-reviews mb-3 p-3 position-relative"
-                      key={review.id}
-                    >
-                      <p className="text-primary">{review.course} course</p>
-                      <h4>{review.name}</h4>
-                      <span
-                        className="text-muted position-absolute"
-                        style={{ right: "15px", top: "15px" }}
+                  userData.reviews
+                    .slice(0, showAllReviews ? userData.reviews.length : 3)
+                    .map((review) => (
+                      <div
+                        className="previous-reviews mb-3 p-3 position-relative"
+                        key={review.id}
                       >
-                        {review.date}
-                      </span>
-                      <p>
-                        Rating :
-                        {Array.from({ length: review.star }, (_, i) => (
-                          <span key={i}>⭐️</span>
-                        ))}
-                      </p>
-                      <p>{review.review} </p>
-                    </div>
-                  ))}
+                        <span
+                          className="text-muted position-absolute"
+                          style={{ right: "15px", top: "15px" }}
+                        >
+                          {review.date}
+                        </span>
+                        <h4>{review.name}</h4>
+                        <p>
+                          Rating :{" "}
+                          {Array.from({ length: review.star }, (_, i) => (
+                            <span key={i}>⭐️</span>
+                          ))}
+                        </p>
+                        <p>{review.review} </p>
+                      </div>
+                    ))}
+                {!showAllReviews &&
+                userData.reviews &&
+                userData.reviews?.length > 3 ? (
+                  <div className="text-center">
+                    <button
+                      onClick={handleShowAllReviews}
+                      className="btn btn-primary mb-3 w-100"
+                    >
+                      Show more reviews
+                    </button>
+                  </div>
+                ) : showAllReviews &&
+                  userData.reviews &&
+                  userData.reviews?.length > 3 ? (
+                  <div className="text-center">
+                    <button
+                      onClick={handleHideAllReviews}
+                      className="btn btn-primary mb-3 w-100"
+                    >
+                      Hide reviews
+                    </button>
+                  </div>
+                ) : userData.reviews?.length === 0 || !userData.reviews ? (
+                  <p className="text-primary fs-3">
+                    Be the first one to leave a review!
+                  </p>
+                ) : (
+                  ""
+                )}
               </Col>
             </Row>
           </div>
