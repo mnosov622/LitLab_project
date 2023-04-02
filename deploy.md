@@ -1,10 +1,8 @@
 frontend:
-https://elaborate-blancmange-f0b7f1.netlify.app/
-
-https://litlab-project.vercel.app
+https://lit-lab-project.vercel.app/
 
 backend:
-https://backend-litlab.herokuapp.com
+https://litlab-backend1-teracle.vercel.app
 
 deploy backend:
 git subtree push --prefix=backend heroku main
