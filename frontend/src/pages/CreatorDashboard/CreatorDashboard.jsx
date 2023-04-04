@@ -13,6 +13,7 @@ const CreatorDashboard = () => {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [instructorName, setInstructorName] = useState("");
+  const [visitorCount, setVisitorCount] = useState(0);
 
   const location = useLocation();
 
@@ -24,8 +25,12 @@ const CreatorDashboard = () => {
     const decoded = jwtDecode(token);
     const userEmail = decoded.email;
     console.log(userEmail);
+    const creatorVisitorCount =
+      parseInt(localStorage.getItem("creatorVisitorCount")) || 0;
+    localStorage.setItem("creatorVisitorCount", creatorVisitorCount + 1);
+    setVisitorCount(creatorVisitorCount + 1);
     setLoading(true);
-    fetch(`https://backend-litlab.herokuapp.com/users/${decoded.id}`)
+    fetch(`http://localhost:8000/users/${decoded.id}`)
       .then((response) => response.json())
       .then((data) => {
         console.log("data recieved", data);
@@ -34,7 +39,7 @@ const CreatorDashboard = () => {
         setLoading(false);
       });
     //get request to the user to find all courses for content creator
-  }, []);
+  }, [location.state]);
 
   return (
     <div className={loading ? "bottom" : ""}>

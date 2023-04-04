@@ -60,9 +60,9 @@ function App() {
 
     localStorage.removeItem("resettingPassword");
 
-    if (localStorage.getItem("token") === null) {
-      return navigate("/login");
-    }
+    // if (localStorage.getItem("token") === null) {
+    //   return navigate("/login");
+    // }
 
     const token = localStorage.getItem("token");
 

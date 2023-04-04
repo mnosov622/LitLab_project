@@ -115,6 +115,24 @@ router.get("/users/:id", (req, res) => {
   });
 });
 
-//send email
+router.put("/moneyEarned", async (req, res) => {
+  try {
+    await client.connect();
+
+    const { amount, email } = req.body;
+    const db = client.db("users");
+    const result = await db
+      .collection("users")
+      .findOneAndUpdate(
+        { email },
+        { $inc: { moneyEarned: Number(amount) } },
+        { upsert: true, returnOriginal: false }
+      );
+    res.status(200).json(result.value);
+  } catch (error) {
+    console.error("Failed to update user", error);
+    res.status(500).json({ message: "Failed to update user" });
+  }
+});
 
 module.exports = router;

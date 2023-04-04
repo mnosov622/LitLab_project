@@ -3,10 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "homepage": ".",
-  "node": "16.4.0",
+  "node": "16.9.0",
   "engines": {
-    "node": "16.4.0",
-    "npm": "8.3.1"
+    "node": "16.19.0"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",

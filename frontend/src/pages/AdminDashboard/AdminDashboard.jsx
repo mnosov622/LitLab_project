@@ -17,9 +17,10 @@ const AdminDashboard = () => {
       <Users />
       {/* <RecentUsers/> */}
       {/* <WidgetLg/>
-        <WidgetSm/> */}
+      <WidgetSm/> */}
+
+      {/* Add another div here */}
     </div>
   );
 };
-
 export default AdminDashboard;

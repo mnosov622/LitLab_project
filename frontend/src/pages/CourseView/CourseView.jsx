@@ -89,7 +89,7 @@ const CourseView = () => {
   const userId = decoded.id;
 
   useEffect(() => {
-    fetch(`https://backend-litlab.herokuapp.com/users/${userId}`)
+    fetch(`http://localhost:8000/users/${userId}`)
       .then((res) => res.json())
       .then((data) => {
         console.log("user data", data);
@@ -151,14 +151,14 @@ const CourseView = () => {
 
   const handleNoteSave = (e) => {
     e.preventDefault();
-    fetch(`https://backend-litlab.herokuapp.com/users/notes/${userId}`, {
+    fetch(`http://localhost:8000/users/notes/${userId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ notebody: noteBody }),
     }).then((res) => {
-      fetch(`https://backend-litlab.herokuapp.com/users/${userId}`)
+      fetch(`http://localhost:8000/users/${userId}`)
         .then((res) => res.json())
         .then((data) => {
           setSavedNotes(data.notes);
@@ -177,10 +177,10 @@ const CourseView = () => {
 
   const handleDeleteNotes = () => {
     console.log("clicked");
-    fetch(`https://backend-litlab.herokuapp.com/users/notes/${userId}`, {
+    fetch(`http://localhost:8000/users/notes/${userId}`, {
       method: "DELETE",
     }).then((res) => {
-      fetch(`https://backend-litlab.herokuapp.com/users/${userId}`)
+      fetch(`http://localhost:8000/users/${userId}`)
         .then((res) => res.json())
         .then((data) => {
           console.log("notes", data.notes);
@@ -199,12 +199,12 @@ const CourseView = () => {
     console.log(note);
 
     fetch(
-      `https://backend-litlab.herokuapp.com/users/notes/${userId}/${note.id}`,
+      `http://localhost:8000/users/notes/${userId}/${note.id}`,
       {
         method: "DELETE",
       }
     ).then((res) => {
-      fetch(`https://backend-litlab.herokuapp.com/users/${userId}`)
+      fetch(`http://localhost:8000/users/${userId}`)
         .then((res) => res.json())
         .then((data) => {
           setSavedNotes(data.notes);
@@ -215,7 +215,7 @@ const CourseView = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`https://backend-litlab.herokuapp.com/courses/${Number(id)}`)
+    fetch(`http://localhost:8000/courses/${Number(id)}`)
       .then((response) => response.json())
       .then((data) => {
         setCourseData(data.course);
@@ -233,7 +233,7 @@ const CourseView = () => {
       setUploadedVideo(true);
     }
     //   ? courseData
-    //   : `https://backend-litlab.herokuapp.com/images/${courseData.video}`;
+    //   : `http://localhost:8000/images/${courseData.video}`;
     // setVideoSource(videoSource);
   }, [courseData]);
 
@@ -379,7 +379,7 @@ const CourseView = () => {
         <>
           <div className="bg-light shadow text-center p-2 fs-2 mb-4">
             <Link
-              to={`/course/${courseData.id}`}
+              to={`/course/${courseData?.id}`}
               className="text-underline courseName"
             >
               {courseData?.name}
@@ -403,7 +403,7 @@ const CourseView = () => {
                 uploadedVideo &&
                 courseData?.video && (
                   <video
-                    src={`https://backend-litlab.herokuapp.com/videos/${courseData.video}`}
+                    src={`http://localhost:8000/videos/${courseData.video}`}
                     controls
                     width={"100%"}
                   />
@@ -592,7 +592,7 @@ const CourseView = () => {
             >
               <div className="my-3">
                 <p className="fs-4">
-                  Send feedback to <b>{courseData.instructor}</b>
+                  Send feedback to <b>{courseData?.instructor}</b>
                 </p>
                 <Row>
                   <Col md={8}>
@@ -672,7 +672,6 @@ function ChatMessage(props) {
   const dateObj = new Date(messageDate);
   const timeStr = dateObj.toLocaleTimeString([], { hour12: false });
 
-  console.log(timeStr);
   return (
     <>
       <div className={`message`}>

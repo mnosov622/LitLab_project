@@ -8,7 +8,7 @@ function Topbar() {
     <div className="topbar mt-3 mb-3">
       <div className="topbarWrapper d-flex justify-content-center">
         <div className="topLeft ">
-          <span className="logo fs-2">
+          <span className="logo fs-2 text-primary">
             <b>LitLab Admin Dashboard</b>
           </span>
         </div>

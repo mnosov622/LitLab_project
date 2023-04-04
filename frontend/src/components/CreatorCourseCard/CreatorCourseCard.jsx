@@ -22,7 +22,7 @@ const CreatorCourseCard = ({
     const userEmail = decoded.email;
     console.log("data", { email: userEmail, courseName: courseName });
 
-    fetch(`https://backend-litlab.herokuapp.com/courses/${courseName}`, {
+    fetch(`http://localhost:8000/courses/${courseName}`, {
       method: "DELETE",
     })
       .then((response) => response.json())
@@ -30,12 +30,9 @@ const CreatorCourseCard = ({
       .catch((e) => console.log(e));
 
     console.log("course id", courseId);
-    fetch(
-      `https://backend-litlab.herokuapp.com/users/${userEmail}/courses/${courseId}`,
-      {
-        method: "DELETE",
-      }
-    )
+    fetch(`http://localhost:8000/users/${userEmail}/courses/${courseId}`, {
+      method: "DELETE",
+    })
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
@@ -55,41 +52,12 @@ const CreatorCourseCard = ({
     setShowModal(false);
   }
 
-  /*const handleDelete = () => {
-    if (window.confirm("Are you sure you want to delete the course?")) {
-      const token = localStorage.getItem("token");
-      const decoded = jwtDecode(token);
-      const userEmail = decoded.email;
-      console.log("data", { email: userEmail, courseName: courseName });
-
-      fetch(`https://backend-litlab.herokuapp.com/courses/${courseName}`, {
-        method: "DELETE",
-      })
-        .then((response) => response.json())
-        .then((data) => console.log(data))
-        .catch((e) => console.log(e));
-
-      console.log("course id", courseId);
-      fetch(`https://backend-litlab.herokuapp.com/users/${userEmail}/courses/${courseId}`, {
-        method: "DELETE",
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-          setTimeout(() => {
-            window.location.reload();
-          }, 500);
-        })
-        .catch((e) => console.log(e));
-    }
-  };*/
-
   return (
     <>
       <div className="w-25 mb-5 col-md-6 course-card">
         <div className="card-item border">
           <img
-            src={`https://backend-litlab.herokuapp.com/images/${courseImage}`}
+            src={`http://localhost:8000/images/${courseImage}`}
             className="card-img-top img-fluid card-image"
             alt="Course"
           />

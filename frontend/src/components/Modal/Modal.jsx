@@ -26,7 +26,7 @@ const Modal = ({
   console.log("selected course", item);
   useEffect(() => {
     console.log("id is", id);
-    fetch(`https://backend-litlab.herokuapp.com/users/${id}`)
+    fetch(`http://localhost:8000/users/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setUserData(data);
@@ -35,7 +35,7 @@ const Modal = ({
         console.log("user data", data.name);
       });
 
-    fetch(`https://backend-litlab.herokuapp.com/courses/${item}`)
+    fetch(`http://localhost:8000/courses/${item}`)
       .then((res) => res.json())
       .then((data) => {
         setSingleCourse(data.course);
@@ -47,7 +47,7 @@ const Modal = ({
   const handleSave = (id) => {
     const updatedUser = { name: userName, email: userEmail };
 
-    fetch(`https://backend-litlab.herokuapp.com/users/${id}`, {
+    fetch(`http://localhost:8000/users/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedUser),
@@ -72,7 +72,7 @@ const Modal = ({
       price: singleCourse.price,
     };
 
-    fetch(`https://backend-litlab.herokuapp.com/courses/${Number(id)}`, {
+    fetch(`http://localhost:8000/courses/${Number(id)}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

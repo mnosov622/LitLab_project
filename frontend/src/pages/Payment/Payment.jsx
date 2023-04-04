@@ -113,13 +113,13 @@ const Payment = () => {
           body: JSON.stringify({ email: item_to_buy.email }),
         }).then((res) => console.log("res", res));
         fetch(
-          `https://backend-litlab.herokuapp.com/courses/${item_to_buy.id}/increase-enrollments`,
+          `http://localhost:8000/courses/${item_to_buy.id}/increase-enrollments`,
           {
             method: "PUT",
           }
         );
 
-        await fetch("https://backend-litlab.herokuapp.com/buy-course", {
+        await fetch("http://localhost:8000/buy-course", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -130,6 +130,18 @@ const Payment = () => {
         alert.success("Course was succesfully purchased", {
           position: positions.BOTTOM_RIGHT,
           timeout: 2000, // custom timeout just for this one alert
+        });
+
+        const formData = new URLSearchParams();
+        formData.append("email", item_to_buy.email);
+        formData.append("amount", item_to_buy.price);
+
+        await fetch("http://localhost:8000/creator/moneyEarned", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: formData,
         });
         navigate("/");
       } catch (e) {
@@ -149,7 +161,7 @@ const Payment = () => {
           });
         });
 
-        fetch("https://backend-litlab.herokuapp.com/buy-course", {
+        fetch("http://localhost:8000/buy-course", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

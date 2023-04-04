@@ -87,11 +87,12 @@ router.post("/", async (req, res) => {
   </style>
 </head>
 <body>
+
   <div class="container">
     <h1>Reset Your Password</h1>
     <p>Hello,</p>
     <p>We have received a request to reset the password for your account. Please click the link below to reset your password:</p>
-    <a class="btn btn-primary fs-1" href="http://localhost:3000/reset-password?token=${resetToken}" role="button">Reset</a>
+    <a class="btn btn-primary fs-1" href="https://lit-lab-project.vercel.app/reset-password?token=${resetToken}" role="button">Reset</a>
     <p>If you did not request a password reset, please ignore this email.</p>
     <p>Best regards,</p>
     <p>LitLab Team</p>

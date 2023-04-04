@@ -18,7 +18,7 @@ const ContactUs = () => {
     const subject = subjectRef.current.value;
     const message = messageRef.current.value;
 
-    fetch("https://backend-litlab.herokuapp.com/contact-us", {
+    fetch("http://localhost:8000/contact-us", {
       method: "POST",
       headers: {
         "Content-Type" : "application/json"

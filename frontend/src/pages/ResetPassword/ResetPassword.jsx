@@ -63,7 +63,7 @@ const ResetPassword = () => {
       setShortPassword(false);
       localStorage.removeItem("resettingPassword");
 
-      fetch("https://backend-litlab.herokuapp.com/reset-password", {
+      fetch("http://localhost:8000/reset-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token, password }),

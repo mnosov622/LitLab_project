@@ -17,6 +17,11 @@ const Users = () => {
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
 
+  const visitorCount = parseInt(localStorage.getItem("visitorCount")) || 0;
+  const learnerCount = parseInt(localStorage.getItem("learnerCount")) || 0;
+  const creatorVisitorCount =
+    parseInt(localStorage.getItem("creatorVisitorCount")) || 0;
+
   const handleShowModal = (courseName) => {
     setSelectedCourse(courseName);
     setShowDeleteCourseModal(true);
@@ -41,14 +46,14 @@ const Users = () => {
   const handleConfirm = (name) => {
     // handle confirm action
     console.log(name);
-    fetch(`https://backend-litlab.herokuapp.com/courses/${name}`, {
+    fetch(`http://localhost:8000/courses/${name}`, {
       method: "DELETE",
     })
       .then((response) => {
         console.log(response);
         if (response.status === 200) {
           setShowDeleteUserModal(false);
-          fetch("https://backend-litlab.herokuapp.com/courses")
+          fetch("http://localhost:8000/courses")
             .then((res) => res.json())
             .then((data) => setCoursesData(data));
         }
@@ -59,13 +64,13 @@ const Users = () => {
   };
 
   const handleConfirmDeleteUser = (email) => {
-    fetch(`https://backend-litlab.herokuapp.com/users/${email}`, {
+    fetch(`http://localhost:8000/users/${email}`, {
       method: "DELETE",
     })
       .then((response) => {
         if (response.status === 200) {
           setShowDeleteUserModal(false);
-          fetch("https://backend-litlab.herokuapp.com/users")
+          fetch("http://localhost:8000/users")
             .then((res) => res.json())
             .then((data) => setUsersData(data));
         }
@@ -87,7 +92,7 @@ const Users = () => {
     setShowEditUserModal(true);
     setSelectedUser(email);
 
-    fetch(`https://backend-litlab.herokuapp.com/users/${id}`)
+    fetch(`http://localhost:8000/users/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setSingleUserData(data);
@@ -99,7 +104,7 @@ const Users = () => {
     console.log("id and name", id, name);
     setShowEditCourseModal(true);
     setSelectedCourse(id);
-    fetch(`https://backend-litlab.herokuapp.com/users/${id}`)
+    fetch(`http://localhost:8000/users/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setSingleUserData(data);
@@ -108,11 +113,11 @@ const Users = () => {
   };
 
   useEffect(() => {
-    fetch("https://backend-litlab.herokuapp.com/users")
+    fetch("http://localhost:8000/users")
       .then((res) => res.json())
       .then((data) => setUsersData(data));
 
-    fetch("https://backend-litlab.herokuapp.com/courses")
+    fetch("http://localhost:8000/courses")
       .then((res) => res.json())
       .then((data) => setCoursesData(data))
       .catch((e) => console.log(e));
@@ -120,7 +125,7 @@ const Users = () => {
 
   return (
     <div>
-      <h2 className="text-center mb-5">All Users</h2>
+      <h2 className="text-center mb-5 mt-5">All Users</h2>
       <div className="table-responsive">
         <table className="table table-light fs-5 border w-100">
           <thead className="border">
@@ -205,6 +210,44 @@ const Users = () => {
               ))}
             </tbody>
           </Table>
+        </div>
+
+        <div className="d-block">
+          <div>
+            <h2 className="fs-2 fw-bold text-center mt-5 mb-5">
+              Page Visitors Analytics
+            </h2>
+            <div className="d-flex cursor-default">
+              <div class="featuredItem cursor-none">
+                <span class="featuredTitle">HOME PAGE VISITORS</span>
+                <div class="featuredMoneyContainer">
+                  <span class="featuredMoney">{visitorCount}</span>
+                  <span class="featuredMoneyRate">
+                    <span class="featuredIcon negative"></span>
+                  </span>
+                </div>
+              </div>
+
+              <div class="featuredItem cursor-none">
+                <span class="featuredTitle">LEARNER DASHBOARD VISITORS</span>
+                <div class="featuredMoneyContainer">
+                  <span class="featuredMoney">{learnerCount}</span>
+                  <span class="featuredMoneyRate">
+                    <span class="featuredIcon negative"></span>
+                  </span>
+                </div>
+              </div>
+              <div class="featuredItem cursor-none">
+                <span class="featuredTitle">CREATOR DASHBOARD VISITORS</span>
+                <div class="featuredMoneyContainer">
+                  <span class="featuredMoney">{creatorVisitorCount}</span>
+                  <span class="featuredMoneyRate">
+                    <span class="featuredIcon negative"></span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
