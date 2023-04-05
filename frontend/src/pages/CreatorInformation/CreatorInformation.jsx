@@ -208,7 +208,7 @@ const CreatorInformation = () => {
                             <span key={i}>⭐️</span>
                           ))}
                         </p>
-                        <p>{review.reviewText} </p>
+                        <p>{review.review || review.reviewText} </p>
                       </div>
                     ))}
                 </Col>
