@@ -209,7 +209,7 @@ const CourseDescription = () => {
       .then((data) => console.log(data))
       .catch((error) => console.error(error));
 
-    //checking if user has submitted a review
+    // checking if user has submitted a review
     // const hasSubmittedReview = course.courseReview?.some(
     //   (course) => course.reviewerId === userId
     // );

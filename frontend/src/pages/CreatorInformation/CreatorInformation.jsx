@@ -99,6 +99,8 @@ const CreatorInformation = () => {
     }
     setError(false);
 
+    const date = new Date().toLocaleDateString("en-US");
+
     const newReview = {
       star: rating,
       name: name,
@@ -106,6 +108,7 @@ const CreatorInformation = () => {
       reviewerId: userId,
       email: creatorData.email,
       instructorName: creatorData.instructor,
+      date: date,
     };
 
     fetch(`http://localhost:8000/review/creator`, {
@@ -189,9 +192,15 @@ const CreatorInformation = () => {
                     creatorData.creatorReview &&
                     creatorData.creatorReview.map((review) => (
                       <div
-                        className="previous-reviews mb-3 p-3"
+                        className="previous-reviews mb-3 p-3 position-relative"
                         key={review.id}
                       >
+                        <span
+                          className="text-muted position-absolute"
+                          style={{ right: "15px", top: "15px" }}
+                        >
+                          {review.date}
+                        </span>
                         <h4>{review.name}</h4>
                         <p>
                           Rating :{" "}
@@ -199,7 +208,7 @@ const CreatorInformation = () => {
                             <span key={i}>⭐️</span>
                           ))}
                         </p>
-                        <p>{review.review} </p>
+                        <p>{review.reviewText} </p>
                       </div>
                     ))}
                 </Col>
