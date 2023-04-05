@@ -26,6 +26,7 @@ const buyCourse = require("./endpoints/buy-course");
 const creatorInfo = require("./endpoints/creator");
 const review = require("./endpoints/review");
 const pagination = require("./endpoints/pagination");
+const creatorProfile = require("./endpoints/creatorProfile");
 
 const dotenv = require("dotenv");
 const client = require("./mongodb");
@@ -84,6 +85,9 @@ app.use("/review", review);
 
 //pagination
 app.use("/pagination", pagination);
+
+//Profile
+app.use("/creatorprofile", creatorProfile);
 
 MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
   if (err) throw err;
