@@ -188,6 +188,7 @@ const CourseDescription = () => {
       reviewerId: userId,
       email: course.email,
       date: date,
+      instructorName: course.instructor,
     };
 
     fetch("http://localhost:8000/review/creator", {
@@ -208,18 +209,18 @@ const CourseDescription = () => {
       .then((data) => console.log(data))
       .catch((error) => console.error(error));
 
-    //checking if user has submitted a review
-    const hasSubmittedReview = course.courseReview?.some(
-      (course) => course.reviewerId === userId
-    );
+    // checking if user has submitted a review
+    // const hasSubmittedReview = course.courseReview?.some(
+    //   (course) => course.reviewerId === userId
+    // );
 
-    if (hasSubmittedReview) {
-      alert.error("You already submitted a review", {
-        position: positions.BOTTOM_RIGHT,
-        timeout: 5000,
-      });
-      return;
-    }
+    // if (hasSubmittedReview) {
+    //   alert.error("You already submitted a review", {
+    //     position: positions.BOTTOM_RIGHT,
+    //     timeout: 5000,
+    //   });
+    //   return;
+    // }
 
     if (
       review.trim().length === 0 ||
@@ -370,7 +371,11 @@ const CourseDescription = () => {
 
                 <p className="fs-5 mt-3">
                   Created by:&nbsp;
-                  <Link to={`/creator/${course?.instructorId}`}>
+                  <Link
+                    to={`/creator/${course?.id}?name=${encodeURIComponent(
+                      course?.instructor
+                    )}`}
+                  >
                     <span className="fw-bold text-decoration-underline">
                       {course?.instructor}
                     </span>

@@ -1,6 +1,7 @@
 const express = require("express");
 const { User } = require("../models/users");
 const client = require("../mongodb");
+const { ObjectId } = require("mongodb");
 const router = express.Router();
 
 router.post("/course/:id", async (req, res) => {
@@ -34,36 +35,7 @@ router.post("/course/:id", async (req, res) => {
   }
 });
 
-router.post("/creator/:id", async (req, res) => {
-  const { id } = req.params;
-  const { name, star, review, reviewerId } = req.body;
-  const db = client.db("courses");
-  const collection = db.collection("courses");
-
-  try {
-    await client.connect();
-
-    const result = await collection.updateOne(
-      { id: Number(id) },
-      {
-        $push: {
-          creatorReview: { name, star, review, reviewerId },
-        },
-      }
-    );
-
-    if (result.modifiedCount === 1) {
-      res.status(201).send("Review added successfully");
-    } else {
-      res.status(404).send("Course not found");
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Error adding review");
-  }
-});
-
-router.post("/creator", async (req, res) => {
+router.post("/creator/profile", async (req, res) => {
   const db = client.db("users");
 
   const { name, email, course, reviewText, star, date } = req.body;
@@ -109,6 +81,37 @@ router.post("/creator", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Server error" });
+  }
+});
+
+router.post("/creator/:id", async (req, res) => {
+  const { id } = req.params;
+  const { name, star, reviewText, reviewerId, instructorName, date, email } =
+    req.body;
+  console.log("instructor name, date", instructorName, date);
+  const db = client.db("courses");
+  const collection = db.collection("courses");
+
+  try {
+    await client.connect();
+
+    const result = await collection.updateOne(
+      { id: Number(id) },
+      {
+        $push: {
+          creatorReview: { name, star, reviewText, reviewerId, date },
+        },
+      }
+    );
+
+    if (result.modifiedCount === 1) {
+      res.status(201).send("Review added successfully");
+    } else {
+      res.status(404).send("Course not found");
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("Error adding review");
   }
 });
 
