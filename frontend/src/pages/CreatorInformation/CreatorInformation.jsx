@@ -7,7 +7,7 @@ import javascriptTeacher from "../../assets/javascript-teacher.jpg";
 import teacher1 from "../../assets/teacher-1.jpg";
 import influenceTeacher from "../../assets/influence-teacher.jpg";
 import CourseCard from "../../components/CourseCards/CourseCard";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import { useAlert, positions } from "react-alert";
@@ -17,23 +17,50 @@ const CreatorInformation = () => {
   const alert = useAlert();
   const [course, setCourse] = useState("");
   const { id } = useParams();
+  console.log("id is", id);
+  const location = useLocation();
+  const instructorName = new URLSearchParams(location.search).get("name");
+  console.log("instructorName is", instructorName);
 
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
   const [name, setName] = useState("");
   const [review, setReview] = useState("");
   const [error, setError] = useState(false);
+  const [imageSource, setImageSource] = useState("");
 
+  const [creatorData, setCreatorData] = useState([]);
   const token = localStorage.getItem("token");
   const decoded = jwtDecode(token);
   const userId = decoded.id;
 
   useEffect(() => {
-    fetch(`http://localhost:8000/courses/${id}`)
-      .then((res) => res.json())
+    // fetch(`http://localhost:8000/courses/${id}`)
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     setCourse(data.course);
+    //     console.log("data11", data);
+    //   });
+
+    fetch(
+      `http://localhost:8000/creatorprofile/name/?name=${encodeURIComponent(
+        instructorName
+      )}`
+    )
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
       .then((data) => {
-        setCourse(data.course);
-        console.log("data11", data);
+        // handle data returned from the server
+        console.log(data);
+        setCreatorData(data);
+      })
+      .catch((error) => {
+        // handle errors
+        console.error("There was a problem with the fetch operation:", error);
       });
   }, []);
 
@@ -49,18 +76,19 @@ const CreatorInformation = () => {
   const handleLeaveReview = (e) => {
     e.preventDefault();
 
-    const hasSubmittedReview = course.creatorReview.some(
-      (course) => course.reviewerId === userId
-    );
+    // if (creatorData.creatorReview) {
+    //   const hasSubmittedReview = creatorData.creatorReview.some(
+    //     (course) => course.reviewerId === userId
+    //   );
 
-    if (hasSubmittedReview) {
-      alert.error("You already submitted a review", {
-        position: positions.BOTTOM_RIGHT,
-        timeout: 5000,
-      });
-      return;
-    }
-
+    //   if (hasSubmittedReview) {
+    //     alert.error("You already submitted a review", {
+    //       position: positions.BOTTOM_RIGHT,
+    //       timeout: 5000,
+    //     });
+    //     return;
+    //   }
+    // }
     if (
       review.trim().length === 0 ||
       name.trim().length === 0 ||
@@ -71,14 +99,19 @@ const CreatorInformation = () => {
     }
     setError(false);
 
+    const date = new Date().toLocaleDateString("en-US");
+
     const newReview = {
       star: rating,
       name: name,
-      review: review,
+      reviewText: review,
       reviewerId: userId,
+      email: creatorData.email,
+      instructorName: creatorData.instructor,
+      date: date,
     };
 
-    fetch(`http://localhost:8000/review/creator/${Number(id)}`, {
+    fetch(`http://localhost:8000/review/creator`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -90,39 +123,49 @@ const CreatorInformation = () => {
           position: positions.BOTTOM_RIGHT,
           timeout: 2000,
         });
-
         fetch(`http://localhost:8000/courses/${Number(id)}`)
           .then((response) => response.json())
           .then((data) => {
-            setCourse(data.course);
+            setCreatorData(data.course);
           });
       }
     });
+    fetch(`http://localhost:8000/review/creator/profile`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newReview),
+    });
   };
+
+  useEffect(() => {
+    const imageSource = creatorData?.instructorImageURL?.startsWith("https")
+      ? creatorData?.instructorImageURL
+      : `http://localhost:8000/images/${creatorData.instructorImageURL}`;
+    setImageSource(imageSource);
+  }, [creatorData, creatorData?.instructorImageURL]);
 
   return (
     <Container>
       <div className="divlayout">
         <Row className="topLine">
           <Col xs={12} md={3}>
-            <Image
-              className="img"
-              src={
-                course.instructorImageURL ||
-                `http://localhost:8000/images/${course.courseImageURL}`
-              }
-              roundedCircle
-            />
+            <Image className="img" src={imageSource} roundedCircle />
           </Col>
           <Col xs={12} md={9}>
-            <div className="creatorName text-primary">{course.instructor}</div>
-            <div className="creatorInformation">{course.instructorBio}</div>
+            <div className="creatorName text-primary">
+              {creatorData.instructor}
+            </div>
+            <div className="creatorInformation">
+              {creatorData.instructorBio}
+            </div>
           </Col>
         </Row>
         <Row className="middleLine">
           <div className="titleInfo">About Professional Career</div>
           <div className="aboutInfo">
-            <p>{course.instructorDescription}</p>
+            <p>{creatorData.instructorDescription}</p>
           </div>
         </Row>
         <div className="coursetitle">Courses</div>
@@ -145,13 +188,19 @@ const CreatorInformation = () => {
               <p className="fw-bold fs-2">Reviews</p>
               <Row>
                 <Col xs={7}>
-                  {course &&
-                    course.creatorReview &&
-                    course.creatorReview.map((review) => (
+                  {creatorData &&
+                    creatorData.creatorReview &&
+                    creatorData.creatorReview.map((review) => (
                       <div
-                        className="previous-reviews mb-3 p-3"
+                        className="previous-reviews mb-3 p-3 position-relative"
                         key={review.id}
                       >
+                        <span
+                          className="text-muted position-absolute"
+                          style={{ right: "15px", top: "15px" }}
+                        >
+                          {review.date}
+                        </span>
                         <h4>{review.name}</h4>
                         <p>
                           Rating :{" "}
@@ -159,7 +208,7 @@ const CreatorInformation = () => {
                             <span key={i}>⭐️</span>
                           ))}
                         </p>
-                        <p>{review.review} </p>
+                        <p>{review.reviewText} </p>
                       </div>
                     ))}
                 </Col>

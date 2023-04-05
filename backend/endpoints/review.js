@@ -34,9 +34,10 @@ router.post("/course/:id", async (req, res) => {
   }
 });
 
-router.post("/creator/:id", async (req, res) => {
-  const { id } = req.params;
-  const { name, star, review, reviewerId } = req.body;
+router.post("/creator", async (req, res) => {
+  const { name, star, reviewText, reviewerId, instructorName, date, email } =
+    req.body;
+  console.log("instructor name, date", instructorName, date);
   const db = client.db("courses");
   const collection = db.collection("courses");
 
@@ -44,10 +45,10 @@ router.post("/creator/:id", async (req, res) => {
     await client.connect();
 
     const result = await collection.updateOne(
-      { id: Number(id) },
+      { email: email },
       {
         $push: {
-          creatorReview: { name, star, review, reviewerId },
+          creatorReview: { name, star, reviewText, reviewerId, date },
         },
       }
     );
@@ -63,7 +64,7 @@ router.post("/creator/:id", async (req, res) => {
   }
 });
 
-router.post("/creator", async (req, res) => {
+router.post("/creator/profile", async (req, res) => {
   const db = client.db("users");
 
   const { name, email, course, reviewText, star, date } = req.body;
