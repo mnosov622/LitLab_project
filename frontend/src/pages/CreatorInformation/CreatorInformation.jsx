@@ -111,7 +111,7 @@ const CreatorInformation = () => {
       date: date,
     };
 
-    fetch(`http://localhost:8000/review/creator`, {
+    fetch(`http://localhost:8000/review/creator/${Number(id)}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -130,13 +130,17 @@ const CreatorInformation = () => {
           });
       }
     });
-    fetch(`http://localhost:8000/review/creator/profile`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newReview),
-    });
+    try {
+      fetch(`http://localhost:8000/review/creator/profile`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newReview),
+      }).catch((e) => console.log(e));
+    } catch (e) {
+      console.log("error");
+    }
   };
 
   useEffect(() => {
