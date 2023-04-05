@@ -1971,6 +1971,7 @@
     "courseImageURL": "https://macohs.edu/wp-content/uploads/2022/06/anatomy-physiology.jpg",
     "instructorImageURL": "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDJ8fHRlYWNoZXJ8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60",
     "instructorDescription": "Dr. Jane Smith is a board-certified anatomist and physiologist with over 20 years of experience. She earned her Bachelor's degree in biology from Harvard University and her PhD in anatomy from the University of California, Los Angeles. Dr. Smith has taught human anatomy and physiology at several universities, including Harvard, UCLA, and the University of Michigan. She is the author of several textbooks on human anatomy and physiology and has conducted extensive research in the field.",
+    "video" : "https://player.vimeo.com/video/55584438?h=c66cb6f9e6",
     "courseReview": [
       {
         "name": "John Smith",
@@ -2101,6 +2102,7 @@
     "courseImageURL": "https://images.adsttc.com/media/images/587a/aa39/e58e/cea3/7600/06d5/large_jpg/lost-places-1950246_1280.jpg?1484433972",
     "instructorImageURL": "https://media.istockphoto.com/id/494851564/photo/female-teacher-in-front-of-chalkboard.jpg?s=612x612&w=0&k=20&c=KViLqJN1bM8UvOyPSyx6lNGfYhM7Po2OYzuhoPckBc0=",
     "instructorDescription": "Julia Lee is a professional photographer with over 15 years of experience. She has worked on numerous photography projects, including weddings, events, and portraits. She is an expert in digital photography and is passionate about teaching others the art of capturing moments. Julia is also a speaker and has given talks on photography at various events and conferences. She is known for her creative approach to photography and her ability to capture emotion in her photos. Julia has a Bachelor's degree in Fine Arts from the California Institute of the Arts and a Master's degree in Photography from the New York Film Academy. In her free time, she enjoys hiking and traveling to new places to capture stunning photos.",
+    "video":"https://player.vimeo.com/video/1409447?h=6a3d74b5cd",
     "courseReview": [
       {
       "name": "Samantha Rodriguez",
@@ -2229,6 +2231,7 @@
       "courseImageURL": "https://study.com/cimages/course-image/intro-to-business-syllabus-resource-lesson-plans_138757_large.jpg",
       "instructorImageURL": "https://media.istockphoto.com/id/1146609323/photo/portrait-of-a-teacher-wearing-cool-casual-clothes.jpg?s=612x612&w=0&k=20&c=MCPEN3Q8-EvFyU-dGpAJz7tEZvklnWX6vjrZ9ri3NvY=",
       "instructorDescription": "John Smith is a successful entrepreneur and business owner with over 20 years of experience. He has founded and managed several businesses in various industries, including technology, retail, and hospitality. John is passionate about entrepreneurship and is committed to helping others start and grow their own businesses. He is also a speaker and has given talks on entrepreneurship at various conferences and events. John has a Bachelor's degree in Business Administration from the University of California and an MBA from the Stanford Graduate School of Business. In his free time, he enjoys traveling and trying new cuisines.",
+      "video": "https://player.vimeo.com/video/143761806?h=5da96f07b3",
       "courseReview": [
         {
           "name": "Jane Doe",
@@ -2360,6 +2363,7 @@
         "courseImageURL": "https://www.coventry.ac.uk/globalassets/media/global/00-new-course-imagery/health-and-life-sciences/ug/nutrition-and-health-bsc-banner-v5-1920x1080.jpg",
         "instructorImageURL": "https://media.istockphoto.com/id/901747948/photo/asian-woman-architect-is-enjoy-her-work-with-material-board.jpg?s=612x612&w=0&k=20&c=cd8tJME445QcRy-uFe4FTEjCS7sCuFxMZgiaoEK0bps=",
         "instructorDescription": "Dr. Jane Lee is a registered dietitian with a PhD in Nutrition Science. She has worked as a nutrition consultant for various organizations, including hospitals, schools, and government agencies. Dr. Lee is passionate about promoting healthy eating habits and helping people achieve optimal health through nutrition. She is also a published author and has written several articles and books on nutrition and health. In her free time, Dr. Lee enjoys hiking and trying new healthy recipes.",
+        "video": "https://player.vimeo.com/video/364762279?h=242ee9d55e",
         "courseReview": [
           {
             "name": "Sarah Johnson",
@@ -2490,6 +2494,7 @@
         "courseImageURL": "https://media.licdn.com/dms/image/C4E12AQGQ1zVDkBcpOQ/article-cover_image-shrink_720_1280/0/1639821228961?e=2147483647&v=beta&t=Wa9dNT3bwXMDEmkBD_gsbBPGqc5D9_zKBzOT8N0GgD4",
         "instructorImageURL": "https://media.istockphoto.com/id/1149280905/photo/senior-chinese-man-reading-a-book.jpg?s=612x612&w=0&k=20&c=W9cOnAzRcMyLUCJKw7FCAB49fkjJH75EirIC5YHXVow=",
         "instructorDescription": "Dr. David Kim is a cybersecurity expert with over 15 years of experience. He has worked for a variety of organizations, including government agencies and major corporations, helping them secure their networks and data. Dr. Kim is passionate about cybersecurity and believes that everyone has a role to play in protecting their data and network. In his free time, Dr. Kim enjoys hiking and exploring new technologies.",
+        "video": "https://player.vimeo.com/video/583045155?h=4bf8fc8a05",
         "courseReview": [
           {
           "name": "Sarah Johnson",
@@ -2620,6 +2625,7 @@
           "courseImageURL": "https://prod-discovery.edx-cdn.org/media/programs/card_images/1ff20015-8a46-48a8-8cfb-914d2f244b83-62701c6e666d.jpg",
           "instructorImageURL": "https://media.istockphoto.com/id/1128967676/photo/cheerful-senior-businesswoman-in-glasses-looking-at-camera-in-office.jpg?s=612x612&w=0&k=20&c=sEEKNAI3Pl18UIugUZyTPgkNoz4iPyScd5mFIlzHJsI=",
           "instructorDescription": "Maria Rodriguez is a social media marketing expert with over 8 years of experience. She has worked with a variety of businesses, from start-ups to major corporations, helping them develop and implement social media marketing strategies. Maria is passionate about social media and believes that it is a powerful tool for businesses to connect with their audience and grow their brand. In her free time, Maria enjoys photography and exploring new restaurants.",
+          "video":"https://player.vimeo.com/video/208961629?h=0f5740c0c3",
           "courseReview": [
             {
             "name": "Rachel Chen",
@@ -2750,6 +2756,7 @@
     "courseImageURL": "https://www.organicchemistrytutor.com/wp-content/uploads/2019/02/Organic-Chemistry-Course-Pic-New.png",
     "instructorImageURL": "https://media.istockphoto.com/id/1296538425/photo/asian-teacher-holding-chalk-and-book-on-green-chalkboard-background.jpg?s=612x612&w=0&k=20&c=581WKFHaSZbdtEMSlBrq2QJggsO_zYnRDGZGI0JvqvE=",
     "instructorDescription": "Dr. Maria Rodriguez is a passionate educator and has been teaching Organic Chemistry for over 10 years. She received her PhD in Organic Chemistry from the University of California, Berkeley and has published several papers in prestigious scientific journals. Dr. Rodriguez has a unique approach to teaching Organic Chemistry, emphasizing the underlying principles and concepts rather than rote memorization. Her classes are known for being engaging and challenging, and she has a reputation for helping students achieve their full potential. In her free time, Dr. Rodriguez enjoys hiking and exploring the outdoors.",
+    "video":"https://player.vimeo.com/video/630234397?h=3110c97e09",
     "courseReview": [
       {
       "name": "John Smith",
@@ -2878,8 +2885,9 @@
       "shortDescription": "Explore the fundamentals of political science and its impact on society",
       "longDescription": "This course provides an introduction to political science, covering topics such as political theory, government structures, and political behavior. Students will learn about the different forms of government and how they impact society, as well as the various political systems and ideologies that shape our world. The course will also explore how political decisions are made and the role of citizens in the political process.",
       "courseImageURL": "https://study.com/cimages/course-image/intro-to-political-science-syllabus-resource-lesson-plans_139258_large.jpg",
-    "instructorImageURL": "https://media.istockphoto.com/id/480801328/photo/asian-beautiful-woman-portrait-infront-of-blackboard.jpg?s=612x612&w=0&k=20&c=galhx6S4mbT7P2jRWGC3RANWtU7-VG56tlsa1_RVEQo=",
+      "instructorImageURL": "https://media.istockphoto.com/id/480801328/photo/asian-beautiful-woman-portrait-infront-of-blackboard.jpg?s=612x612&w=0&k=20&c=galhx6S4mbT7P2jRWGC3RANWtU7-VG56tlsa1_RVEQo=",
       "instructorDescription": "Sarah Johnson is a highly respected political scientist and professor with over 20 years of experience teaching political science at top universities. She received her Ph.D. in Political Science from Harvard University and has published numerous articles and books on the subject. Dr. Smith has a passion for teaching and is committed to making political science accessible to all students. Her teaching style is engaging and interactive, and she encourages students to think critically about the world around them. In her free time, Dr. Smith enjoys hiking and reading political biographies.",
+      "video": "https://player.vimeo.com/video/86202518?h=fd9c93950e",
       "courseReview": [
         {
         "name": "John Doe",
@@ -3010,6 +3018,7 @@
         "courseImageURL": "https://miro.medium.com/v2/resize:fit:1400/0*KzCUeYQ7DiBXYBWw.jpg",
         "instructorImageURL": "https://media.istockphoto.com/id/1128180433/photo/an-asian-chinese-male-photography-lecturer-giving-lesson-in-front-of-the-class-with-led.jpg?s=612x612&w=0&k=20&c=SkgEMcsM2R63LLv0DD0xnxQZXUKKZXHgwGrihZykygo=",
         "instructorDescription": "Alex Chen is an experienced game developer who has been working in the industry for over 8 years. He has a passion for teaching and has taught game development courses at multiple universities. Alex is an expert in Unity, one of the most popular game engines used in the industry. He has worked on various games, including mobile games and PC games. Alex is known for his practical approach to teaching game development and his ability to break down complex concepts into simple and easy-to-understand language. Alex graduated from Stanford University with a Bachelor's in Computer Science and a Master's in Game Development. He enjoys playing video games, reading science fiction novels, and hiking in his free time.",
+        "video":"https://player.vimeo.com/video/531434832?h=87c45c65f1",
         "courseReview": [
           {
           "name": "Mark Smith",
@@ -3140,6 +3149,7 @@
     "courseImageURL": "https://study.com/cimages/course-image/principles-of-marketing-syllabus-resource-lesson-plans_139082_large.jpg",
     "instructorImageURL": "https://media.istockphoto.com/id/1225498718/photo/teaching-english-online.jpg?s=612x612&w=0&k=20&c=e3kgDpepURKrPgRoxZ7dgsQTPsm60vMsAxFHhkqACao=",
     "instructorDescription": "Jessica Smith is a marketing professional with over 10 years of experience in the industry. She has worked with both small businesses and large corporations, helping them to develop and execute successful marketing campaigns. Jessica is an expert in branding, social media marketing, and market research. She has a Bachelor's degree in Marketing from the University of California, Los Angeles and a Master's degree in Business Administration from the University of Southern California. In her free time, Jessica enjoys hiking and traveling.",
+    "video":"https://player.vimeo.com/video/89619939?h=81491c7934",
     "courseReview": [
       {
       "name": "John Brown",
@@ -3270,7 +3280,8 @@
     "courseImageURL": "https://www.careerindia.com/img/400x100/2013/11/04-creative-writing.jpg",
     "instructorImageURL": "https://media.istockphoto.com/id/1325903187/photo/beautiful-happy-asian-woman-sitting-in-front-her-computer-laptop-at-the-wooden-working-table.jpg?s=612x612&w=0&k=20&c=TXAVtJPUbSw-kKfd8R87E-8KR4tmJ_tKC_oNTF-ktns=",
     "instructorDescription": "Alice Reynolds is a published author and creative writing instructor with over 10 years of experience teaching writing at the university level. She holds an MFA in Creative Writing from the University of Iowa and has published both fiction and nonfiction in a variety of literary journals. Alice is passionate about helping writers find their voice and develop their craft. Her teaching style is supportive and encouraging, and she believes that everyone has the potential to be a great writer. In her free time, Alice enjoys reading, hiking, and spending time with her family.",
-      "courseReview": [
+    "video":"https://player.vimeo.com/video/13594848?h=9a3ff73014&title=0&byline=0&portrait=0",  
+    "courseReview": [
       {
       "name": "John Doe",
       "star": "4",
@@ -3400,6 +3411,7 @@
     "courseImageURL": "https://continuingstudies.mcgill.ca/srs/upload/(YCWPD%20014)%20Financial%20Accounting%20Essentials_EN.png",
     "instructorImageURL": "https://media.istockphoto.com/id/155773353/photo/teacher-in-front-of-blackboard-with-electronic-tablet.jpg?s=612x612&w=0&k=20&c=1nhrOc_WwuyA4iZhcrdZfiidpGP0taPXdkUeUw5vtIg=",
     "instructorDescription": "Michael Brown is an experienced accountant with over 15 years of experience in the field. He has worked with a wide range of clients, from small businesses to large corporations, and has helped them with all aspects of their financial management. Michael is also a seasoned instructor and has taught accounting courses at several universities. He has a knack for explaining complex financial concepts in an easy-to-understand manner, and he enjoys sharing his knowledge with others. Michael holds a Bachelor's degree in Accounting from the University of California and a Master's degree in Business Administration from Stanford University. In his free time, he enjoys hiking and playing tennis.",
+    "video":"https://player.vimeo.com/video/123119618?h=531022d749&title=0&byline=0&portrait=0",
     "courseReview": [
       {
       "name": "Emily Johnson",
@@ -3523,6 +3535,7 @@
     "courseImageURL": "https://www.science.edu/acellus/wp-content/uploads/2020/10/Acellus-World-History.jpg",
     "instructorImageURL": "https://media.istockphoto.com/id/1189837596/photo/multi-ethnic-group-of-university-students-learning-stock-photo.jpg?s=612x612&w=0&k=20&c=6atwISn-r2ennP-32-zx9sW1WhgvUB4rF2RWUUY4BHY=",
     "instructorDescription": "Samantha Jones is an experienced historian and educator with over 10 years of experience teaching world history. She holds a Ph.D. in History from the University of Cambridge and has published several articles on the history of colonialism and imperialism. Samantha is passionate about making history accessible to all learners, and she brings a wealth of knowledge and expertise to this course. She has a talent for making complex historical events and concepts understandable and engaging. In her free time, Samantha enjoys reading historical fiction and traveling to historical sites around the world.",
+    "video":"https://player.vimeo.com/video/127165348?h=adb182f939",
     "courseReview": [
       {
       "name": "John Doe",
@@ -3653,6 +3666,7 @@
       "courseImageURL": "https://t4.ftcdn.net/jpg/00/47/18/19/360_F_47181979_pBVp5ebNLdhR2zPlnklXbpvqwbE7SLy7.jpg",
       "instructorImageURL": "https://media.istockphoto.com/id/1090382002/photo/closeup-asian-speaker-or-lecture-with-casual-suit-on-the-stage-in-front-of-the-room.jpg?s=612x612&w=0&k=20&c=74i88YiHOQL2FjSIEqB1BzqgMj4m1FoAcYNwCroHv94=",
       "instructorDescription": "Prof. John Williams is a renowned expert in Microeconomics and has more than 20 years of experience in teaching and research. He has published numerous research papers and books on Microeconomics and has taught at several universities across the world. Prof. Williams received his PhD in Economics from the University of California, Berkeley and has a Master's degree in Economics from Stanford University. His research interests include game theory, industrial organization, and applied microeconomics. Prof. Williams is known for his ability to simplify complex economic concepts and make them accessible to students. In his free time, he enjoys playing tennis and hiking in the mountains.",
+      "video":"https://player.vimeo.com/video/179927528?h=c3642eddd8",
       "courseReview": [
         {
         "name": "Amy Lee",
@@ -3772,9 +3786,9 @@
   {
     "id": 30,
     "name": "Introduction to Astrophysics",
-    "instructor": "Dr. Emily Lee",
+    "instructor": "Janna Levin",
     "instructorId": 30,
-    "instructorBio": "Meet Dr. Emily Lee, an astrophysicist with a passion for teaching and research.",
+    "instructorBio": "Meet Janna Levin, an astrophysicist with a passion for teaching and research.",
     "price": "79",
     "rating": 4.9,
     "enrollments": 1500,
@@ -3782,39 +3796,40 @@
     "longDescription": "This course is designed to introduce you to the fascinating world of astrophysics, covering topics such as the properties and behavior of stars, galaxies, and other celestial objects, as well as the structure and evolution of the universe. You will learn about the fundamental principles of astrophysics, including the laws of motion and gravity, as well as the latest discoveries in the field. The course will also explore the techniques and tools used by astrophysicists to study the universe, such as telescopes and space probes.",
     "courseImageURL": "https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/S/pv-target-images/d2f84b359d70464ccc2c031c729680c9d4765cecb71c091859a87d72e2f56cab.jpg",
     "instructorImageURL": "https://media.istockphoto.com/id/1083478920/photo/smiling-chinese-teacher-in-classroom.jpg?s=612x612&w=0&k=20&c=zdGKXPUu_JlQIF44QULxQB1dr145vzksLarAQO1Acag=",
-    "instructorDescription": "Dr. Emily Lee is an astrophysicist with a passion for teaching and research. She received her PhD in Astrophysics from the California Institute of Technology and has since worked at several leading research institutions around the world. Her research focuses on the formation and evolution of galaxies and the interstellar medium. Dr. Lee is known for her engaging teaching style and her ability to explain complex astrophysical concepts in a way that is accessible to students of all levels. In her free time, she enjoys hiking and stargazing.",
+    "instructorDescription": "Janna Levin is an astrophysicist with a passion for teaching and research. She received her PhD in Astrophysics from the California Institute of Technology and has since worked at several leading research institutions around the world. Her research focuses on the formation and evolution of galaxies and the interstellar medium. Dr. Lee is known for her engaging teaching style and her ability to explain complex astrophysical concepts in a way that is accessible to students of all levels. In her free time, she enjoys hiking and stargazing.",
+    "video":"https://player.vimeo.com/video/240076641?h=672bc6c4fb",
     "courseReview": [
       {
       "name": "Samantha Brown",
       "star": "4",
-      "review": "The Introduction to Astrophysics course by Dr. Emily Lee was very informative and engaging. The lectures were easy to follow and included real-life examples and illustrations to help understand complex concepts. However, I would have appreciated more opportunities for hands-on learning or problem-solving exercises. Overall, a great course for beginners in astrophysics!"
+      "review": "The Introduction to Astrophysics course by Janna Levin was very informative and engaging. The lectures were easy to follow and included real-life examples and illustrations to help understand complex concepts. However, I would have appreciated more opportunities for hands-on learning or problem-solving exercises. Overall, a great course for beginners in astrophysics!"
       },
       {
       "name": "John Smith",
       "star": "5",
-      "review": "Dr. Emily Lee's Introduction to Astrophysics course was excellent. She covered all the major topics in astrophysics and presented them in a clear and concise manner. The course projects were challenging and engaging, and the real-world examples and case studies were very helpful. The course was suitable for both beginners and advanced learners. Highly recommended!"
+      "review": "Janna Levin's Introduction to Astrophysics course was excellent. She covered all the major topics in astrophysics and presented them in a clear and concise manner. The course projects were challenging and engaging, and the real-world examples and case studies were very helpful. The course was suitable for both beginners and advanced learners. Highly recommended!"
       },
       {
       "name": "Lisa Nguyen",
       "star": "4",
-      "review": "The Introduction to Astrophysics course by Dr. Emily Lee was very interesting and informative. The material was presented in a clear and easy-to-understand way, and the course projects were engaging. However, some of the concepts were quite complex and could have used more examples or visual aids to explain them. Overall, a great course for anyone interested in astrophysics!"
+      "review": "The Introduction to Astrophysics course by Janna Levin was very interesting and informative. The material was presented in a clear and easy-to-understand way, and the course projects were engaging. However, some of the concepts were quite complex and could have used more examples or visual aids to explain them. Overall, a great course for anyone interested in astrophysics!"
       }
       ],
       "creatorReview": [
       {
       "name": "Michael Brown",
       "star": 5,
-      "review": "Dr. Emily Lee is an excellent instructor for astrophysics. Her course was well-structured and easy to follow, with lots of practical examples and exercises. Her explanations were clear and concise, and she provided great insights into the latest trends in astrophysics research. Highly recommended!"
+      "review": "Janna Levin is an excellent instructor for astrophysics. Her course was well-structured and easy to follow, with lots of practical examples and exercises. Her explanations were clear and concise, and she provided great insights into the latest trends in astrophysics research. Highly recommended!"
       },
       {
       "name": "Sarah Lee",
       "star": 5,
-      "review": "I thoroughly enjoyed Dr. Emily Lee's Introduction to Astrophysics course! She provided a great overview of the key concepts and theories in astrophysics, and her hands-on approach really helped me understand how to apply them to real-world problems. Her course was challenging but very rewarding, and I would definitely recommend it to anyone interested in astrophysics."
+      "review": "I thoroughly enjoyed Janna Levin's Introduction to Astrophysics course! She provided a great overview of the key concepts and theories in astrophysics, and her hands-on approach really helped me understand how to apply them to real-world problems. Her course was challenging but very rewarding, and I would definitely recommend it to anyone interested in astrophysics."
       },
       {
       "name": "David Chen",
       "star": 5,
-      "review": "Dr. Emily Lee is a fantastic instructor for astrophysics! Her course was very well-organized and covered all the essential topics in depth. She provided lots of real-world examples and her explanations were always clear and easy to follow. Thanks to her course, I feel confident in my ability to understand and analyze astrophysics concepts. Highly recommended!"
+      "review": "Janna Levin is a fantastic instructor for astrophysics! Her course was very well-organized and covered all the essential topics in depth. She provided lots of real-world examples and her explanations were always clear and easy to follow. Thanks to her course, I feel confident in my ability to understand and analyze astrophysics concepts. Highly recommended!"
       }
       ],
     "pointsToLearn": [
