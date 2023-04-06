@@ -254,7 +254,7 @@ const Users = () => {
       {showDeleteCourseModal && (
         <Modal
           title="Confirm Action"
-          body={`Are you sure you want to delete course`}
+          body={`Are you sure you want to delete course `}
           item={selectedCourse}
           onConfirm={() => handleConfirm(selectedCourse)}
           onCancel={handleCancel}
@@ -264,7 +264,7 @@ const Users = () => {
       {showDeleteUserModal && (
         <Modal
           title="Confirm Action"
-          body={`Are you sure you want to delete user`}
+          body={`Are you sure you want to delete user `}
           item={selectedUser}
           onConfirm={() => handleConfirmDeleteUser(selectedUser)}
           onCancel={handleCancel}

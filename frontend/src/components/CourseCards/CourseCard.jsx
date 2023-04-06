@@ -94,7 +94,7 @@ const CourseCard = ({
       {showModal && (
         <Modal
           title="Confirm Action"
-          body={`Are you sure you want to delete course`}
+          body={`Are you sure you want to delete course `}
           onConfirm={confirmRemoveCourse}
           onCancel={cancelRemoveCourse}
         />

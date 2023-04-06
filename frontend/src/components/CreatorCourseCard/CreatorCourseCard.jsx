@@ -83,7 +83,7 @@ const CreatorCourseCard = ({
             {showModal && (
               <Modal
                 title="Confirm Action"
-                body={`Are you sure you want to delete the course`}
+                body={`Are you sure you want to delete the course `}
                 onConfirm={handleDelete}
                 onCancel={handleCloseModal}
               />
