@@ -5,7 +5,7 @@ const MongoClient = require("mongodb").MongoClient;
 const ObjectId = require("mongodb").ObjectId;
 const jwt = require("jsonwebtoken");
 const secret = "secret";
-const url = "mongodb+srv://max:LitLab@cluster0.qnyvkxl.mongodb.net";
+const url = "mongodb+srv://litlab200:litlab@cluster0.fbncwuq.mongodb.net";
 
 router.post("/", (req, res) => {
   const token = req.headers.authorization;

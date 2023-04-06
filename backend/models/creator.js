@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const url = "mongodb+srv://max:LitLab@cluster0.qnyvkxl.mongodb.net/courses";
+const url =
+  "mongodb+srv://litlab200:litlab@cluster0.fbncwuq.mongodb.net/courses";
 const multer = require("multer");
 const path = require("path");
 

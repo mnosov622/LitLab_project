@@ -35,7 +35,7 @@ const { Creator } = require("./models/creator");
 dotenv.config();
 const secret = "secret";
 
-const url = "mongodb+srv://max:LitLab@cluster0.qnyvkxl.mongodb.net";
+const url = "mongodb+srv://litlab200:litlab@cluster0.fbncwuq.mongodb.net";
 
 //update this line to handle cors issues
 app.use(
