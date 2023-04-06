@@ -13,6 +13,7 @@
     "courseImageURL": "https://images.unsplash.com/photo-1587620962725-abab7fe55159?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1331&q=80",
     "instructorImageURL": "https://media.istockphoto.com/id/855341578/photo/creativity-checked.jpg?b=1&s=170667a&w=0&k=20&c=NHeyPIHEWmztch-Hb9wVZ1VNwIdQvOFsayk8HTz4XCg=",
     "instructoDescription": "Simona Gareth is an expert software developer with over ten years of web development experience. She has experience with some of the largest names in technology and is an authority in React. Simona is an accomplished educator who loves to impart her expertise to others. React - The Complete Guide, one of her well-known online courses on the subject, has helped thousands of students all over the world understand this potent framework. Simona is renowned for her captivating teaching style and capacity to simplify complicated ideas into lessons that are simple to grasp. She is dedicated to remaining current with the most recent advancements in the area and has a Master's in Computer Science from the University of California, Berkeley. Simona likes to read about emerging technology and go to trade shows in her free time.",
+    "email" : "simona@gmail.com",
     "courseReview": [
       {
         "name": "Mohit Patel",
@@ -144,6 +145,7 @@
     "courseImageURL": "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png",
     "instructorImageURL": "https://media.istockphoto.com/id/1128666909/es/foto/retrato-de-profesor-sonriente-en-el-anfiteatro.jpg?s=612x612&w=0&k=20&c=NHJUh5HkLhTo-La7TcKEDJ01dOOH4kVYHXL4zSQZPf0=",
     "instructorDescription": "Expert in Javascript and a seasoned software engineer, Murray Thompson. He has worked with some of the greatest brands in technology and has more than 15 years of experience in the field. Murray has written several well-liked online Javascript courses, including Javascript Mastery and Advanced Javascript Techniques, since he loves to educate. He is renowned for his ability to clearly and concisely explain difficult concepts, making it simple for pupils to comprehend even the most difficult subjects. Murray is devoted to keeping up with the most recent advancements in the area and has a Bachelor of Science in Computer Science from the Massachusetts Institute of Technology (MIT). He likes to go hiking, play the guitar, and spend time with his family in his free time.",
+    "email" : "murray@gmail.com",
     "courseReview": [
       {
         "name": "Emily Chen",
@@ -276,6 +278,7 @@
     "courseImageURL": "https://cdn.shopify.com/s/files/1/0070/7032/files/persuasion_20psychology.jpg?v=1671103727",
     "instructorImageURL": "https://media.istockphoto.com/id/1278976696/es/foto/hombre-maduro-profesor-de-pie-en-clase.jpg?s=612x612&w=0&k=20&c=1jZHwAzoTv9LC_mRFY8i6Ny62a0E5ES7Y26rk47x4K8=",
     "instructorDescription": "Marc Williamson is a highly talented psychologist with extensive training in persuasive techniques. Having worked with some of the most prosperous organisations in the world for more than 20 years, he has taught them how to persuade others and accomplish their objectives. Marc loves to teach, and he is the creator of a number of well-liked online courses on the psychology of persuasion, such as Influence Mastery and Advanced Persuasion Strategies. He is renowned for his capacity to relate to students and make even the most difficult subjects understandable. Marc is a regular speaker at business conferences and events and has a PhD in psychology from the University of Pennsylvania. He likes to spend time with his family and read about the most recent psychological studies when he has free time.",
+    "email" : "marc@hotmail.com",
     "courseReview": [
       {
         "name": "John Doe",
@@ -410,6 +413,7 @@
     "courseImageURL": "https://imageio.forbes.com/specials-images/imageserve/6354154d5e097d68cc4360ba/Picture-shows-green-graph-line-in-front-of-quotation-board/960x0.jpg?format=jpg&width=960",
     "instructorImageURL": "https://media.istockphoto.com/id/1223604450/es/foto/profesor-alegre-comunicarse-con-los-alumnos-a-trav%C3%A9s-de-videollamada.jpg?s=612x612&w=0&k=20&c=DZOPMMkdVFFgcaJFSyvQ884ca2Ytw_8WlAEd-LxMi4k=",
     "instructorDescription": "Anya Selafinkov is a qualified financial specialist with a focus on the stock market. She has more than 15 years of expertise in the field and has worked for some of the most renowned financial institutions in the world. Anya loves to teach, and she has created a number of well-liked online courses on the financial markets, such as Advanced Trading Techniques and Financial Markets - A Complete Course. She is renowned for her ability to clearly and concisely explain difficult financial concepts, making it simple for pupils to comprehend even the most difficult subjects. Anya is dedicated to remaining current with the most recent advancements in the sector and possesses a Master of Science in Finance from the London School of Economics. In her spare time, she likes to spend time with her family and read the financial news.",
+    "email" : "anya@gmail.com",
     "courseReview": [
       {
         "name": "John Doe",
@@ -542,6 +546,7 @@
     "courseImageURL": "https://leverageedublog.s3.ap-south-1.amazonaws.com/blog/wp-content/uploads/2020/05/08140736/Modes-of-Communication.png",
     "instructorImageURL": "https://media.istockphoto.com/id/1089058072/es/foto/maestro-adultos-posando-en-la-pizarra.jpg?s=612x612&w=0&k=20&c=u4_XDwfEBeXzCRUrriiTKI14r8Z6JqHCD959SYVnTcY=",
     "instructorDescription": "Interpersonal skills and communication are both areas of expertise for Albert Nicholas. He has worked with some of the most well-known figures in business and politics and has more than 20 years of experience in the sector. Master Your Communication Skills and Advanced Interpersonal Techniques are two of the well-liked online courses on communication that Albert has written. His ability to help students build strong communication skills that can be used in both personal and professional situations is well known, as is his entertaining teaching style. Albert graduated from the University of Southern California with a master's degree in organisational communication and a bachelor's degree in communication studies from the University of California, Los Angeles (USC). In his free time, he enjoys practicing martial arts and hiking in the mountains.",
+    "email" : "albert@gmail.com",
     "courseReview": [
       {
         "name": "Sarah Johnson",
@@ -674,6 +679,7 @@
     "courseImageURL": "https://i.ytimg.com/vi/GUQJ7zMoSCM/maxresdefault.jpg",
     "instructorImageURL": "https://media.istockphoto.com/id/174750129/es/foto/industrial-presentaci%C3%B3n-en-pizarra-acr%C3%ADlica.jpg?s=612x612&w=0&k=20&c=K3jQQzeJRSEngsfDPSbhmB6GYZvRdUQ4Fn4O95anims=",
     "instructorDescription": "Lin Song is a statistician and data analysis specialist. She has more than 10 years of experience in the area and has collaborated with some of the top research organisations in the globe. In addition to Applied Data Analysis and Introduction to Statistics, Lin has written several more well-liked online statistics courses. She is renowned for her ability to clearly and concisely explain intricate statistical ideas, making it simple for pupils to comprehend even the most difficult subjects. With a Doctorate in Statistics from Stanford University, Lin is dedicated to remaining current with advances in the industry. Before beginning her career as a teacher, Lin served as a statistical consultant for a range of sectors, including technology, banking, and the healthcare industry. She has a lot of expertise creating statistical models to interpret difficult data and dealing with enormous datasets. She likes to go trekking in the mountains and read about the most recent statistical studies in her free time.",
+    "email" : "lin@hotmail.com",
     "courseReview": [
       {
         "name": "Mark Johnson",
@@ -806,6 +812,7 @@
     "courseImageURL": "https://sllearnengine.blob.core.windows.net/material-images/d678df55e77b4a849bc35ac34d0ef45e-Python%20For%20Beginners.png",
     "instructorImageURL": "https://media.istockphoto.com/id/675926198/es/foto/gerente-hombre-tomando-notas-en-la-oficina-en-casa.jpg?s=612x612&w=0&k=20&c=FG25PsKRnQWrdsNUpMvqIJXDzoCrfcqwSo_0RsvU8sA=",
     "instructorDescription": "With more than 7 years of experience in the industry, Ali Gatie is a Python developer and instructor. He has experience working with a range of businesses, from small start-ups to huge enterprises. Ali is a pro at web building, data analysis, and Python programming. The well-known online Python programming courses Intermediate Python and Python for Data Analysis were written by Ali. He is renowned for both his pragmatic approach to programming and his capacity to convey complex Python concepts in a clear, understandable manner. In addition to a master's degree in data science from the University of British Columbia, Ali has a bachelor's degree in computer science from the University of Toronto. He likes to play basketball and practise photography in his spare time. Also, he participates actively in the Python community and frequently offers his assistance to open-source initiatives.",
+    "email" : "ali@hotmail.com",
     "courseReview": [
       {
         "name": "Amy Thompson",
@@ -937,6 +944,7 @@
     "courseImageURL": "https://edge.mondly.com/blog/wp-content/uploads/2020/07/spanish-numbers.jpg",
     "instructorImageURL": "https://media.istockphoto.com/id/511026368/es/foto/matem%C3%A1ticas-profesor-en-pizarra-f%C3%B3rmula-de-la-escritura.jpg?s=612x612&w=0&k=20&c=kd2bZqjpL2zJgUM23nTL8TJN8uB7JIYgXlpErQ4pCkk=",
     "instructorDescription": "María Rodriguez is a dedicated language teacher who specialises in teaching Spanish. She has been teaching Spanish to students of all levels for more than 15 years, and she has earned a reputation for her engaging teaching style and capacity to make learning interesting and joyful. The best-selling books Conversational Spanish - The Complete Guide and Spanish for Travelers were both written by Maria. She is renowned for her skill in engaging students and imparting conversational Spanish in a way that is relevant to daily life. María graduated from the University of Madrid with a Bachelor's in Spanish Language and Literature and from the University of Salamanca with a Master's in Teaching Spanish as a Foreign Language. In her free time, she likes to travel to Spanish-speaking nations to develop her language abilities and discover new cultures. She also enjoys trying out new dishes from various parts of Latin America and Spain because she is a passionate foodie.",
+    "email" : "maria@gmail.com",
     "courseReview": [
       {
         "name": "Emily Rodriguez",
@@ -1046,6 +1054,7 @@
     "courseImageURL": "https://www.simplilearn.com/ice9/free_resources_article_thumb/Why-get-certified-in-Artificial-Intelligence.jpg",
     "instructorImageURL": "https://cee.mit.edu/wp-content/uploads/2021/10/LBourouibaPicture.jpg",
     "instructorDescription": "Michelle Lewis is a seasoned computer scientist who is an authority on machine learning and artificial intelligence (AI). She has more than 12 years of expertise in the industry and has worked with a range of businesses, including Fortune 500 firms, research institutions, and tech startups. Artificial Intelligence - The Complete Guide and Deep Learning for Computer Vision, two well-liked online courses in AI and machine learning, are written by Michelle. She is renowned for her captivating teaching approach and her capacity to succinctly and clearly explain difficult AI concepts. With a doctorate in computer science from Stanford University, Michelle has written numerous articles on machine learning and computer vision for prestigious scholarly journals. In her spare time, she likes to go climbing in the local mountains and research fresh AI uses that could benefit humanity.",
+    "email" : "michelle@gmail.com",
     "courseReview": [
       {
         "name": "Sarah Kim",
@@ -1180,6 +1189,7 @@
     "courseImageURL": "https://www.datameer.com/wp-content/uploads/2019/12/Data-Vizualisation-924x512.png",
     "instructorImageURL": "https://csi.eng.ua.edu/wp-content/uploads/sites/4/2021/03/Song-Wei-800x1000-1.jpg",
     "instructorDescription": "Expert in data visualisation techniques and a seasoned data analyst, Lin Kong. She has more than 8 years of expertise in the industry and has collaborated with a range of businesses, from small start-ups to significant companies. Data Visualization - The Complete Handbook and Advanced Data Visualization Techniques are two of Lin's well-known online data visualisation courses. She is renowned for her innovative approach to data visualisation and her talent for creating stunning and insightful graphics from difficult data. Lin holds master's degrees in data science from Columbia University and a bachelor's degree in statistics from the University of California, Berkeley. She likes to paint and draw in her own time, and she frequently uses artwork in her data visualisations. She also enjoys visiting different places and trying out local cuisines.",
+    "email" : "lin@gmail.com",
     "courseReview": [
       {
         "name": "John Smith",
@@ -1312,6 +1322,7 @@
     "courseImageURL": "https://imageio.forbes.com/specials-images/imageserve/5f9fa9e815da35da1356a28b/The-5-Biggest-Cloud-Computing-Trends-In-2021/960x0.jpg?format=jpg&width=960",
     "instructorImageURL": "https://srg.mit.edu/wp-content/uploads/sites/56/2022/04/mahesh-300x300.jpg",
     "instructorDescription": "Engineer Joaquin Ramirez specialises in designing and implementing cloud architectures and has extensive experience with cloud computing. He has worked with a range of businesses, from small startups to major corporations, and has more than ten years of experience in the industry. Cloud Computing - The Complete Guide and AWS Solutions Architect Certification are two of Ramirez's well-liked online cloud computing courses. He is renowned for his pragmatic approach to cloud computing and his aptitude for creating and putting into practise scalable, affordable cloud solutions. Ramirez graduated from the University of California, Los Angeles with a Bachelor of Science in Computer Science and the University of Washington with a Master of Science in Cloud Computing. In his spare time, he likes to go skiing and trekking in the neighbouring mountains and keeps up with the most recent developments in cloud computing. He also enjoys watching basketball and football games because he is a great sports lover.",
+    "email" : "ramirez@gmail.com",
     "courseReview": [
       {
         "name": "Karen Lee",
@@ -1444,6 +1455,7 @@
     "courseImageURL": "https://m.foolcdn.com/media/dubs/original_images/11_cybersecurity_padlock.jpg",
     "instructorImageURL": "https://www.cbre.com/-/media/project/cbre/shared-site/headshots/micheal-palmer-752x752.jpg",
     "instructorDescription": "Michael Jackson is a well-known cybersecurity specialist with more than 15 years of experience. He is an authority on threat analysis, incident response, and cybersecurity risk management. Michael has experience working with a range of businesses, including big government agencies as well as tiny entrepreneurs. The well-liked online courses Cybersecurity - The Essential Guide and Ethical Hacking and Penetration Testing, among others, are written by Michael. He is renowned for his pragmatic approach to cybersecurity and his capacity to succinctly and clearly convey difficult cybersecurity issues. Michael has a Stanford University Bachelor of Science in Computer Science and a University of Maryland Master of Science in Cybersecurity. He likes to read science fiction, play chess, and keep up with the most recent cybersecurity developments and dangers in his free time. Also, he participates actively in the local cybersecurity community and routinely presents at conferences and other gatherings.",
+    "email" : "micheal@gmail.com",
     "courseReview": [
       {
         "name": "Michael Johnson",
@@ -1575,6 +1587,7 @@
     "courseImageURL": "https://www.cio.com/wp-content/uploads/2023/01/bi-business-intelligence-ts-100646689-orig-1.jpg?quality=50&strip=all",
     "instructorImageURL": "https://www.queensu.ca/alumni/sites/default/files/styles/hero/public/img/story/Michelle%20Searle%20pic%20HERO_0.jpg?itok=JWSeKdCx",
     "instructorDescription": "Business intelligence specialist Michelle Williams has more than ten years of expertise in the industry. She is an authority on corporate intelligence strategy, data analysis, and visualisation. Michelle has experience working with a range of businesses, including both tiny startups and established companies. The Comprehensive Guide to Business Intelligence and Data Analytics for Business Leaders are just two of Michelle's well-known online business intelligence courses. She is renowned for helping firms transform their data into useful insights and for her pragmatic approach to business intelligence. Michelle graduated from the University of Texas at Austin with a bachelor's in business administration and from the University of California, Berkeley with a master's in business intelligence. She likes to go hiking in the local hills in her free time and keep up with the most recent developments in business intelligence. She also enjoys visiting different places and trying out local cuisines.",
+    "email" : "michelle@hotmail.com",
     "courseReview": [
       {
         "name": "John Smith",
@@ -1707,6 +1720,7 @@
     "courseImageURL": "https://assets.entrepreneur.com/content/3x2/2000/1635968078-GettyImages-913248994.jpg",
     "instructorImageURL": "https://images.unsplash.com/photo-1573496799652-408c2ac9fe98?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1469&q=80",
     "instructorDescription": "Expert in digital marketing with over ten years of expertise, Liu Wei Wei. She is an authority in internet advertising, search engine optimization, and social media marketing. Small start-ups to significant corporations have all been clients of Liu Wei Wei's. Digital Marketing - The Complete Guide and Social Media Marketing for Small Companies are two of Liu Wei Wei's well-liked online courses on the subject. She is renowned for her practical approach to online marketing as well as her capacity to clearly explain difficult digital marketing ideas. Liu Wei Wei is a graduate of the University of California with a master's degree in digital marketing and a bachelor's degree in marketing from the University of Southern California.",
+    "email" : "liu@gmail.com",
     "courseReview": [
       {
         "name": "Emily Brown",
@@ -1839,6 +1853,7 @@
     "courseImageURL": "https://www.xilinx.com/content/xilinx/en/products/design-tools/resources/the-developers-guide-to-blockchain-development/_jcr_content/root/parsysFullWidth/xilinxflexibleslab/xilinxflexibleslab-parsys/xilinxcolumns_397154/childParsys-0/xilinximage_copy_cop.img.png/1644357944737.png",
     "instructorImageURL": "https://images.unsplash.com/photo-1664382951821-8151535191e5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80",
     "instructorDescription": "Developer and business owner Emily Parker is passionate about creating decentralised applications. She has more than 5 years of experience working in the blockchain sector and has collaborated with a range of businesses, from start-ups to major corporations. Emily is an authority on smart contracts, blockchain development, and decentralised finance. The well-liked online courses Blockchain Development - A Full Guide and Decentralized Finance - A Comprehensive Overview, both of which are written by Emily, are both about blockchain development. She is renowned for her practical approach to blockchain development as well as her ability to convey difficult blockchain concepts in a clear and understandable way. Emily graduated from the Massachusetts Institute of Technology with a Bachelor's in Computer Science and the University of California with a Master's in Blockchain Development. She likes to go trekking and do yoga in her free time. She enjoys reading science fiction, and she is motivated by how blockchain technology has the ability to make the world more equitable and decentralised.",
+    "email" : "emily@gmail.com",
     "courseReview": [
       {
         "name": "John Smith",
@@ -1972,6 +1987,7 @@
     "instructorImageURL": "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NDJ8fHRlYWNoZXJ8ZW58MHx8MHx8&auto=format&fit=crop&w=900&q=60",
     "instructorDescription": "Dr. Jane Smith is a board-certified anatomist and physiologist with over 20 years of experience. She earned her Bachelor's degree in biology from Harvard University and her PhD in anatomy from the University of California, Los Angeles. Dr. Smith has taught human anatomy and physiology at several universities, including Harvard, UCLA, and the University of Michigan. She is the author of several textbooks on human anatomy and physiology and has conducted extensive research in the field.",
     "video" : "https://player.vimeo.com/video/55584438?h=c66cb6f9e6",
+    "email" : "drjane@gmail.com",
     "courseReview": [
       {
         "name": "John Smith",
@@ -2088,6 +2104,7 @@
     "instructorImageURL": "https://media.istockphoto.com/id/494851564/photo/female-teacher-in-front-of-chalkboard.jpg?s=612x612&w=0&k=20&c=KViLqJN1bM8UvOyPSyx6lNGfYhM7Po2OYzuhoPckBc0=",
     "instructorDescription": "Julia Lee is a professional photographer with over 15 years of experience. She has worked on numerous photography projects, including weddings, events, and portraits. She is an expert in digital photography and is passionate about teaching others the art of capturing moments. Julia is also a speaker and has given talks on photography at various events and conferences. She is known for her creative approach to photography and her ability to capture emotion in her photos. Julia has a Bachelor's degree in Fine Arts from the California Institute of the Arts and a Master's degree in Photography from the New York Film Academy. In her free time, she enjoys hiking and traveling to new places to capture stunning photos.",
     "video":"https://player.vimeo.com/video/1409447?h=6a3d74b5cd",
+    "email" : "julia@gmail.com",
     "courseReview": [
       {
         "name": "Samantha Rodriguez",
@@ -2220,6 +2237,7 @@
       "courseImageURL": "https://study.com/cimages/course-image/intro-to-business-syllabus-resource-lesson-plans_138757_large.jpg",
       "instructorImageURL": "https://media.istockphoto.com/id/1146609323/photo/portrait-of-a-teacher-wearing-cool-casual-clothes.jpg?s=612x612&w=0&k=20&c=MCPEN3Q8-EvFyU-dGpAJz7tEZvklnWX6vjrZ9ri3NvY=",
       "instructorDescription": "John Smith is a successful entrepreneur and business owner with over 20 years of experience. He has founded and managed several businesses in various industries, including technology, retail, and hospitality. John is passionate about entrepreneurship and is committed to helping others start and grow their own businesses. He is also a speaker and has given talks on entrepreneurship at various conferences and events. John has a Bachelor's degree in Business Administration from the University of California and an MBA from the Stanford Graduate School of Business. In his free time, he enjoys traveling and trying new cuisines.",
+      "email" : "john@gmail.com",
       "courseReview": [
         {
           "name": "Jane Doe",
@@ -2351,6 +2369,7 @@
         "courseImageURL": "https://www.coventry.ac.uk/globalassets/media/global/00-new-course-imagery/health-and-life-sciences/ug/nutrition-and-health-bsc-banner-v5-1920x1080.jpg",
         "instructorImageURL": "https://media.istockphoto.com/id/901747948/photo/asian-woman-architect-is-enjoy-her-work-with-material-board.jpg?s=612x612&w=0&k=20&c=cd8tJME445QcRy-uFe4FTEjCS7sCuFxMZgiaoEK0bps=",
         "instructorDescription": "Dr. Jane Lee is a registered dietitian with a PhD in Nutrition Science. She has worked as a nutrition consultant for various organizations, including hospitals, schools, and government agencies. Dr. Lee is passionate about promoting healthy eating habits and helping people achieve optimal health through nutrition. She is also a published author and has written several articles and books on nutrition and health. In her free time, Dr. Lee enjoys hiking and trying new healthy recipes.",
+        "email" : "drjane@hotmail.com",
         "courseReview": [
           {
             "name": "Sarah Johnson",
@@ -2471,6 +2490,7 @@
         "courseImageURL": "https://media.licdn.com/dms/image/C4E12AQGQ1zVDkBcpOQ/article-cover_image-shrink_720_1280/0/1639821228961?e=2147483647&v=beta&t=Wa9dNT3bwXMDEmkBD_gsbBPGqc5D9_zKBzOT8N0GgD4",
         "instructorImageURL": "https://media.istockphoto.com/id/1149280905/photo/senior-chinese-man-reading-a-book.jpg?s=612x612&w=0&k=20&c=W9cOnAzRcMyLUCJKw7FCAB49fkjJH75EirIC5YHXVow=",
         "instructorDescription": "Dr. David Kim is a cybersecurity expert with over 15 years of experience. He has worked for a variety of organizations, including government agencies and major corporations, helping them secure their networks and data. Dr. Kim is passionate about cybersecurity and believes that everyone has a role to play in protecting their data and network. In his free time, Dr. Kim enjoys hiking and exploring new technologies.",
+        "email" : "drdavid@gmail.com",
         "courseReview": [
           {
           "name": "Sarah Johnson",
@@ -2601,6 +2621,7 @@
           "courseImageURL": "https://prod-discovery.edx-cdn.org/media/programs/card_images/1ff20015-8a46-48a8-8cfb-914d2f244b83-62701c6e666d.jpg",
           "instructorImageURL": "https://media.istockphoto.com/id/1128967676/photo/cheerful-senior-businesswoman-in-glasses-looking-at-camera-in-office.jpg?s=612x612&w=0&k=20&c=sEEKNAI3Pl18UIugUZyTPgkNoz4iPyScd5mFIlzHJsI=",
           "instructorDescription": "Maria Rodriguez is a social media marketing expert with over 8 years of experience. She has worked with a variety of businesses, from start-ups to major corporations, helping them develop and implement social media marketing strategies. Maria is passionate about social media and believes that it is a powerful tool for businesses to connect with their audience and grow their brand. In her free time, Maria enjoys photography and exploring new restaurants.",
+          "email" : "maria@hotmail.com",
           "courseReview": [
             {
             "name": "Rachel Chen",
@@ -2732,6 +2753,7 @@
     "instructorImageURL": "https://media.istockphoto.com/id/1296538425/photo/asian-teacher-holding-chalk-and-book-on-green-chalkboard-background.jpg?s=612x612&w=0&k=20&c=581WKFHaSZbdtEMSlBrq2QJggsO_zYnRDGZGI0JvqvE=",
     "instructorDescription": "Dr. Maria Rodriguez is a passionate educator and has been teaching Organic Chemistry for over 10 years. She received her PhD in Organic Chemistry from the University of California, Berkeley and has published several papers in prestigious scientific journals. Dr. Rodriguez has a unique approach to teaching Organic Chemistry, emphasizing the underlying principles and concepts rather than rote memorization. Her classes are known for being engaging and challenging, and she has a reputation for helping students achieve their full potential. In her free time, Dr. Rodriguez enjoys hiking and exploring the outdoors.",
     "video":"https://player.vimeo.com/video/630234397?h=3110c97e09",
+    "email" : "drmaria@gmail.com",
     "courseReview": [
       {
         "name": "John Smith",
@@ -2862,6 +2884,7 @@
       "courseImageURL": "https://study.com/cimages/course-image/intro-to-political-science-syllabus-resource-lesson-plans_139258_large.jpg",
     "instructorImageURL": "https://media.istockphoto.com/id/480801328/photo/asian-beautiful-woman-portrait-infront-of-blackboard.jpg?s=612x612&w=0&k=20&c=galhx6S4mbT7P2jRWGC3RANWtU7-VG56tlsa1_RVEQo=",
       "instructorDescription": "Sarah Johnson is a highly respected political scientist and professor with over 20 years of experience teaching political science at top universities. She received her Ph.D. in Political Science from Harvard University and has published numerous articles and books on the subject. Dr. Smith has a passion for teaching and is committed to making political science accessible to all students. Her teaching style is engaging and interactive, and she encourages students to think critically about the world around them. In her free time, Dr. Smith enjoys hiking and reading political biographies.",
+      "email" : "sarah@hotmail.com",
       "courseReview": [
         {
         "name": "John Doe",
@@ -2992,6 +3015,7 @@
         "courseImageURL": "https://miro.medium.com/v2/resize:fit:1400/0*KzCUeYQ7DiBXYBWw.jpg",
         "instructorImageURL": "https://media.istockphoto.com/id/1128180433/photo/an-asian-chinese-male-photography-lecturer-giving-lesson-in-front-of-the-class-with-led.jpg?s=612x612&w=0&k=20&c=SkgEMcsM2R63LLv0DD0xnxQZXUKKZXHgwGrihZykygo=",
         "instructorDescription": "Alex Chen is an experienced game developer who has been working in the industry for over 8 years. He has a passion for teaching and has taught game development courses at multiple universities. Alex is an expert in Unity, one of the most popular game engines used in the industry. He has worked on various games, including mobile games and PC games. Alex is known for his practical approach to teaching game development and his ability to break down complex concepts into simple and easy-to-understand language. Alex graduated from Stanford University with a Bachelor's in Computer Science and a Master's in Game Development. He enjoys playing video games, reading science fiction novels, and hiking in his free time.",
+        "email" : "alex@gmail.com",
         "courseReview": [
           {
           "name": "Mark Smith",
@@ -3123,6 +3147,7 @@
     "instructorImageURL": "https://media.istockphoto.com/id/1225498718/photo/teaching-english-online.jpg?s=612x612&w=0&k=20&c=e3kgDpepURKrPgRoxZ7dgsQTPsm60vMsAxFHhkqACao=",
     "instructorDescription": "Jessica Smith is a marketing professional with over 10 years of experience in the industry. She has worked with both small businesses and large corporations, helping them to develop and execute successful marketing campaigns. Jessica is an expert in branding, social media marketing, and market research. She has a Bachelor's degree in Marketing from the University of California, Los Angeles and a Master's degree in Business Administration from the University of Southern California. In her free time, Jessica enjoys hiking and traveling.",
     "video":"https://player.vimeo.com/video/89619939?h=81491c7934",
+    "email" : "jessica@gmail.com",
     "courseReview": [
       {
         "name": "John Brown",
@@ -3253,7 +3278,8 @@
     "courseImageURL": "https://www.careerindia.com/img/400x100/2013/11/04-creative-writing.jpg",
     "instructorImageURL": "https://media.istockphoto.com/id/1325903187/photo/beautiful-happy-asian-woman-sitting-in-front-her-computer-laptop-at-the-wooden-working-table.jpg?s=612x612&w=0&k=20&c=TXAVtJPUbSw-kKfd8R87E-8KR4tmJ_tKC_oNTF-ktns=",
     "instructorDescription": "Alice Reynolds is a published author and creative writing instructor with over 10 years of experience teaching writing at the university level. She holds an MFA in Creative Writing from the University of Iowa and has published both fiction and nonfiction in a variety of literary journals. Alice is passionate about helping writers find their voice and develop their craft. Her teaching style is supportive and encouraging, and she believes that everyone has the potential to be a great writer. In her free time, Alice enjoys reading, hiking, and spending time with her family.",
-      "courseReview": [
+    "email" : "alice@gmail.com",  
+    "courseReview": [
       {
         "name": "John Doe",
         "star": "4",
@@ -3388,6 +3414,7 @@
     "instructorImageURL": "https://media.istockphoto.com/id/155773353/photo/teacher-in-front-of-blackboard-with-electronic-tablet.jpg?s=612x612&w=0&k=20&c=1nhrOc_WwuyA4iZhcrdZfiidpGP0taPXdkUeUw5vtIg=",
     "instructorDescription": "Michael Brown is an experienced accountant with over 15 years of experience in the field. He has worked with a wide range of clients, from small businesses to large corporations, and has helped them with all aspects of their financial management. Michael is also a seasoned instructor and has taught accounting courses at several universities. He has a knack for explaining complex financial concepts in an easy-to-understand manner, and he enjoys sharing his knowledge with others. Michael holds a Bachelor's degree in Accounting from the University of California and a Master's degree in Business Administration from Stanford University. In his free time, he enjoys hiking and playing tennis.",
     "video":"https://player.vimeo.com/video/123119618?h=531022d749&title=0&byline=0&portrait=0",
+    "email" : "michael@hotmail.com",
     "courseReview": [
       {
         "name": "Emily Johnson",
@@ -3512,6 +3539,7 @@
     "instructorImageURL": "https://media.istockphoto.com/id/1189837596/photo/multi-ethnic-group-of-university-students-learning-stock-photo.jpg?s=612x612&w=0&k=20&c=6atwISn-r2ennP-32-zx9sW1WhgvUB4rF2RWUUY4BHY=",
     "instructorDescription": "Samantha Jones is an experienced historian and educator with over 10 years of experience teaching world history. She holds a Ph.D. in History from the University of Cambridge and has published several articles on the history of colonialism and imperialism. Samantha is passionate about making history accessible to all learners, and she brings a wealth of knowledge and expertise to this course. She has a talent for making complex historical events and concepts understandable and engaging. In her free time, Samantha enjoys reading historical fiction and traveling to historical sites around the world.",
     "video":"https://player.vimeo.com/video/127165348?h=adb182f939",
+    "email" : "samantha@gmail.com",
     "courseReview": [
       {
         "name": "John Doe",
@@ -3628,6 +3656,7 @@
       "courseImageURL": "https://t4.ftcdn.net/jpg/00/47/18/19/360_F_47181979_pBVp5ebNLdhR2zPlnklXbpvqwbE7SLy7.jpg",
       "instructorImageURL": "https://media.istockphoto.com/id/1090382002/photo/closeup-asian-speaker-or-lecture-with-casual-suit-on-the-stage-in-front-of-the-room.jpg?s=612x612&w=0&k=20&c=74i88YiHOQL2FjSIEqB1BzqgMj4m1FoAcYNwCroHv94=",
       "instructorDescription": "Prof. John Williams is a renowned expert in Microeconomics and has more than 20 years of experience in teaching and research. He has published numerous research papers and books on Microeconomics and has taught at several universities across the world. Prof. Williams received his PhD in Economics from the University of California, Berkeley and has a Master's degree in Economics from Stanford University. His research interests include game theory, industrial organization, and applied microeconomics. Prof. Williams is known for his ability to simplify complex economic concepts and make them accessible to students. In his free time, he enjoys playing tennis and hiking in the mountains.",
+      "email" : "john@hotmail.com",
       "courseReview": [
         {
         "name": "Amy Lee",
@@ -3759,6 +3788,7 @@
     "instructorImageURL": "https://media.istockphoto.com/id/1083478920/photo/smiling-chinese-teacher-in-classroom.jpg?s=612x612&w=0&k=20&c=zdGKXPUu_JlQIF44QULxQB1dr145vzksLarAQO1Acag=",
     "instructorDescription": "Janna Levin is an astrophysicist with a passion for teaching and research. She received her PhD in Astrophysics from the California Institute of Technology and has since worked at several leading research institutions around the world. Her research focuses on the formation and evolution of galaxies and the interstellar medium. Dr. Lee is known for her engaging teaching style and her ability to explain complex astrophysical concepts in a way that is accessible to students of all levels. In her free time, she enjoys hiking and stargazing.",
     "video":"https://player.vimeo.com/video/240076641?h=672bc6c4fb",
+    "email" : "janna@gmail.com",
     "courseReview": [
       {
       "name": "Samantha Brown",
