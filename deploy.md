@@ -6,3 +6,10 @@ https://litlab-teracle.vercel.app
 
 deploy backend:
 vercel
+
+----Updated----
+Backend
+https://litlab-backend.vercel.app
+
+frontend
+https://lit-lab-project-ten.vercel.app

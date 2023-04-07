@@ -87,7 +87,7 @@ const Login = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:8000/googleLogin",
+        "https://litlab-backend.vercel.app/googleLogin",
         {
           method: "POST",
           body: JSON.stringify({
@@ -144,7 +144,7 @@ const Login = () => {
 
     try {
       const response = await fetch(
-        "http://localhost:8000/login",
+        "https://litlab-backend.vercel.app/login",
         {
           method: "POST",
           body: JSON.stringify({ email, password }),

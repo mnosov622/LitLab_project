@@ -43,7 +43,7 @@ const CourseCard = ({
   useEffect(() => {
     const imageSource = courseImage?.startsWith("https")
       ? courseImage
-      : `http://localhost:8000/images/${courseImage}`;
+      : `https://litlab-backend.vercel.app/images/${courseImage}`;
     setImageSource(imageSource);
   }, []);
 
