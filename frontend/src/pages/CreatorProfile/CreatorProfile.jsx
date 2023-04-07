@@ -9,6 +9,8 @@ const CreatorProfile = () => {
   const [profileData, setProfileData] = useState([]);
   const [profileImage, setProfileImage] = useState("");
   const [bio, setBio] = useState("");
+  const [instructorDescription, setInstructorDescription] = useState("");
+
   const [socialLink, setSocialLink] = useState("");
   const [description, setDescription] = useState("");
   const alert = useAlert();
@@ -31,7 +33,7 @@ const CreatorProfile = () => {
         setProfileData(data);
         setBio(data.bio);
         setSocialLink(data.social);
-        setDescription(data.description);
+        setInstructorDescription(data.description);
         console.log(data);
       });
   }, [decoded.id]);
@@ -40,8 +42,7 @@ const CreatorProfile = () => {
     const formData = new FormData();
     formData.append("profileImage", profileImage);
     formData.append("bio", bio);
-    formData.append("social", socialLink);
-    formData.append("description", description);
+    formData.append("description", instructorDescription);
 
     fetch(`http://localhost:8000/creator/${decoded.id}`, {
       method: "POST",
@@ -57,7 +58,7 @@ const CreatorProfile = () => {
       }
     });
 
-    fetch(`http://localhost:8000/creator/courses/${16}`, {
+    fetch(`http://localhost:8000/creator/courses/${profileData.email}`, {
       method: "POST",
       body: formData,
     })
@@ -172,7 +173,7 @@ const CreatorProfile = () => {
         </div>
         <div className="profile-body">
           <p className="fs-3 mt-5 mb-5">Your description</p>
-          <textarea
+          <input
             className="profile-body__bio form-control mb-5"
             type="text"
             placeholder="Your Bio..."
@@ -180,6 +181,17 @@ const CreatorProfile = () => {
             rows="5"
             value={bio}
             onChange={(e) => setBio(e.target.value)}
+          ></input>
+
+          <p className="fs-3 mt-5 mb-5">About you and career</p>
+          <textarea
+            className="profile-body__bio form-control mb-5"
+            type="text"
+            placeholder="Your Bio..."
+            resize="none"
+            rows="5"
+            value={instructorDescription}
+            onChange={(e) => setInstructorDescription(e.target.value)}
           ></textarea>
 
           <ul className="profile-body__contact-list">
