@@ -89,7 +89,7 @@ const CourseView = () => {
   const userId = decoded.id;
 
   useEffect(() => {
-    fetch(`https://litlab-backend.vercel.app/users/${userId}`)
+    fetch(`http://localhost:8000/users/${userId}`)
       .then((res) => res.json())
       .then((data) => {
         console.log("user data", data);
@@ -151,14 +151,14 @@ const CourseView = () => {
 
   const handleNoteSave = (e) => {
     e.preventDefault();
-    fetch(`https://litlab-backend.vercel.app/users/notes/${userId}`, {
+    fetch(`http://localhost:8000/users/notes/${userId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ notebody: noteBody }),
     }).then((res) => {
-      fetch(`https://litlab-backend.vercel.app/users/${userId}`)
+      fetch(`http://localhost:8000/users/${userId}`)
         .then((res) => res.json())
         .then((data) => {
           setSavedNotes(data.notes);
@@ -177,10 +177,10 @@ const CourseView = () => {
 
   const handleDeleteNotes = () => {
     console.log("clicked");
-    fetch(`https://litlab-backend.vercel.app/users/notes/${userId}`, {
+    fetch(`http://localhost:8000/users/notes/${userId}`, {
       method: "DELETE",
     }).then((res) => {
-      fetch(`https://litlab-backend.vercel.app/users/${userId}`)
+      fetch(`http://localhost:8000/users/${userId}`)
         .then((res) => res.json())
         .then((data) => {
           console.log("notes", data.notes);
@@ -199,12 +199,12 @@ const CourseView = () => {
     console.log(note);
 
     fetch(
-      `https://litlab-backend.vercel.app/users/notes/${userId}/${note.id}`,
+      `http://localhost:8000/users/notes/${userId}/${note.id}`,
       {
         method: "DELETE",
       }
     ).then((res) => {
-      fetch(`https://litlab-backend.vercel.app/users/${userId}`)
+      fetch(`http://localhost:8000/users/${userId}`)
         .then((res) => res.json())
         .then((data) => {
           setSavedNotes(data.notes);
@@ -215,7 +215,7 @@ const CourseView = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`https://litlab-backend.vercel.app/courses/${Number(id)}`)
+    fetch(`http://localhost:8000/courses/${Number(id)}`)
       .then((response) => response.json())
       .then((data) => {
         setCourseData(data.course);
@@ -233,7 +233,7 @@ const CourseView = () => {
       setUploadedVideo(true);
     }
     //   ? courseData
-    //   : `https://litlab-backend.vercel.app/images/${courseData.video}`;
+    //   : `http://localhost:8000/images/${courseData.video}`;
     // setVideoSource(videoSource);
   }, [courseData]);
 
@@ -333,7 +333,7 @@ const CourseView = () => {
       emailAddress.trim().length !== 0 &&
       feedback.trim().length !== 0
     ) {
-      fetch(`https://litlab-backend.vercel.app/courses/feedback`, {
+      fetch(`http://localhost:8000/courses/feedback`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -403,7 +403,7 @@ const CourseView = () => {
                 uploadedVideo &&
                 courseData?.video && (
                   <video
-                    src={`https://litlab-backend.vercel.app/videos/${courseData.video}`}
+                    src={`http://localhost:8000/videos/${courseData.video}`}
                     controls
                     width={"100%"}
                   />

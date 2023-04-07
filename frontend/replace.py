@@ -4,8 +4,8 @@ import os
 folders_to_search = ["src/components", "src/pages"]
 
 # Define the search and replace strings
-search_str = "http://localhost:8000"
-replace_str = "https://litlab-backend.vercel.app"
+search_str = "https://litlab-backend.vercel.app"
+replace_str = "http://localhost:8000"
 
 # Loop through each folder and search for files
 for folder in folders_to_search:

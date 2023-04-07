@@ -46,14 +46,14 @@ const Users = () => {
   const handleConfirm = (name) => {
     // handle confirm action
     console.log(name);
-    fetch(`https://litlab-backend.vercel.app/courses/${name}`, {
+    fetch(`http://localhost:8000/courses/${name}`, {
       method: "DELETE",
     })
       .then((response) => {
         console.log(response);
         if (response.status === 200) {
           setShowDeleteUserModal(false);
-          fetch("https://litlab-backend.vercel.app/courses")
+          fetch("http://localhost:8000/courses")
             .then((res) => res.json())
             .then((data) => setCoursesData(data));
         }
@@ -64,13 +64,13 @@ const Users = () => {
   };
 
   const handleConfirmDeleteUser = (email) => {
-    fetch(`https://litlab-backend.vercel.app/users/${email}`, {
+    fetch(`http://localhost:8000/users/${email}`, {
       method: "DELETE",
     })
       .then((response) => {
         if (response.status === 200) {
           setShowDeleteUserModal(false);
-          fetch("https://litlab-backend.vercel.app/users")
+          fetch("http://localhost:8000/users")
             .then((res) => res.json())
             .then((data) => setUsersData(data));
         }
@@ -92,7 +92,7 @@ const Users = () => {
     setShowEditUserModal(true);
     setSelectedUser(email);
 
-    fetch(`https://litlab-backend.vercel.app/users/${id}`)
+    fetch(`http://localhost:8000/users/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setSingleUserData(data);
@@ -104,7 +104,7 @@ const Users = () => {
     console.log("id and name", id, name);
     setShowEditCourseModal(true);
     setSelectedCourse(id);
-    fetch(`https://litlab-backend.vercel.app/users/${id}`)
+    fetch(`http://localhost:8000/users/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setSingleUserData(data);
@@ -113,11 +113,11 @@ const Users = () => {
   };
 
   useEffect(() => {
-    fetch("https://litlab-backend.vercel.app/users")
+    fetch("http://localhost:8000/users")
       .then((res) => res.json())
       .then((data) => setUsersData(data));
 
-    fetch("https://litlab-backend.vercel.app/courses")
+    fetch("http://localhost:8000/courses")
       .then((res) => res.json())
       .then((data) => setCoursesData(data))
       .catch((e) => console.log(e));

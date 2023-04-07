@@ -27,7 +27,7 @@ const Login = () => {
     console.log("email", emailRef.current.value);
 
     e.preventDefault();
-    fetch("https://litlab-backend.vercel.app/forgot-password", {
+    fetch("http://localhost:8000/forgot-password", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

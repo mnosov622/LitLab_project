@@ -30,7 +30,7 @@ const CreatorDashboard = () => {
     localStorage.setItem("creatorVisitorCount", creatorVisitorCount + 1);
     setVisitorCount(creatorVisitorCount + 1);
     setLoading(true);
-    fetch(`https://litlab-backend.vercel.app/users/${decoded.id}`)
+    fetch(`http://localhost:8000/users/${decoded.id}`)
       .then((response) => response.json())
       .then((data) => {
         console.log("data recieved", data);

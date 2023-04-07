@@ -64,7 +64,7 @@ const Payment = () => {
       const pricesTotal = prices.reduce((sum, item) => sum + item, 0);
       setTotalAmount(pricesTotal);
     }
-    fetch(`https://litlab-backend.vercel.app/users/${userId}`)
+    fetch(`http://localhost:8000/users/${userId}`)
       .then((res) => res.json())
       .then((data) => setUserData(data));
 
@@ -91,7 +91,7 @@ const Payment = () => {
           isCompleted: false,
         };
 
-        fetch("https://litlab-backend.vercel.app/courses/creator", {
+        fetch("http://localhost:8000/courses/creator", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -105,7 +105,7 @@ const Payment = () => {
           }),
         }).then((res) => console.log("res", res));
 
-        fetch("https://litlab-backend.vercel.app/courses/creator/enrollments", {
+        fetch("http://localhost:8000/courses/creator/enrollments", {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -113,13 +113,13 @@ const Payment = () => {
           body: JSON.stringify({ email: item_to_buy.email }),
         }).then((res) => console.log("res", res));
         fetch(
-          `https://litlab-backend.vercel.app/courses/${item_to_buy.id}/increase-enrollments`,
+          `http://localhost:8000/courses/${item_to_buy.id}/increase-enrollments`,
           {
             method: "PUT",
           }
         );
 
-        await fetch("https://litlab-backend.vercel.app/buy-course", {
+        await fetch("http://localhost:8000/buy-course", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -136,7 +136,7 @@ const Payment = () => {
         formData.append("email", item_to_buy.email);
         formData.append("amount", item_to_buy.price);
 
-        await fetch("https://litlab-backend.vercel.app/creator/moneyEarned", {
+        await fetch("http://localhost:8000/creator/moneyEarned", {
           method: "PUT",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
@@ -161,7 +161,7 @@ const Payment = () => {
           });
         });
 
-        fetch("https://litlab-backend.vercel.app/buy-course", {
+        fetch("http://localhost:8000/buy-course", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
