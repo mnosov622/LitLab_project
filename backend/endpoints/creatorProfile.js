@@ -18,4 +18,23 @@ router.get("/name", async (req, res) => {
   res.json(user);
 });
 
+router.get("/name/:name", async (req, res) => {
+  const name = req.params.name;
+  console.log("name", name);
+  // using req.params to get the name parameter from the URL path
+  const db = client.db("courses");
+  const users = await db
+    .collection("courses")
+    .find({ instructor: name })
+    .toArray();
+  console.log("users are", users);
+  if (users.length === 0) {
+    return res.status(404).send("Users not found");
+  }
+
+  console.log("users are", users);
+
+  res.json(users);
+});
+
 module.exports = router;

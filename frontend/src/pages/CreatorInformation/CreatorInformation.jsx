@@ -35,12 +35,12 @@ const CreatorInformation = () => {
   const userId = decoded.id;
 
   useEffect(() => {
-    // fetch(`http://localhost:8000/courses/${id}`)
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     setCourse(data.course);
-    //     console.log("data11", data);
-    //   });
+    fetch(`http://localhost:8000/creatorprofile/name/${instructorName}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setCourse(data);
+        console.log("data11", data);
+      });
 
     fetch(
       `http://localhost:8000/creatorprofile/name/?name=${encodeURIComponent(
@@ -174,18 +174,19 @@ const CreatorInformation = () => {
         </Row>
         <div className="coursetitle">Courses</div>
         <div className="row">
-          {/* {course.map((c) => (
-            <CourseCard
-              key={c.id}
-              cardSmall
-              name={c.name}
-              price={c.price}
-              creatorCourseImage={c.courseImageURL}
-              id={c.id}
-              rating={c.rating}
-            />
-<<<<<<< HEAD
-          ))} */}
+          {course &&
+            course.map((c) => (
+              <CourseCard
+                key={c.id}
+                cardSmall
+                name={c.name}
+                price={c.price}
+                courseImage={c.courseImageURL}
+                teacherName={c.instructor}
+                id={c.id}
+                rating={c.rating}
+              />
+            ))}
 
           <div className="row mt-5">
             <div className="mx-auto col-md-12">

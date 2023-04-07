@@ -41,6 +41,7 @@ const CourseCard = ({
   };
 
   useEffect(() => {
+    console.log("course image recieved", courseImage);
     const imageSource = courseImage?.startsWith("https")
       ? courseImage
       : `http://localhost:8000/images/${courseImage}`;
