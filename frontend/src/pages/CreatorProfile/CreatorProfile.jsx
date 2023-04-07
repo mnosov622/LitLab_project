@@ -7,7 +7,7 @@ const CreatorProfile = () => {
   const token = localStorage.getItem("token");
   const decoded = jwtDecode(token);
   const [profileData, setProfileData] = useState([]);
-  const [profileImage, setProfileImage] = useState("");
+  const [profileImage, setProfileImage] = useState();
   const [bio, setBio] = useState("");
   const [instructorDescription, setInstructorDescription] = useState("");
 
@@ -19,11 +19,8 @@ const CreatorProfile = () => {
 
   const handleImageChange = (e) => {
     const selectedImage = e.target.files[0];
-
     setProfileImage(selectedImage);
     setImagePreview(URL.createObjectURL(selectedImage));
-
-    console.log("image", URL.createObjectURL(selectedImage));
   };
 
   useEffect(() => {
@@ -34,7 +31,8 @@ const CreatorProfile = () => {
         setBio(data.bio);
         setSocialLink(data.social);
         setInstructorDescription(data.description);
-        console.log(data);
+
+        console.log("data", data);
       });
   }, [decoded.id]);
 

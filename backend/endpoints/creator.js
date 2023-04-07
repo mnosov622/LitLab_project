@@ -53,11 +53,9 @@ router.post(
   upload.single("profileImage"),
   async (req, res) => {
     try {
-      console.log("email", req.params.id);
       const db = client.db("courses");
       const bucket = new mongodb.GridFSBucket(db);
-      const storage = new multer.memoryStorage();
-      console.log("decripotion", req.body.description);
+
       let profileImage = undefined;
       if (req.file) {
         const imageUploadStream = bucket.openUploadStream(
@@ -70,24 +68,21 @@ router.post(
 
       const collection = db.collection("courses");
 
-      collection
-        .updateOne(
-          { email: req.params.email }, // filter to match the document to update
-          {
-            $set: {
-              instructorImageURL: profileImage,
-              instructorBio: req.body.bio,
-              social: req.body.social,
-              instructorDescription: req.body.description,
-            },
-          }
-        )
-        .then((updatedDocument) => {
-          // handle success
-        })
-        .catch((error) => {
-          // handle error
-        });
+      const updateFields = {};
+      if (req.body.bio) updateFields.instructorBio = req.body.bio;
+      if (req.body.social) updateFields.social = req.body.social;
+      if (req.body.description)
+        updateFields.instructorDescription = req.body.description;
+      if (profileImage) updateFields.instructorImageURL = profileImage;
+
+      const result = await collection.updateOne(
+        { email: req.params.email },
+        { $set: updateFields }
+      );
+
+      if (result.modifiedCount !== 1) {
+        return res.status(404).send("User not found");
+      }
 
       return res.send("User updated in database");
     } catch (err) {
