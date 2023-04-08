@@ -139,4 +139,29 @@ router.put("/moneyEarned", async (req, res) => {
   }
 });
 
+router.put("/:name", (req, res) => {
+  // Extract the updated course object from the request body
+  const { name, price, shortDescription, longDescription } = req.body;
+  // Connect to MongoDB
+  console.log("data", name, price);
+  // Get the courses collection
+  const db = client.db("courses");
+  const collection = db.collection("courses");
+  // Find the course by name and update it
+  collection.updateOne(
+    { name: req.params.name },
+    { $set: { name, price, shortDescription, longDescription } },
+    (err, result) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send("Error updating course");
+      } else if (result.matchedCount === 0) {
+        res.status(404).send("Course not found");
+      } else {
+        res.send("Course updated successfully");
+      }
+    }
+  );
+});
+
 module.exports = router;

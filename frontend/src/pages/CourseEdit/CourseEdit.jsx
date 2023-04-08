@@ -96,17 +96,20 @@ const CourseEdit = () => {
       .then((data) => {
         console.log(data);
         setLoading(false);
-        navigate("/");
+        // navigate("/");
         // Handle success or error response
       });
 
-    fetch(`http://localhost:8000/courses/${singleCourseName}`, {
+    fetch(`http://localhost:8000/creator/${singleCourse.name}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        updatedCourse: updatedCourse,
+        name: courseName,
+        shortDescription: shortDescription,
+        longDescription: longDescription,
+        price: price,
       }),
     })
       .then((res) => res.json())

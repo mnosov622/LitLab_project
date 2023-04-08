@@ -279,6 +279,7 @@ router.post("/creator", async (req, res) => {
 
 router.put("/creator/enrollments", async (req, res) => {
   const { email } = req.body;
+  client.connect();
   const db = client.db("users");
   const user = await db.collection("users").findOne({ email });
 
