@@ -31,6 +31,8 @@ router.post("/:id", upload.single("profileImage"), async (req, res) => {
         bio: req.body.bio,
         social: req.body.social,
         description: req.body.description,
+        name: req.body.name,
+        email: req.body.email,
       },
       { new: true }
     );
@@ -47,7 +49,6 @@ router.post("/:id", upload.single("profileImage"), async (req, res) => {
   }
 });
 
-//TODO: data is not updating
 router.post(
   "/courses/:email",
   upload.single("profileImage"),
@@ -74,6 +75,8 @@ router.post(
       if (req.body.description)
         updateFields.instructorDescription = req.body.description;
       if (profileImage) updateFields.instructorImageURL = profileImage;
+      if (req.body.instructor) updateFields.instructor = req.body.instructor;
+      if (req.body.email) updateFields.email = req.body.email;
 
       const result = await collection.updateOne(
         { email: req.params.email },

@@ -9,6 +9,8 @@ const CreatorProfile = () => {
   const [profileData, setProfileData] = useState([]);
   const [profileImage, setProfileImage] = useState();
   const [bio, setBio] = useState("");
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [instructorDescription, setInstructorDescription] = useState("");
 
   const [socialLink, setSocialLink] = useState("");
@@ -31,7 +33,8 @@ const CreatorProfile = () => {
         setBio(data.bio);
         setSocialLink(data.social);
         setInstructorDescription(data.description);
-
+        setEmail(data.email);
+        setName(data.name);
         console.log("data", data);
       });
   }, [decoded.id]);
@@ -41,6 +44,9 @@ const CreatorProfile = () => {
     formData.append("profileImage", profileImage);
     formData.append("bio", bio);
     formData.append("description", instructorDescription);
+    formData.append("name", name);
+    formData.append("instructor", name);
+    formData.append("email", email);
 
     fetch(`http://localhost:8000/creator/${decoded.id}`, {
       method: "POST",
@@ -194,10 +200,22 @@ const CreatorProfile = () => {
 
           <ul className="profile-body__contact-list">
             <li>
-              <span className="profile-body__contact-list__label fw-bold">
-                Email: &nbsp;
-              </span>
-              {profileData.email}
+              <p className="fs-3">Your Email</p>
+              <input
+                className="profile-body__bio form-control w-50 mx-auto"
+                type="text"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              ></input>
+            </li>
+            <li>
+              <p className="fs-3">Your Name</p>
+              <input
+                className="profile-body__bio form-control w-50 mx-auto"
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              ></input>
             </li>
             <li>
               <span className="profile-body__contact-list__label fw-bold">
