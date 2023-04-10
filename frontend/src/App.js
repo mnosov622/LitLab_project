@@ -105,6 +105,10 @@ function App() {
             <Route path="/all-courses" element={<AllCourses />} />
             <Route path="/course/:id" element={<CourseDescription />} />
             <Route path="/course-view/:id" element={<CourseView />} />
+            <Route path="/help" element={<Help />} />
+            <Route path="/privacy" element={<Privacy />} />
+            <Route path="/contact-us" element={<ContactUs />} />
+            <Route path="/term" element={<Term />} />
             <Route path="*" exact={true} element={<NotFound />} />
           </Routes>
         </Container>
@@ -128,6 +132,9 @@ function App() {
             <Route path="/contact-us" element={<ContactUs />} />
             <Route path="/profile" element={<CreatorProfile />} />
             <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/term" element={<Term />} />
+            <Route path="/help" element={<Help />} />
+            <Route path="/privacy" element={<Privacy />} />
             <Route path="*" exact={true} element={<NotFound />} />
           </Routes>
         </Container>
@@ -162,9 +169,10 @@ function App() {
                 path="/course/:id/certificate/:id"
                 element={<Certificate />}
               />
+              <Route path="/learner-signup" element={<LearnerSignup />} />
+              <Route path="/creator-signup" element={<CreatorSignup />} />
               <Route path="/certificate/:id" element={<Certificate />} />
               <Route path="/help" element={<Help />} />
-              <Route path="/lcomminuty" element={<LearnerCommunity />} />
               <Route path="/privacy" element={<Privacy />} />
               <Route path="/term" element={<Term />} />
 

@@ -155,7 +155,7 @@ const Users = () => {
                   </button>
                   &nbsp; &nbsp;
                   <button
-                    className="btn btn-info"
+                    className="btn btn-info text-white"
                     onClick={() => handleOpenEditModal(user._id, user.email)}
                   >
                     Edit User Information
@@ -198,7 +198,7 @@ const Users = () => {
                     </button>
 
                     <button
-                      className="btn btn-info"
+                      className="btn btn-info text-white"
                       onClick={() =>
                         handleOpenEditCourseModal(course.name, course.id)
                       }
