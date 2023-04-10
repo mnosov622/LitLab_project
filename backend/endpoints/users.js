@@ -279,4 +279,75 @@ router.delete("/withdrawals/:email", (req, res) => {
   );
 });
 
+const nodemailer = require("nodemailer");
+
+//send email
+
+// create reusable transporter object using the default SMTP transport
+
+const transporter = nodemailer.createTransport({
+  port: 465, // true for 465, false for other ports
+  host: "smtp.gmail.com",
+  auth: {
+    user: "litlab200@gmail.com",
+    pass: "fbwvydwfqefelrmb",
+  },
+  tls: {
+    rejectUnauthorized: false,
+  },
+});
+
+router.post("/withdraw/notify", (req, res) => {
+  const { userEmail, amount } = req.body;
+  const mailData = {
+    from: "litlab200@gmail.com",
+    to: userEmail,
+    subject: "Your withdraw request was approved",
+    text: text,
+    html: `
+    <style>
+    .contact-message {
+      background-color: #f5f5f5;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 20px;
+      margin: 20px;
+      max-width: 500px;
+    }
+    
+    .contact-message h2 {
+      font-size: 24px;
+      margin-top: 0;
+    }
+    
+    .contact-message p {
+      font-size: 18px;
+      margin: 10px 0;
+    }
+    
+    .contact-message strong {
+      font-weight: bold;
+    }
+    </style>
+    <div class="contact-message">
+    <h2>Success</h2>
+   <p>Your request to withdraw ${amount} was approved</p>
+  </div>`,
+  };
+
+  transporter.sendMail(mailData, (error, info) => {
+    if (error) {
+      res.status(500).send({ error: "Server error" });
+      return console.log(error);
+    }
+    res.status(200).send({
+      message: "Mail send",
+      message_id: info.messageId,
+      success: true,
+    });
+  });
+});
+
+module.exports = router;
+
 module.exports = router;

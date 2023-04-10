@@ -134,7 +134,7 @@ const Users = () => {
       .catch((e) => console.log(e));
   }, []);
 
-  const handleApprove = (userEmail) => {
+  const handleApprove = (userEmail, amount) => {
     fetch(`http://localhost:8000/users/moneyEarned/${userEmail}`, {
       method: "PUT",
       headers: {
@@ -152,6 +152,26 @@ const Users = () => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
+        fetch("http://localhost:8000/users/withdraw/notify", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ userEmail: userEmail, amount: amount }),
+        })
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            } else {
+              throw new Error("Request failed.");
+            }
+          })
+          .then((data) => {
+            console.log(data);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
 
         alert.success("Request was approved", {
           position: positions.BOTTOM_RIGHT,
@@ -336,7 +356,9 @@ const Users = () => {
                     <div className="buttons d-flex">
                       <button
                         className="btn btn-success"
-                        onClick={() => handleApprove(data.userEmail)}
+                        onClick={() =>
+                          handleApprove(data.userEmail, data.amount)
+                        }
                       >
                         Approve
                       </button>
