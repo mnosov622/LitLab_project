@@ -14,8 +14,6 @@ const Modal = ({
   name,
   email,
   id,
-  saveBtn,
-  deleteBtn,
 }) => {
   const [userData, setUserData] = useState([]);
   const [userName, setUserName] = useState("");
@@ -188,7 +186,7 @@ const Modal = ({
               Cancel
             </button>
 
-            {saveBtn ? (
+            {editUser ? (
               <button
                 type="button"
                 className="btn btn-success"
@@ -196,10 +194,10 @@ const Modal = ({
               >
                 Save
               </button>
-            ) : deleteBtn ? (
+            ) : editCourse ? (
               <button
                 type="button"
-                className="btn btn-danger"
+                className="btn btn-success"
                 onClick={() => handleSaveCourse(singleCourse.id)}
               >
                 Save

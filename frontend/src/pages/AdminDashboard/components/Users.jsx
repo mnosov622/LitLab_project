@@ -436,7 +436,7 @@ const Users = () => {
           item={selectedCourse}
           onConfirm={() => handleConfirm(selectedCourse)}
           onCancel={handleCancel}
-          deleteBtn
+          delete
         />
       )}
 
@@ -447,7 +447,6 @@ const Users = () => {
           item={selectedUser}
           onConfirm={() => handleConfirmDeleteUser(selectedUser)}
           onCancel={handleCancel}
-          deleteBtn
         />
       )}
 
@@ -459,7 +458,7 @@ const Users = () => {
           id={singleUserData._id}
           onConfirm={() => handleConfirmEditUser(selectedUser)}
           onCancel={handleCancel}
-          saveBtn
+          editUser
         />
       )}
 
@@ -470,7 +469,7 @@ const Users = () => {
           item={selectedCourse}
           onConfirm={() => handleConfirm(selectedCourse)}
           onCancel={handleCancel}
-          saveBtn
+          editCourse
         />
       )}
     </div>
