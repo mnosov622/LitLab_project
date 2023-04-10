@@ -11,151 +11,14 @@ import {
 } from "recharts";
 import "./Charts.css";
 import image1 from "../../../assets/courseImage.jpg";
-import { Row, Col } from "react-bootstrap";
-
-const enrollmentData = [
-  { month: "Jan", enrolled: 50 },
-  { month: "Feb", enrolled: 60 },
-  { month: "Mar", enrolled: 55 },
-  { month: "Apr", enrolled: 75 },
-  { month: "May", enrolled: 90 },
-  { month: "Jun", enrolled: 85 },
-  { month: "Jul", enrolled: 80 },
-  { month: "Aug", enrolled: 65 },
-  { month: "Sep", enrolled: 70 },
-  { month: "Oct", enrolled: 75 },
-  { month: "Nov", enrolled: 60 },
-  { month: "Dec", enrolled: 55 },
-];
-
-const earningsData = [
-  { month: "Jan", earnings: 5000 },
-  { month: "Feb", earnings: 6000 },
-  { month: "Mar", earnings: 5500 },
-  { month: "Apr", earnings: 7500 },
-  { month: "May", earnings: 9000 },
-  { month: "Jun", earnings: 8500 },
-  { month: "Jul", earnings: 8000 },
-  { month: "Aug", earnings: 6500 },
-  { month: "Sep", earnings: 7000 },
-  { month: "Oct", earnings: 7500 },
-  { month: "Nov", earnings: 6000 },
-  { month: "Dec", earnings: 5500 },
-];
-
-const enrolledUsersData = [
-  {
-    id: 1,
-    name: "John Gill",
-    email: "johngill@gmail.com",
-    course: "React - The Complete Guide",
-    image: "https://JavaScript-logo.png",
-  },
-  {
-    id: 2,
-    name: "Jane Doe",
-    email: "janedoe@hotmail.com",
-    course: "Javascript - From Zero to Hero",
-  },
-  {
-    id: 3,
-    name: "Bob Smith",
-    email: "bobsmith@yahoo.com",
-    course: "Intermediate Python",
-  },
-  {
-    id: 4,
-    name: "Alice Brown",
-    email: "alicebrown@gmail.com",
-    course: "Javascript - From Zero to Hero",
-  },
-  {
-    id: 3,
-    name: "Mike Johnson",
-    email: "mike.johnson@gmail.com",
-    course: "Advanced React Techniques",
-  },
-  {
-    id: 4,
-    name: "Sarah Thompson",
-    email: "sarah.thompson@gmail.com",
-    course: "React JS Fundamentals",
-  },
-  {
-    id: 5,
-    name: "Tom Wilson",
-    email: "tom.wilson@hotmail.com",
-    course: "React Native Development",
-  },
-];
-
-const instructorReviews = [
-  {
-    name: "Bob Smith",
-    review:
-      "Intermediate Python is a great course for anyone looking to take their Python skills to the next level. The instructor is knowledgeable and provides clear explanations of the concepts. The course content is well-organized and covers a lot of ground, including object-oriented programming and data structures. However, I would have liked to see more hands-on exercises and projects to practice the concepts learned. Overall, a solid course for intermediate Python learners.",
-    star: 5,
-  },
-  {
-    name: "Alice Brown",
-    review:
-      "This course is the best resource for learning Javascript! The instructor is great at explaining complex topics in a simple and understandable way, and the course projects helped me apply my knowledge in real-world scenarios. Highly recommend to anyone looking to learn Javascript.",
-    star: 3,
-  },
-  {
-    name: "Tom Wilson",
-    review:
-      "I really enjoyed this course and learned a lot about React. The instructor was knowledgeable and patient, and the course projects were relevant and engaging. The only reason I didn't give it 5 stars is because I would have liked more opportunities to ask questions and get feedback on my work.",
-    star: 4,
-  },
-  {
-    name: "Mike Johnson",
-    review:
-      "I highly recommend this course to anyone looking to learn React. The instructor did an excellent job explaining complex concepts in a simple and easy-to-understand way. The course covers everything you need to know to get started with React, and the hands-on projects were especially helpful in solidifying my understanding of the material.",
-    star: 5,
-  },
-];
-
-const EnrollmentChart = () => {
-  return (
-    <BarChart
-      width={650}
-      height={350}
-      data={enrollmentData}
-      margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-    >
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="month" />
-      <YAxis type="number" />
-      <Tooltip />
-      <Legend />
-      <Bar dataKey="enrolled" fill="#0d6efd" />
-    </BarChart>
-  );
-};
-
-const EarningsChart = () => {
-  return (
-    <BarChart
-      width={650}
-      height={350}
-      data={earningsData}
-      margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
-    >
-      <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="month" />
-      <YAxis type="number" />
-      <Tooltip />
-      <Legend />
-      <Bar dataKey="earnings" fill="#0d6efd" />
-    </BarChart>
-  );
-};
+import { Row, Col, Modal, Form, Button } from "react-bootstrap";
+import { useAlert, positions } from "react-alert";
 
 const Charts = () => {
   const token = localStorage.getItem("token");
   const decoded = jwtDecode(token);
   const userId = decoded.id;
+  const alert = useAlert();
 
   const [courses, setCourses] = useState([]);
   const [coursesLength, setCoursesLength] = useState([]);
@@ -163,6 +26,41 @@ const Charts = () => {
   const [course, setCourse] = useState([]);
   const [userData, setUserData] = useState([]);
 
+  const [show, setShow] = useState(false);
+
+  const [cardNumber, setCardNumber] = useState("");
+  const [cardHolderName, setCardHolderName] = useState("");
+  const [expirationMonth, setExpirationMonth] = useState("");
+  const [expirationDay, setExpirationDay] = useState("");
+  const [expirationYear, setExpirationYear] = useState("");
+  const [cvv, setCvv] = useState("");
+  const [error, setError] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const handleWithdraw = () => {
+    if (
+      cardHolderName &&
+      cardNumber &&
+      expirationMonth &&
+      expirationDay &&
+      expirationDay &&
+      expirationYear &&
+      cvv
+    ) {
+      setError(false);
+      alert.success("We received your request to withdraw money", {
+        position: positions.BOTTOM_RIGHT,
+        timeout: 3000,
+      });
+      setTimeout(() => {
+        handleClose();
+      }, 3500);
+      return;
+    }
+    setError(true);
+  };
   //const [enrolledUsers, setEnrolledUsers]= useState([]);
   //const enrolledUsers = enrolledUsersData.filter(user => user.courseId === courseId);
 
@@ -234,6 +132,11 @@ const Charts = () => {
               <span className="featuredMoney">
                 {userData.moneyEarned || 0}$
               </span>
+              <div className="ml-auto" style={{ marginLeft: "auto " }}>
+                <button className="btn btn-success btn-md" onClick={handleShow}>
+                  Withdraw
+                </button>
+              </div>
               <span className="featuredMoneyRate">
                 <span className="featuredIcon negative" />
               </span>
@@ -357,6 +260,116 @@ const Charts = () => {
           </p>
         )}
       </div>
+
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Enter Card Details</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <Form>
+            <Form.Group controlId="formCardNumber">
+              <Form.Label>Card Number</Form.Label>
+              <Form.Control
+                type="text"
+                placeholder="Enter card number"
+                className="mb-2"
+                maxLength={16}
+                value={cardNumber}
+                onChange={(e) => setCardNumber(e.target.value)}
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formCardName">
+              <Form.Label>Cardholder Name</Form.Label>
+              <Form.Control
+                value={cardHolderName}
+                onChange={(e) => setCardHolderName(e.target.value)}
+                type="text"
+                placeholder="Enter cardholder name"
+                className="mb-2"
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formExpirationDate">
+              <Form.Label>Expiration Date</Form.Label>
+              <div className="d-flex">
+                <Form.Select
+                  className="me-2 mb-2"
+                  aria-label="Month"
+                  value={expirationMonth}
+                  onChange={(e) => setExpirationMonth(e.target.value)}
+                >
+                  <option>Month</option>
+                  <option value="1">01</option>
+                  <option value="2">02</option>
+                  <option value="3">03</option>
+                  <option value="4">04</option>
+                  <option value="5">05</option>
+                  <option value="6">06</option>
+                  <option value="7">07</option>
+                  <option value="8">08</option>
+                  <option value="9">09</option>
+                  <option value="10">10</option>
+                  <option value="11">11</option>
+                  <option value="12">12</option>
+                </Form.Select>
+
+                <Form.Select
+                  className="me-2 mb-2"
+                  aria-label="Day"
+                  value={expirationDay}
+                  onChange={(e) => setExpirationDay(e.target.value)}
+                >
+                  <option>Day</option>
+                  {[...Array(31)].map((_, i) => (
+                    <option key={i} value={i + 1}>
+                      {i + 1}
+                    </option>
+                  ))}
+                </Form.Select>
+
+                <Form.Select
+                  aria-label="Year"
+                  className="mb-2"
+                  value={expirationYear}
+                  onChange={(e) => setExpirationYear(e.target.value)}
+                >
+                  <option>Year</option>
+                  {[...Array(10)].map((_, i) => (
+                    <option key={i} value={2023 + i}>
+                      {2023 + i}
+                    </option>
+                  ))}
+                </Form.Select>
+              </div>
+            </Form.Group>
+
+            <Form.Group controlId="formCVV">
+              <Form.Label>CVV</Form.Label>
+              <Form.Control
+                value={cvv}
+                onChange={(e) => setCvv(e.target.value)}
+                type="text"
+                placeholder="CVV"
+                className="w-25"
+                maxLength={3}
+              />
+            </Form.Group>
+          </Form>
+          {error && <p className="text-danger mt-3">Please fill all fields</p>}
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+
+          <Button variant="primary" onClick={handleWithdraw}>
+            Withdraw
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </>
   );
 };
