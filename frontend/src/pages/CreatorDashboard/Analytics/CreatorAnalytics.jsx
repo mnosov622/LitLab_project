@@ -74,7 +74,7 @@ const Charts = () => {
         date: formattedDate,
       };
 
-      fetch("http://localhost:8000/users/withdrawals", {
+      fetch("https://litlab-backend.vercel.app/users/withdrawals", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -99,7 +99,7 @@ const Charts = () => {
   //const enrolledUsers = enrolledUsersData.filter(user => user.courseId === courseId);
 
   useEffect(() => {
-    fetch(`http://localhost:8000/users/${userId}`)
+    fetch(`https://litlab-backend.vercel.app/users/${userId}`)
       .then((res) => res.json())
       .then((data) => {
         setCourses(data.courses);
@@ -212,7 +212,7 @@ const Charts = () => {
                     <td className="text-center">
                       <img
                         className="img-react"
-                        src={`http://localhost:8000/images/${user.courseImage}`}
+                        src={`https://litlab-backend.vercel.app/images/${user.courseImage}`}
                         alt="courseimage"
                         width={100}
                       />

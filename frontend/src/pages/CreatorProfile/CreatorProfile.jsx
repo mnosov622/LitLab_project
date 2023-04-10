@@ -26,7 +26,7 @@ const CreatorProfile = () => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:8000/users/${decoded.id}`)
+    fetch(`https://litlab-backend.vercel.app/users/${decoded.id}`)
       .then((response) => response.json())
       .then((data) => {
         setProfileData(data);
@@ -48,7 +48,7 @@ const CreatorProfile = () => {
     formData.append("instructor", name);
     formData.append("email", email);
 
-    fetch(`http://localhost:8000/creator/${decoded.id}`, {
+    fetch(`https://litlab-backend.vercel.app/creator/${decoded.id}`, {
       method: "POST",
       body: formData,
     }).then((res) => {
@@ -62,7 +62,7 @@ const CreatorProfile = () => {
       }
     });
 
-    fetch(`http://localhost:8000/creator/courses/${profileData.email}`, {
+    fetch(`https://litlab-backend.vercel.app/creator/courses/${profileData.email}`, {
       method: "POST",
       body: formData,
     })
@@ -96,7 +96,7 @@ const CreatorProfile = () => {
             <>
               <img
                 className="profile-header__avatar rounded w-25"
-                src={`http://localhost:8000/images/${profileData.profileImage}`}
+                src={`https://litlab-backend.vercel.app/images/${profileData.profileImage}`}
                 alt="avatar"
               />
               {!imagePreview && (

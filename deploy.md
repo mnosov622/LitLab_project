@@ -5,7 +5,7 @@ backend:
 https://litlab-teracle.vercel.app
 
 deploy backend:
-vercel
+vercel --prod
 
 ----Updated----
 Backend
