@@ -164,7 +164,9 @@ const Charts = () => {
           <div className="featuredItem">
             <span className="featuredTitle">Money Earned</span>
             <div className="featuredMoneyContainer">
-              <span className="featuredMoney">{moneyEarned || 0}$</span>
+              <span className="featuredMoney">
+                {userData.moneyEarned || 0}$
+              </span>
               <div className="ml-auto" style={{ marginLeft: "auto " }}>
                 {userData.moneyEarned > 0 && (
                   <button
@@ -305,7 +307,7 @@ const Charts = () => {
         </Modal.Header>
 
         <Modal.Body>
-          <p className="fw-bold fs-5">Withdraw {moneyEarned} $</p>
+          <p className="fw-bold fs-5">Withdraw {userData.moneyEarned} $</p>
           <Form>
             <Form.Group controlId="formCardNumber">
               <Form.Label>Card Number</Form.Label>

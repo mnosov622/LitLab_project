@@ -133,6 +133,20 @@ const Users = () => {
       .catch((e) => console.log(e));
   }, []);
 
+  const handleApprove = (userEmail) => {
+    console.log("userEmail", userEmail);
+    fetch(`http://localhost:8000/users/moneyEarned/${userEmail}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
+  };
+
+  const handleReject = () => {};
   return (
     <div>
       <h2 className="text-center mb-5 mt-5">All Users</h2>
@@ -285,10 +299,16 @@ const Users = () => {
                       </span>
                     </div>
                     <div className="buttons d-flex">
-                      <button className="btn btn-success">Approve</button>
+                      <button
+                        className="btn btn-success"
+                        onClick={() => handleApprove(data.userEmail)}
+                      >
+                        Approve
+                      </button>
                       <button
                         className="btn btn-danger"
                         style={{ marginLeft: "5%" }}
+                        onClick={() => handleReject(data.userEmail)}
                       >
                         Reject
                       </button>

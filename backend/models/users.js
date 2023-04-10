@@ -18,6 +18,7 @@ const userSchema = new mongoose.Schema({
   bio: { type: String },
   description: { type: String },
   social: { type: String },
+  moneyEarned: { type: Number },
   reviews: [
     {
       name: String,

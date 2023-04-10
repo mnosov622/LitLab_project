@@ -237,4 +237,26 @@ router.post("/withdrawals", (req, res) => {
   });
 });
 
+router.put("/moneyEarned/:email", (req, res) => {
+  const email = req.params.email;
+  console.log("email", email);
+  User.findOneAndUpdate(
+    { email: email },
+    { $set: { moneyEarned: 0 } },
+    { new: true },
+    (err, user) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).send("Server error");
+      }
+
+      if (!user) {
+        return res.status(404).send("User not found");
+      }
+
+      res.status(200).json(user);
+    }
+  );
+});
+
 module.exports = router;
