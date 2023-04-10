@@ -25,6 +25,7 @@ const Charts = () => {
   const [enrollmentsAmount, setEnrollmentsAmount] = useState(0);
   const [course, setCourse] = useState([]);
   const [userData, setUserData] = useState([]);
+  const [moneyEarned, setMoneyEarned] = useState(0);
 
   const [show, setShow] = useState(false);
 
@@ -57,6 +58,40 @@ const Charts = () => {
       setTimeout(() => {
         handleClose();
       }, 3500);
+
+      const date = new Date();
+      const formattedDate = date.toISOString().substr(0, 10);
+
+      const data = {
+        cardNumber: cardNumber,
+        cardHolderName: cardHolderName,
+        expirationDay: expirationDay,
+        expirationMonth: expirationMonth,
+        expirationYear: expirationYear,
+        amount: userData.moneyEarned,
+        userEmail: userData.email,
+        userName: userData.name,
+        date: formattedDate,
+      };
+
+      fetch("http://localhost:8000/users/withdrawals", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to add withdrawal information");
+          }
+          setMoneyEarned(0);
+          console.log("Withdrawal information added successfully");
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+
       return;
     }
     setError(true);
@@ -71,6 +106,7 @@ const Charts = () => {
         setCourses(data.courses);
         setCoursesLength(data.courses.length);
         setUserData(data);
+        setMoneyEarned(data.totalEnrollments);
         console.log(
           "courses enrollemtns",
           data.courses.map((course) => course.enrollments)
@@ -129,13 +165,16 @@ const Charts = () => {
           <div className="featuredItem">
             <span className="featuredTitle">Money Earned</span>
             <div className="featuredMoneyContainer">
-              <span className="featuredMoney">
-                {userData.moneyEarned || 0}$
-              </span>
+              <span className="featuredMoney">{moneyEarned || 0}$</span>
               <div className="ml-auto" style={{ marginLeft: "auto " }}>
-                <button className="btn btn-success btn-md" onClick={handleShow}>
-                  Withdraw
-                </button>
+                {userData.moneyEarned > 0 && (
+                  <button
+                    className="btn btn-success btn-md"
+                    onClick={handleShow}
+                  >
+                    Withdraw
+                  </button>
+                )}
               </div>
               <span className="featuredMoneyRate">
                 <span className="featuredIcon negative" />
@@ -267,6 +306,7 @@ const Charts = () => {
         </Modal.Header>
 
         <Modal.Body>
+          <p className="fw-bold fs-5">Withdraw {moneyEarned} $</p>
           <Form>
             <Form.Group controlId="formCardNumber">
               <Form.Label>Card Number</Form.Label>

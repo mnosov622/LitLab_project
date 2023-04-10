@@ -196,4 +196,45 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+router.post("/withdrawals", (req, res) => {
+  const email = "admin@gmail.com";
+  const withdrawalData = req.body;
+
+  const db = client.db("users");
+  const users = db.collection("users");
+
+  users.findOne({ email }, (err, user) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Failed to find user");
+      return;
+    }
+
+    if (!user) {
+      res.status(404).send("User not found");
+      return;
+    }
+
+    if (!user.withdrawals) {
+      user.withdrawals = [];
+    }
+
+    user.withdrawals.push(withdrawalData);
+
+    users.updateOne(
+      { email },
+      { $set: { withdrawals: user.withdrawals } },
+      (err) => {
+        if (err) {
+          console.error(err);
+          res.status(500).send("Failed to update user");
+          return;
+        }
+
+        res.status(200).send("Withdrawal information added successfully");
+      }
+    );
+  });
+});
+
 module.exports = router;
