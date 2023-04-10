@@ -76,19 +76,19 @@ const CreatorInformation = () => {
   const handleLeaveReview = (e) => {
     e.preventDefault();
 
-    // if (creatorData.creatorReview) {
-    //   const hasSubmittedReview = creatorData.creatorReview.some(
-    //     (course) => course.reviewerId === userId
-    //   );
+    if (creatorData.creatorReview) {
+      const hasSubmittedReview = creatorData.creatorReview.some(
+        (course) => course.reviewerId === userId
+      );
 
-    //   if (hasSubmittedReview) {
-    //     alert.error("You already submitted a review", {
-    //       position: positions.BOTTOM_RIGHT,
-    //       timeout: 5000,
-    //     });
-    //     return;
-    //   }
-    // }
+      if (hasSubmittedReview) {
+        alert.error("You already submitted a review", {
+          position: positions.BOTTOM_RIGHT,
+          timeout: 5000,
+        });
+        return;
+      }
+    }
     if (
       review.trim().length === 0 ||
       name.trim().length === 0 ||

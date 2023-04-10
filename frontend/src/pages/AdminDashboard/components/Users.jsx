@@ -189,7 +189,20 @@ const Users = () => {
       });
   };
 
-  const handleReject = () => {};
+  const handleReject = (userEmail) => {
+    alert.success("Request was rejected", {
+      position: positions.BOTTOM_RIGHT,
+      timeout: 2000,
+    });
+
+    fetch(`http://localhost:8000/users/withdrawals/${userEmail}`, {
+      method: "DELETE",
+    }).then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+    });
+  };
 
   return (
     <div>

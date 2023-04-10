@@ -303,7 +303,6 @@ router.post("/withdraw/notify", (req, res) => {
     from: "litlab200@gmail.com",
     to: userEmail,
     subject: "Your withdraw request was approved",
-    text: text,
     html: `
     <style>
     .contact-message {
