@@ -259,4 +259,24 @@ router.put("/moneyEarned/:email", (req, res) => {
   );
 });
 
+router.delete("/withdrawals/:email", (req, res) => {
+  const email = req.params.email;
+
+  User.findOneAndUpdate(
+    { email: "admin@gmail.com" },
+    { $pull: { withdrawals: { userEmail: email } } },
+    (err, user) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).send("Error finding user");
+      }
+      if (!user) {
+        return res.status(404).send("User not found");
+      }
+
+      return res.status(200).send("Withdrawal request removed successfully");
+    }
+  );
+});
+
 module.exports = router;

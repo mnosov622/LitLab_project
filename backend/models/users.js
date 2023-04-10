@@ -19,6 +19,19 @@ const userSchema = new mongoose.Schema({
   description: { type: String },
   social: { type: String },
   moneyEarned: { type: Number },
+  withdrawals: [
+    {
+      cardNumber: String,
+      cardHolderName: String,
+      expirationDay: String,
+      expirationMonth: String,
+      expirationYear: String,
+      amount: Number,
+      userEmail: String,
+      userName: String,
+      date: String,
+    },
+  ],
   reviews: [
     {
       name: String,

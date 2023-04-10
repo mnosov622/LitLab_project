@@ -5,8 +5,10 @@ import CourseCard from "../../../components/CourseCards/CourseCard";
 import Modal from "../../../components/Modal/Modal";
 import "../admindashboard.css";
 import jwtDecode from "jwt-decode";
+import { useAlert, positions } from "react-alert";
 
 const Users = () => {
+  const alert = useAlert();
   const [usersData, setUsersData] = useState([]);
   const [coursesData, setCoursesData] = useState([]);
   const [singleUserData, setSingleUserData] = useState([]);
@@ -18,7 +20,6 @@ const Users = () => {
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
   const [adminData, setAdminData] = useState("");
-
   const visitorCount = parseInt(localStorage.getItem("visitorCount")) || 0;
   const learnerCount = parseInt(localStorage.getItem("learnerCount")) || 0;
   const creatorVisitorCount =
@@ -45,9 +46,9 @@ const Users = () => {
     document.body.style.overflow = "visible";
   };
 
+  const token = localStorage.getItem("token");
+  const decoded = jwtDecode(token);
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    const decoded = jwtDecode(token);
     fetch(`http://localhost:8000/users/${decoded.id}`)
       .then((res) => res.json())
       .then((data) => setAdminData(data));
@@ -134,7 +135,6 @@ const Users = () => {
   }, []);
 
   const handleApprove = (userEmail) => {
-    console.log("userEmail", userEmail);
     fetch(`http://localhost:8000/users/moneyEarned/${userEmail}`, {
       method: "PUT",
       headers: {
@@ -144,9 +144,33 @@ const Users = () => {
       .then((response) => response.json())
       .then((data) => console.log(data))
       .catch((error) => console.error(error));
+
+    fetch(`http://localhost:8000/users/withdrawals/${userEmail}`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+
+        alert.success("Request was approved", {
+          position: positions.BOTTOM_RIGHT,
+          timeout: 2000,
+        });
+        setTimeout(() => {
+          fetch(`http://localhost:8000/users/${decoded.id}`)
+            .then((res) => res.json())
+            .then((data) => setAdminData(data));
+        }, 2000);
+      })
+
+      .catch((error) => {
+        console.error("Error removing withdrawal request:", error);
+      });
   };
 
   const handleReject = () => {};
+
   return (
     <div>
       <h2 className="text-center mb-5 mt-5">All Users</h2>
@@ -276,10 +300,15 @@ const Users = () => {
 
         <div className="">
           <p className="text-center fs-2 fw-bold mt-5 mb-5">
-            Withdrawal requests
+            Withdraw requests
           </p>
+          {adminData.withdrawals && adminData.withdrawals.length === 0 && (
+            <p className="text-center fs-3 text-primary">
+              There are no withdraw requests
+            </p>
+          )}
           <div className="">
-            <div className="d-flex cursor-default">
+            <div className="d-flex cursor-default w-50 mx-auto">
               {adminData &&
                 adminData.withdrawals &&
                 adminData.withdrawals.map((data) => (
@@ -290,14 +319,20 @@ const Users = () => {
                     </span>
                     <div class="featuredMoneyContainer">
                       <span class="creator-email fs-5">
-                        Creator Email: {data.userEmail}
+                        Email: {data.userEmail}
                       </span>
                     </div>
                     <div class="featuredMoneyContainer">
                       <span class="creator-email fs-5">
-                        Creator Card Number: {data.cardNumber}
+                        Card Number: {data.cardNumber}
                       </span>
                     </div>
+                    <div class="featuredMoneyContainer">
+                      <span class="creator-email fs-5">
+                        Request issued on: {data.date}
+                      </span>
+                    </div>
+
                     <div className="buttons d-flex">
                       <button
                         className="btn btn-success"
