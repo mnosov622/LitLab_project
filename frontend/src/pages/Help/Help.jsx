@@ -3,8 +3,8 @@ import React from "react";
 const Help = () => {
   return (
     <>
-      <div className="text-center fs-3">
-        <div className="title">Frequently Asked Questions</div>
+      <div className="text-center fs-3 pt-3 pb-3">
+        <div className="title pt-3 pb-3">Frequently Asked Questions</div>
       </div>
       <div className="accordion">
         <div className="accordion-item">

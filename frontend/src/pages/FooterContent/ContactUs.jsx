@@ -8,11 +8,10 @@ const ContactUs = () => {
   const emailRef = useRef();
   const subjectRef = useRef();
   const messageRef = useRef();
- 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     const fullName = nameRef.current.value;
     const email = emailRef.current.value;
     const subject = subjectRef.current.value;
@@ -21,16 +20,15 @@ const ContactUs = () => {
     fetch("http://localhost:8000/contact-us", {
       method: "POST",
       headers: {
-        "Content-Type" : "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({fullName, email, subject, message })
-    })
-    .then(res => {
-      if(res.status === 200) {
+      body: JSON.stringify({ fullName, email, subject, message }),
+    }).then((res) => {
+      if (res.status === 200) {
         navigate("/thankyou");
       }
     });
-  }
+  };
   return (
     <>
       <div className="container">
@@ -144,8 +142,8 @@ const ContactUs = () => {
                       </div>
                       <div className="text pl-3">
                         <p>
-                          <span>Address:</span> 198 West 21th Street
-                          Toronto, ON M4X 1X3
+                          <span>Address:</span> 198 West 21th Street Toronto, ON
+                          M4X 1X3
                         </p>
                       </div>
                     </div>
@@ -176,7 +174,14 @@ const ContactUs = () => {
                       </div>
                       <div className="text pl-3">
                         <p>
-                          <span>Website: </span> LitLabLearning.org
+                          <span>Website: </span>{" "}
+                          <a
+                            href="https://lit-lab-project.vercel.app/"
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            https://lit-lab-project.vercel.app/
+                          </a>
                         </p>
                       </div>
                     </div>
