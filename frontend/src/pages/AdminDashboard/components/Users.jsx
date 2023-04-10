@@ -157,7 +157,12 @@ const Users = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ userEmail: userEmail, amount: amount }),
+          body: JSON.stringify({
+            userEmail: userEmail,
+            amount: amount,
+            text: "approved",
+            status: "Success",
+          }),
         })
           .then((response) => {
             if (response.ok) {
@@ -189,12 +194,7 @@ const Users = () => {
       });
   };
 
-  const handleReject = (userEmail) => {
-    alert.success("Request was rejected", {
-      position: positions.BOTTOM_RIGHT,
-      timeout: 2000,
-    });
-
+  const handleReject = (userEmail, amount) => {
     fetch(`http://localhost:8000/users/withdrawals/${userEmail}`, {
       method: "DELETE",
     }).then((response) => {
@@ -202,6 +202,43 @@ const Users = () => {
         throw new Error("Network response was not ok");
       }
     });
+
+    fetch("http://localhost:8000/users/withdraw/notify", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userEmail: userEmail,
+        amount: amount,
+        text: "rejected",
+        status: "Failure",
+        failureMessage: "Please try again later or contact customer support",
+      }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Request failed.");
+        }
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+    alert.success("Request was rejected", {
+      position: positions.BOTTOM_RIGHT,
+      timeout: 2000,
+    });
+    setTimeout(() => {
+      fetch(`http://localhost:8000/users/${decoded.id}`)
+        .then((res) => res.json())
+        .then((data) => setAdminData(data));
+    }, 2000);
   };
 
   return (
@@ -378,7 +415,9 @@ const Users = () => {
                       <button
                         className="btn btn-danger"
                         style={{ marginLeft: "5%" }}
-                        onClick={() => handleReject(data.userEmail)}
+                        onClick={() =>
+                          handleReject(data.userEmail, data.amount)
+                        }
                       >
                         Reject
                       </button>

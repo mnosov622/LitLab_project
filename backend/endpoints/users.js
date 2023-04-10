@@ -298,11 +298,11 @@ const transporter = nodemailer.createTransport({
 });
 
 router.post("/withdraw/notify", (req, res) => {
-  const { userEmail, amount } = req.body;
+  const { userEmail, amount, text, status, failureMessage } = req.body;
   const mailData = {
     from: "litlab200@gmail.com",
     to: userEmail,
-    subject: "Your withdraw request was approved",
+    subject: "Your withdraw request",
     html: `
     <style>
     .contact-message {
@@ -329,8 +329,9 @@ router.post("/withdraw/notify", (req, res) => {
     }
     </style>
     <div class="contact-message">
-    <h2>Success</h2>
-   <p>Your request to withdraw ${amount} was approved</p>
+    <h2>${status}</h2>
+   <p>Your request to withdraw ${amount} $ was ${text}</p>
+   ${failureMessage ? `<p>${failureMessage}</p>` : ""}
   </div>`,
   };
 
