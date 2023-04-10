@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import CourseCard from "../../../components/CourseCards/CourseCard";
 import Modal from "../../../components/Modal/Modal";
 import "../admindashboard.css";
+import jwtDecode from "jwt-decode";
 
 const Users = () => {
   const [usersData, setUsersData] = useState([]);
@@ -16,6 +17,7 @@ const Users = () => {
   const [showEditCourseModal, setShowEditCourseModal] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [adminData, setAdminData] = useState("");
 
   const visitorCount = parseInt(localStorage.getItem("visitorCount")) || 0;
   const learnerCount = parseInt(localStorage.getItem("learnerCount")) || 0;
@@ -42,6 +44,14 @@ const Users = () => {
     setShowEditCourseModal(false);
     document.body.style.overflow = "visible";
   };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const decoded = jwtDecode(token);
+    fetch(`http://localhost:8000/users/${decoded.id}`)
+      .then((res) => res.json())
+      .then((data) => setAdminData(data));
+  }, []);
 
   const handleConfirm = (name) => {
     // handle confirm action
@@ -246,6 +256,45 @@ const Users = () => {
                   </span>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="">
+          <p className="text-center fs-2 fw-bold mt-5 mb-5">
+            Withdrawal requests
+          </p>
+          <div className="">
+            <div className="d-flex cursor-default">
+              {adminData &&
+                adminData.withdrawals &&
+                adminData.withdrawals.map((data) => (
+                  <div class="featuredItem cursor-none">
+                    <span class="featuredTitle">
+                      <span className="text-primary">{data.userName}</span>{" "}
+                      requested withdrawal - {data.amount} $
+                    </span>
+                    <div class="featuredMoneyContainer">
+                      <span class="creator-email fs-5">
+                        Creator Email: {data.userEmail}
+                      </span>
+                    </div>
+                    <div class="featuredMoneyContainer">
+                      <span class="creator-email fs-5">
+                        Creator Card Number: {data.cardNumber}
+                      </span>
+                    </div>
+                    <div className="buttons d-flex">
+                      <button className="btn btn-success">Approve</button>
+                      <button
+                        className="btn btn-danger"
+                        style={{ marginLeft: "5%" }}
+                      >
+                        Reject
+                      </button>
+                    </div>
+                  </div>
+                ))}
             </div>
           </div>
         </div>

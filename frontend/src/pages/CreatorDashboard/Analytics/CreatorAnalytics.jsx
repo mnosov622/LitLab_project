@@ -85,7 +85,6 @@ const Charts = () => {
           if (!response.ok) {
             throw new Error("Failed to add withdrawal information");
           }
-          setMoneyEarned(0);
           console.log("Withdrawal information added successfully");
         })
         .catch((error) => {
