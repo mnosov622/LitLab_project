@@ -96,7 +96,7 @@ const CourseEdit = () => {
       .then((data) => {
         console.log(data);
         setLoading(false);
-        // navigate("/");
+        navigate("/");
         // Handle success or error response
       });
 

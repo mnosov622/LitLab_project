@@ -142,9 +142,7 @@ router.put("/moneyEarned", async (req, res) => {
 router.put("/:name", (req, res) => {
   // Extract the updated course object from the request body
   const { name, price, shortDescription, longDescription } = req.body;
-  // Connect to MongoDB
-  console.log("data", name, price);
-  // Get the courses collection
+
   const db = client.db("courses");
   const collection = db.collection("courses");
   // Find the course by name and update it

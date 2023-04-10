@@ -15,23 +15,17 @@ const Footer = () => {
               <Link to="/aboutus">
                 <p className="">About us</p>
               </Link>
-              <a href="#most-popular">
-                <p className="">Most popular courses</p>
-              </a>
               <Link to="/all-courses">
                 <p className="">Explore all courses</p>
               </Link>
             </div>
             <div className="col-md-3">
-              <p className="fs-5 fw-bold">Community</p>
+              <p className="fs-5 fw-bold">Users</p>
               <Link to="/creator-signup">
-                <p className="/cccommunity">Content creator</p>
+                <p className="">Content creator</p>
               </Link>
-              <Link to="/lcommunity">
+              <Link to="/learner-signup">
                 <p className="">Learner</p>
-              </Link>
-              <Link to="/blog">
-                <p className="">Blog</p>
               </Link>
             </div>
             <div className="col-md-3">
