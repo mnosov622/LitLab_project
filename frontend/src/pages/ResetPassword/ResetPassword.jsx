@@ -31,12 +31,6 @@ const ResetPassword = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (localStorage.getItem("resettingPassword")) {
-      console.log("exists");
-    }
-  }, []);
-
-  useEffect(() => {
     setEmptyPassword(false);
     if (password !== confirmPassword) {
       setPasswordMatch(false);
@@ -49,7 +43,6 @@ const ResetPassword = () => {
   }, [confirmPassword, password]);
 
   const handleSubmit = async (e) => {
-    console.log("submitting");
     e.preventDefault();
     if (password.trim().length === 0) {
       setEmptyPassword(true);
@@ -60,7 +53,7 @@ const ResetPassword = () => {
       setShortPassword(true);
     }
 
-    if (passwordMatch && password.length > 8 && confirmPassword.length > 8) {
+    if (passwordMatch && password.length >= 8 && confirmPassword.length >= 8) {
       setShortPassword(false);
       localStorage.removeItem("resettingPassword");
 
