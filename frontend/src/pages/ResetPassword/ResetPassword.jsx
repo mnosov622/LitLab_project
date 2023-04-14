@@ -49,8 +49,9 @@ const ResetPassword = () => {
   }, [confirmPassword, password]);
 
   const handleSubmit = async (e) => {
+    console.log("submitting");
     e.preventDefault();
-    if (!password.trim()) {
+    if (password.trim().length === 0) {
       setEmptyPassword(true);
       return;
     }
@@ -70,13 +71,10 @@ const ResetPassword = () => {
       }).then((res) => {
         console.log("response", res);
         if (res.status === 400) {
-          alert.error(
-            "Reset password link has expired. Send new reset password request.",
-            {
-              position: positions.BOTTOM_CENTER,
-              timeout: 5000, // custom timeout just for this one alert
-            }
-          );
+          alert.error("Reset password link has expired. Send new reset password request.", {
+            position: positions.BOTTOM_CENTER,
+            timeout: 5000, // custom timeout just for this one alert
+          });
         }
         if (res.status === 200) {
           alert.success("You have successfully changed your password", {
@@ -115,23 +113,13 @@ const ResetPassword = () => {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                 />
-                {!passwordMatch && (
-                  <p className="text-danger mt-2">Passwords don't match</p>
-                )}
-                {emptyPassword && (
-                  <p className="text-danger mt-2">Password can't be empty</p>
-                )}
+                {!passwordMatch && <p className="text-danger mt-2">Passwords don't match</p>}
+                {emptyPassword && <p className="text-danger mt-2">Password can't be empty</p>}
                 {shortPassword && (
-                  <p className="text-danger mt-2">
-                    Password must be at least 8 characters long.
-                  </p>
+                  <p className="text-danger mt-2">Password must be at least 8 characters long.</p>
                 )}
               </Form.Group>
-              <Button
-                className="btn btn3 btn-primary btn-lg mb-3"
-                variant="primary"
-                type="submit"
-              >
+              <Button className="btn btn3 btn-primary btn-lg mb-3" variant="primary" type="submit">
                 Reset Password
               </Button>
             </Form>
