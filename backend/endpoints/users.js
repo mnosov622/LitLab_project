@@ -196,4 +196,158 @@ router.put("/:id", async (req, res) => {
   }
 });
 
+router.post("/withdrawals", (req, res) => {
+  const email = "admin@gmail.com";
+  const withdrawalData = req.body;
+
+  const db = client.db("users");
+  const users = db.collection("users");
+
+  users.findOne({ email }, (err, user) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Failed to find user");
+      return;
+    }
+
+    if (!user) {
+      res.status(404).send("User not found");
+      return;
+    }
+
+    if (!user.withdrawals) {
+      user.withdrawals = [];
+    }
+
+    user.withdrawals.push(withdrawalData);
+
+    users.updateOne(
+      { email },
+      { $set: { withdrawals: user.withdrawals } },
+      (err) => {
+        if (err) {
+          console.error(err);
+          res.status(500).send("Failed to update user");
+          return;
+        }
+
+        res.status(200).send("Withdrawal information added successfully");
+      }
+    );
+  });
+});
+
+router.put("/moneyEarned/:email", (req, res) => {
+  const email = req.params.email;
+  console.log("email", email);
+  User.findOneAndUpdate(
+    { email: email },
+    { $set: { moneyEarned: 0 } },
+    { new: true },
+    (err, user) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).send("Server error");
+      }
+
+      if (!user) {
+        return res.status(404).send("User not found");
+      }
+
+      res.status(200).json(user);
+    }
+  );
+});
+
+router.delete("/withdrawals/:email", (req, res) => {
+  const email = req.params.email;
+
+  User.findOneAndUpdate(
+    { email: "admin@gmail.com" },
+    { $pull: { withdrawals: { userEmail: email } } },
+    (err, user) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).send("Error finding user");
+      }
+      if (!user) {
+        return res.status(404).send("User not found");
+      }
+
+      return res.status(200).send("Withdrawal request removed successfully");
+    }
+  );
+});
+
+const nodemailer = require("nodemailer");
+
+//send email
+
+// create reusable transporter object using the default SMTP transport
+
+const transporter = nodemailer.createTransport({
+  port: 465, // true for 465, false for other ports
+  host: "smtp.gmail.com",
+  auth: {
+    user: "litlab200@gmail.com",
+    pass: "yneuhvjdnvurmmzr",
+  },
+  tls: {
+    rejectUnauthorized: false,
+  },
+});
+
+router.post("/withdraw/notify", (req, res) => {
+  const { userEmail, amount, text, status, failureMessage } = req.body;
+  const mailData = {
+    from: "litlab200@gmail.com",
+    to: userEmail,
+    subject: "Your withdraw request",
+    html: `
+    <style>
+    .contact-message {
+      background-color: #f5f5f5;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 20px;
+      margin: 20px;
+      max-width: 500px;
+    }
+    
+    .contact-message h2 {
+      font-size: 24px;
+      margin-top: 0;
+    }
+    
+    .contact-message p {
+      font-size: 18px;
+      margin: 10px 0;
+    }
+    
+    .contact-message strong {
+      font-weight: bold;
+    }
+    </style>
+    <div class="contact-message">
+    <h2>${status}</h2>
+   <p>Your request to withdraw ${amount} $ was ${text}</p>
+   ${failureMessage ? `<p>${failureMessage}</p>` : ""}
+  </div>`,
+  };
+
+  transporter.sendMail(mailData, (error, info) => {
+    if (error) {
+      res.status(500).send({ error: "Server error" });
+      return console.log(error);
+    }
+    res.status(200).send({
+      message: "Mail send",
+      message_id: info.messageId,
+      success: true,
+    });
+  });
+});
+
+module.exports = router;
+
 module.exports = router;

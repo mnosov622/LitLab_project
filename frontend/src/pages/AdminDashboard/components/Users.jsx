@@ -4,8 +4,11 @@ import { Link } from "react-router-dom";
 import CourseCard from "../../../components/CourseCards/CourseCard";
 import Modal from "../../../components/Modal/Modal";
 import "../admindashboard.css";
+import jwtDecode from "jwt-decode";
+import { useAlert, positions } from "react-alert";
 
 const Users = () => {
+  const alert = useAlert();
   const [usersData, setUsersData] = useState([]);
   const [coursesData, setCoursesData] = useState([]);
   const [singleUserData, setSingleUserData] = useState([]);
@@ -16,7 +19,7 @@ const Users = () => {
   const [showEditCourseModal, setShowEditCourseModal] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
-
+  const [adminData, setAdminData] = useState("");
   const visitorCount = parseInt(localStorage.getItem("visitorCount")) || 0;
   const learnerCount = parseInt(localStorage.getItem("learnerCount")) || 0;
   const creatorVisitorCount =
@@ -43,17 +46,25 @@ const Users = () => {
     document.body.style.overflow = "visible";
   };
 
+  const token = localStorage.getItem("token");
+  const decoded = jwtDecode(token);
+  useEffect(() => {
+    fetch(`https://litlab-backend.vercel.app/users/${decoded.id}`)
+      .then((res) => res.json())
+      .then((data) => setAdminData(data));
+  }, []);
+
   const handleConfirm = (name) => {
     // handle confirm action
     console.log(name);
-    fetch(`http://localhost:8000/courses/${name}`, {
+    fetch(`https://litlab-backend.vercel.app/courses/${name}`, {
       method: "DELETE",
     })
       .then((response) => {
         console.log(response);
         if (response.status === 200) {
           setShowDeleteUserModal(false);
-          fetch("http://localhost:8000/courses")
+          fetch("https://litlab-backend.vercel.app/courses")
             .then((res) => res.json())
             .then((data) => setCoursesData(data));
         }
@@ -64,13 +75,13 @@ const Users = () => {
   };
 
   const handleConfirmDeleteUser = (email) => {
-    fetch(`http://localhost:8000/users/${email}`, {
+    fetch(`https://litlab-backend.vercel.app/users/${email}`, {
       method: "DELETE",
     })
       .then((response) => {
         if (response.status === 200) {
           setShowDeleteUserModal(false);
-          fetch("http://localhost:8000/users")
+          fetch("https://litlab-backend.vercel.app/users")
             .then((res) => res.json())
             .then((data) => setUsersData(data));
         }
@@ -92,7 +103,7 @@ const Users = () => {
     setShowEditUserModal(true);
     setSelectedUser(email);
 
-    fetch(`http://localhost:8000/users/${id}`)
+    fetch(`https://litlab-backend.vercel.app/users/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setSingleUserData(data);
@@ -104,7 +115,7 @@ const Users = () => {
     console.log("id and name", id, name);
     setShowEditCourseModal(true);
     setSelectedCourse(id);
-    fetch(`http://localhost:8000/users/${id}`)
+    fetch(`https://litlab-backend.vercel.app/users/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setSingleUserData(data);
@@ -113,15 +124,122 @@ const Users = () => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:8000/users")
+    fetch("https://litlab-backend.vercel.app/users")
       .then((res) => res.json())
       .then((data) => setUsersData(data));
 
-    fetch("http://localhost:8000/courses")
+    fetch("https://litlab-backend.vercel.app/courses")
       .then((res) => res.json())
       .then((data) => setCoursesData(data))
       .catch((e) => console.log(e));
   }, []);
+
+  const handleApprove = (userEmail, amount) => {
+    fetch(`https://litlab-backend.vercel.app/users/moneyEarned/${userEmail}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data))
+      .catch((error) => console.error(error));
+
+    fetch(`https://litlab-backend.vercel.app/users/withdrawals/${userEmail}`, {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        fetch("https://litlab-backend.vercel.app/users/withdraw/notify", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userEmail: userEmail,
+            amount: amount,
+            text: "approved",
+            status: "Success",
+          }),
+        })
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            } else {
+              throw new Error("Request failed.");
+            }
+          })
+          .then((data) => {
+            console.log(data);
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+
+        alert.success("Request was approved", {
+          position: positions.BOTTOM_RIGHT,
+          timeout: 2000,
+        });
+        setTimeout(() => {
+          fetch(`https://litlab-backend.vercel.app/users/${decoded.id}`)
+            .then((res) => res.json())
+            .then((data) => setAdminData(data));
+        }, 2000);
+      })
+
+      .catch((error) => {
+        console.error("Error removing withdrawal request:", error);
+      });
+  };
+
+  const handleReject = (userEmail, amount) => {
+    fetch(`https://litlab-backend.vercel.app/users/withdrawals/${userEmail}`, {
+      method: "DELETE",
+    }).then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+    });
+
+    fetch("https://litlab-backend.vercel.app/users/withdraw/notify", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userEmail: userEmail,
+        amount: amount,
+        text: "rejected",
+        status: "Failure",
+        failureMessage: "Please try again later or contact customer support",
+      }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error("Request failed.");
+        }
+      })
+      .then((data) => {
+        console.log(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+
+    alert.success("Request was rejected", {
+      position: positions.BOTTOM_RIGHT,
+      timeout: 2000,
+    });
+    setTimeout(() => {
+      fetch(`https://litlab-backend.vercel.app/users/${decoded.id}`)
+        .then((res) => res.json())
+        .then((data) => setAdminData(data));
+    }, 2000);
+  };
 
   return (
     <div>
@@ -249,6 +367,66 @@ const Users = () => {
             </div>
           </div>
         </div>
+
+        <div className="">
+          <p className="text-center fs-2 fw-bold mt-5 mb-5">
+            Withdraw requests
+          </p>
+          {adminData.withdrawals && adminData.withdrawals.length === 0 && (
+            <p className="text-center fs-3 text-primary">
+              There are no withdraw requests
+            </p>
+          )}
+          <div className="">
+            <div className="d-flex cursor-default w-50 mx-auto">
+              {adminData &&
+                adminData.withdrawals &&
+                adminData.withdrawals.map((data) => (
+                  <div class="featuredItem cursor-none">
+                    <span class="featuredTitle">
+                      <span className="text-primary">{data.userName}</span>{" "}
+                      requested withdrawal - {data.amount} $
+                    </span>
+                    <div class="featuredMoneyContainer">
+                      <span class="creator-email fs-5">
+                        Email: {data.userEmail}
+                      </span>
+                    </div>
+                    <div class="featuredMoneyContainer">
+                      <span class="creator-email fs-5">
+                        Card Number: {data.cardNumber}
+                      </span>
+                    </div>
+                    <div class="featuredMoneyContainer">
+                      <span class="creator-email fs-5">
+                        Request issued on: {data.date}
+                      </span>
+                    </div>
+
+                    <div className="buttons d-flex">
+                      <button
+                        className="btn btn-success"
+                        onClick={() =>
+                          handleApprove(data.userEmail, data.amount)
+                        }
+                      >
+                        Approve
+                      </button>
+                      <button
+                        className="btn btn-danger"
+                        style={{ marginLeft: "5%" }}
+                        onClick={() =>
+                          handleReject(data.userEmail, data.amount)
+                        }
+                      >
+                        Reject
+                      </button>
+                    </div>
+                  </div>
+                ))}
+            </div>
+          </div>
+        </div>
       </div>
 
       {showDeleteCourseModal && (
@@ -258,6 +436,7 @@ const Users = () => {
           item={selectedCourse}
           onConfirm={() => handleConfirm(selectedCourse)}
           onCancel={handleCancel}
+          delete
         />
       )}
 

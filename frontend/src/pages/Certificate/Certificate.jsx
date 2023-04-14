@@ -38,14 +38,14 @@ const Certificate = () => {
       today.getMonth() + 1 + "/" + today.getDate() + "/" + today.getFullYear();
     console.log(date);
     setDate(date);
-    fetch(`http://localhost:8000/courses/${Number(id)}`)
+    fetch(`https://litlab-backend.vercel.app/courses/${Number(id)}`)
       .then((response) => response.json())
       .then((data) => {
         setCourseData(data.course);
         console.log("course", data.course);
       });
 
-    fetch(`http://localhost:8000/users/${decoded.id}`)
+    fetch(`https://litlab-backend.vercel.app/users/${decoded.id}`)
       .then((response) => response.json())
       .then((data) => {
         setUserData(data);
