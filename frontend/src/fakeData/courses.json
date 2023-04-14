@@ -183,8 +183,7 @@
     "pointsToLearn": [
       { "point": "Introduction to Javascript" },
       { "point": "Variables and data types in Javascript" },
-      { "point": "Control structures and loops in Javascript" },
-      { "point": "Functions and objects in Javascript" }
+      { "point": "Control structures, loops, functions and objects in Javascript" }
     ],
     "pointsSummary": "By the end of this course, you will have a comprehensive understanding of Javascript and the ability to build and implement complex web applications using the language.",
     "courseContent": [
@@ -316,7 +315,6 @@
     "pointsToLearn": [
       { "point": "Introduction to the psychology of influence" },
       { "point": "The tactics and strategies of influencers" },
-      { "point": "How to recognize and resist influence" },
       {
         "point": "How to use influence and persuasion in your personal and professional life"
       }
@@ -451,7 +449,6 @@
     "pointsToLearn": [
       { "point": "Introduction to financial markets" },
       { "point": "Types of financial markets" },
-      { "point": "Tools and techniques used by professionals" },
       { "point": "Risk management in financial markets" }
     ],
     "pointsSummary": "By the end of this course, you will have a comprehensive understanding of financial markets, including the different types of markets, and the tools and techniques used by professionals to navigate these markets.",
@@ -584,7 +581,6 @@
     "pointsToLearn": [
       { "point": "Introduction to effective communication" },
       { "point": "Active listening techniques" },
-      { "point": "Articulating thoughts clearly" },
       { "point": "Understanding the perspective of others" }
     ],
     "pointsSummary": "By the end of this course, you will have a comprehensive understanding of effective communication and the skills to communicate effectively in any situation.",
@@ -717,7 +713,6 @@
     "pointsToLearn": [
       { "point": "Introduction to probability" },
       { "point": "Distributions and their properties" },
-      { "point": "Hypothesis testing and hypothesis tests" },
       { "point": "Regression analysis and correlation" }
     ],
     "pointsSummary": "By the end of this course, you will have a comprehensive understanding of statistics and the ability to apply it to real-world problems. You will be able to use your knowledge to make informed decisions based on data.",
@@ -849,7 +844,6 @@
     ],
     "pointsToLearn": [
       { "point": "Advanced concepts in Python" },
-      { "point": "Decorators and generators" },
       { "point": "Exception handling and debugging" },
       { "point": "Best practices for efficient and maintainable code" }
     ],
@@ -984,8 +978,7 @@
       { "point": "Basic Spanish vocabulary for everyday situations" },
       {
         "point": "Conversation practice with the instructor and other students"
-      },
-      { "point": "Tips for speaking Spanish with confidence" }
+      }
     ],
     "pointsSummary": "By the end of this course, you will have a solid foundation in conversational Spanish and the ability to engage in basic conversations in the language.",
     "courseContent": [
@@ -1091,7 +1084,6 @@
     ],
     "pointsToLearn": [
       { "point": "Introduction to artificial intelligence" },
-      { "point": "Types of AI systems" },
       { "point": "Building machine learning models" },
       {
         "point": "Computer vision and natural language processing applications"
@@ -1227,8 +1219,7 @@
     "pointsToLearn": [
       { "point": "Introduction to data visualization" },
       { "point": "Data visualization design principles" },
-      { "point": "Creating charts and graphs using popular tools" },
-      { "point": "Best practices for visualizing data" }
+      { "point": "Creating charts and graphs using popular tools" }
     ],
     "pointsSummary": "By the end of this course, you will have a strong understanding of the principles of data visualization and the skills to create beautiful and impactful visualizations for your data.",
     "courseContent": [
@@ -1360,8 +1351,7 @@
     "pointsToLearn": [
       { "point": "Introduction to cloud computing" },
       { "point": "Comparison of different cloud platforms" },
-      { "point": "Building scalable applications using the cloud" },
-      { "point": "Cloud security best practices" }
+      { "point": "Building scalable applications using the cloud" }
     ],
     "pointsSummary": "By the end of this course, you will have a comprehensive understanding of cloud computing and the ability to build and deploy scalable and secure applications using the cloud.",
     "courseContent": [
@@ -1624,9 +1614,8 @@
     ],
     "pointsToLearn": [
       { "point": "Introduction to Business Intelligence" },
-      { "point": "Data analysis techniques" },
-      { "point": "Building interactive dashboards and visualizations" },
-      { "point": "Data-driven decision making" }
+      { "point": "Data analysis techniques and decision making" },
+      { "point": "Building interactive dashboards and visualizations" }
     ],
     "pointsSummary": "By the end of this course, you will have a comprehensive understanding of business intelligence and the ability to make data-driven decisions using the latest tools and techniques.",
     "courseContent": [
@@ -1758,8 +1747,7 @@
     "pointsToLearn": [
       { "point": "Introduction to digital marketing" },
       { "point": "Developing a digital marketing strategy" },
-      { "point": "Using search engines to reach your audience" },
-      { "point": "Social media marketing and advertising" }
+      { "point": "Using search engines to reach your audience" }
     ],
     "pointsSummary": "By the end of this course, you will have a comprehensive understanding of digital marketing and the skills to promote your business effectively online.",
     "courseContent": [
@@ -1891,7 +1879,6 @@
     "pointsToLearn": [
       { "point": "Introduction to blockchain technology" },
       { "point": "Setting up a blockchain network" },
-      { "point": "Building smart contracts" },
       { "point": "Developing decentralized applications" }
     ],
     "pointsSummary": "By the end of this course, you will have a comprehensive understanding of blockchain technology and the ability to build decentralized applications.",
@@ -2274,9 +2261,8 @@
       ],      
       "pointsToLearn": [
       { "point": "Identifying business opportunities" },
-      { "point": "Developing a business plan" },
-      { "point": "Marketing your product or service" },
-      { "point": "Managing finances and funding your business" }
+      { "point": "Developing a business plan and Managing finances and funding" },
+      { "point": "Marketing your product or service" }
     ],
     "pointsSummary": "By the end of this course, you will have the knowledge and skills needed to start your own successful business and become an entrepreneur.",
     "courseContent": [
