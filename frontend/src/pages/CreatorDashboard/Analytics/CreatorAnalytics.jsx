@@ -1,14 +1,6 @@
 import jwtDecode from "jwt-decode";
 import React, { useEffect, useState } from "react";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-} from "recharts";
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
 import "./Charts.css";
 import image1 from "../../../assets/courseImage.jpg";
 import { Row, Col, Modal, Form, Button } from "react-bootstrap";
@@ -111,10 +103,7 @@ const Charts = () => {
           data.courses.map((course) => course.enrollments)
         );
         const enrollments = data.courses.map((course) => course.enrollments);
-        const enrollmentsAmount = enrollments.reduce(
-          (acc, val) => acc + val,
-          0
-        );
+        const enrollmentsAmount = enrollments.reduce((acc, val) => acc + val, 0);
         console.log("Enrollment sum", enrollmentsAmount);
         setEnrollmentsAmount(enrollmentsAmount);
       });
@@ -151,9 +140,7 @@ const Charts = () => {
           <div className="featuredItem">
             <span className="featuredTitle">Total Enrollments</span>
             <div className="featuredMoneyContainer">
-              <span className="featuredMoney">
-                {userData?.totalEnrollments || 0}
-              </span>
+              <span className="featuredMoney">{userData?.totalEnrollments || 0}</span>
               <span className="featuredMoneyRate">
                 <span className="featuredIcon negative" />
               </span>
@@ -164,15 +151,10 @@ const Charts = () => {
           <div className="featuredItem">
             <span className="featuredTitle">Money Earned</span>
             <div className="featuredMoneyContainer">
-              <span className="featuredMoney">
-                {userData.moneyEarned || 0}$
-              </span>
+              <span className="featuredMoney">{userData.moneyEarned || 0}$</span>
               <div className="ml-auto" style={{ marginLeft: "auto " }}>
                 {userData.moneyEarned > 0 && (
-                  <button
-                    className="btn btn-success btn-md"
-                    onClick={handleShow}
-                  >
+                  <button className="btn btn-success btn-md" onClick={handleShow}>
                     Withdraw
                   </button>
                 )}
@@ -244,10 +226,7 @@ const Charts = () => {
                   userData.reviews
                     .slice(0, showAllReviews ? userData.reviews.length : 3)
                     .map((review) => (
-                      <div
-                        className="previous-reviews mb-3 p-3 position-relative"
-                        key={review.id}
-                      >
+                      <div className="previous-reviews mb-3 p-3 position-relative" key={review.id}>
                         <span
                           className="text-muted position-absolute"
                           style={{ right: "15px", top: "15px" }}
@@ -264,14 +243,9 @@ const Charts = () => {
                         <p>{review.review} </p>
                       </div>
                     ))}
-                {!showAllReviews &&
-                userData.reviews &&
-                userData.reviews?.length > 3 ? (
+                {!showAllReviews && userData.reviews && userData.reviews?.length > 3 ? (
                   <div className="text-center">
-                    <button
-                      onClick={handleShowAllReviews}
-                      className="btn btn-primary mb-3 w-100"
-                    >
+                    <button onClick={handleShowAllReviews} className="btn btn-primary mb-3 w-100">
                       Show more reviews
                     </button>
                   </div>
@@ -280,10 +254,7 @@ const Charts = () => {
                   userData.reviews &&
                   userData.reviews?.length > 3 && (
                     <div className="text-center">
-                      <button
-                        onClick={handleHideAllReviews}
-                        className="btn btn-primary mb-3 w-100"
-                      >
+                      <button onClick={handleHideAllReviews} className="btn btn-primary mb-3 w-100">
                         Hide reviews
                       </button>
                     </div>
@@ -295,9 +266,7 @@ const Charts = () => {
         )}
 
         {userData?.reviews?.length === 0 && (
-          <p className="fs-2 text-primary text-center mb-5 mt-5">
-            You don't have reviews yet
-          </p>
+          <p className="fs-2 text-primary text-center mb-5 mt-5">You don't have reviews yet</p>
         )}
       </div>
 
