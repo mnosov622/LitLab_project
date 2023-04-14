@@ -166,10 +166,7 @@ const CourseView = () => {
     });
 
     const newNote = { id: noteId || Date.now(), body: noteBody };
-    const newNotes = [
-      ...notes.filter((note) => note.id !== newNote.id),
-      newNote,
-    ];
+    const newNotes = [...notes.filter((note) => note.id !== newNote.id), newNote];
     setNotes(newNotes);
     setNoteId(null);
     setNoteBody("");
@@ -198,12 +195,9 @@ const CourseView = () => {
   const handleDeleteNote = (note) => {
     console.log(note);
 
-    fetch(
-      `https://litlab-backend.vercel.app/users/notes/${userId}/${note.id}`,
-      {
-        method: "DELETE",
-      }
-    ).then((res) => {
+    fetch(`https://litlab-backend.vercel.app/users/notes/${userId}/${note.id}`, {
+      method: "DELETE",
+    }).then((res) => {
       fetch(`https://litlab-backend.vercel.app/users/${userId}`)
         .then((res) => res.json())
         .then((data) => {
@@ -378,10 +372,7 @@ const CourseView = () => {
       ) : (
         <>
           <div className="bg-light shadow text-center p-2 fs-2 mb-4">
-            <Link
-              to={`/course/${courseData?.id}`}
-              className="text-underline courseName"
-            >
+            <Link to={`/course/${courseData?.id}`} className="text-underline courseName">
               {courseData?.name}
             </Link>
             &nbsp;&nbsp;<i className="bi bi-person-video3"></i>
@@ -423,12 +414,7 @@ const CourseView = () => {
               </Link>
             </div>
             <div className="col-md">
-              <Tabs
-                id="my-tabs"
-                className="col"
-                activeKey={activeTab}
-                onSelect={handleTabSelect}
-              >
+              <Tabs id="my-tabs" className="col" activeKey={activeTab} onSelect={handleTabSelect}>
                 <Tab eventKey="content" title="Content">
                   <div className="col">
                     <p className="fs-1 text-left ">Course Content</p>
@@ -465,19 +451,11 @@ const CourseView = () => {
                           />
                           <div className="text-end mt-3">
                             {noteId && (
-                              <Button
-                                className="me-2"
-                                variant="danger"
-                                onClick={handleNoteDelete}
-                              >
+                              <Button className="me-2" variant="danger" onClick={handleNoteDelete}>
                                 Delete
                               </Button>
                             )}
-                            <Button
-                              className="btnSave w-auto"
-                              variant="primary"
-                              type="submit"
-                            >
+                            <Button className="btnSave w-auto" variant="primary" type="submit">
                               Add
                             </Button>
                           </div>
@@ -485,9 +463,7 @@ const CourseView = () => {
                       </Col>
                     </Row>
                     <Col md={12}>
-                      {savedNotes.length > 0 && (
-                        <h3 className="p-0">Notes List</h3>
-                      )}
+                      {savedNotes.length > 0 && <h3 className="p-0">Notes List</h3>}
 
                       {savedNotes &&
                         savedNotes.map((note, index) => (
@@ -523,21 +499,9 @@ const CourseView = () => {
                     </Col>
                   </div>
                 </Tab>
-                <Tab
-                  eventKey="chat"
-                  title="Chat"
-                  id="chat-tab"
-                  onClick={showChat}
-                >
-                  <div
-                    className="chat-window"
-                    ref={chatWindowRef}
-                    onLoad={handleChatWindowLoad}
-                  >
-                    {messages &&
-                      messages.map((msg) => (
-                        <ChatMessage key={msg.id} message={msg} />
-                      ))}
+                <Tab eventKey="chat" title="Chat" id="chat-tab" onClick={showChat}>
+                  <div className="chat-window" ref={chatWindowRef} onLoad={handleChatWindowLoad}>
+                    {messages && messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
 
                     <span ref={dummy}></span>
                   </div>
@@ -550,32 +514,16 @@ const CourseView = () => {
                         onChange={(e) => setFormValue(e.target.value)}
                         placeholder="say something nice"
                       />
-                      <button
-                        className="submit-btn btn"
-                        type="submit"
-                        disabled={!formValue}
-                      >
+                      <button className="submit-btn btn" type="submit" disabled={!formValue}>
                         <i class="bi bi-send"></i>
                       </button>
                       <div className="icons mt-3">
-                        <span onClick={() => handleClick({ icon: "😊" })}>
-                          😊
-                        </span>
-                        <span onClick={() => handleClick({ icon: "😂" })}>
-                          😂
-                        </span>
-                        <span onClick={() => handleClick({ icon: "🤣" })}>
-                          🤣
-                        </span>
-                        <span onClick={() => handleClick({ icon: "😔" })}>
-                          😔
-                        </span>
-                        <span onClick={() => handleClick({ icon: "😢" })}>
-                          😢
-                        </span>
-                        <span onClick={() => handleClick({ icon: "😱" })}>
-                          😱
-                        </span>
+                        <span onClick={() => handleClick({ icon: "😊" })}>😊</span>
+                        <span onClick={() => handleClick({ icon: "😂" })}>😂</span>
+                        <span onClick={() => handleClick({ icon: "🤣" })}>🤣</span>
+                        <span onClick={() => handleClick({ icon: "😔" })}>😔</span>
+                        <span onClick={() => handleClick({ icon: "😢" })}>😢</span>
+                        <span onClick={() => handleClick({ icon: "😱" })}>😱</span>
                       </div>
                     </div>
                   </form>
@@ -585,11 +533,7 @@ const CourseView = () => {
           </div>
 
           <Tabs defaultActiveKey={""}>
-            <Tab
-              eventKey="email"
-              title="Send Feedback"
-              className="w-50 feedback"
-            >
+            <Tab eventKey="email" title="Send Feedback" className="w-50 feedback">
               <div className="my-3">
                 <p className="fs-4">
                   Send feedback to <b>{courseData?.instructor}</b>
@@ -610,9 +554,7 @@ const CourseView = () => {
                           onChange={(e) => setEmailAddress(e.target.value)}
                           onKeyUp={handleEmail}
                         />
-                        {emailError && (
-                          <div className="text-danger mt-2">{emailError}</div>
-                        )}
+                        {emailError && <div className="text-danger mt-2">{emailError}</div>}
                       </div>
                       <div className="mb-3">
                         <label htmlFor="name" className="form-label">
@@ -627,9 +569,7 @@ const CourseView = () => {
                           onChange={(e) => setName(e.target.value)}
                           onKeyUp={handleName}
                         />
-                        {nameError && (
-                          <div className="text-danger mt-2">{nameError}</div>
-                        )}
+                        {nameError && <div className="text-danger mt-2">{nameError}</div>}
                       </div>
                       <div className="mb-3">
                         <label htmlFor="emailBody" className="form-label">
@@ -643,11 +583,7 @@ const CourseView = () => {
                           onChange={(e) => setFeedback(e.target.value)}
                           onKeyUp={handleFeedback}
                         />
-                        {feedbackError && (
-                          <div className="text-danger mt-2">
-                            {feedbackError}
-                          </div>
-                        )}
+                        {feedbackError && <div className="text-danger mt-2">{feedbackError}</div>}
                       </div>
                       <button type="submit" className="btn btn-primary">
                         Send
@@ -665,8 +601,7 @@ const CourseView = () => {
 };
 
 function ChatMessage(props) {
-  const { text, uid, photoURL, createdAt, timeString, userName } =
-    props.message;
+  const { text, uid, photoURL, createdAt, timeString, userName } = props.message;
 
   const messageDate = createdAt && createdAt.toDate().toLocaleString();
   const dateObj = new Date(messageDate);
