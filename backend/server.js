@@ -40,7 +40,7 @@ const url = "mongodb+srv://litlab200:litlab@cluster0.fbncwuq.mongodb.net";
 //update this line to handle cors issues
 app.use(
   cors({
-    origin: "https://lit-lab-project-ten.vercel.app",
+    origin: "http://localhost:3000",
   })
 );
 
@@ -102,12 +102,8 @@ MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
     console.log("pointsToLearn", JSON.parse(req.body.pointsToLearn));
     // console.log("test", JSON.parse(req.body.questions));
 
-    const videoFile = req.files.find((file) =>
-      file.mimetype.startsWith("video/")
-    );
-    const imageFile = req.files.find((file) =>
-      file.mimetype.startsWith("image/")
-    );
+    const videoFile = req.files.find((file) => file.mimetype.startsWith("video/"));
+    const imageFile = req.files.find((file) => file.mimetype.startsWith("image/"));
 
     // Upload the video file
     const videoUploadStream = bucket.openUploadStream(videoFile.originalname);
@@ -217,97 +213,83 @@ app.put("/creator-courses/:id/courses/:courseId", (req, res) => {
   MongoClient.connect(url, { useNewUrlParser: true }, function (err, db) {
     if (err) throw err;
     const dbo = db.db("users");
-    dbo
-      .collection("users")
-      .findOne({ _id: ObjectId(req.params.id) }, function (err, user) {
-        if (err) throw err;
-        if (!user) {
-          res.status(404).json({ message: "User not found" });
-        } else {
-          console.log("user is", user);
-          const updatedCourses = user.courses.map((course) => {
-            if (Number(course.id) === Number(req.params.courseId)) {
-              console.log("course", course);
-              return { ...course, ...req.body.updatedCourse };
+    dbo.collection("users").findOne({ _id: ObjectId(req.params.id) }, function (err, user) {
+      if (err) throw err;
+      if (!user) {
+        res.status(404).json({ message: "User not found" });
+      } else {
+        console.log("user is", user);
+        const updatedCourses = user.courses.map((course) => {
+          if (Number(course.id) === Number(req.params.courseId)) {
+            console.log("course", course);
+            return { ...course, ...req.body.updatedCourse };
+          }
+          return course;
+        });
+        dbo
+          .collection("users")
+          .updateOne(
+            { _id: ObjectId(req.params.id) },
+            { $set: { courses: updatedCourses } },
+            function (err, result) {
+              if (err) throw err;
+              res.send({
+                message: "course data updated successfully",
+                result: result,
+              });
+              db.close();
             }
-            return course;
-          });
-          dbo
-            .collection("users")
-            .updateOne(
-              { _id: ObjectId(req.params.id) },
-              { $set: { courses: updatedCourses } },
-              function (err, result) {
-                if (err) throw err;
-                res.send({
-                  message: "course data updated successfully",
-                  result: result,
-                });
-                db.close();
-              }
-            );
-        }
-      });
+          );
+      }
+    });
   });
 });
 
 //TODO: Update course for all courses section
 app.put("/courses/:name", (req, res) => {
   const db = client.db("courses");
-  db.collection("courses").findOne(
-    { name: req.params.name },
-    function (err, course) {
-      if (!course) {
-        res.status(404).json({ message: "Course not found" });
-      } else {
-        db.collection("courses").updateOne(
-          { name: req.params.name },
-          {
-            $set: {
-              name: req.body.updatedCourse.name,
-              price: req.body.updatedCourse.price,
-              shortDescription: req.body.shortDescription,
-              longDescription: req.body.longDescription,
-            },
+  db.collection("courses").findOne({ name: req.params.name }, function (err, course) {
+    if (!course) {
+      res.status(404).json({ message: "Course not found" });
+    } else {
+      db.collection("courses").updateOne(
+        { name: req.params.name },
+        {
+          $set: {
+            name: req.body.updatedCourse.name,
+            price: req.body.updatedCourse.price,
+            shortDescription: req.body.shortDescription,
+            longDescription: req.body.longDescription,
           },
-          function (err, result) {
-            if (err) throw err;
-            res.send({
-              message: "course data updated successfully",
-              result: result,
-            });
-          }
-        );
-      }
-    }
-  );
-});
-
-app.get("/user-course/:userId", (req, res) => {
-  MongoClient.connect(
-    url,
-    { useNewUrlParser: true, useUnifiedTopology: true },
-    (err, client) => {
-      if (err) throw err;
-      const db = client.db("users");
-      db.collection("users").findOne(
-        { _id: new ObjectId(req.params.userId) },
-        (err, user) => {
+        },
+        function (err, result) {
           if (err) throw err;
-          res.json(user);
-          client.close();
+          res.send({
+            message: "course data updated successfully",
+            result: result,
+          });
         }
       );
     }
-  );
+  });
+});
+
+app.get("/user-course/:userId", (req, res) => {
+  MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, (err, client) => {
+    if (err) throw err;
+    const db = client.db("users");
+    db.collection("users").findOne({ _id: new ObjectId(req.params.userId) }, (err, user) => {
+      if (err) throw err;
+      res.json(user);
+      client.close();
+    });
+  });
 });
 
 app.delete("/users/:userEmail/courses/:courseId", (req, res) => {
   MongoClient.connect(url, (err, client) => {
     if (err) {
-      return res
-        .status(500)
-        .send({ message: "Error connecting to database: " + err });
+      return res.status(500).send({ message: "Error connecting to database: " + err });
     }
 
     const db = client.db("users");
@@ -318,9 +300,7 @@ app.delete("/users/:userEmail/courses/:courseId", (req, res) => {
       (err, result) => {
         client.close();
         if (err) {
-          return res
-            .status(500)
-            .send({ message: "Error deleting course: " + err });
+          return res.status(500).send({ message: "Error deleting course: " + err });
         }
         res.send({
           message: `Course with name ${req.params.courseName} was successfully deleted for user with id ${req.params.userEmail}`,

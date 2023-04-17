@@ -18,12 +18,12 @@ import "react-quill/dist/quill.snow.css";
 import { useAlert, positions } from "react-alert";
 
 firebase.initializeApp({
-  apiKey: "AIzaSyBqxPkGhgTnyDyTIl_FolvL2QJlJUuG_14",
-  authDomain: "litlab-chat.firebaseapp.com",
-  projectId: "litlab-chat",
-  storageBucket: "litlab-chat.appspot.com",
-  messagingSenderId: "790318006402",
-  appId: "1:790318006402:web:8ea027078cf1a73e49749b",
+  apiKey: "AIzaSyCi6okRbepqK9unlaRYxczK-29ycuLzVY8",
+  authDomain: "litlab-chat-v2.firebaseapp.com",
+  projectId: "litlab-chat-v2",
+  storageBucket: "litlab-chat-v2.appspot.com",
+  messagingSenderId: "682778969366",
+  appId: "1:682778969366:web:4f5adb24e484744da7fc37",
 });
 
 const firestore = firebase.firestore();
