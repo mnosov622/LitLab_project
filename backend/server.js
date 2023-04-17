@@ -40,7 +40,7 @@ const url = "mongodb+srv://litlab200:litlab@cluster0.fbncwuq.mongodb.net";
 //update this line to handle cors issues
 app.use(
   cors({
-    origin: "https://localhost:3000",
+    origin: "http://localhost:3000",
   })
 );
 
