@@ -98,7 +98,7 @@ const Login = () => {
         if (data?.user?.isLearner) {
           dispatch(logInAsLearner());
           localStorage.setItem("lastVisit", data.dateString);
-          navigate("/");
+          navigate("/all-courses");
         } else {
           dispatch(logInAsCreator());
           navigate("/");
@@ -141,7 +141,7 @@ const Login = () => {
         setWrongCredentials(false);
         if (data?.user?.isLearner) {
           dispatch(logInAsLearner());
-          navigate("/");
+          navigate("/all-courses");
         } else if (data?.user?.isCreator) {
           dispatch(logInAsCreator());
           navigate("/");
