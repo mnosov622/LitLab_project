@@ -76,7 +76,7 @@ const CreatorDashboard = () => {
           ) : (
             <>
               <div className="text-center">
-                <p className="fs-3">You don't have courses yet...</p>
+                <p className="fs-3">You have not uploaded any course yet...</p>
                 <img src={empty} alt="No courses" className="ml-auto mb-5 empty" />
                 <Link to="/upload" className="d-block">
                   <button className="btn btn-primary btn-lg">Create new course</button>

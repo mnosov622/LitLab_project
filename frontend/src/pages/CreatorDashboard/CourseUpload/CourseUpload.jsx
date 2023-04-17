@@ -99,6 +99,7 @@ const CourseUpload = () => {
   };
 
   const handleCorrectAnswerChange = (event, index) => {
+    setValidCorrectAnswer(true);
     const newQuestions = [...questions];
     newQuestions[index].correctAnswer = event.target.value;
     setQuestions(newQuestions);
@@ -217,83 +218,93 @@ const CourseUpload = () => {
   };
 
   const [submitErrorMessage, setSubmitErrorMessage] = useState(false);
+  const [validCorrectAnswer, setValidCorrectAnswer] = useState(true);
 
   const onSubmit = async (e) => {
     e.preventDefault();
-
-    if (
-      !video ||
-      !image ||
-      !inputValues.name ||
-      !inputValues.price ||
-      !inputValues.shortDescription ||
-      !inputValues.longDescription ||
-      pointsToLearn.length === 0 ||
-      weeks.length === 0 ||
-      questions.length === 0
-    ) {
-      setSubmitErrorMessage(true);
-      return;
-    }
-    setSubmitErrorMessage(false);
-
-    const courseContentJSON = JSON.stringify(weeks.map((week) => ({ week: week.week })));
-    const pointsToLearnJSON = JSON.stringify(
-      pointsToLearn.map((point) => ({ point: point.point }))
-    );
-    const questionsJSON = JSON.stringify(questions);
-    setLoading(true);
-    const formData = new FormData();
-    formData.append("files", video);
-    formData.append("files", image);
-    formData.append("email", decoded.email);
-    formData.append("courseName", inputValues.name);
-    formData.append("price", inputValues.price);
-    formData.append("shortDescription", inputValues.shortDescription);
-    formData.append("longDescription", inputValues.longDescription);
-    formData.append("pointsToLearn", pointsToLearnJSON);
-    formData.append("pointsSummary", summary);
-    formData.append("courseContent", courseContentJSON);
-    formData.append("test", questionsJSON);
-    formData.append("enrollments", 0);
-
-    const res = await fetch("https://litlab-backend.vercel.app/upload", {
-      method: "POST",
-      body: formData,
+    const isValid = questions.every((question) => {
+      return question.options.some((option) => option === question.correctAnswer);
     });
-    const data = await res.json();
 
-    const courseData = {
-      video: data.video,
-      instructorImageURL: instructorImage,
-      courseImageURL: data.image.originalname,
-      instructorEmail: decoded.email,
-      name: inputValues.name,
-      price: inputValues.price,
-      shortDescription: inputValues.shortDescription,
-      longDescription: inputValues.longDescription,
-      email: decoded.email,
-      instructor: decoded.name,
-      courseContent: weeks.map((week) => ({ week: week.week })),
-      pointsToLearn: pointsToLearn.map((point) => ({ point: point.point })),
-      pointsSummary: summary,
-      test: questions,
-      enrollments: 0,
-      instructorBio: bio,
-    };
-    setLoading(false);
+    if (isValid) {
+      setValidCorrectAnswer(true);
 
-    const response = await fetch("https://litlab-backend.vercel.app/courses", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(courseData),
-    });
-    const courses = await response.json();
+      if (
+        !video ||
+        !image ||
+        !inputValues.name ||
+        !inputValues.price ||
+        !inputValues.shortDescription ||
+        !inputValues.longDescription ||
+        pointsToLearn.length === 0 ||
+        weeks.length === 0 ||
+        questions.length === 0
+      ) {
+        setSubmitErrorMessage(true);
+        return;
+      }
+      setSubmitErrorMessage(false);
 
-    if (response.status === 200) {
-      navigate("/", { state: { success: true } });
+      const courseContentJSON = JSON.stringify(weeks.map((week) => ({ week: week.week })));
+      const pointsToLearnJSON = JSON.stringify(
+        pointsToLearn.map((point) => ({ point: point.point }))
+      );
+      const questionsJSON = JSON.stringify(questions);
+      setLoading(true);
+      const formData = new FormData();
+      formData.append("files", video);
+      formData.append("files", image);
+      formData.append("email", decoded.email);
+      formData.append("courseName", inputValues.name);
+      formData.append("price", inputValues.price);
+      formData.append("shortDescription", inputValues.shortDescription);
+      formData.append("longDescription", inputValues.longDescription);
+      formData.append("pointsToLearn", pointsToLearnJSON);
+      formData.append("pointsSummary", summary);
+      formData.append("courseContent", courseContentJSON);
+      formData.append("test", questionsJSON);
+      formData.append("enrollments", 0);
+
+      const res = await fetch("https://litlab-backend.vercel.app/upload", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await res.json();
+
+      const courseData = {
+        video: data.video,
+        instructorImageURL: instructorImage,
+        courseImageURL: data.image.originalname,
+        instructorEmail: decoded.email,
+        name: inputValues.name,
+        price: inputValues.price,
+        shortDescription: inputValues.shortDescription,
+        longDescription: inputValues.longDescription,
+        email: decoded.email,
+        instructor: decoded.name,
+        courseContent: weeks.map((week) => ({ week: week.week })),
+        pointsToLearn: pointsToLearn.map((point) => ({ point: point.point })),
+        pointsSummary: summary,
+        test: questions,
+        enrollments: 0,
+        instructorBio: bio,
+      };
+      setLoading(false);
+
+      const response = await fetch("https://litlab-backend.vercel.app/courses", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(courseData),
+      });
+      const courses = await response.json();
+
+      if (response.status === 200) {
+        navigate("/", { state: { success: true } });
+      }
+    } else {
+      setValidCorrectAnswer(false);
     }
   };
 
@@ -660,6 +671,10 @@ const CourseUpload = () => {
                           className="form-control"
                           onChange={(event) => handleCorrectAnswerChange(event, questionIndex)}
                         />
+
+                        {!validCorrectAnswer && (
+                          <p className="text-danger">Correct Answer should match any option</p>
+                        )}
                       </div>
                     ))}
                   </div>
