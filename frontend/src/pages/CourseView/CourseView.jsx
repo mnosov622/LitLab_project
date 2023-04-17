@@ -35,10 +35,8 @@ const CourseView = () => {
   const handleTabSelect = (tabKey) => {
     if (tabKey === "chat") {
       // Code to execute when the Chat tab is selected
-      console.log("Chat tab selected");
     } else if (tabKey === "notes") {
       // Code to execute when the Notes tab is selected
-      console.log("Notes tab selected");
     }
 
     setActiveTab(tabKey);
@@ -48,7 +46,6 @@ const CourseView = () => {
 
   useEffect(() => {
     if (activeTab === "chat" && chatWindowRef.current && chatWindowLoaded) {
-      console.log("active");
       chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
     }
   }, [activeTab, chatWindowLoaded]);
@@ -92,7 +89,6 @@ const CourseView = () => {
     fetch(`https://litlab-backend.vercel.app/users/${userId}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log("user data", data);
         setSavedNotes(data.notes);
       });
   }, []);
@@ -173,14 +169,12 @@ const CourseView = () => {
   };
 
   const handleDeleteNotes = () => {
-    console.log("clicked");
     fetch(`https://litlab-backend.vercel.app/users/notes/${userId}`, {
       method: "DELETE",
     }).then((res) => {
       fetch(`https://litlab-backend.vercel.app/users/${userId}`)
         .then((res) => res.json())
         .then((data) => {
-          console.log("notes", data.notes);
           setSavedNotes(data.notes);
         });
     });
@@ -193,8 +187,6 @@ const CourseView = () => {
   };
 
   const handleDeleteNote = (note) => {
-    console.log(note);
-
     fetch(`https://litlab-backend.vercel.app/users/notes/${userId}/${note.id}`, {
       method: "DELETE",
     }).then((res) => {
@@ -214,13 +206,11 @@ const CourseView = () => {
       .then((data) => {
         setCourseData(data.course);
         setLoading(false);
-        console.log("course", data.course);
       });
   }, []);
 
   useEffect(() => {
     const videoSourceLink = courseData?.video?.startsWith("https");
-    console.log("source true", videoSourceLink);
     if (videoSourceLink) {
       setFakeVideo(true);
     } else {
@@ -233,15 +223,12 @@ const CourseView = () => {
 
   const handleEnded = () => {
     setIsFinished(true);
-    console.log("video is done");
   };
 
   useEffect(() => {
     window.addEventListener("message", (e) => {
-      console.log("data", e.data);
       if (e.data === "videoEnded") {
         handleEnded();
-        console.log("vide endede");
       }
     });
     return () => {
@@ -256,9 +243,7 @@ const CourseView = () => {
     }
   }, [chatWindowRef]);
 
-  const showChat = () => {
-    console.log("tab clicked");
-  };
+  const showChat = () => {};
   const [emailAddress, setEmailAddress] = useState("");
   const [name, setName] = useState("");
   const [feedback, setFeedback] = useState("");

@@ -92,37 +92,28 @@ const LearnerSignup = () => {
   const onSuccess = async (res) => {
     // navigate("/");
     const { name, email } = res.profileObj;
-    console.log(name, email, res.accessToken);
-    console.log(res);
 
     try {
-      const response = await fetch(
-        "https://litlab-backend.vercel.app/register-with-google",
-        {
-          method: "POST",
-          body: JSON.stringify({
-            name,
-            email,
-            token: res.accessToken,
-            isLearner: true,
-          }),
-          headers: { "Content-Type": "application/json" },
-        }
-      );
+      const response = await fetch("https://litlab-backend.vercel.app/register-with-google", {
+        method: "POST",
+        body: JSON.stringify({
+          name,
+          email,
+          token: res.accessToken,
+          isLearner: true,
+        }),
+        headers: { "Content-Type": "application/json" },
+      });
 
       if (response.status === 409) {
-        console.log("Existsd");
         return setUserExists(true);
       }
       navigate("/login", { state: { success: true } });
       setUserExists(false);
-    } catch (e) {
-      console.log("Unknown error", e);
-    }
+    } catch (e) {}
   };
 
   const onFailure = (err) => {
-    console.log("failed:", err);
     setUserExists(true);
   };
 
@@ -136,16 +127,13 @@ const LearnerSignup = () => {
           body: JSON.stringify({ name, email, password, isLearner: true }),
           headers: { "Content-Type": "application/json" },
         });
-        console.log(response);
         if (response.status === 200) {
           navigate("/login", { state: { success: true } });
           setUserExists(false);
         } else if (response.status === 409) {
           setUserExists(true);
         }
-      } catch (e) {
-        console.log("Unknown error", e);
-      }
+      } catch (e) {}
     }
     setShowLoader(false);
   };
@@ -157,12 +145,7 @@ const LearnerSignup = () => {
           <Row className="justify-content-md-center">
             <Col>
               <div>
-                <img
-                  className="img"
-                  src={student}
-                  alt="Login In"
-                  style={{ width: "30em" }}
-                />
+                <img className="img" src={student} alt="Login In" style={{ width: "30em" }} />
               </div>
             </Col>
             <Col className="form mt-5">
@@ -181,9 +164,7 @@ const LearnerSignup = () => {
                     onKeyUp={handleName}
                   />
                   <label for="floatingName">Full Name</label>
-                  {nameError && (
-                    <div className="text-danger mt-2">{nameError}</div>
-                  )}
+                  {nameError && <div className="text-danger mt-2">{nameError}</div>}
                 </div>
                 <div className="form-floating mb-3">
                   <input
@@ -200,9 +181,7 @@ const LearnerSignup = () => {
                     onKeyUp={handleEmail}
                   />
                   <label for="floatingEmail">Email Address</label>
-                  {emailError && (
-                    <div className="text-danger mt-2">{emailError}</div>
-                  )}
+                  {emailError && <div className="text-danger mt-2">{emailError}</div>}
                 </div>
                 <div className="form-floating mb-3">
                   <input
@@ -216,9 +195,7 @@ const LearnerSignup = () => {
                     onKeyUp={handlePassword}
                   />
                   <label for="floatingPassword">Password</label>
-                  {passwordError && (
-                    <div className="text-danger mt-2">{passwordError}</div>
-                  )}
+                  {passwordError && <div className="text-danger mt-2">{passwordError}</div>}
                 </div>
                 <div className="form-floating mb-3">
                   <input
@@ -232,16 +209,10 @@ const LearnerSignup = () => {
                     onKeyUp={handlePasswordMatch}
                   />
                   <label for="floatingReEnterPassword">Re-enter password</label>
-                  {!passwordMatch && (
-                    <div className="text-danger mt-2">
-                      Passwords don't match
-                    </div>
-                  )}
+                  {!passwordMatch && <div className="text-danger mt-2">Passwords don't match</div>}
                 </div>
                 {userExists && (
-                  <div className="text-danger">
-                    User with this email already exists
-                  </div>
+                  <div className="text-danger">User with this email already exists</div>
                 )}
                 <ReCAPTCHA
                   className="mt-2 mb-2"
@@ -285,9 +256,7 @@ const LearnerSignup = () => {
                   <Form.Label className="font2">
                     Already have account ?
                     <Link to="/login" className="">
-                      <Form.Label className="font2 link">
-                        &nbsp;Log In
-                      </Form.Label>
+                      <Form.Label className="font2 link">&nbsp;Log In</Form.Label>
                     </Link>
                   </Form.Label>
                 </Form.Group>

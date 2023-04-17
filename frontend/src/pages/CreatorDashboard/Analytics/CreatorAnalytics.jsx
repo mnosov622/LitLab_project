@@ -77,11 +77,8 @@ const Charts = () => {
           if (!response.ok) {
             throw new Error("Failed to add withdrawal information");
           }
-          console.log("Withdrawal information added successfully");
         })
-        .catch((error) => {
-          console.error(error);
-        });
+        .catch((error) => {});
 
       return;
     }
@@ -98,13 +95,8 @@ const Charts = () => {
         setCoursesLength(data.courses.length);
         setUserData(data);
         setMoneyEarned(data.totalEnrollments);
-        console.log(
-          "courses enrollemtns",
-          data.courses.map((course) => course.enrollments)
-        );
         const enrollments = data.courses.map((course) => course.enrollments);
         const enrollmentsAmount = enrollments.reduce((acc, val) => acc + val, 0);
-        console.log("Enrollment sum", enrollmentsAmount);
         setEnrollmentsAmount(enrollmentsAmount);
       });
   }, []);

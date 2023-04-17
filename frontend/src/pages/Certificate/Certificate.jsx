@@ -32,17 +32,13 @@ const Certificate = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     const decoded = jwtDecode(token);
-    console.log(decoded.id);
     let today = new Date();
-    let date =
-      today.getMonth() + 1 + "/" + today.getDate() + "/" + today.getFullYear();
-    console.log(date);
+    let date = today.getMonth() + 1 + "/" + today.getDate() + "/" + today.getFullYear();
     setDate(date);
     fetch(`https://litlab-backend.vercel.app/courses/${Number(id)}`)
       .then((response) => response.json())
       .then((data) => {
         setCourseData(data.course);
-        console.log("course", data.course);
       });
 
     fetch(`https://litlab-backend.vercel.app/users/${decoded.id}`)
@@ -108,8 +104,7 @@ const Certificate = () => {
           <br />
           <br />
           <p className="fs-5 fw-bold">
-            Instructor:{" "}
-            {courseData && courseData.instructor && courseData.instructor}
+            Instructor: {courseData && courseData.instructor && courseData.instructor}
           </p>
           <p className="fs-5 text-primary">LitLab</p>
         </p>

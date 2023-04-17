@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import teacher from "../../assets/home_teacher.png";
 import styles from "./styles.module.scss";
@@ -23,10 +23,9 @@ const Home = () => {
 
   const cart = useSelector((state) => state.cartReducer);
   useEffect(() => {
-    const visitorCount = parseInt(localStorage.getItem('visitorCount')) || 0;
-    localStorage.setItem('visitorCount', visitorCount + 1);
+    const visitorCount = parseInt(localStorage.getItem("visitorCount")) || 0;
+    localStorage.setItem("visitorCount", visitorCount + 1);
   }, []);
-  console.log("CART", cart);
   return (
     <>
       <div className="row">
@@ -34,22 +33,18 @@ const Home = () => {
           <div className={styles.about}>
             <p className={styles.title}>Learn from certified professionals</p>
             <p className={styles.subtitle}>
-              With LitLab you can learn any topic you want, get certification
-              and connect with other learners.​
+              With LitLab you can learn any topic you want, get certification and connect with other
+              learners.​
             </p>
             <div className="row">
               <div className="col-4">
                 <Link to="/learner-signup" className="">
-                  <button className="btn btn-lg btn-primary w-100">
-                    Start Learning
-                  </button>
+                  <button className="btn btn-lg btn-primary w-100">Start Learning</button>
                 </Link>
               </div>
               <div className="col-6">
                 <Link to="/creator-signup" className="">
-                  <button className="btn btn-lg btn-outline-primary">
-                    Become content creator
-                  </button>
+                  <button className="btn btn-lg btn-outline-primary">Become content creator</button>
                 </Link>
               </div>
             </div>
@@ -83,12 +78,8 @@ const Home = () => {
       </div>
       <div className="row mt-5" id="most-popular">
         <div className="col-md-12 mt-5 fs-2">
-          <p className="mt-5 title text-primary">
-            Get certificate for your field
-          </p>
-          <p className="subtitle fs-3">
-            Boost your career with most popular courses on LitLab
-          </p>
+          <p className="mt-5 title text-primary">Get certificate for your field</p>
+          <p className="subtitle fs-3">Boost your career with most popular courses on LitLab</p>
           <div className="row">
             <div className="col-md-4">
               <CourseCard
@@ -121,17 +112,14 @@ const Home = () => {
               />
             </div>
             <Link to="/all-courses" className="text-center ">
-              <button className="btn btn-primary btn-lg">
-                See other courses
-              </button>
+              <button className="btn btn-primary btn-lg">See other courses</button>
             </Link>
           </div>
         </div>
         <div className="row mt-5">
           <div className="col-md-12">
             <p className="fs-1 text-center mb-5">
-              Courses you can explore{" "}
-              <span className={styles.gradientColor}> today</span>
+              Courses you can explore <span className={styles.gradientColor}> today</span>
             </p>
           </div>
         </div>
@@ -150,9 +138,7 @@ const Home = () => {
       </div>
 
       <div className="row mt-5">
-        <div className="col-md-12 text-center fs-1 mt-5">
-          What people say about us
-        </div>
+        <div className="col-md-12 text-center fs-1 mt-5">What people say about us</div>
       </div>
       <div className="row text-center border-bottom">
         <div className="col-md-4 ">
@@ -187,13 +173,10 @@ const Home = () => {
         <div className="offset-1 col-md-5 mt-5 ">
           <p className="mt-2 fs-1 text-primary">Stand out from the crowd</p>
           <p className="fs-2">
-            Complete courses, get certificate and provide value at the market
-            today.
+            Complete courses, get certificate and provide value at the market today.
           </p>
           <Link to="/learner-signup">
-            <button className="btn btn-lg btn-primary mt-5">
-              Get personalized experience
-            </button>
+            <button className="btn btn-lg btn-primary mt-5">Get personalized experience</button>
           </Link>
         </div>
       </div>

@@ -20,10 +20,8 @@ const Question = ({
   const handleOptionClick = (selectedOption) => {
     setSelectedOption(selectedOption);
     if (selectedOption === correctOption) {
-      console.log("correct");
       handleCorrectAnswer();
     } else {
-      console.log("bad");
     }
   };
 
@@ -141,12 +139,9 @@ const Test = () => {
 
   const handleOptionClick = (selectedOption, correctOption) => {
     setSelectedOption(selectedOption);
-    console.log("selected", selectedOption, correctOption);
     if (selectedOption === correctOption) {
-      console.log("correct");
       handleCorrectAnswer();
     } else {
-      console.log("bad");
     }
   };
 
@@ -167,9 +162,7 @@ const Test = () => {
   // ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [selectedAnswers, setSelectedAnswers] = useState(
-    Array(question.length).fill(null)
-  );
+  const [selectedAnswers, setSelectedAnswers] = useState(Array(question.length).fill(null));
 
   const handleNext = () => {
     setSelectedOption(null);
@@ -212,9 +205,7 @@ const Test = () => {
           }
         );
 
-        console.log(response);
         if (!response.ok) {
-          console.log("error");
           throw new Error(response.statusText);
         }
       };
@@ -224,19 +215,16 @@ const Test = () => {
 
   useEffect(() => {
     if (question.length === 0) {
-      fetch(
-        `https://litlab-backend.vercel.app/users/${userEmail}/courses/${id}`,
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            userEmail: userEmail,
-            courseId: id,
-          }),
-        }
-      );
+      fetch(`https://litlab-backend.vercel.app/users/${userEmail}/courses/${id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userEmail: userEmail,
+          courseId: id,
+        }),
+      });
     }
   }, []);
   setTimeout(() => {
@@ -250,7 +238,6 @@ const Test = () => {
       .then((data) => {
         setQuestions(data.course.test);
         setLoading(false);
-        console.log("course", data);
       });
   }, []);
 
@@ -281,13 +268,8 @@ const Test = () => {
                 Complete a test to get certificate &nbsp;&nbsp;
                 <i className="bi bi-patch-check"></i>
               </p>
-              <div
-                className={`${correctAnswers === totalQuestions && "d-none"}`}
-              >
-                <div
-                  className="form-item question"
-                  key={question[currentIndex].question}
-                >
+              <div className={`${correctAnswers === totalQuestions && "d-none"}`}>
+                <div className="form-item question" key={question[currentIndex].question}>
                   <h2 className="mb-3">{question[currentIndex].question}</h2>
                   {question[currentIndex].options.map((option) => (
                     <>
@@ -299,10 +281,7 @@ const Test = () => {
                           id={option}
                           checked={selectedOption === option}
                           onChange={() =>
-                            handleOptionClick(
-                              option,
-                              question[currentIndex].correctAnswer
-                            )
+                            handleOptionClick(option, question[currentIndex].correctAnswer)
                           }
                           style={{ width: "1.5em", transform: "scale(1.5)" }}
                         />
@@ -312,8 +291,7 @@ const Test = () => {
                   ))}
                   {selectedOption && (
                     <p>
-                      {selectedOption ===
-                      question[currentIndex].correctAnswer ? (
+                      {selectedOption === question[currentIndex].correctAnswer ? (
                         <>
                           <p className="text-success">Correct!</p>
                         </>
@@ -371,9 +349,7 @@ const Test = () => {
             <>
               {/* {running && <Confetti run={3000} shape="circle" />} */}
               <div className="text-center mt-5 mb-5">
-                <p className="text-success fs-2">
-                  You have answered all questions correctly!
-                </p>
+                <p className="text-success fs-2">You have answered all questions correctly!</p>
                 <Link
                   to={`/certificate/${id}`}
                   role="button"

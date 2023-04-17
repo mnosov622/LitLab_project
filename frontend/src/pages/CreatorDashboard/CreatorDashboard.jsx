@@ -24,16 +24,13 @@ const CreatorDashboard = () => {
     const token = localStorage.getItem("token");
     const decoded = jwtDecode(token);
     const userEmail = decoded.email;
-    console.log(userEmail);
-    const creatorVisitorCount =
-      parseInt(localStorage.getItem("creatorVisitorCount")) || 0;
+    const creatorVisitorCount = parseInt(localStorage.getItem("creatorVisitorCount")) || 0;
     localStorage.setItem("creatorVisitorCount", creatorVisitorCount + 1);
     setVisitorCount(creatorVisitorCount + 1);
     setLoading(true);
     fetch(`https://litlab-backend.vercel.app/users/${decoded.id}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log("data recieved", data);
         setCourses(data.courses);
         setInstructorName(data.name);
         setLoading(false);
@@ -69,9 +66,7 @@ const CreatorDashboard = () => {
               <CreatorCourseCard
                 courseId={course.id}
                 key={course.id}
-                courseImage={
-                  course && course.courseImageURL && course.courseImageURL
-                }
+                courseImage={course && course.courseImageURL && course.courseImageURL}
                 courseName={course.name}
                 price={course.price}
                 courseVideo={course.courseVideo}
@@ -82,15 +77,9 @@ const CreatorDashboard = () => {
             <>
               <div className="text-center">
                 <p className="fs-3">You don't have courses yet...</p>
-                <img
-                  src={empty}
-                  alt="No courses"
-                  className="ml-auto mb-5 empty"
-                />
+                <img src={empty} alt="No courses" className="ml-auto mb-5 empty" />
                 <Link to="/upload" className="d-block">
-                  <button className="btn btn-primary btn-lg">
-                    Create new course
-                  </button>
+                  <button className="btn btn-primary btn-lg">Create new course</button>
                 </Link>
               </div>
             </>

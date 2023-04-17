@@ -23,16 +23,13 @@ const Modal = ({
   const [singleCourse, setSingleCourse] = useState({ name: "", price: "" });
 
   const alert = useAlert();
-  console.log("selected course", item);
   useEffect(() => {
-    console.log("id is", id);
     fetch(`https://litlab-backend.vercel.app/users/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setUserData(data);
         setUserEmail(data.email);
         setUserName(data.name);
-        console.log("user data", data.name);
       });
 
     fetch(`https://litlab-backend.vercel.app/courses/${item}`)
@@ -118,9 +115,7 @@ const Modal = ({
           </div>
           <div className="modal-body">
             {body}
-            <span className={editUser || editCourse ? "d-none" : `fw-bold`}>
-              {item} ?
-            </span>
+            <span className={editUser || editCourse ? "d-none" : `fw-bold`}>{item} ?</span>
             {editUser && (
               <>
                 <label htmlFor="name" className="mt-1 mb-1 fw-bold">
@@ -154,9 +149,7 @@ const Modal = ({
                   id="name"
                   className="form-control"
                   value={singleCourse.name}
-                  onChange={(e) =>
-                    setSingleCourse({ ...singleCourse, name: e.target.value })
-                  }
+                  onChange={(e) => setSingleCourse({ ...singleCourse, name: e.target.value })}
                 />
               </>
             )}
@@ -169,9 +162,7 @@ const Modal = ({
                   id="price"
                   className="form-control"
                   value={singleCourse.price}
-                  onChange={(e) =>
-                    setSingleCourse({ ...singleCourse, price: e.target.value })
-                  }
+                  onChange={(e) => setSingleCourse({ ...singleCourse, price: e.target.value })}
                 />
               </>
             )}
@@ -203,19 +194,11 @@ const Modal = ({
                 Save
               </button>
             ) : clearCart ? (
-              <button
-                type="button"
-                className="btn btn-danger"
-                onClick={onConfirm}
-              >
+              <button type="button" className="btn btn-danger" onClick={onConfirm}>
                 Clear
               </button>
             ) : (
-              <button
-                type="button"
-                className="btn btn-danger"
-                onClick={onConfirm}
-              >
+              <button type="button" className="btn btn-danger" onClick={onConfirm}>
                 Delete
               </button>
             )}

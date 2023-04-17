@@ -16,7 +16,6 @@ function SearchResults(props) {
       .then((res) => res.json())
       .then((data) => {
         setSearchResults(data);
-        console.log("query data", data);
       });
   }, [searchQuery]);
 
@@ -35,25 +34,17 @@ function SearchResults(props) {
                 id={course.id}
                 name={course.name}
                 teacherName={course.instructor}
-                courseImage={`${
-                  course.courseImageURL
-                }?t=${new Date().getTime()}`}
+                courseImage={`${course.courseImageURL}?t=${new Date().getTime()}`}
                 price={course.price}
               />
             </>
           ))
         ) : (
           <div className="text-center fs-1 mt-5 mb-5 pb-5 d-flex justify-content-center align-items-center">
-            <img
-              src={SearchImage}
-              alt="search"
-              width={"50px"}
-              height={"50px"}
-            />
+            <img src={SearchImage} alt="search" width={"50px"} height={"50px"} />
             &nbsp;&nbsp;
             <p>
-              Sorry, we couldn't find course{" "}
-              <span className="text-primary">{searchQuery}</span>
+              Sorry, we couldn't find course <span className="text-primary">{searchQuery}</span>
             </p>
           </div>
         )}

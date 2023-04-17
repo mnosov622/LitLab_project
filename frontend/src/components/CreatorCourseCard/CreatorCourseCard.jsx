@@ -14,31 +14,23 @@ const CreatorCourseCard = ({
 }) => {
   const [showModal, setShowModal] = useState(false);
 
-  console.log("");
-
   function handleDelete() {
     const token = localStorage.getItem("token");
     const decoded = jwtDecode(token);
     const userEmail = decoded.email;
-    console.log("data", { email: userEmail, courseName: courseName });
 
     fetch(`https://litlab-backend.vercel.app/courses/${courseName}`, {
       method: "DELETE",
     })
       .then((response) => response.json())
-      .then((data) => console.log(data))
-      .catch((e) => console.log(e));
+      .then((data) => {})
+      .catch((e) => {});
 
-    console.log("course id", courseId);
-    fetch(
-      `https://litlab-backend.vercel.app/users/${userEmail}/courses/${courseId}`,
-      {
-        method: "DELETE",
-      }
-    )
+    fetch(`https://litlab-backend.vercel.app/users/${userEmail}/courses/${courseId}`, {
+      method: "DELETE",
+    })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setTimeout(() => {
           window.location.reload();
         }, 500);
@@ -71,9 +63,7 @@ const CreatorCourseCard = ({
               <i className="bi bi-person"></i> {instructorName || "Mark"}
             </p>
 
-            <p className="bg-light border rounded text-center mt-4 fw-bold fs-5">
-              {price}$
-            </p>
+            <p className="bg-light border rounded text-center mt-4 fw-bold fs-5">{price}$</p>
           </div>
           <div className="buttons-wrapper d-flex justify-content-around w-50 text-center mx-auto mb-3">
             <Link to={`/course/edit/${courseId}`}>

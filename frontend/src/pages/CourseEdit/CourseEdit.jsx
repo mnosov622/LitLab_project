@@ -20,16 +20,11 @@ const CourseEdit = () => {
   const token = localStorage.getItem("token");
   const decoded = jwtDecode(token);
   const { courseId } = useParams();
-  console.log("id is", courseId);
-  console.log(decoded.email);
   const { id } = useParams();
   const nameRef = useRef();
 
   useEffect(() => {
-    console.log("data", userData);
-    const singleCourse = userData.find(
-      (course) => course.id === Number(courseId)
-    );
+    const singleCourse = userData.find((course) => course.id === Number(courseId));
     setSingleCourse(singleCourse);
     singleCourse && setShortDescription(singleCourse?.shortDescription);
     singleCourse && setLongDescription(singleCourse?.longDescription);
@@ -42,7 +37,6 @@ const CourseEdit = () => {
     fetch(`https://litlab-backend.vercel.app/users/${decoded.id}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setUserData(data.courses);
         setLoading(false);
       });
@@ -71,8 +65,6 @@ const CourseEdit = () => {
 
   const handleSubmit = (e) => {
     setLoading(true);
-    console.log("course id", courseId);
-    console.log(courseName);
     e.preventDefault();
     const updatedCourse = {
       name: courseName,
@@ -80,24 +72,19 @@ const CourseEdit = () => {
       longDescription: longDescription,
       price: price,
     };
-    fetch(
-      `https://litlab-backend.vercel.app/creator-courses/${decoded.id}/courses/${courseId}`,
-      {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          updatedCourse: updatedCourse,
-        }),
-      }
-    )
+    fetch(`https://litlab-backend.vercel.app/creator-courses/${decoded.id}/courses/${courseId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        updatedCourse: updatedCourse,
+      }),
+    })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setLoading(false);
         navigate("/");
-        // Handle success or error response
       });
 
     fetch(`https://litlab-backend.vercel.app/creator/${singleCourse.name}`, {
@@ -125,11 +112,7 @@ const CourseEdit = () => {
     <div className={loading ? "bottom" : ""}>
       <div className="bg-light shadow text-center p-2 fs-2 mb-4">
         <p>
-          Edit course{" "}
-          <span className="text-primary">
-            {" "}
-            {singleCourse && singleCourse?.name}
-          </span>
+          Edit course <span className="text-primary"> {singleCourse && singleCourse?.name}</span>
         </p>
       </div>
 

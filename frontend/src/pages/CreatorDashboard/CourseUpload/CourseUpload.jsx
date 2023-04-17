@@ -33,11 +33,7 @@ const CourseUpload = () => {
   const [selectedQuestionsAmount, setSelectedQuestionsAmount] = useState(null);
 
   const [weeks, setWeeks] = useState([]);
-  const [pointsToLearn, setPointsToLearn] = useState([
-    { point: "" },
-    { point: "" },
-    { point: "" },
-  ]);
+  const [pointsToLearn, setPointsToLearn] = useState([{ point: "" }, { point: "" }, { point: "" }]);
 
   useEffect(() => {
     fetch(`https://litlab-backend.vercel.app/users/${decoded.id}`)
@@ -110,7 +106,6 @@ const CourseUpload = () => {
 
   const createTest = () => {
     setShowModal(false);
-    console.log("Q", questions);
   };
 
   // Define state variables for the input values and validation errors
@@ -194,13 +189,7 @@ const CourseUpload = () => {
 
   function handleImageChange(event) {
     const selectedImage = event.target.files[0];
-    const imageTypes = [
-      "image/png",
-      "image/jpeg",
-      "image/gif",
-      "image/tif",
-      "image/tiff",
-    ];
+    const imageTypes = ["image/png", "image/jpeg", "image/gif", "image/tif", "image/tiff"];
     if (selectedImage && imageTypes.includes(selectedImage.type)) {
       setImage(selectedImage);
       setImagePreview(URL.createObjectURL(event.target.files[0]));
@@ -208,9 +197,7 @@ const CourseUpload = () => {
     } else {
       setImage(null);
       setImagePreview(null);
-      setImageErrorMsg(
-        "Invalid file type. Please upload a PNG, JPEG, TIF OR TIFF image."
-      );
+      setImageErrorMsg("Invalid file type. Please upload a PNG, JPEG, TIF OR TIFF image.");
     }
   }
 
@@ -246,26 +233,11 @@ const CourseUpload = () => {
       questions.length === 0
     ) {
       setSubmitErrorMessage(true);
-      console.log("Please fill in all required fields");
       return;
     }
     setSubmitErrorMessage(false);
 
-    console.log(
-      "input",
-      video,
-      image,
-      inputValues.name,
-      inputValues.price,
-      inputValues.shortDescription,
-      inputValues.longDescription
-    );
-    console.log("submit");
-
-    const courseContentJSON = JSON.stringify(
-      weeks.map((week) => ({ week: week.week }))
-    );
-    console.log("courseContenJson", courseContentJSON);
+    const courseContentJSON = JSON.stringify(weeks.map((week) => ({ week: week.week })));
     const pointsToLearnJSON = JSON.stringify(
       pointsToLearn.map((point) => ({ point: point.point }))
     );
@@ -291,10 +263,6 @@ const CourseUpload = () => {
     });
     const data = await res.json();
 
-    console.log("response recieved", data);
-
-    console.log("profile iamge before sendibg", instructorImage);
-
     const courseData = {
       video: data.video,
       instructorImageURL: instructorImage,
@@ -315,7 +283,6 @@ const CourseUpload = () => {
     };
     setLoading(false);
 
-    console.log("data from client", courseData);
     const response = await fetch("https://litlab-backend.vercel.app/courses", {
       method: "POST",
       headers: {
@@ -324,14 +291,10 @@ const CourseUpload = () => {
       body: JSON.stringify(courseData),
     });
     const courses = await response.json();
-    console.log("response recived", courses);
 
     if (response.status === 200) {
       navigate("/", { state: { success: true } });
     }
-
-    console.log("course", courses.course);
-    console.log("created course", createdCourse);
   };
 
   const [numWeeks, setNumWeeks] = useState("");
@@ -362,9 +325,7 @@ const CourseUpload = () => {
                 value={inputValues.name || ""}
                 onChange={handleCourseName}
               />
-              {courseNameError && (
-                <div className="text-danger mt-2">{courseNameError}</div>
-              )}
+              {courseNameError && <div className="text-danger mt-2">{courseNameError}</div>}
             </>
           ),
         },
@@ -379,9 +340,7 @@ const CourseUpload = () => {
                 value={inputValues.price || ""}
                 onChange={handlePrice}
               />
-              {priceError && (
-                <div className="text-danger mt-2">{priceError}</div>
-              )}
+              {priceError && <div className="text-danger mt-2">{priceError}</div>}
             </>
           ),
         },
@@ -395,9 +354,7 @@ const CourseUpload = () => {
                 value={inputValues.shortDescription || ""}
                 onChange={handleShortDes}
               />
-              {shortDesError && (
-                <div className="text-danger mt-2">{shortDesError}</div>
-              )}
+              {shortDesError && <div className="text-danger mt-2">{shortDesError}</div>}
             </>
           ),
         },
@@ -411,9 +368,7 @@ const CourseUpload = () => {
                 value={inputValues.longDescription || ""}
                 onChange={handleLongDes}
               />
-              {longDesError && (
-                <div className="text-danger mt-2">{longDesError}</div>
-              )}
+              {longDesError && <div className="text-danger mt-2">{longDesError}</div>}
             </>
           ),
         },
@@ -427,14 +382,8 @@ const CourseUpload = () => {
             <div>
               {videoPreview && (
                 <div className="mb-2 text-center" style={{ marginTop: "-5%" }}>
-                  <p className="text-primary  fs-1 file-input-text">
-                    Preview video
-                  </p>
-                  <video
-                    controls
-                    className="video-preview"
-                    style={{ marginTop: "-8%" }}
-                  >
+                  <p className="text-primary  fs-1 file-input-text">Preview video</p>
+                  <video controls className="video-preview" style={{ marginTop: "-8%" }}>
                     <source src={videoPreview} type="video/mp4" />
                     Your browser does not support the video tag.
                   </video>
@@ -455,10 +404,7 @@ const CourseUpload = () => {
               )}
               {!videoPreview && (
                 <>
-                  <h2
-                    className="text-center text-primary fs-2"
-                    style={{ marginTop: "-5%" }}
-                  >
+                  <h2 className="text-center text-primary fs-2" style={{ marginTop: "-5%" }}>
                     Upload a Course video
                   </h2>
                   <div className="input-container d-flex justify-content-center align-items-center file-input mx-auto">
@@ -474,9 +420,7 @@ const CourseUpload = () => {
                     />
                   </div>
                   <div className="d-flex justify-content-center align-items-center">
-                    {errorMessage && (
-                      <div className="text-danger mt-2">{errorMessage}</div>
-                    )}
+                    {errorMessage && <div className="text-danger mt-2">{errorMessage}</div>}
                   </div>
                 </>
               )}
@@ -493,10 +437,7 @@ const CourseUpload = () => {
             <div>
               {!imagePreview && (
                 <>
-                  <h2
-                    className="text-center text-primary fs-2"
-                    style={{ marginTop: "-5%" }}
-                  >
+                  <h2 className="text-center text-primary fs-2" style={{ marginTop: "-5%" }}>
                     Upload a Course image
                   </h2>
                   <div className="input-container d-flex justify-content-center align-items-center file-input mx-auto">
@@ -512,9 +453,7 @@ const CourseUpload = () => {
                     />
                   </div>
                   <div className="d-flex justify-content-center align-items-center">
-                    {imageErrorMsg && (
-                      <div className="text-danger mt-2">{imageErrorMsg}</div>
-                    )}
+                    {imageErrorMsg && <div className="text-danger mt-2">{imageErrorMsg}</div>}
                   </div>
                 </>
               )}
@@ -522,11 +461,7 @@ const CourseUpload = () => {
               {imagePreview && (
                 <div className="mb-3 text-center" style={{ marginTop: "-5%" }}>
                   <p className="text-primary fs-1">Preview image</p>
-                  <img
-                    src={imagePreview}
-                    className="image-preview"
-                    alt="preview"
-                  />
+                  <img src={imagePreview} className="image-preview" alt="preview" />
                 </div>
               )}
 
@@ -627,9 +562,7 @@ const CourseUpload = () => {
                     onChange={(e) => handlePointChange(index, e.target.value)}
                     className="form-control w-100 points-input form-item"
                   />
-                  {pointErrorMsg && (
-                    <div className="text-danger">{pointErrorMsg}</div>
-                  )}
+                  {pointErrorMsg && <div className="text-danger">{pointErrorMsg}</div>}
                 </div>
               ))}
               <h4 className="mt-3">Summary of points</h4>
@@ -677,71 +610,58 @@ const CourseUpload = () => {
 
                 {numQuestions > 0 && (
                   <div>
-                    {Array.from(
-                      { length: numQuestions },
-                      (_, questionIndex) => (
-                        <div key={questionIndex}>
-                          <label
-                            htmlFor={`question-${questionIndex}`}
-                            className="fw-bold fs-4 mt-2 mb-2"
-                          >
-                            Question {questionIndex + 1}:
-                          </label>
-                          <input
-                            type="text"
-                            className="form-control"
-                            id={`question-${questionIndex}`}
-                            value={questions[questionIndex].question}
-                            onChange={(event) =>
-                              handleQuestionChange(event, questionIndex)
-                            }
-                          />
+                    {Array.from({ length: numQuestions }, (_, questionIndex) => (
+                      <div key={questionIndex}>
+                        <label
+                          htmlFor={`question-${questionIndex}`}
+                          className="fw-bold fs-4 mt-2 mb-2"
+                        >
+                          Question {questionIndex + 1}:
+                        </label>
+                        <input
+                          type="text"
+                          className="form-control"
+                          id={`question-${questionIndex}`}
+                          value={questions[questionIndex].question}
+                          onChange={(event) => handleQuestionChange(event, questionIndex)}
+                        />
 
-                          <h5 className="mt-3 mb-2 fs-4">Options:</h5>
-                          {questions[questionIndex].options.map(
-                            (option, optionIndex) => (
-                              <div key={optionIndex} className="mb-2 ">
-                                <label
-                                  htmlFor={`question-${questionIndex}-option-${optionIndex}`}
-                                  className="mt-2 mb-2"
-                                >
-                                  Option {optionIndex + 1}:
-                                </label>
-                                <input
-                                  type="text"
-                                  id={`question-${questionIndex}-option-${optionIndex}`}
-                                  value={option}
-                                  className="form-control"
-                                  onChange={(event) =>
-                                    handleOptionChange(
-                                      event,
-                                      questionIndex,
-                                      optionIndex
-                                    )
-                                  }
-                                />
-                              </div>
-                            )
-                          )}
+                        <h5 className="mt-3 mb-2 fs-4">Options:</h5>
+                        {questions[questionIndex].options.map((option, optionIndex) => (
+                          <div key={optionIndex} className="mb-2 ">
+                            <label
+                              htmlFor={`question-${questionIndex}-option-${optionIndex}`}
+                              className="mt-2 mb-2"
+                            >
+                              Option {optionIndex + 1}:
+                            </label>
+                            <input
+                              type="text"
+                              id={`question-${questionIndex}-option-${optionIndex}`}
+                              value={option}
+                              className="form-control"
+                              onChange={(event) =>
+                                handleOptionChange(event, questionIndex, optionIndex)
+                              }
+                            />
+                          </div>
+                        ))}
 
-                          <label
-                            htmlFor={`question-${questionIndex}-correct-answer`}
-                            className="mt-2 mb-2"
-                          >
-                            Correct answer:
-                          </label>
-                          <input
-                            type="text"
-                            id={`question-${questionIndex}-correct-answer`}
-                            value={questions[questionIndex].correctAnswer}
-                            className="form-control"
-                            onChange={(event) =>
-                              handleCorrectAnswerChange(event, questionIndex)
-                            }
-                          />
-                        </div>
-                      )
-                    )}
+                        <label
+                          htmlFor={`question-${questionIndex}-correct-answer`}
+                          className="mt-2 mb-2"
+                        >
+                          Correct answer:
+                        </label>
+                        <input
+                          type="text"
+                          id={`question-${questionIndex}-correct-answer`}
+                          value={questions[questionIndex].correctAnswer}
+                          className="form-control"
+                          onChange={(event) => handleCorrectAnswerChange(event, questionIndex)}
+                        />
+                      </div>
+                    ))}
                   </div>
                 )}
               </div>
@@ -753,12 +673,6 @@ const CourseUpload = () => {
   ];
 
   const currentGroupItems = groups[currentGroup].items;
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("submit");
-    // handle form submission logic
-  };
 
   return (
     <>

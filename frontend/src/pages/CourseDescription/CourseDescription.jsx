@@ -32,8 +32,6 @@ const CourseDescription = () => {
   const [course, setCourse] = useState([]);
   const [loading, setLoading] = useState(false);
   const [hasCourse, setHasCourse] = useState(false);
-  console.log("CURRENT CART", cart);
-  console.log("Item that you want to buy", itemToBuy);
   const [learnerCourses, setLearnerCourses] = useState([]);
   const shoppingCart = localStorage.getItem("shopping_cart");
   const items = JSON.parse(shoppingCart);
@@ -71,7 +69,6 @@ const CourseDescription = () => {
       .then((response) => response.json())
       .then((data) => {
         setCourse(data.course);
-        console.log("11", data.course);
         setLoading(false);
       });
   }, []);
@@ -87,11 +84,9 @@ const CourseDescription = () => {
     fetch(`https://litlab-backend.vercel.app/users/${decoded.id}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log("data revicev", data.courses);
         setLearnerCourses(data.courses);
         data.courses.forEach((course) => {
           if (course.id === Number(id)) {
-            console.log("You already own this course");
             setHasCourse(true);
           }
         });
@@ -99,7 +94,6 @@ const CourseDescription = () => {
   }, []);
 
   useEffect(() => {
-    console.log(course);
     const imageSource = course?.courseImageURL?.startsWith("https")
       ? course?.courseImageURL
       : `https://litlab-backend.vercel.app/images/${course.courseImageURL}`;
@@ -107,7 +101,6 @@ const CourseDescription = () => {
   }, [course, course?.coureseImageURL]);
 
   useEffect(() => {
-    console.log(course);
     const instructorSource = course?.instructorImageURL?.startsWith("https")
       ? course?.instructorImageURL
       : `https://litlab-backend.vercel.app/images/${course.instructorImageURL}`;
@@ -150,7 +143,6 @@ const CourseDescription = () => {
 
   const buyNow = async () => {
     localStorage.removeItem("item_to_buy");
-    console.log(course);
     if (!loggedIn) {
       return navigate("/login", { state: { loggedIn: false } });
     } else {
@@ -206,13 +198,11 @@ const CourseDescription = () => {
       }),
     })
       .then((response) => response.json())
-      .then((data) => console.log(data))
+      .then((data) => {})
       .catch((error) => console.error(error));
 
     // checking if user has submitted a review
-    const hasSubmittedReview = course.courseReview?.some(
-      (course) => course.reviewerId === userId
-    );
+    const hasSubmittedReview = course.courseReview?.some((course) => course.reviewerId === userId);
 
     if (hasSubmittedReview) {
       alert.error("You already submitted a review", {
@@ -222,11 +212,7 @@ const CourseDescription = () => {
       return;
     }
 
-    if (
-      review.trim().length === 0 ||
-      name.trim().length === 0 ||
-      rating.length === 0
-    ) {
+    if (review.trim().length === 0 || name.trim().length === 0 || rating.length === 0) {
       setError(true);
       return;
     }
@@ -359,10 +345,7 @@ const CourseDescription = () => {
                   Enrollments:{" "}
                   <span className="fw-bold">
                     {course?.enrollments}
-                    <i
-                      className="bi bi-people"
-                      style={{ marginLeft: "5px" }}
-                    ></i>
+                    <i className="bi bi-people" style={{ marginLeft: "5px" }}></i>
                   </span>
                 </p>
                 <p className="fs-5 mt-3">
@@ -372,23 +355,14 @@ const CourseDescription = () => {
                 <p className="fs-5 mt-3">
                   Created by:&nbsp;
                   <Link
-                    to={`/creator/${course?.id}?name=${encodeURIComponent(
-                      course?.instructor
-                    )}`}
+                    to={`/creator/${course?.id}?name=${encodeURIComponent(course?.instructor)}`}
                   >
-                    <span className="fw-bold text-decoration-underline">
-                      {course?.instructor}
-                    </span>
+                    <span className="fw-bold text-decoration-underline">{course?.instructor}</span>
                   </Link>
                 </p>
               </div>
               <div className="col-lg-4">
-                <img
-                  src={imageSource}
-                  class="rounded"
-                  alt="Course"
-                  width={"100%"}
-                />
+                <img src={imageSource} class="rounded" alt="Course" width={"100%"} />
 
                 <div className="buttons d-flex flex-column">
                   {!hasCourse && (
@@ -410,10 +384,7 @@ const CourseDescription = () => {
                       </Link>
                     </>
                   ) : (
-                    <button
-                      className="btn btn-primary btn-lg mt-3"
-                      onClick={buyNow}
-                    >
+                    <button className="btn btn-primary btn-lg mt-3" onClick={buyNow}>
                       Buy now
                     </button>
                   )}
@@ -476,10 +447,7 @@ const CourseDescription = () => {
                     </h3>
                     <ul>
                       {content.week.map((week, i) => (
-                        <li
-                          key={i}
-                          className="week-item bg-light rounded text-dark w-50 p-3"
-                        >
+                        <li key={i} className="week-item bg-light rounded text-dark w-50 p-3">
                           {week}
                         </li>
                       ))}
@@ -501,18 +469,14 @@ const CourseDescription = () => {
               <p className="fw-bold fs-2">Instructor</p>
 
               <div className="profile d-flex justify-content-center justify-content-between row mb-5">
-                <p className="text-underline text-primary fw-bold fs-2">
-                  {course?.instructor}
-                </p>
+                <p className="text-underline text-primary fw-bold fs-2">{course?.instructor}</p>
                 <img
                   src={instuctorImageSource}
                   alt="Instructor profile"
                   className="col-md-4 instructor-image img rounded-circle"
                 />
 
-                <p className="col-md-7 creator-description ">
-                  {course?.instructorBio}
-                </p>
+                <p className="col-md-7 creator-description ">{course?.instructorBio}</p>
               </div>
             </div>
           </div>
@@ -547,42 +511,26 @@ const CourseDescription = () => {
                           <p>{review.review} </p>
                         </div>
                       ))}
-                  {!showAllReviews &&
-                  course.courseReview &&
-                  course.courseReview?.length > 3 ? (
+                  {!showAllReviews && course.courseReview && course.courseReview?.length > 3 ? (
                     <div className="text-center">
-                      <button
-                        onClick={handleShowAllReviews}
-                        className="btn btn-primary mb-3 w-100"
-                      >
+                      <button onClick={handleShowAllReviews} className="btn btn-primary mb-3 w-100">
                         Show more reviews
                       </button>
                     </div>
-                  ) : showAllReviews &&
-                    course.courseReview &&
-                    course.courseReview?.length > 3 ? (
+                  ) : showAllReviews && course.courseReview && course.courseReview?.length > 3 ? (
                     <div className="text-center">
-                      <button
-                        onClick={handleHideAllReviews}
-                        className="btn btn-primary mb-3 w-100"
-                      >
+                      <button onClick={handleHideAllReviews} className="btn btn-primary mb-3 w-100">
                         Hide reviews
                       </button>
                     </div>
-                  ) : course.courseReview?.length === 0 ||
-                    !course.courseReview ? (
-                    <p className="text-primary fs-3">
-                      Be the first one to leave a review!
-                    </p>
+                  ) : course.courseReview?.length === 0 || !course.courseReview ? (
+                    <p className="text-primary fs-3">Be the first one to leave a review!</p>
                   ) : (
                     ""
                   )}
                 </Col>
                 <Col md={5}>
-                  <Form
-                    className="review-form"
-                    onSubmit={(e) => handleLeaveReview(e)}
-                  >
+                  <Form className="review-form" onSubmit={(e) => handleLeaveReview(e)}>
                     <Form.Group controlId="review">
                       <Form.Label className="label_review">
                         <h5>Your Review:</h5>
@@ -625,15 +573,10 @@ const CourseDescription = () => {
                                 value={ratingValue}
                                 onClick={() => {
                                   handleRating(ratingValue);
-                                  console.log(ratingValue);
                                 }}
                               />
                               <span
-                                className={
-                                  ratingValue <= (hover || rating)
-                                    ? "active"
-                                    : "inactive"
-                                }
+                                className={ratingValue <= (hover || rating) ? "active" : "inactive"}
                                 onMouseEnter={() => setHover(ratingValue)}
                                 onMouseLeave={() => setHover(0)}
                               >
@@ -644,17 +587,8 @@ const CourseDescription = () => {
                         })}
                       </div>
                     </Form.Group>
-                    {error && (
-                      <p className="text-danger m-0">
-                        Please fill in all fields.
-                      </p>
-                    )}
-                    <Button
-                      id="reviews"
-                      className="btn_submit"
-                      variant="primary"
-                      type="submit"
-                    >
+                    {error && <p className="text-danger m-0">Please fill in all fields.</p>}
+                    <Button id="reviews" className="btn_submit" variant="primary" type="submit">
                       Submit
                     </Button>
                   </Form>

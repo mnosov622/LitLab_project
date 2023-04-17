@@ -22,8 +22,7 @@ const Users = () => {
   const [adminData, setAdminData] = useState("");
   const visitorCount = parseInt(localStorage.getItem("visitorCount")) || 0;
   const learnerCount = parseInt(localStorage.getItem("learnerCount")) || 0;
-  const creatorVisitorCount =
-    parseInt(localStorage.getItem("creatorVisitorCount")) || 0;
+  const creatorVisitorCount = parseInt(localStorage.getItem("creatorVisitorCount")) || 0;
 
   const handleShowModal = (courseName) => {
     setSelectedCourse(courseName);
@@ -32,7 +31,6 @@ const Users = () => {
   };
 
   const handleShowDeleteUserModal = (email) => {
-    console.log("email", email);
     setShowDeleteUserModal(true);
     setSelectedUser(email);
     document.body.style.overflow = "hidden";
@@ -56,12 +54,10 @@ const Users = () => {
 
   const handleConfirm = (name) => {
     // handle confirm action
-    console.log(name);
     fetch(`https://litlab-backend.vercel.app/courses/${name}`, {
       method: "DELETE",
     })
       .then((response) => {
-        console.log(response);
         if (response.status === 200) {
           setShowDeleteUserModal(false);
           fetch("https://litlab-backend.vercel.app/courses")
@@ -99,7 +95,6 @@ const Users = () => {
   };
 
   const handleOpenEditModal = (id, email) => {
-    console.log("id of user", id);
     setShowEditUserModal(true);
     setSelectedUser(email);
 
@@ -107,19 +102,16 @@ const Users = () => {
       .then((res) => res.json())
       .then((data) => {
         setSingleUserData(data);
-        console.log(data);
       });
   };
 
   const handleOpenEditCourseModal = (name, id) => {
-    console.log("id and name", id, name);
     setShowEditCourseModal(true);
     setSelectedCourse(id);
     fetch(`https://litlab-backend.vercel.app/users/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setSingleUserData(data);
-        console.log(data);
       });
   };
 
@@ -171,9 +163,7 @@ const Users = () => {
               throw new Error("Request failed.");
             }
           })
-          .then((data) => {
-            console.log(data);
-          })
+          .then((data) => {})
           .catch((error) => {
             console.error(error);
           });
@@ -223,9 +213,7 @@ const Users = () => {
           throw new Error("Request failed.");
         }
       })
-      .then((data) => {
-        console.log(data);
-      })
+      .then((data) => {})
       .catch((error) => {
         console.error(error);
       });
@@ -308,18 +296,13 @@ const Users = () => {
                   <td>{course.price}</td>
                   <td>{course.enrollments}</td>
                   <td className="d-flex justify-content-between border-0">
-                    <button
-                      className="btn btn-danger"
-                      onClick={() => handleShowModal(course.name)}
-                    >
+                    <button className="btn btn-danger" onClick={() => handleShowModal(course.name)}>
                       Delete course
                     </button>
 
                     <button
                       className="btn btn-info text-white"
-                      onClick={() =>
-                        handleOpenEditCourseModal(course.name, course.id)
-                      }
+                      onClick={() => handleOpenEditCourseModal(course.name, course.id)}
                     >
                       Edit course
                     </button>
@@ -332,9 +315,7 @@ const Users = () => {
 
         <div className="d-block">
           <div>
-            <h2 className="fs-2 fw-bold text-center mt-5 mb-5">
-              Page Visitors Analytics
-            </h2>
+            <h2 className="fs-2 fw-bold text-center mt-5 mb-5">Page Visitors Analytics</h2>
             <div className="d-flex cursor-default">
               <div class="featuredItem cursor-none">
                 <span class="featuredTitle">HOME PAGE VISITORS</span>
@@ -369,13 +350,9 @@ const Users = () => {
         </div>
 
         <div className="">
-          <p className="text-center fs-2 fw-bold mt-5 mb-5">
-            Withdraw requests
-          </p>
+          <p className="text-center fs-2 fw-bold mt-5 mb-5">Withdraw requests</p>
           {adminData.withdrawals && adminData.withdrawals.length === 0 && (
-            <p className="text-center fs-3 text-primary">
-              There are no withdraw requests
-            </p>
+            <p className="text-center fs-3 text-primary">There are no withdraw requests</p>
           )}
           <div className="">
             <div className="d-flex cursor-default w-50 mx-auto">
@@ -384,40 +361,30 @@ const Users = () => {
                 adminData.withdrawals.map((data) => (
                   <div class="featuredItem cursor-none">
                     <span class="featuredTitle">
-                      <span className="text-primary">{data.userName}</span>{" "}
-                      requested withdrawal - {data.amount} $
+                      <span className="text-primary">{data.userName}</span> requested withdrawal -{" "}
+                      {data.amount} $
                     </span>
                     <div class="featuredMoneyContainer">
-                      <span class="creator-email fs-5">
-                        Email: {data.userEmail}
-                      </span>
+                      <span class="creator-email fs-5">Email: {data.userEmail}</span>
                     </div>
                     <div class="featuredMoneyContainer">
-                      <span class="creator-email fs-5">
-                        Card Number: {data.cardNumber}
-                      </span>
+                      <span class="creator-email fs-5">Card Number: {data.cardNumber}</span>
                     </div>
                     <div class="featuredMoneyContainer">
-                      <span class="creator-email fs-5">
-                        Request issued on: {data.date}
-                      </span>
+                      <span class="creator-email fs-5">Request issued on: {data.date}</span>
                     </div>
 
                     <div className="buttons d-flex">
                       <button
                         className="btn btn-success"
-                        onClick={() =>
-                          handleApprove(data.userEmail, data.amount)
-                        }
+                        onClick={() => handleApprove(data.userEmail, data.amount)}
                       >
                         Approve
                       </button>
                       <button
                         className="btn btn-danger"
                         style={{ marginLeft: "5%" }}
-                        onClick={() =>
-                          handleReject(data.userEmail, data.amount)
-                        }
+                        onClick={() => handleReject(data.userEmail, data.amount)}
                       >
                         Reject
                       </button>

@@ -20,10 +20,6 @@ function FeaturedInfo() {
       .then((res) => res.json())
       .then((data) => {
         setUsersData(data);
-        console.log(
-          "single",
-          data.map((d) => d)
-        );
 
         let studentsCount = 0;
         let instructorsCount = 0;

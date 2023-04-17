@@ -24,7 +24,6 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     const email = emailRef.current.value;
-    console.log("email", emailRef.current.value);
 
     e.preventDefault();
     fetch("https://litlab-backend.vercel.app/forgot-password", {
@@ -33,23 +32,20 @@ const Login = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ email }),
-    })
-      .then((res) => {
-        if(res.status === 200) {
-          alert.success("Reset pasword link was set to email", {
-            position: positions.BOTTOM_CENTER,
-            timeout: 5000, // custom timeout just for this one alert
-          });
-          localStorage.setItem("resettingPassword", true)
-        }
-        else if(res.status === 400){
-          alert.error("User with this email doesn't exists", {
-            position: positions.BOTTOM_CENTER,
-            timeout: 5000, // custom timeout just for this one alert
-          });
-        }
-      })
-      
+    }).then((res) => {
+      if (res.status === 200) {
+        alert.success("Reset pasword link was set to email", {
+          position: positions.BOTTOM_CENTER,
+          timeout: 5000, // custom timeout just for this one alert
+        });
+        localStorage.setItem("resettingPassword", true);
+      } else if (res.status === 400) {
+        alert.error("User with this email doesn't exists", {
+          position: positions.BOTTOM_CENTER,
+          timeout: 5000, // custom timeout just for this one alert
+        });
+      }
+    });
   };
 
   return (
@@ -57,19 +53,13 @@ const Login = () => {
       <Container>
         <Row className="justify-content-md-center  mx-auto">
           <Col className="form mt-5 ">
-            <p className="text-center fs-2">
-              You will recieve a link to reset password
-            </p>
+            <p className="text-center fs-2">You will recieve a link to reset password</p>
             <Form className="mx-auto w-50" onSubmit={(e) => handleSubmit(e)}>
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label className="fs-4">Enter Email</Form.Label>
-                <Form.Control type="email" placeholder="Email" autoFocus ref={emailRef}/>
+                <Form.Control type="email" placeholder="Email" autoFocus ref={emailRef} />
               </Form.Group>
-              <Button
-                className="btn btn3 btn-primary btn-lg mb-3"
-                variant="primary"
-                type="submit"
-              >
+              <Button className="btn btn3 btn-primary btn-lg mb-3" variant="primary" type="submit">
                 Send Link
               </Button>
             </Form>

@@ -19,12 +19,9 @@ const LearnerCourses = () => {
   const [selectedCourse, setSelectedCourse] = useState(null);
 
   async function handleRemoveCourse(course) {
-    await fetch(
-      `https://litlab-backend.vercel.app/users/${userId}/courses`,
-      {
-        method: "DELETE",
-      }
-    ).then((res) => console.log(res));
+    await fetch(`https://litlab-backend.vercel.app/users/${userId}/courses`, {
+      method: "DELETE",
+    }).then((res) => {});
     setSelectedCourse(null);
     setShowModal(false);
     window.location.reload();
@@ -50,15 +47,6 @@ const LearnerCourses = () => {
     setLoader(false);
   }, []);
 
-  /*const handleRemove = () => {
-    console.log("remove all");
-    if (window.confirm("Are you sure you want to remove all courses ?")) {
-      fetch(`https://litlab-backend.vercel.app/users/${userId}/courses`, {
-        method: "DELETE",
-      }).then((res) => console.log(res));
-    }
-  };*/
-
   if (!courses || courses.length === 0) {
     return (
       <>
@@ -82,9 +70,7 @@ const LearnerCourses = () => {
             <img src={empty} alt="No courses" className="ml-auto mb-5" />
             <div className="wrapper">
               <Link to="/all-courses">
-                <button className="btn btn-primary btn-lg">
-                  Explore all courses
-                </button>
+                <button className="btn btn-primary btn-lg">Explore all courses</button>
               </Link>
             </div>
           </div>{" "}

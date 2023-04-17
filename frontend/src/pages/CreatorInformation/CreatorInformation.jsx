@@ -17,10 +17,8 @@ const CreatorInformation = () => {
   const alert = useAlert();
   const [course, setCourse] = useState("");
   const { id } = useParams();
-  console.log("id is", id);
   const location = useLocation();
   const instructorName = new URLSearchParams(location.search).get("name");
-  console.log("instructorName is", instructorName);
 
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
@@ -39,7 +37,6 @@ const CreatorInformation = () => {
       .then((res) => res.json())
       .then((data) => {
         setCourse(data);
-        console.log("data11", data);
       });
 
     fetch(
@@ -55,7 +52,6 @@ const CreatorInformation = () => {
       })
       .then((data) => {
         // handle data returned from the server
-        console.log(data);
         setCreatorData(data);
       })
       .catch((error) => {
@@ -89,11 +85,7 @@ const CreatorInformation = () => {
         return;
       }
     }
-    if (
-      review.trim().length === 0 ||
-      name.trim().length === 0 ||
-      rating.length === 0
-    ) {
+    if (review.trim().length === 0 || name.trim().length === 0 || rating.length === 0) {
       setError(true);
       return;
     }
@@ -138,9 +130,7 @@ const CreatorInformation = () => {
         },
         body: JSON.stringify(newReview),
       }).catch((e) => console.log(e));
-    } catch (e) {
-      console.log("error");
-    }
+    } catch (e) {}
   };
 
   useEffect(() => {
@@ -158,12 +148,8 @@ const CreatorInformation = () => {
             <Image className="img" src={imageSource} roundedCircle />
           </Col>
           <Col xs={12} md={9}>
-            <div className="creatorName text-primary">
-              {creatorData.instructor}
-            </div>
-            <div className="creatorInformation">
-              {creatorData.instructorBio}
-            </div>
+            <div className="creatorName text-primary">{creatorData.instructor}</div>
+            <div className="creatorInformation">{creatorData.instructorBio}</div>
           </Col>
         </Row>
         <Row className="middleLine">
@@ -196,10 +182,7 @@ const CreatorInformation = () => {
                   {creatorData &&
                     creatorData.creatorReview &&
                     creatorData.creatorReview.map((review) => (
-                      <div
-                        className="previous-reviews mb-3 p-3 position-relative"
-                        key={review.id}
-                      >
+                      <div className="previous-reviews mb-3 p-3 position-relative" key={review.id}>
                         <span
                           className="text-muted position-absolute"
                           style={{ right: "15px", top: "15px" }}
@@ -218,10 +201,7 @@ const CreatorInformation = () => {
                     ))}
                 </Col>
                 <Col xs={5}>
-                  <Form
-                    className="review-form"
-                    onSubmit={(e) => handleLeaveReview(e)}
-                  >
+                  <Form className="review-form" onSubmit={(e) => handleLeaveReview(e)}>
                     <Form.Group controlId="review">
                       <Form.Label className="label_review">
                         <h5>Your Review:</h5>
@@ -265,11 +245,7 @@ const CreatorInformation = () => {
                                 onClick={() => handleRating(ratingValue)}
                               />
                               <span
-                                className={
-                                  ratingValue <= (hover || rating)
-                                    ? "active"
-                                    : "inactive"
-                                }
+                                className={ratingValue <= (hover || rating) ? "active" : "inactive"}
                                 onMouseEnter={() => setHover(ratingValue)}
                                 onMouseLeave={() => setHover(0)}
                               >
@@ -280,16 +256,8 @@ const CreatorInformation = () => {
                         })}
                       </div>
                     </Form.Group>
-                    {error && (
-                      <p className="text-danger m-0">
-                        Please fill in all fields.
-                      </p>
-                    )}
-                    <Button
-                      className="btn_submit"
-                      variant="primary"
-                      type="submit"
-                    >
+                    {error && <p className="text-danger m-0">Please fill in all fields.</p>}
+                    <Button className="btn_submit" variant="primary" type="submit">
                       Submit
                     </Button>
                   </Form>

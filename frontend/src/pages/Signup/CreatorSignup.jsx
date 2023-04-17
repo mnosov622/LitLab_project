@@ -43,19 +43,19 @@ const CreatorSignup = () => {
   const handleName = () => {
     // Ensure the name is not empty
     if (name == null) {
-      return setNameError("Name cannot be empty.") ;
+      return setNameError("Name cannot be empty.");
     }
-  
+
     // Ensure the name is not too short or too long
     if (name.length < 2 || name.length > 50) {
       return setNameError("Name must be between 2 and 50 characters.");
     }
-  
+
     // Ensure the name contains only valid characters
     if (!/^[a-zA-Z\s]*$/.test(name)) {
       return setNameError("Name can only contain letters and spaces.");
     }
-  
+
     // If all checks pass, return null to indicate success
     return setNameError(null);
   };
@@ -91,7 +91,7 @@ const CreatorSignup = () => {
     // If all checks pass, return null to indicate success
     return setPasswordError(null);
   }
-  
+
   function handleSubject() {
     // Ensure the subject contains only valid characters
     if (!/^[a-zA-Z\s]*$/.test(subject)) {
@@ -107,7 +107,6 @@ const CreatorSignup = () => {
     }
     return setEduError(null);
   }
-
 
   const handleSignup = async (e) => {
     setShowLoader(true);
@@ -126,21 +125,16 @@ const CreatorSignup = () => {
           }),
           headers: { "Content-Type": "application/json" },
         });
-        console.log(response);
         if (response.status === 200) {
           navigate("/login");
           setUserExists(false);
         } else if (response.status === 409) {
           setUserExists(true);
         }
-      } catch (e) {
-        console.log("Unknown error", e);
-      }
+      } catch (e) {}
     }
-   setShowLoader(false);
+    setShowLoader(false);
   };
-
-  
 
   return (
     <>
@@ -148,12 +142,7 @@ const CreatorSignup = () => {
         <Row className="justify-content-md-center">
           <Col>
             <div>
-              <img
-                className="mt-5"
-                src={creator}
-                alt="Login In"
-                style={{ width: "30em" }}
-              />
+              <img className="mt-5" src={creator} alt="Login In" style={{ width: "30em" }} />
             </div>
           </Col>
           <Col className="form mt-5 ">
@@ -172,7 +161,7 @@ const CreatorSignup = () => {
                   onKeyUp={handleName}
                 />
                 <label for="floatingName">Full Name</label>
-                {nameError && (<div className="text-danger mt-2">{nameError}</div>)}
+                {nameError && <div className="text-danger mt-2">{nameError}</div>}
               </div>
 
               <div className="form-floating mb-3">
@@ -217,9 +206,7 @@ const CreatorSignup = () => {
                   onKeyUp={handlePasswordMatch}
                 />
                 <label for="floatingReEnterPassword">Re-enter password</label>
-                {!passwordMatch && (
-                  <div className="text-danger mt-2">Passwords don't match</div>
-                )}
+                {!passwordMatch && <div className="text-danger mt-2">Passwords don't match</div>}
               </div>
 
               <div className="form-floating mb-3">
@@ -252,22 +239,14 @@ const CreatorSignup = () => {
                 {eduError && <div className="text-danger mt-2">{eduError}</div>}
               </div>
 
-              {userExists && (
-                <div className="text-danger">
-                  User with this email already exists
-                </div>
-              )}
+              {userExists && <div className="text-danger">User with this email already exists</div>}
               <ReCAPTCHA
                 className="mt-2 mb-2"
                 sitekey={process.env.REACT_APP_CAPTCHA_SITE_KEY}
                 ref={captchaRef}
               />
 
-              <Button
-                className="btn btn-lg btn-primary mb-3"
-                variant="primary"
-                type="submit"
-              >
+              <Button className="btn btn-lg btn-primary mb-3" variant="primary" type="submit">
                 {showLoader ? (
                   <Bars
                     height="30"

@@ -13,7 +13,6 @@ const Payment = () => {
 
   const navigate = useNavigate();
   const currentCart = useSelector((state) => state.cartReducer);
-  console.log("CURRENT CART", currentCart);
   const [cardNumber, setCardNumber] = useState("");
   const [cardHolderName, setCardHolderName] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
@@ -25,7 +24,6 @@ const Payment = () => {
   const userId = decoded.id;
   const item = localStorage.getItem("item_to_buy");
   const item_to_buy = JSON.parse(item);
-  console.log("course name", item_to_buy);
 
   // Define state variables for the input values and validation errors
   const [cardNoError, setCardNoError] = useState(null);
@@ -43,9 +41,7 @@ const Payment = () => {
   function handleCardName() {
     // Ensure the subject contains only valid characters
     if (!/^[a-zA-Z\s]*$/.test(cardHolderName)) {
-      return setCardNameError(
-        "Card Holder Name can only contain letters and spaces."
-      );
+      return setCardNameError("Card Holder Name can only contain letters and spaces.");
     }
     return setCardNameError(null);
   }
@@ -67,18 +63,12 @@ const Payment = () => {
     fetch(`https://litlab-backend.vercel.app/users/${userId}`)
       .then((res) => res.json())
       .then((data) => setUserData(data));
-
-    console.log("item", item_to_buy);
   }, []);
 
   const handlePayment = async (event) => {
     event.preventDefault();
 
     // Perform validation here and submit the form data to the server
-    console.log("Card Number:", cardNumber);
-    console.log("Card Holder Name:", cardHolderName);
-    console.log("Expiry Date:", expiryDate);
-    console.log("CVV:", cvv);
 
     if (!Array.isArray(item_to_buy)) {
       try {
@@ -103,7 +93,7 @@ const Payment = () => {
             userEmail: userData.email,
             email: item_to_buy.email,
           }),
-        }).then((res) => console.log("res", res));
+        }).then((res) => {});
 
         fetch("https://litlab-backend.vercel.app/courses/creator/enrollments", {
           method: "PUT",
@@ -111,13 +101,10 @@ const Payment = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ email: item_to_buy.email }),
-        }).then((res) => console.log("res", res));
-        fetch(
-          `https://litlab-backend.vercel.app/courses/${item_to_buy.id}/increase-enrollments`,
-          {
-            method: "PUT",
-          }
-        );
+        }).then((res) => {});
+        fetch(`https://litlab-backend.vercel.app/courses/${item_to_buy.id}/increase-enrollments`, {
+          method: "PUT",
+        });
 
         await fetch("https://litlab-backend.vercel.app/buy-course", {
           method: "POST",
@@ -144,9 +131,7 @@ const Payment = () => {
           body: formData,
         });
         navigate("/");
-      } catch (e) {
-        console.log("An error occured", e);
-      }
+      } catch (e) {}
     } else {
       try {
         const courses = [];
@@ -178,9 +163,7 @@ const Payment = () => {
         setTimeout(() => {
           window.location.reload();
         }, 500);
-      } catch (e) {
-        console.log("An error occured", e);
-      }
+      } catch (e) {}
     }
   };
 
@@ -238,9 +221,7 @@ const Payment = () => {
                   required
                   style={{ width: "72%" }}
                 />
-                {cardNoError && (
-                  <div className="text-danger mt-2">{cardNoError}</div>
-                )}
+                {cardNoError && <div className="text-danger mt-2">{cardNoError}</div>}
               </div>
               <div class="form-group mb-2">
                 <label htmlFor="cardHolderName">Cardholder name</label>
@@ -256,9 +237,7 @@ const Payment = () => {
                   required
                   style={{ width: "72%" }}
                 />
-                {cardNameError && (
-                  <div className="text-danger mt-2">{cardNameError}</div>
-                )}
+                {cardNameError && <div className="text-danger mt-2">{cardNameError}</div>}
               </div>
 
               <div className="d-flex">
@@ -321,27 +300,17 @@ const Payment = () => {
                     required
                     style={{ width: "30%" }}
                   />
-                  {cvvError && (
-                    <div className="text-danger mt-2">{cvvError}</div>
-                  )}
+                  {cvvError && <div className="text-danger mt-2">{cvvError}</div>}
                 </div>
               </div>
               <div class="form-group">
-                <img
-                  src={PaymentLogo}
-                  width="250"
-                  height="50"
-                  alt="Payment logos"
-                />
+                <img src={PaymentLogo} width="250" height="50" alt="Payment logos" />
               </div>
 
               <p className="fs-3">
                 Total: <span>{item_to_buy?.price}$</span>
               </p>
-              <button
-                className="btn btn-primary btn-lg"
-                style={{ width: "63%" }}
-              >
+              <button className="btn btn-primary btn-lg" style={{ width: "63%" }}>
                 Pay
               </button>
             </form>
@@ -415,9 +384,7 @@ const Payment = () => {
                 required
                 style={{ width: "72%" }}
               />
-              {cardNoError && (
-                <div className="text-danger mt-2">{cardNoError}</div>
-              )}
+              {cardNoError && <div className="text-danger mt-2">{cardNoError}</div>}
             </div>
             <div class="form-group mb-2">
               <label htmlFor="cardHolderName">Cardholder name</label>
@@ -433,9 +400,7 @@ const Payment = () => {
                 required
                 style={{ width: "72%" }}
               />
-              {cardNameError && (
-                <div className="text-danger mt-2">{cardNameError}</div>
-              )}
+              {cardNameError && <div className="text-danger mt-2">{cardNameError}</div>}
             </div>
 
             <div className="d-flex">
@@ -502,12 +467,7 @@ const Payment = () => {
               </div>
             </div>
             <div class="form-group">
-              <img
-                src={PaymentLogo}
-                width="250"
-                height="50"
-                alt="Payment logos"
-              />
+              <img src={PaymentLogo} width="250" height="50" alt="Payment logos" />
             </div>
 
             <p className="fs-3">

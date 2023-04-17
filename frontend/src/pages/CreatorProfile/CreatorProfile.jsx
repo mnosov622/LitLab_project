@@ -35,7 +35,6 @@ const CreatorProfile = () => {
         setInstructorDescription(data.description);
         setEmail(data.email);
         setName(data.name);
-        console.log("data", data);
       });
   }, [decoded.id]);
 
@@ -52,9 +51,7 @@ const CreatorProfile = () => {
       method: "POST",
       body: formData,
     }).then((res) => {
-      console.log(res);
       if (res.status === 200) {
-        console.log("success");
         alert.success("Profile is successfully updated", {
           position: positions.BOTTOM_RIGHT,
           timeout: 2000,
@@ -67,16 +64,13 @@ const CreatorProfile = () => {
       body: formData,
     })
       .then((res) => {
-        console.log(res);
         if (res.ok) {
           return res.json();
         } else {
           throw new Error("Network response was not ok.");
         }
       })
-      .then((data) => {
-        console.log("Success:", data);
-      })
+      .then((data) => {})
       .catch((error) => {
         console.error("Error:", error);
       });
@@ -87,9 +81,7 @@ const CreatorProfile = () => {
       <div className="bg-light shadow text-center p-2 fs-2 mb-4">
         <p>My Profile</p>
       </div>
-      <h3 className="profile-header__name mt-5 text-center">
-        {profileData.name}
-      </h3>
+      <h3 className="profile-header__name mt-5 text-center">{profileData.name}</h3>
       <div className="profile-container">
         <div className="profile-header">
           {profileData.profileImage && !imagePreview ? (
@@ -108,21 +100,11 @@ const CreatorProfile = () => {
 
               {imagePreview && (
                 <>
-                  <div
-                    className="mb-3 text-center"
-                    style={{ marginTop: "-5%" }}
-                  >
+                  <div className="mb-3 text-center" style={{ marginTop: "-5%" }}>
                     <p className="text-primary fs-1">Preview image</p>
-                    <img
-                      src={imagePreview}
-                      className="image-preview"
-                      alt="preview"
-                    />
+                    <img src={imagePreview} className="image-preview" alt="preview" />
                   </div>
-                  <button
-                    className="btn btn-danger"
-                    onClick={() => setImagePreview(null)}
-                  >
+                  <button className="btn btn-danger" onClick={() => setImagePreview(null)}>
                     Remove
                   </button>
                 </>
@@ -152,22 +134,12 @@ const CreatorProfile = () => {
 
               {imagePreview && (
                 <>
-                  <div
-                    className="mb-3 text-center"
-                    style={{ marginTop: "-5%" }}
-                  >
+                  <div className="mb-3 text-center" style={{ marginTop: "-5%" }}>
                     <p className="text-primary fs-1">Preview image</p>
-                    <img
-                      src={imagePreview}
-                      className="image-preview"
-                      alt="preview"
-                    />
+                    <img src={imagePreview} className="image-preview" alt="preview" />
                   </div>
 
-                  <button
-                    className="btn btn-danger"
-                    onClick={() => setImagePreview(null)}
-                  >
+                  <button className="btn btn-danger" onClick={() => setImagePreview(null)}>
                     Remove
                   </button>
                 </>
@@ -218,9 +190,7 @@ const CreatorProfile = () => {
               ></input>
             </li>
             <li>
-              <span className="profile-body__contact-list__label fw-bold">
-                Education: &nbsp;
-              </span>
+              <span className="profile-body__contact-list__label fw-bold">Education: &nbsp;</span>
               {profileData.education}
             </li>
           </ul>

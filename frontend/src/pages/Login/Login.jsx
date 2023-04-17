@@ -10,12 +10,7 @@ import { GoogleLogin } from "react-google-login";
 import { gapi } from "gapi-script";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  logIn,
-  loginAsAdmin,
-  logInAsCreator,
-  logInAsLearner,
-} from "../../store/actions";
+import { logIn, loginAsAdmin, logInAsCreator, logInAsLearner } from "../../store/actions";
 import { useNavigate } from "react-router-dom";
 import { Bars, Oval } from "react-loader-spinner";
 
@@ -82,28 +77,19 @@ const Login = () => {
 
   const onSuccess = async (res) => {
     setShowLoader(true);
-    console.log(res);
-    console.log(res.accessToken, res.profileObj.email);
 
     try {
-      const response = await fetch(
-        "https://litlab-backend.vercel.app/googleLogin",
-        {
-          method: "POST",
-          body: JSON.stringify({
-            email: res.profileObj.email,
-          }),
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-
-      console.log(response);
+      const response = await fetch("https://litlab-backend.vercel.app/googleLogin", {
+        method: "POST",
+        body: JSON.stringify({
+          email: res.profileObj.email,
+        }),
+        headers: { "Content-Type": "application/json" },
+      });
 
       if (response.status === 200) {
         const data = await response.json();
         localStorage.setItem("lastVisit", data.dateString);
-        console.log(data.user, data.token);
-        console.log("data", data);
         if (data.user) {
           localStorage.setItem("token", data.token);
         }
@@ -118,7 +104,6 @@ const Login = () => {
           navigate("/");
         }
       } else if (response.status === 404) {
-        console.log("You don't have an acoount");
         setNoAccountError(true);
         setWrongCredentials(false);
       } else {
@@ -131,32 +116,23 @@ const Login = () => {
 
     setShowLoader(false);
   };
-  const onFailure = (err) => {
-    console.log("failed:", err);
-  };
+  const onFailure = (err) => {};
 
   const clientId = process.env.REACT_APP_GOOGLE_LOGIN_CLIENT_ID;
 
   const handleSubmit = async (e) => {
     setShowLoader(true);
-    console.log(email, password);
     e.preventDefault();
 
     try {
-      const response = await fetch(
-        "https://litlab-backend.vercel.app/login",
-        {
-          method: "POST",
-          body: JSON.stringify({ email, password }),
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-
-      console.log(response);
+      const response = await fetch("https://litlab-backend.vercel.app/login", {
+        method: "POST",
+        body: JSON.stringify({ email, password }),
+        headers: { "Content-Type": "application/json" },
+      });
 
       if (response.status === 200) {
         const data = await response.json();
-        console.log(data.user, data.token);
         if (data.user) {
           localStorage.setItem("token", data.token);
           localStorage.setItem("lastVisit", data.dateString);
@@ -174,7 +150,6 @@ const Login = () => {
           navigate("/");
         }
       } else if (response.status === 404) {
-        console.log("You don't have an acoount");
         setNoAccountError(true);
         setWrongCredentials(false);
       } else {
@@ -189,15 +164,9 @@ const Login = () => {
   };
   return (
     <>
-      {signedUp && (
-        <p className="fs-5 text-center text-success">
-          You have successfully signed up
-        </p>
-      )}
+      {signedUp && <p className="fs-5 text-center text-success">You have successfully signed up</p>}
 
-      {location.state && location.state.message && (
-        <p>{location.state.message}</p>
-      )}
+      {location.state && location.state.message && <p>{location.state.message}</p>}
       <Container>
         <Row className="justify-content-md-center  mx-auto">
           <Col className="form mt-5 ">
@@ -220,9 +189,7 @@ const Login = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   onKeyUp={handleEmail}
                 />
-                {emailError && (
-                  <div className="text-danger mt-2">{emailError}</div>
-                )}
+                {emailError && <div className="text-danger mt-2">{emailError}</div>}
               </Form.Group>
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <Form.Label className="fs-3">Password</Form.Label>
@@ -236,14 +203,10 @@ const Login = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   onKeyUp={handlePassword}
                 />
-                {passwordError && (
-                  <div className="text-danger mt-2">{passwordError}</div>
-                )}
+                {passwordError && <div className="text-danger mt-2">{passwordError}</div>}
               </Form.Group>
               {wrongCredentials && (
-                <div className="text-center text-danger">
-                  Wrong Email Or Password
-                </div>
+                <div className="text-center text-danger">Wrong Email Or Password</div>
               )}
               {noAccountError && (
                 <div className="text-center text-danger">
@@ -260,11 +223,7 @@ const Login = () => {
                   Forgot Password?
                 </Link>
               </Form.Group>
-              <Button
-                className="btn btn3 btn-primary btn-lg mb-3"
-                variant="primary"
-                type="submit"
-              >
+              <Button className="btn btn3 btn-primary btn-lg mb-3" variant="primary" type="submit">
                 {showLoader ? (
                   <Bars
                     height="30"

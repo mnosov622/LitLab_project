@@ -62,7 +62,6 @@ const ResetPassword = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token, password }),
       }).then((res) => {
-        console.log("response", res);
         if (res.status === 400) {
           alert.error("Reset password link has expired. Send new reset password request.", {
             position: positions.BOTTOM_CENTER,
