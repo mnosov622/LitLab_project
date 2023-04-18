@@ -12,6 +12,8 @@ const mongodb = require("mongodb");
 // Route handler for accepting user data
 router.post("/:id", upload.single("profileImage"), async (req, res) => {
   try {
+    console.log("educations", req.body.education);
+
     const db = client.db("users");
     const bucket = new mongodb.GridFSBucket(db);
     const storage = new multer.memoryStorage();
@@ -33,6 +35,7 @@ router.post("/:id", upload.single("profileImage"), async (req, res) => {
         description: req.body.description,
         name: req.body.name,
         email: req.body.email,
+        education: req.body.education,
       },
       { new: true }
     );
@@ -49,51 +52,41 @@ router.post("/:id", upload.single("profileImage"), async (req, res) => {
   }
 });
 
-router.post(
-  "/courses/:email",
-  upload.single("profileImage"),
-  async (req, res) => {
-    try {
-      const db = client.db("courses");
-      const bucket = new mongodb.GridFSBucket(db);
+router.post("/courses/:email", upload.single("profileImage"), async (req, res) => {
+  try {
+    const db = client.db("courses");
+    const bucket = new mongodb.GridFSBucket(db);
 
-      let profileImage = undefined;
-      if (req.file) {
-        const imageUploadStream = bucket.openUploadStream(
-          req.file.originalname
-        );
-        imageUploadStream.write(req.file.buffer);
-        imageUploadStream.end();
-        profileImage = req.file.originalname;
-      }
-
-      const collection = db.collection("courses");
-
-      const updateFields = {};
-      if (req.body.bio) updateFields.instructorBio = req.body.bio;
-      if (req.body.social) updateFields.social = req.body.social;
-      if (req.body.description)
-        updateFields.instructorDescription = req.body.description;
-      if (profileImage) updateFields.instructorImageURL = profileImage;
-      if (req.body.instructor) updateFields.instructor = req.body.instructor;
-      if (req.body.email) updateFields.email = req.body.email;
-
-      const result = await collection.updateOne(
-        { email: req.params.email },
-        { $set: updateFields }
-      );
-
-      if (result.modifiedCount !== 1) {
-        return res.status(404).send("User not found");
-      }
-
-      return res.send("User updated in database");
-    } catch (err) {
-      console.error(err);
-      return res.status(500).send("Error updating user");
+    let profileImage = undefined;
+    if (req.file) {
+      const imageUploadStream = bucket.openUploadStream(req.file.originalname);
+      imageUploadStream.write(req.file.buffer);
+      imageUploadStream.end();
+      profileImage = req.file.originalname;
     }
+
+    const collection = db.collection("courses");
+
+    const updateFields = {};
+    if (req.body.bio) updateFields.instructorBio = req.body.bio;
+    if (req.body.social) updateFields.social = req.body.social;
+    if (req.body.description) updateFields.instructorDescription = req.body.description;
+    if (profileImage) updateFields.instructorImageURL = profileImage;
+    if (req.body.instructor) updateFields.instructor = req.body.instructor;
+    if (req.body.email) updateFields.email = req.body.email;
+
+    const result = await collection.updateOne({ email: req.params.email }, { $set: updateFields });
+
+    if (result.modifiedCount !== 1) {
+      return res.status(404).send("User not found");
+    }
+
+    return res.send("User updated in database");
+  } catch (err) {
+    console.error(err);
+    return res.status(500).send("Error updating user");
   }
-);
+});
 
 // Route handler for retrieving user data
 router.get("/users/:id", (req, res) => {

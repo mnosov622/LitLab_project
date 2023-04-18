@@ -12,6 +12,7 @@ const CreatorProfile = () => {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [instructorDescription, setInstructorDescription] = useState("");
+  const [education, setEducation] = useState("");
 
   const [socialLink, setSocialLink] = useState("");
   const [description, setDescription] = useState("");
@@ -26,7 +27,7 @@ const CreatorProfile = () => {
   };
 
   useEffect(() => {
-    fetch(`https://litlab-backend.vercel.app/users/${decoded.id}`)
+    fetch(`http://localhost:8000/users/${decoded.id}`)
       .then((response) => response.json())
       .then((data) => {
         setProfileData(data);
@@ -35,6 +36,7 @@ const CreatorProfile = () => {
         setInstructorDescription(data.description);
         setEmail(data.email);
         setName(data.name);
+        setEducation(data.education);
       });
   }, [decoded.id]);
 
@@ -46,8 +48,9 @@ const CreatorProfile = () => {
     formData.append("name", name);
     formData.append("instructor", name);
     formData.append("email", email);
+    formData.append("education", education);
 
-    fetch(`https://litlab-backend.vercel.app/creator/${decoded.id}`, {
+    fetch(`http://localhost:8000/creator/${decoded.id}`, {
       method: "POST",
       body: formData,
     }).then((res) => {
@@ -59,7 +62,7 @@ const CreatorProfile = () => {
       }
     });
 
-    fetch(`https://litlab-backend.vercel.app/creator/courses/${profileData.email}`, {
+    fetch(`http://localhost:8000/creator/courses/${profileData.email}`, {
       method: "POST",
       body: formData,
     })
@@ -67,7 +70,6 @@ const CreatorProfile = () => {
         if (res.ok) {
           return res.json();
         } else {
-          throw new Error("Network response was not ok.");
         }
       })
       .then((data) => {})
@@ -88,7 +90,7 @@ const CreatorProfile = () => {
             <>
               <img
                 className="profile-header__avatar rounded w-25"
-                src={`https://litlab-backend.vercel.app/images/${profileData.profileImage}`}
+                src={`http://localhost:8000/images/${profileData.profileImage}`}
                 alt="avatar"
               />
               {!imagePreview && (
@@ -159,9 +161,9 @@ const CreatorProfile = () => {
             onChange={(e) => setBio(e.target.value)}
           ></input>
 
-          <p className="fs-3 mt-5 mb-5">About you and career</p>
+          <p className="fs-3 mt-5 mb-2">About you and career</p>
           <textarea
-            className="profile-body__bio form-control mb-5"
+            className="profile-body__bio form-control mb-3"
             type="text"
             placeholder="Your Bio..."
             resize="none"
@@ -172,7 +174,7 @@ const CreatorProfile = () => {
 
           <ul className="profile-body__contact-list">
             <li>
-              <p className="fs-3">Your Email</p>
+              <p className="fs-3">Email</p>
               <input
                 className="profile-body__bio form-control w-50 mx-auto"
                 type="text"
@@ -181,7 +183,7 @@ const CreatorProfile = () => {
               ></input>
             </li>
             <li>
-              <p className="fs-3">Your Name</p>
+              <p className="fs-3">Name</p>
               <input
                 className="profile-body__bio form-control w-50 mx-auto"
                 type="text"
@@ -190,8 +192,13 @@ const CreatorProfile = () => {
               ></input>
             </li>
             <li>
-              <span className="profile-body__contact-list__label fw-bold">Education: &nbsp;</span>
-              {profileData.education}
+              <p className="fs-3">Education</p>
+              <input
+                className="profile-body__bio form-control w-50 mx-auto"
+                type="text"
+                value={education}
+                onChange={(e) => setEducation(e.target.value)}
+              ></input>
             </li>
           </ul>
         </div>

@@ -44,7 +44,7 @@ const CourseCard = ({
     console.log("course image recieved", courseImage);
     const imageSource = courseImage?.startsWith("https")
       ? courseImage
-      : `https://litlab-backend.vercel.app/images/${courseImage}`;
+      : `http://localhost:8000/images/${courseImage}`;
     setImageSource(imageSource);
   }, []);
 

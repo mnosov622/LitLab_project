@@ -65,7 +65,7 @@ const CourseDescription = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`https://litlab-backend.vercel.app/courses/${Number(id)}`)
+    fetch(`http://localhost:8000/courses/${Number(id)}`)
       .then((response) => response.json())
       .then((data) => {
         setCourse(data.course);
@@ -81,7 +81,7 @@ const CourseDescription = () => {
     const token = localStorage.getItem("token");
     const decoded = jwtDecode(token);
 
-    fetch(`https://litlab-backend.vercel.app/users/${decoded.id}`)
+    fetch(`http://localhost:8000/users/${decoded.id}`)
       .then((response) => response.json())
       .then((data) => {
         setLearnerCourses(data.courses);
@@ -96,14 +96,14 @@ const CourseDescription = () => {
   useEffect(() => {
     const imageSource = course?.courseImageURL?.startsWith("https")
       ? course?.courseImageURL
-      : `https://litlab-backend.vercel.app/images/${course.courseImageURL}`;
+      : `http://localhost:8000/images/${course.courseImageURL}`;
     setImageSource(imageSource);
   }, [course, course?.coureseImageURL]);
 
   useEffect(() => {
     const instructorSource = course?.instructorImageURL?.startsWith("https")
       ? course?.instructorImageURL
-      : `https://litlab-backend.vercel.app/images/${course.instructorImageURL}`;
+      : `http://localhost:8000/images/${course.instructorImageURL}`;
     setInstructorImageSource(instructorSource);
   }, [course, course?.instructorImageURL]);
 
@@ -183,7 +183,7 @@ const CourseDescription = () => {
       instructorName: course.instructor,
     };
 
-    fetch("https://litlab-backend.vercel.app/review/creator", {
+    fetch("http://localhost:8000/review/creator", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -218,7 +218,7 @@ const CourseDescription = () => {
     }
     setError(false);
 
-    fetch(`https://litlab-backend.vercel.app/review/course/${Number(id)}`, {
+    fetch(`http://localhost:8000/review/course/${Number(id)}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -231,7 +231,7 @@ const CourseDescription = () => {
           timeout: 2000,
         });
 
-        fetch(`https://litlab-backend.vercel.app/courses/${Number(id)}`)
+        fetch(`http://localhost:8000/courses/${Number(id)}`)
           .then((response) => response.json())
           .then((data) => {
             setCourse(data.course);

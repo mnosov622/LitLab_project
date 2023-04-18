@@ -94,7 +94,7 @@ const LearnerSignup = () => {
     const { name, email } = res.profileObj;
 
     try {
-      const response = await fetch("https://litlab-backend.vercel.app/register-with-google", {
+      const response = await fetch("http://localhost:8000/register-with-google", {
         method: "POST",
         body: JSON.stringify({
           name,
@@ -122,7 +122,7 @@ const LearnerSignup = () => {
     e.preventDefault();
     if (passwordMatch && !passwordError) {
       try {
-        const response = await fetch("https://litlab-backend.vercel.app/registerLearner", {
+        const response = await fetch("http://localhost:8000/registerLearner", {
           method: "POST",
           body: JSON.stringify({ name, email, password, isLearner: true }),
           headers: { "Content-Type": "application/json" },
