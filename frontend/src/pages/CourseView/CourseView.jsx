@@ -65,6 +65,7 @@ const CourseView = () => {
   const [loading, setLoading] = useState(false);
   const [fakeVideo, setFakeVideo] = useState(false);
   const [uploadedVideo, setUploadedVideo] = useState(false);
+  const [userData, setUserData] = useState([]);
 
   // for note
   const [notes, setNotes] = useState([]);
@@ -90,6 +91,7 @@ const CourseView = () => {
       .then((res) => res.json())
       .then((data) => {
         setSavedNotes(data.notes);
+        setUserData(data);
       });
   }, []);
 
@@ -567,9 +569,7 @@ const CourseView = () => {
                           className="form-control"
                           id="emailAddress"
                           placeholder="Enter email"
-                          value={emailAddress}
-                          onChange={(e) => setEmailAddress(e.target.value)}
-                          onKeyUp={handleEmail}
+                          value={userData.email}
                         />
                         {emailError && <div className="text-danger mt-2">{emailError}</div>}
                       </div>
@@ -582,9 +582,7 @@ const CourseView = () => {
                           className="form-control"
                           id="name"
                           placeholder="Enter name"
-                          value={name}
-                          onChange={(e) => setName(e.target.value)}
-                          onKeyUp={handleName}
+                          value={userData.name}
                         />
                         {nameError && <div className="text-danger mt-2">{nameError}</div>}
                       </div>
