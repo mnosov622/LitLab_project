@@ -72,7 +72,6 @@ router.delete("/:id/courses", async (req, res) => {
 router.post("/notes/:id", async (req, res) => {
   const id = req.params.id;
   const noteText = req.body.notebody;
-
   const user = await User.findById(id);
 
   if (!user) {
@@ -83,9 +82,31 @@ router.post("/notes/:id", async (req, res) => {
   const lastNoteId = lastNote ? lastNote.id : 0;
   const newNoteId = lastNoteId + 1;
 
+  const now = new Date();
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const monthName = months[now.getMonth()];
+  const day = now.getDate();
+  const year = now.getFullYear();
+  const hour = now.getHours();
+  const minute = now.getMinutes();
+  const formattedDate = `${monthName} ${day}, ${year} ${hour}:${minute}`;
   const updatedUser = await User.findByIdAndUpdate(
     id,
-    { $push: { notes: { text: noteText, id: newNoteId } } },
+    { $push: { notes: { text: noteText, id: newNoteId, noteDate: formattedDate } } },
     { new: true }
   );
 
@@ -95,21 +116,16 @@ router.post("/notes/:id", async (req, res) => {
 router.delete("/notes/:id", (req, res) => {
   const userId = req.params.id;
 
-  User.findByIdAndUpdate(
-    userId,
-    { $unset: { notes: 1 } },
-    { new: true },
-    (err, user) => {
-      if (err) {
-        console.error(err);
-        return res.status(500).json({ message: "Failed to remove notes" });
-      }
-      if (!user) {
-        return res.status(404).json({ message: "User not found" });
-      }
-      res.status(200).json({ user });
+  User.findByIdAndUpdate(userId, { $unset: { notes: 1 } }, { new: true }, (err, user) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).json({ message: "Failed to remove notes" });
     }
-  );
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.status(200).json({ user });
+  });
 });
 
 //delete single note
@@ -124,9 +140,7 @@ router.delete("/notes/:userId/:noteId", async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    const noteIndex = user.notes.findIndex(
-      (note) => String(note.id) === String(noteId)
-    );
+    const noteIndex = user.notes.findIndex((note) => String(note.id) === String(noteId));
     if (noteIndex === -1) {
       return res.status(404).json({ message: "Note not found" });
     }
@@ -221,19 +235,15 @@ router.post("/withdrawals", (req, res) => {
 
     user.withdrawals.push(withdrawalData);
 
-    users.updateOne(
-      { email },
-      { $set: { withdrawals: user.withdrawals } },
-      (err) => {
-        if (err) {
-          console.error(err);
-          res.status(500).send("Failed to update user");
-          return;
-        }
-
-        res.status(200).send("Withdrawal information added successfully");
+    users.updateOne({ email }, { $set: { withdrawals: user.withdrawals } }, (err) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send("Failed to update user");
+        return;
       }
-    );
+
+      res.status(200).send("Withdrawal information added successfully");
+    });
   });
 });
 

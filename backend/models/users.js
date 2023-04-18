@@ -45,6 +45,7 @@ const userSchema = new mongoose.Schema({
     {
       text: String,
       id: Number,
+      noteDate: String,
     },
   ],
   courses: [

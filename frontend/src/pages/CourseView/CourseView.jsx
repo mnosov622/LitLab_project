@@ -161,7 +161,33 @@ const CourseView = () => {
         });
     });
 
-    const newNote = { id: noteId || Date.now(), body: noteBody };
+    const now = new Date();
+
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+
+    const monthName = months[now.getMonth()];
+    const day = now.getDate();
+    const year = now.getFullYear();
+    const hour = now.getHours();
+    const minute = now.getMinutes();
+
+    const formattedDate = `${monthName} ${day}, ${year} ${hour}:${minute}`;
+    console.log(formattedDate);
+
+    const newNote = { id: noteId || Date.now(), body: noteBody, date: formattedDate };
     const newNotes = [...notes.filter((note) => note.id !== newNote.id), newNote];
     setNotes(newNotes);
     setNoteId(null);
@@ -458,6 +484,12 @@ const CourseView = () => {
                               className="border p-3 mb-3 note w-100"
                               dangerouslySetInnerHTML={{ __html: note.text }}
                             ></div>
+                            <span
+                              className="position-absolute text-secondary"
+                              style={{ top: 0, right: "15px" }}
+                            >
+                              {note.noteDate}
+                            </span>
                             <span
                               className="position-absolute cursor-pointer"
                               onClick={() => handleDeleteNote(note)}
