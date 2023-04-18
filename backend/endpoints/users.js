@@ -289,6 +289,29 @@ router.delete("/withdrawals/:email", (req, res) => {
   );
 });
 
+router.post("/increment-revenue", async (req, res) => {
+  const db = client.db("users");
+  const usersCollection = db.collection("users");
+
+  const adminEmail = "admin@gmail.com";
+  const revenueIncrease = req.body.companyRevenue;
+
+  // find the user with the specified email
+  const user = await usersCollection.findOne({ email: adminEmail });
+
+  if (user) {
+    // if the user exists, update the totalRevenue field
+    const currentRevenue = user.totalRevenue || 0;
+    const updatedRevenue = currentRevenue + revenueIncrease;
+    await usersCollection.updateOne(
+      { email: adminEmail },
+      { $set: { totalRevenue: updatedRevenue } }
+    );
+  } else {
+    res.send("User not found");
+  }
+});
+
 const nodemailer = require("nodemailer");
 
 //send email

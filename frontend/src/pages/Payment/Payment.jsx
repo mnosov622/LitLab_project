@@ -137,6 +137,18 @@ const Payment = () => {
           },
           body: formData,
         });
+
+        fetch("http://localhost:8000/users/increment-revenue", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ companyRevenue }),
+        })
+          .then((res) => res.text())
+          .then((data) => console.log(data))
+          .catch((err) => console.error(err));
+
         navigate("/");
       } catch (e) {}
     } else {
