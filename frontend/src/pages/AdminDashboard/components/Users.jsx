@@ -6,6 +6,7 @@ import Modal from "../../../components/Modal/Modal";
 import "../admindashboard.css";
 import jwtDecode from "jwt-decode";
 import { useAlert, positions } from "react-alert";
+import "../css/component/featuredInfo.css";
 
 const Users = () => {
   const alert = useAlert();
@@ -231,6 +232,31 @@ const Users = () => {
 
   return (
     <div>
+      <div className="">
+        <h2 className="text-center mb-5 mt-5">Total Revenue</h2>
+        <div className="featuredItem text-center w-25 mx-auto" style={{ cursor: "default" }}>
+          <span className="featuredMoney text-center">
+            {/* {loading ? (
+                <ThreeDots
+                  height="30"
+                  width="40"
+                  radius="9"
+                  color="#0d6efd"
+                  ariaLabel="three-dots-loading"
+                  wrapperStyle={{}}
+                  wrapperClassName=""
+                  visible={true}
+                />
+              ) : (
+                coursesAmount
+              )} */}
+            {adminData.totalRevenue} $
+          </span>
+          <span className="featuredMoneyRate">
+            <span className="featuredIcon negative" />
+          </span>
+        </div>
+      </div>
       <h2 className="text-center mb-5 mt-5">All Users</h2>
       <div className="table-responsive">
         <table className="table table-light fs-5 border w-100">
