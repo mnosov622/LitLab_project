@@ -41,10 +41,9 @@ const CourseCard = ({
   };
 
   useEffect(() => {
-    console.log("course image recieved", courseImage);
     const imageSource = courseImage?.startsWith("https")
       ? courseImage
-      : `http://localhost:8000/images/${courseImage}`;
+      : `https://litlab-backend.vercel.app/images/${courseImage}`;
     setImageSource(imageSource);
   }, []);
 
@@ -89,6 +88,8 @@ const CourseCard = ({
     });
 
     localStorage.setItem("shopping_cart", JSON.stringify(cartItems));
+
+    window.location.reload();
   };
   return (
     <>
@@ -102,11 +103,7 @@ const CourseCard = ({
       )}
 
       <div
-        className={
-          cardSmall
-            ? "w-25 mb-5 col-md-6 course-card"
-            : "w-100 mb-5 course-card"
-        }
+        className={cardSmall ? "w-25 mb-5 col-md-6 course-card" : "w-100 mb-5 course-card"}
         style={{ position: "relative" }}
       >
         {courseCompleted && (
@@ -129,11 +126,7 @@ const CourseCard = ({
 
         <Link to={linkToCourseView ? `/course-view/${id}` : `/course/${id}`}>
           <div
-            className={
-              allCourses
-                ? "card-item border position-relative hover_effect"
-                : "border"
-            }
+            className={allCourses ? "card-item border position-relative hover_effect" : "border"}
             style={{ position: "relative" }}
           >
             {allCourses && (
@@ -154,10 +147,7 @@ const CourseCard = ({
                           fill="#FFFFFF"
                         />
                       </svg>
-                      <span
-                        className="layer_point m-auto"
-                        style={{ color: "white" }}
-                      >
+                      <span className="layer_point m-auto" style={{ color: "white" }}>
                         {point.point}
                       </span>
                     </div>
@@ -165,9 +155,7 @@ const CourseCard = ({
 
                 {allCourses && localStorage.getItem("token") !== null && (
                   <button
-                    className={
-                      "btn btn-outline-primary btn-lg mt-3 btn-light addBtn"
-                    }
+                    className={"btn btn-outline-primary btn-lg mt-3 btn-light addBtn"}
                     onClick={handleAddToCart}
                   >
                     Add to Cart
@@ -177,11 +165,7 @@ const CourseCard = ({
             )}
 
             {homeImage && (
-              <img
-                src={image}
-                className="card-img-top img-fluid card-image"
-                alt="Course"
-              />
+              <img src={image} className="card-img-top img-fluid card-image" alt="Course" />
             )}
 
             {creatorCourseImage && !homeImage && (
@@ -192,11 +176,7 @@ const CourseCard = ({
               />
             )}
             {!homeImage && (
-              <img
-                src={imageSource}
-                className="card-img-top img-fluid card-image"
-                alt="Course"
-              />
+              <img src={imageSource} className="card-img-top img-fluid card-image" alt="Course" />
             )}
 
             <div className="card-body">
@@ -224,16 +204,10 @@ const CourseCard = ({
                 </p>
               )}
 
-              <p className="bg-light border rounded text-center mt-4 fw-bold fs-5">
-                {price}$
-              </p>
+              <p className="bg-light border rounded text-center mt-4 fw-bold fs-5">{price}$</p>
               {removable && (
                 <div>
-                  <button
-                    type="button"
-                    className="btn btn-danger"
-                    onClick={handleRemove(id)}
-                  >
+                  <button type="button" className="btn btn-danger" onClick={handleRemove(id)}>
                     <i class="bi bi-trash3-fill"></i>
                     &nbsp; Remove
                   </button>
@@ -241,10 +215,7 @@ const CourseCard = ({
               )}
               {courseCompleted && (
                 <div className="text-center bg-primary p-2 rounded">
-                  <Link
-                    to={`/certificate/${id}`}
-                    className="text-center text-light"
-                  >
+                  <Link to={`/certificate/${id}`} className="text-center text-light">
                     Show Certificate
                   </Link>
                 </div>

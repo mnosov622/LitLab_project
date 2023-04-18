@@ -133,6 +133,7 @@ const CourseDescription = () => {
       const cartItems = JSON.parse(localStorage.getItem("shopping_cart")) || [];
       cartItems.push(newItem);
       localStorage.setItem("amountOfItems", JSON.stringify(cartItems.length));
+      window.location.reload();
     } else {
       alert.error("Item exists in cart", {
         position: positions.BOTTOM_RIGHT,
