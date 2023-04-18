@@ -39,8 +39,7 @@ input {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 .navbar {
@@ -169,4 +168,8 @@ df-messenger {
 .container-item {
   display: flex;
   flex-wrap: wrap;
+}
+
+.modal-dialog {
+  margin-top: 10% !important;
 }
