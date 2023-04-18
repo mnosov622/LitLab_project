@@ -68,6 +68,13 @@ const Payment = () => {
   const handlePayment = async (event) => {
     event.preventDefault();
 
+    let num = item_to_buy.price; // replace 100 with the number you want to calculate
+    let companyRevenue = num * 0.2; // calculates 20% of num
+    let creatorProfit = num - companyRevenue; // calculates the remaining 80% of num
+
+    console.log(`20% of ${num} is ${companyRevenue}`);
+    console.log(`The remaining 80% of ${num} is ${creatorProfit}`);
+
     // Perform validation here and submit the form data to the server
 
     if (!Array.isArray(item_to_buy)) {
@@ -121,7 +128,7 @@ const Payment = () => {
 
         const formData = new URLSearchParams();
         formData.append("email", item_to_buy.email);
-        formData.append("amount", item_to_buy.price);
+        formData.append("amount", creatorProfit);
 
         await fetch("http://localhost:8000/creator/moneyEarned", {
           method: "PUT",
