@@ -17,7 +17,8 @@ const CreatorSignup = () => {
   const navigate = useNavigate();
   const [showLoader, setShowLoader] = useState(false);
   const [userExists, setUserExists] = useState(false);
-  const [name, setName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
@@ -26,7 +27,8 @@ const CreatorSignup = () => {
   const [passwordMatch, setPasswordMatch] = useState(true);
 
   // Define state variables for the input values and validation errors
-  const [nameError, setNameError] = useState(null);
+  const [fnameError, setFNameError] = useState(null);
+  const [lnameError, setLNameError] = useState(null);
   const [emailError, setEmailError] = useState(null);
   const [passwordError, setPasswordError] = useState(null);
   const [subjectError, setSubjectError] = useState(null);
@@ -40,25 +42,42 @@ const CreatorSignup = () => {
       setPasswordMatch(true);
     }
   };
-
-  const handleName = () => {
-    // Ensure the name is not empty
-    if (name == null) {
-      return setNameError("Name cannot be empty.");
+  const handleFirstName = () => {
+    if (firstName == null) {
+      return setFNameError("Name cannot be empty.");
     }
 
     // Ensure the name is not too short or too long
-    if (name.length < 2 || name.length > 50) {
-      return setNameError("Name must be between 2 and 50 characters.");
+    if (firstName.length < 2 || firstName.length > 50) {
+      return setFNameError("Name must be between 2 and 50 characters.");
     }
 
     // Ensure the name contains only valid characters
-    if (!/^[a-zA-Z\s]*$/.test(name)) {
-      return setNameError("Name can only contain letters and spaces.");
+    if (!/^[a-zA-Z\s]*$/.test(firstName)) {
+      return setFNameError("Name can only contain letters and spaces.");
     }
 
     // If all checks pass, return null to indicate success
-    return setNameError(null);
+    return setFNameError(null);
+  };
+
+  const handleLastName = (e) => {
+    if (lastName == null) {
+      return setLNameError("Name cannot be empty.");
+    }
+
+    // Ensure the name is not too short or too long
+    if (lastName.length < 2 || lastName.length > 50) {
+      return setLNameError("Name must be between 2 and 50 characters.");
+    }
+
+    // Ensure the name contains only valid characters
+    if (!/^[a-zA-Z\s]*$/.test(lastName)) {
+      return setLNameError("Name can only contain letters and spaces.");
+    }
+
+    // If all checks pass, return null to indicate success
+    return setLNameError(null);
   };
 
   // Define a function to validate the email input field
@@ -77,18 +96,26 @@ const CreatorSignup = () => {
     return setEmailError(null);
   }
 
-  // Define a function to validate the password input field
   function handlePassword() {
     // Ensure the password is not empty
     if (password == null) {
       return setPasswordError("Password cannot be empty.");
     }
 
+    // Ensure the password has at least one capital letter, one number, and one special symbol
+    const hasCapital = /[A-Z]/.test(password);
+    const hasNumber = /[0-9]/.test(password);
+    const hasSpecialSymbol = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+    if (!hasCapital || !hasNumber || !hasSpecialSymbol) {
+      return setPasswordError(
+        "Password must contain at least one capital letter, one number, and one special symbol."
+      );
+    }
+
     // Ensure the password is at least 8 characters long
     if (password.length < 8) {
       return setPasswordError("Password must be at least 8 characters long.");
     }
-
     // If all checks pass, return null to indicate success
     return setPasswordError(null);
   }
@@ -131,12 +158,14 @@ const CreatorSignup = () => {
       setShowLoader(false);
     }
 
-    if (passwordMatch && result.success) {
+    if (passwordMatch && result.success && !passwordError) {
       try {
+        const fullName = `${firstName} ${lastName}`;
+
         const response = await fetch("http://localhost:8000/registerCreator", {
           method: "POST",
           body: JSON.stringify({
-            name,
+            name: fullName,
             email,
             password,
             subject,
@@ -168,22 +197,41 @@ const CreatorSignup = () => {
           <Col className="form mt-5 ">
             <h2 className="fs-2 mb-3">Create an account to get started</h2>
             <Form onSubmit={handleSignup}>
-              <div className="form-floating mb-3">
-                <input
-                  type="name"
-                  className="form-control"
-                  id="floatingName"
-                  placeholder="Name"
-                  required
-                  autoFocus
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  onKeyUp={handleName}
-                />
-                <label for="floatingName">Full Name</label>
-                {nameError && <div className="text-danger mt-2">{nameError}</div>}
-              </div>
-
+              <Row className="justify-content-md-center">
+                <Col>
+                  <div className="form-floating mb-3">
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="floatingFName"
+                      placeholder="Name"
+                      required
+                      autoFocus
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}
+                      onKeyUp={handleFirstName}
+                    />
+                    <label htmlFor="floatingFName">First Name</label>
+                    {fnameError && <div className="text-danger mt-2">{fnameError}</div>}
+                  </div>
+                </Col>
+                <Col>
+                  <div className="form-floating mb-3">
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="floatingLName"
+                      placeholder="Last Name"
+                      required
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}
+                      onKeyUp={handleLastName}
+                    />
+                    <label htmlFor="floatingLName">Last Name</label>
+                    {lnameError && <div className="text-danger mt-2">{lnameError}</div>}
+                  </div>
+                </Col>
+              </Row>
               <div className="form-floating mb-3">
                 <input
                   type="name"
