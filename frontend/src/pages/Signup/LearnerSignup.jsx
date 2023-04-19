@@ -94,24 +94,44 @@ const LearnerSignup = () => {
     // navigate("/");
     const { name, email } = res.profileObj;
 
-    try {
-      const response = await fetch("http://localhost:8000/register-with-google", {
-        method: "POST",
-        body: JSON.stringify({
-          name,
-          email,
-          token: res.accessToken,
-          isLearner: true,
-        }),
-        headers: { "Content-Type": "application/json" },
-      });
+    const recaptchaResponse = captchaRef.current.getValue();
 
-      if (response.status === 409) {
-        return setUserExists(true);
-      }
-      navigate("/login", { state: { success: true } });
-      setUserExists(false);
-    } catch (e) {}
+    const url = "http://localhost:8000/validate-recaptcha";
+    const response = await fetch(url, {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ recaptchaResponse }),
+    });
+    const result = await response.json();
+    if (!result.success) {
+      setCaptchaError(true);
+      setShowLoader(false);
+      captchaRef.current.reset();
+    } else {
+      setCaptchaError(false);
+      setShowLoader(false);
+    }
+
+    if (result.success) {
+      try {
+        const response = await fetch("http://localhost:8000/register-with-google", {
+          method: "POST",
+          body: JSON.stringify({
+            name,
+            email,
+            token: res.accessToken,
+            isLearner: true,
+          }),
+          headers: { "Content-Type": "application/json" },
+        });
+
+        if (response.status === 409) {
+          return setUserExists(true);
+        }
+        navigate("/login", { state: { success: true } });
+        setUserExists(false);
+      } catch (e) {}
+    }
   };
 
   const onFailure = (err) => {
@@ -123,7 +143,6 @@ const LearnerSignup = () => {
     e.preventDefault();
 
     const recaptchaResponse = captchaRef.current.getValue();
-    console.log("from client", recaptchaResponse);
 
     const url = "http://localhost:8000/validate-recaptcha";
     const response = await fetch(url, {
@@ -132,7 +151,6 @@ const LearnerSignup = () => {
       body: JSON.stringify({ recaptchaResponse }),
     });
     const result = await response.json();
-    console.log("result", result);
     if (!result.success) {
       setCaptchaError(true);
       setShowLoader(false);
