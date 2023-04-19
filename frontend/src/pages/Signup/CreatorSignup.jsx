@@ -31,6 +31,7 @@ const CreatorSignup = () => {
   const [passwordError, setPasswordError] = useState(null);
   const [subjectError, setSubjectError] = useState(null);
   const [eduError, setEduError] = useState(null);
+  const [captchaError, setCaptchaError] = useState(false);
 
   const handlePasswordMatch = () => {
     if (password !== reEnterPassword) {
@@ -111,7 +112,26 @@ const CreatorSignup = () => {
   const handleSignup = async (e) => {
     setShowLoader(true);
     e.preventDefault();
-    if (passwordMatch) {
+
+    const recaptchaResponse = captchaRef.current.getValue();
+
+    const url = "http://localhost:8000/validate-recaptcha";
+    const response = await fetch(url, {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ recaptchaResponse }),
+    });
+    const result = await response.json();
+    if (!result.success) {
+      setCaptchaError(true);
+      setShowLoader(false);
+      captchaRef.current.reset();
+    } else {
+      setCaptchaError(false);
+      setShowLoader(false);
+    }
+
+    if (passwordMatch && result.success) {
       try {
         const response = await fetch("http://localhost:8000/registerCreator", {
           method: "POST",
@@ -245,6 +265,7 @@ const CreatorSignup = () => {
                 sitekey={process.env.REACT_APP_CAPTCHA_SITE_KEY}
                 ref={captchaRef}
               />
+              {captchaError && <p className="text-danger">Captcha validation failed</p>}
 
               <Button className="btn btn-lg btn-primary mb-3" variant="primary" type="submit">
                 {showLoader ? (
