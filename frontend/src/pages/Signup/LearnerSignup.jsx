@@ -18,8 +18,8 @@ const LearnerSignup = () => {
   const navigate = useNavigate();
   const [showLoader, setShowLoader] = useState(false);
   const [userExists, setUserExists] = useState(false);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [reEnterPassword, setReEnterPassword] = useState("");
@@ -99,13 +99,15 @@ const LearnerSignup = () => {
     if (password == null) {
       return setPasswordError("Password cannot be empty.");
     }
-    
+
     // Ensure the password has at least one capital letter, one number, and one special symbol
     const hasCapital = /[A-Z]/.test(password);
     const hasNumber = /[0-9]/.test(password);
     const hasSpecialSymbol = /[!@#$%^&*(),.?":{}|<>]/.test(password);
     if (!hasCapital || !hasNumber || !hasSpecialSymbol) {
-      return setPasswordError("Password must contain at least one capital letter, one number, and one special symbol.");
+      return setPasswordError(
+        "Password must contain at least one capital letter, one number, and one special symbol."
+      );
     }
 
     // Ensure the password is at least 8 characters long
@@ -168,7 +170,6 @@ const LearnerSignup = () => {
     setShowLoader(true);
     e.preventDefault();
 
-<<<<<<< HEAD
     const recaptchaResponse = captchaRef.current.getValue();
 
     const url = "http://localhost:8000/validate-recaptcha";
@@ -188,9 +189,6 @@ const LearnerSignup = () => {
     }
 
     if (passwordMatch && !passwordError && result.success) {
-=======
-    if (passwordMatch && !passwordError) {
->>>>>>> caa680ff2c17ba6dcff25b95809f3ecf82456257
       try {
         const fullName = `${firstName} ${lastName}`;
         const response = await fetch("http://localhost:8000/registerLearner", {
@@ -223,39 +221,39 @@ const LearnerSignup = () => {
               <h2 className="mb-3 fs-2">Create an account to get started</h2>
               <Form onSubmit={handleSignup}>
                 <Row className="justify-content-md-center">
-                <Col>
-                <div className="form-floating mb-3">
-                <input
-                  type="text"
-                  className="form-control"
-                  id="floatingFName"
-                  placeholder="Name"
-                  required
-                  autoFocus
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  onKeyUp={handleFirstName}
-                />
-                <label htmlFor="floatingFName">First Name</label>
-                {fnameError && <div className="text-danger mt-2">{fnameError}</div>}
-                </div>
-                </Col>
-                <Col>
-                <div className="form-floating mb-3">
-                <input
-                  type="text"
-                  className="form-control"
-                  id="floatingLName"
-                  placeholder="Last Name"
-                  required
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  onKeyUp={handleLastName}
-                />
-                <label htmlFor="floatingLName">Last Name</label>
-                {lnameError && <div className="text-danger mt-2">{lnameError}</div>}
-                </div>
-                </Col>
+                  <Col>
+                    <div className="form-floating mb-3">
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="floatingFName"
+                        placeholder="Name"
+                        required
+                        autoFocus
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                        onKeyUp={handleFirstName}
+                      />
+                      <label htmlFor="floatingFName">First Name</label>
+                      {fnameError && <div className="text-danger mt-2">{fnameError}</div>}
+                    </div>
+                  </Col>
+                  <Col>
+                    <div className="form-floating mb-3">
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="floatingLName"
+                        placeholder="Last Name"
+                        required
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                        onKeyUp={handleLastName}
+                      />
+                      <label htmlFor="floatingLName">Last Name</label>
+                      {lnameError && <div className="text-danger mt-2">{lnameError}</div>}
+                    </div>
+                  </Col>
                 </Row>
                 <div className="form-floating mb-3">
                   <input
