@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt");
 const ObjectId = require("mongodb").ObjectId;
 const gridfs = require("gridfs-stream");
 const multer = require("multer");
+const fetch = require("node-fetch");
 
 //MongoDB
 const MongoClient = require("mongodb").MongoClient;
@@ -46,6 +47,29 @@ app.use(
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
+app.post("/validate-recaptcha", async (req, res) => {
+  console.log("accepted", req.body);
+  const { recaptchaResponse } = req.body;
+
+  const secretKey = "6LeJvIYlAAAAALC9M1krGZVvPHkk8zRjbhedmsr8";
+  const url = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptchaResponse}`;
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ recaptchaResponse }),
+  });
+
+  const result = await response.json();
+
+  if (result.success) {
+    res.status(200).json({ success: true });
+  } else {
+    res.status(400).json({ success: false, errorCodes: result["error-codes"] });
+  }
+});
 
 //routes for courses
 app.use("/courses", coursesRouter);

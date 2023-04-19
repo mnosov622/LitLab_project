@@ -23,6 +23,7 @@ const LearnerSignup = () => {
   const [email, setEmail] = useState("");
   const [reEnterPassword, setReEnterPassword] = useState("");
   const [passwordMatch, setPasswordMatch] = useState(true);
+  const [captchaError, setCaptchaError] = useState(false);
 
   // Define state variables for the input values and validation errors
   const [nameError, setNameError] = useState(null);
@@ -120,7 +121,28 @@ const LearnerSignup = () => {
   const handleSignup = async (e) => {
     setShowLoader(true);
     e.preventDefault();
-    if (passwordMatch && !passwordError) {
+
+    const recaptchaResponse = captchaRef.current.getValue();
+    console.log("from client", recaptchaResponse);
+
+    const url = "http://localhost:8000/validate-recaptcha";
+    const response = await fetch(url, {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ recaptchaResponse }),
+    });
+    const result = await response.json();
+    console.log("result", result);
+    if (!result.success) {
+      setCaptchaError(true);
+      setShowLoader(false);
+      captchaRef.current.reset();
+    } else {
+      setCaptchaError(false);
+      setShowLoader(false);
+    }
+
+    if (passwordMatch && !passwordError && result.success) {
       try {
         const response = await fetch("http://localhost:8000/registerLearner", {
           method: "POST",
@@ -219,6 +241,7 @@ const LearnerSignup = () => {
                   sitekey={process.env.REACT_APP_CAPTCHA_SITE_KEY}
                   ref={captchaRef}
                 />
+                {captchaError && <p className="text-danger">Captcha validation failed</p>}
                 <Button
                   className="btn btn3 btn-primary btn-lg mb-3"
                   variant="primary"
