@@ -49,7 +49,6 @@ const Certificate = () => {
 
   const handleDownload = () => {
     const element = elementRef.current;
-    const signatureImg = `<img src="${signature}" alt="Signature" width="12%"/>`;
 
     const content = `
       <!DOCTYPE html>
@@ -60,7 +59,6 @@ const Certificate = () => {
       </head>
       <body>
         ${element.innerHTML}
-        ${signatureImg}
       </body>
       </html>
     `;
