@@ -48,20 +48,20 @@ const Users = () => {
   const token = localStorage.getItem("token");
   const decoded = jwtDecode(token);
   useEffect(() => {
-    fetch(`https://litlab-backend.vercel.app/users/${decoded.id}`)
+    fetch(`https://litlab-backend-v2.vercel.app/users/${decoded.id}`)
       .then((res) => res.json())
       .then((data) => setAdminData(data));
   }, []);
 
   const handleConfirm = (name) => {
     // handle confirm action
-    fetch(`https://litlab-backend.vercel.app/courses/${name}`, {
+    fetch(`https://litlab-backend-v2.vercel.app/courses/${name}`, {
       method: "DELETE",
     })
       .then((response) => {
         if (response.status === 200) {
           setShowDeleteUserModal(false);
-          fetch("https://litlab-backend.vercel.app/courses")
+          fetch("https://litlab-backend-v2.vercel.app/courses")
             .then((res) => res.json())
             .then((data) => setCoursesData(data));
         }
@@ -72,13 +72,13 @@ const Users = () => {
   };
 
   const handleConfirmDeleteUser = (email) => {
-    fetch(`https://litlab-backend.vercel.app/users/${email}`, {
+    fetch(`https://litlab-backend-v2.vercel.app/users/${email}`, {
       method: "DELETE",
     })
       .then((response) => {
         if (response.status === 200) {
           setShowDeleteUserModal(false);
-          fetch("https://litlab-backend.vercel.app/users")
+          fetch("https://litlab-backend-v2.vercel.app/users")
             .then((res) => res.json())
             .then((data) => setUsersData(data));
         }
@@ -99,7 +99,7 @@ const Users = () => {
     setShowEditUserModal(true);
     setSelectedUser(email);
 
-    fetch(`https://litlab-backend.vercel.app/users/${id}`)
+    fetch(`https://litlab-backend-v2.vercel.app/users/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setSingleUserData(data);
@@ -109,7 +109,7 @@ const Users = () => {
   const handleOpenEditCourseModal = (name, id) => {
     setShowEditCourseModal(true);
     setSelectedCourse(id);
-    fetch(`https://litlab-backend.vercel.app/users/${id}`)
+    fetch(`https://litlab-backend-v2.vercel.app/users/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setSingleUserData(data);
@@ -117,18 +117,18 @@ const Users = () => {
   };
 
   useEffect(() => {
-    fetch("https://litlab-backend.vercel.app/users")
+    fetch("https://litlab-backend-v2.vercel.app/users")
       .then((res) => res.json())
       .then((data) => setUsersData(data));
 
-    fetch("https://litlab-backend.vercel.app/courses")
+    fetch("https://litlab-backend-v2.vercel.app/courses")
       .then((res) => res.json())
       .then((data) => setCoursesData(data))
       .catch((e) => console.log(e));
   }, []);
 
   const handleApprove = (userEmail, amount) => {
-    fetch(`https://litlab-backend.vercel.app/users/moneyEarned/${userEmail}`, {
+    fetch(`https://litlab-backend-v2.vercel.app/users/moneyEarned/${userEmail}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -138,14 +138,14 @@ const Users = () => {
       .then((data) => console.log(data))
       .catch((error) => console.error(error));
 
-    fetch(`https://litlab-backend.vercel.app/users/withdrawals/${userEmail}`, {
+    fetch(`https://litlab-backend-v2.vercel.app/users/withdrawals/${userEmail}`, {
       method: "DELETE",
     })
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
-        fetch("https://litlab-backend.vercel.app/users/withdraw/notify", {
+        fetch("https://litlab-backend-v2.vercel.app/users/withdraw/notify", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -174,7 +174,7 @@ const Users = () => {
           timeout: 2000,
         });
         setTimeout(() => {
-          fetch(`https://litlab-backend.vercel.app/users/${decoded.id}`)
+          fetch(`https://litlab-backend-v2.vercel.app/users/${decoded.id}`)
             .then((res) => res.json())
             .then((data) => setAdminData(data));
         }, 2000);
@@ -186,7 +186,7 @@ const Users = () => {
   };
 
   const handleReject = (userEmail, amount) => {
-    fetch(`https://litlab-backend.vercel.app/users/withdrawals/${userEmail}`, {
+    fetch(`https://litlab-backend-v2.vercel.app/users/withdrawals/${userEmail}`, {
       method: "DELETE",
     }).then((response) => {
       if (!response.ok) {
@@ -194,7 +194,7 @@ const Users = () => {
       }
     });
 
-    fetch("https://litlab-backend.vercel.app/users/withdraw/notify", {
+    fetch("https://litlab-backend-v2.vercel.app/users/withdraw/notify", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -224,7 +224,7 @@ const Users = () => {
       timeout: 2000,
     });
     setTimeout(() => {
-      fetch(`https://litlab-backend.vercel.app/users/${decoded.id}`)
+      fetch(`https://litlab-backend-v2.vercel.app/users/${decoded.id}`)
         .then((res) => res.json())
         .then((data) => setAdminData(data));
     }, 2000);
