@@ -16,7 +16,7 @@ function FeaturedInfo() {
   useEffect(() => {
     //getting all users
     setLoading(true);
-    fetch("http://localhost:8000/users")
+    fetch("https://litlab-backend-v2.vercel.app/users")
       .then((res) => res.json())
       .then((data) => {
         setUsersData(data);
@@ -39,7 +39,7 @@ function FeaturedInfo() {
       });
 
     //getting all courses
-    fetch("http://localhost:8000/courses")
+    fetch("https://litlab-backend-v2.vercel.app/courses")
       .then((res) => res.json())
       .then((data) => {
         setCoursesData(data);

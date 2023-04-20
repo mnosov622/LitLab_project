@@ -33,14 +33,14 @@ const CreatorInformation = () => {
   const userId = decoded.id;
 
   useEffect(() => {
-    fetch(`http://localhost:8000/creatorprofile/name/${instructorName}`)
+    fetch(`https://litlab-backend-v2.vercel.app/creatorprofile/name/${instructorName}`)
       .then((res) => res.json())
       .then((data) => {
         setCourse(data);
       });
 
     fetch(
-      `http://localhost:8000/creatorprofile/name/?name=${encodeURIComponent(
+      `https://litlab-backend-v2.vercel.app/creatorprofile/name/?name=${encodeURIComponent(
         instructorName
       )}`
     )
@@ -103,7 +103,7 @@ const CreatorInformation = () => {
       date: date,
     };
 
-    fetch(`http://localhost:8000/review/creator/${Number(id)}`, {
+    fetch(`https://litlab-backend-v2.vercel.app/review/creator/${Number(id)}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -115,7 +115,7 @@ const CreatorInformation = () => {
           position: positions.BOTTOM_RIGHT,
           timeout: 2000,
         });
-        fetch(`http://localhost:8000/courses/${Number(id)}`)
+        fetch(`https://litlab-backend-v2.vercel.app/courses/${Number(id)}`)
           .then((response) => response.json())
           .then((data) => {
             setCreatorData(data.course);
@@ -123,7 +123,7 @@ const CreatorInformation = () => {
       }
     });
     try {
-      fetch(`http://localhost:8000/review/creator/profile`, {
+      fetch(`https://litlab-backend-v2.vercel.app/review/creator/profile`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -136,7 +136,7 @@ const CreatorInformation = () => {
   useEffect(() => {
     const imageSource = creatorData?.instructorImageURL?.startsWith("https")
       ? creatorData?.instructorImageURL
-      : `http://localhost:8000/images/${creatorData.instructorImageURL}`;
+      : `https://litlab-backend-v2.vercel.app/images/${creatorData.instructorImageURL}`;
     setImageSource(imageSource);
   }, [creatorData, creatorData?.instructorImageURL]);
 
