@@ -39,11 +39,7 @@ const secret = "secret";
 const url = "mongodb+srv://litlab200:litlab@cluster0.fbncwuq.mongodb.net";
 
 //update this line to handle cors issues
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-  })
-);
+app.use(cors());
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -122,6 +118,8 @@ MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
   const upload = multer({ storage });
 
   app.post("/upload", upload.array("files"), (req, res) => {
+    res.header("Access-Control-Allow-Origin", "http://localhost:3000");
+
     console.log("courseContent", JSON.parse(req.body.courseContent));
     console.log("pointsToLearn", JSON.parse(req.body.pointsToLearn));
     // console.log("test", JSON.parse(req.body.questions));
