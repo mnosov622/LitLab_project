@@ -16,7 +16,7 @@ function FeaturedInfo() {
   useEffect(() => {
     //getting all users
     setLoading(true);
-    fetch("https://litlab-backend-v2.vercel.app/users")
+    fetch("https://still-gorge-88233.herokuapp.com/users")
       .then((res) => res.json())
       .then((data) => {
         setUsersData(data);
@@ -39,7 +39,7 @@ function FeaturedInfo() {
       });
 
     //getting all courses
-    fetch("https://litlab-backend-v2.vercel.app/courses")
+    fetch("https://still-gorge-88233.herokuapp.com/courses")
       .then((res) => res.json())
       .then((data) => {
         setCoursesData(data);

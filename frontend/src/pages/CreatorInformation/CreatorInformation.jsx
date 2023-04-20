@@ -33,14 +33,14 @@ const CreatorInformation = () => {
   const userId = decoded.id;
 
   useEffect(() => {
-    fetch(`https://litlab-backend-v2.vercel.app/creatorprofile/name/${instructorName}`)
+    fetch(`https://still-gorge-88233.herokuapp.com/creatorprofile/name/${instructorName}`)
       .then((res) => res.json())
       .then((data) => {
         setCourse(data);
       });
 
     fetch(
-      `https://litlab-backend-v2.vercel.app/creatorprofile/name/?name=${encodeURIComponent(
+      `https://still-gorge-88233.herokuapp.com/creatorprofile/name/?name=${encodeURIComponent(
         instructorName
       )}`
     )
@@ -103,7 +103,7 @@ const CreatorInformation = () => {
       date: date,
     };
 
-    fetch(`https://litlab-backend-v2.vercel.app/review/creator/${Number(id)}`, {
+    fetch(`https://still-gorge-88233.herokuapp.com/review/creator/${Number(id)}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -115,7 +115,7 @@ const CreatorInformation = () => {
           position: positions.BOTTOM_RIGHT,
           timeout: 2000,
         });
-        fetch(`https://litlab-backend-v2.vercel.app/courses/${Number(id)}`)
+        fetch(`https://still-gorge-88233.herokuapp.com/courses/${Number(id)}`)
           .then((response) => response.json())
           .then((data) => {
             setCreatorData(data.course);
@@ -123,7 +123,7 @@ const CreatorInformation = () => {
       }
     });
     try {
-      fetch(`https://litlab-backend-v2.vercel.app/review/creator/profile`, {
+      fetch(`https://still-gorge-88233.herokuapp.com/review/creator/profile`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -136,7 +136,7 @@ const CreatorInformation = () => {
   useEffect(() => {
     const imageSource = creatorData?.instructorImageURL?.startsWith("https")
       ? creatorData?.instructorImageURL
-      : `https://litlab-backend-v2.vercel.app/images/${creatorData.instructorImageURL}`;
+      : `https://still-gorge-88233.herokuapp.com/images/${creatorData.instructorImageURL}`;
     setImageSource(imageSource);
   }, [creatorData, creatorData?.instructorImageURL]);
 

@@ -28,7 +28,7 @@ const CreatorDashboard = () => {
     localStorage.setItem("creatorVisitorCount", creatorVisitorCount + 1);
     setVisitorCount(creatorVisitorCount + 1);
     setLoading(true);
-    fetch(`https://litlab-backend-v2.vercel.app/users/${decoded.id}`)
+    fetch(`https://still-gorge-88233.herokuapp.com/users/${decoded.id}`)
       .then((response) => response.json())
       .then((data) => {
         setCourses(data.courses);

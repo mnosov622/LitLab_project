@@ -57,7 +57,7 @@ const ResetPassword = () => {
       setShortPassword(false);
       localStorage.removeItem("resettingPassword");
 
-      fetch("https://litlab-backend-v2.vercel.app/reset-password", {
+      fetch("https://still-gorge-88233.herokuapp.com/reset-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token, password }),

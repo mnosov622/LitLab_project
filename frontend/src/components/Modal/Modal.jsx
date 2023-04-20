@@ -24,7 +24,7 @@ const Modal = ({
 
   const alert = useAlert();
   useEffect(() => {
-    fetch(`https://litlab-backend-v2.vercel.app/users/${id}`)
+    fetch(`https://still-gorge-88233.herokuapp.com/users/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setUserData(data);
@@ -32,7 +32,7 @@ const Modal = ({
         setUserName(data.name);
       });
 
-    fetch(`https://litlab-backend-v2.vercel.app/courses/${item}`)
+    fetch(`https://still-gorge-88233.herokuapp.com/courses/${item}`)
       .then((res) => res.json())
       .then((data) => {
         setSingleCourse(data.course);
@@ -44,7 +44,7 @@ const Modal = ({
   const handleSave = (id) => {
     const updatedUser = { name: userName, email: userEmail };
 
-    fetch(`https://litlab-backend-v2.vercel.app/users/${id}`, {
+    fetch(`https://still-gorge-88233.herokuapp.com/users/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedUser),
@@ -69,7 +69,7 @@ const Modal = ({
       price: singleCourse.price,
     };
 
-    fetch(`https://litlab-backend-v2.vercel.app/courses/${Number(id)}`, {
+    fetch(`https://still-gorge-88233.herokuapp.com/courses/${Number(id)}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

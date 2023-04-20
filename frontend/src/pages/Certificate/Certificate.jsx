@@ -35,13 +35,13 @@ const Certificate = () => {
     let today = new Date();
     let date = today.getMonth() + 1 + "/" + today.getDate() + "/" + today.getFullYear();
     setDate(date);
-    fetch(`https://litlab-backend-v2.vercel.app/courses/${Number(id)}`)
+    fetch(`https://still-gorge-88233.herokuapp.com/courses/${Number(id)}`)
       .then((response) => response.json())
       .then((data) => {
         setCourseData(data.course);
       });
 
-    fetch(`https://litlab-backend-v2.vercel.app/users/${decoded.id}`)
+    fetch(`https://still-gorge-88233.herokuapp.com/users/${decoded.id}`)
       .then((response) => response.json())
       .then((data) => {
         setUserData(data);

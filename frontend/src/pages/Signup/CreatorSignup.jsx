@@ -142,7 +142,7 @@ const CreatorSignup = () => {
 
     const recaptchaResponse = captchaRef.current.getValue();
 
-    const url = "https://litlab-backend-v2.vercel.app/validate-recaptcha";
+    const url = "https://still-gorge-88233.herokuapp.com/validate-recaptcha";
     const response = await fetch(url, {
       method: "post",
       headers: { "Content-Type": "application/json" },
@@ -162,7 +162,7 @@ const CreatorSignup = () => {
       try {
         const fullName = `${firstName} ${lastName}`;
 
-        const response = await fetch("https://litlab-backend-v2.vercel.app/registerCreator", {
+        const response = await fetch("https://still-gorge-88233.herokuapp.com/registerCreator", {
           method: "POST",
           body: JSON.stringify({
             name: fullName,

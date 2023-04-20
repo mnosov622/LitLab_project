@@ -36,7 +36,7 @@ const CourseUpload = () => {
   const [pointsToLearn, setPointsToLearn] = useState([{ point: "" }, { point: "" }, { point: "" }]);
 
   useEffect(() => {
-    fetch(`https://litlab-backend-v2.vercel.app/users/${decoded.id}`)
+    fetch(`https://still-gorge-88233.herokuapp.com/users/${decoded.id}`)
       .then((res) => res.json())
       .then((data) => {
         setInstructorImage(data.profileImage);
@@ -265,7 +265,7 @@ const CourseUpload = () => {
       formData.append("test", questionsJSON);
       formData.append("enrollments", 0);
 
-      const res = await fetch("https://litlab-backend-v2.vercel.app/upload", {
+      const res = await fetch("https://still-gorge-88233.herokuapp.com/upload", {
         method: "POST",
         body: formData,
       });
@@ -291,7 +291,7 @@ const CourseUpload = () => {
       };
       setLoading(false);
 
-      const response = await fetch("https://litlab-backend-v2.vercel.app/courses", {
+      const response = await fetch("https://still-gorge-88233.herokuapp.com/courses", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

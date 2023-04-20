@@ -26,7 +26,7 @@ const Login = () => {
     const email = emailRef.current.value;
 
     e.preventDefault();
-    fetch("https://litlab-backend-v2.vercel.app/forgot-password", {
+    fetch("https://still-gorge-88233.herokuapp.com/forgot-password", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

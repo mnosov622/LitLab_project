@@ -23,7 +23,7 @@ const AllCourses = () => {
   const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
-    fetch(`https://litlab-backend-v2.vercel.app/pagination?page=${page}&limit=${limit}`)
+    fetch(`https://still-gorge-88233.herokuapp.com/pagination?page=${page}&limit=${limit}`)
       .then((response) => response.json())
       .then((data) => {
         setCoursesPage(data.results);
@@ -31,7 +31,7 @@ const AllCourses = () => {
         setPrevPage(data.previous);
       });
 
-    fetch(`https://litlab-backend-v2.vercel.app/pagination?page=1&limit=1000`)
+    fetch(`https://still-gorge-88233.herokuapp.com/pagination?page=1&limit=1000`)
       .then((response) => response.json())
       .then((data) => {
         const totalResults = data.results.length;
@@ -59,7 +59,7 @@ const AllCourses = () => {
       const userId = decoded.id;
 
       setLoading(true);
-      fetch("https://litlab-backend-v2.vercel.app/courses")
+      fetch("https://still-gorge-88233.herokuapp.com/courses")
         .then((response) => response.json())
         .then((data) => {
           setCourses(data);
@@ -67,7 +67,7 @@ const AllCourses = () => {
         });
 
       if (userId) {
-        fetch(`https://litlab-backend-v2.vercel.app/users/${userId}`)
+        fetch(`https://still-gorge-88233.herokuapp.com/users/${userId}`)
           .then((response) => response.json())
           .then((data) => {
             setUserCourses(data.courses);
@@ -75,7 +75,7 @@ const AllCourses = () => {
       }
     } else {
       setLoading(true);
-      fetch("https://litlab-backend-v2.vercel.app/courses")
+      fetch("https://still-gorge-88233.herokuapp.com/courses")
         .then((response) => response.json())
         .then((data) => {
           setCourses(data);

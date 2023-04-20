@@ -12,7 +12,7 @@ function SearchResults(props) {
   const searchQuery = new URLSearchParams(location.search).get("q");
   useEffect(() => {
     setSearchValue(searchQuery);
-    fetch(`https://litlab-backend-v2.vercel.app/search?q=${searchQuery}`)
+    fetch(`https://still-gorge-88233.herokuapp.com/search?q=${searchQuery}`)
       .then((res) => res.json())
       .then((data) => {
         setSearchResults(data);

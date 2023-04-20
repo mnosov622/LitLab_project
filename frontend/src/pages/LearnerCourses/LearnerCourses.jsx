@@ -19,7 +19,7 @@ const LearnerCourses = () => {
   const [selectedCourse, setSelectedCourse] = useState(null);
 
   async function handleRemoveCourse(course) {
-    await fetch(`https://litlab-backend-v2.vercel.app/users/${userId}/courses`, {
+    await fetch(`https://still-gorge-88233.herokuapp.com/users/${userId}/courses`, {
       method: "DELETE",
     }).then((res) => {});
     setSelectedCourse(null);
@@ -41,7 +41,7 @@ const LearnerCourses = () => {
     const visitorCount = parseInt(localStorage.getItem("learnerCount")) || 0;
     localStorage.setItem("learnerCount", visitorCount + 1);
     setLoader(true);
-    fetch(`https://litlab-backend-v2.vercel.app/users/${userId}`)
+    fetch(`https://still-gorge-88233.herokuapp.com/users/${userId}`)
       .then((response) => response.json())
       .then((data) => setCourses(data.courses));
     setLoader(false);

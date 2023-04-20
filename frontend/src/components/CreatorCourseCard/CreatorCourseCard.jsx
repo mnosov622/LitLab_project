@@ -19,14 +19,14 @@ const CreatorCourseCard = ({
     const decoded = jwtDecode(token);
     const userEmail = decoded.email;
 
-    fetch(`https://litlab-backend-v2.vercel.app/courses/${courseName}`, {
+    fetch(`https://still-gorge-88233.herokuapp.com/courses/${courseName}`, {
       method: "DELETE",
     })
       .then((response) => response.json())
       .then((data) => {})
       .catch((e) => {});
 
-    fetch(`https://litlab-backend-v2.vercel.app/users/${userEmail}/courses/${courseId}`, {
+    fetch(`https://still-gorge-88233.herokuapp.com/users/${userEmail}/courses/${courseId}`, {
       method: "DELETE",
     })
       .then((response) => response.json())
@@ -52,7 +52,7 @@ const CreatorCourseCard = ({
       <div className="w-25 mb-5 col-md-6 course-card">
         <div className="card-item border">
           <img
-            src={`https://litlab-backend-v2.vercel.app/images/${courseImage}`}
+            src={`https://still-gorge-88233.herokuapp.com/images/${courseImage}`}
             className="card-img-top img-fluid card-image"
             alt="Course"
           />

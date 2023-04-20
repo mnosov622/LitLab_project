@@ -17,7 +17,7 @@ const ContactUs = () => {
     const subject = subjectRef.current.value;
     const message = messageRef.current.value;
 
-    fetch("https://litlab-backend-v2.vercel.app/contact-us", {
+    fetch("https://still-gorge-88233.herokuapp.com/contact-us", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
