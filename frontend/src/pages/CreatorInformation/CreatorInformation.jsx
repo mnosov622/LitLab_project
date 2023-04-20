@@ -33,14 +33,14 @@ const CreatorInformation = () => {
   const userId = decoded.id;
 
   useEffect(() => {
-    fetch(`https://litlab-backend.vercel.app/creatorprofile/name/${instructorName}`)
+    fetch(`http:/localhost:8000/creatorprofile/name/${instructorName}`)
       .then((res) => res.json())
       .then((data) => {
         setCourse(data);
       });
 
     fetch(
-      `https://litlab-backend.vercel.app/creatorprofile/name/?name=${encodeURIComponent(
+      `http:/localhost:8000/creatorprofile/name/?name=${encodeURIComponent(
         instructorName
       )}`
     )
@@ -103,7 +103,7 @@ const CreatorInformation = () => {
       date: date,
     };
 
-    fetch(`https://litlab-backend.vercel.app/review/creator/${Number(id)}`, {
+    fetch(`http:/localhost:8000/review/creator/${Number(id)}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -115,7 +115,7 @@ const CreatorInformation = () => {
           position: positions.BOTTOM_RIGHT,
           timeout: 2000,
         });
-        fetch(`https://litlab-backend.vercel.app/courses/${Number(id)}`)
+        fetch(`http:/localhost:8000/courses/${Number(id)}`)
           .then((response) => response.json())
           .then((data) => {
             setCreatorData(data.course);
@@ -123,7 +123,7 @@ const CreatorInformation = () => {
       }
     });
     try {
-      fetch(`https://litlab-backend.vercel.app/review/creator/profile`, {
+      fetch(`http:/localhost:8000/review/creator/profile`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -136,7 +136,7 @@ const CreatorInformation = () => {
   useEffect(() => {
     const imageSource = creatorData?.instructorImageURL?.startsWith("https")
       ? creatorData?.instructorImageURL
-      : `https://litlab-backend.vercel.app/images/${creatorData.instructorImageURL}`;
+      : `http:/localhost:8000/images/${creatorData.instructorImageURL}`;
     setImageSource(imageSource);
   }, [creatorData, creatorData?.instructorImageURL]);
 

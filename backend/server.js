@@ -41,19 +41,35 @@ const url = "mongodb+srv://litlab200:litlab@cluster0.fbncwuq.mongodb.net";
 //update this line to handle cors issues
 app.use(
   cors({
-    origin: "https://lit-lab-project-ten.vercel.app",
+    origin: "http://localhost:3000",
   })
 );
 
-app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "https://lit-lab-project-ten.vercel.app");
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-  next();
-});
-
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
+app.post("/validate-recaptcha", async (req, res) => {
+  console.log("accepted", req.body);
+  const { recaptchaResponse } = req.body;
+
+  const secretKey = "6LeJvIYlAAAAALC9M1krGZVvPHkk8zRjbhedmsr8";
+  const url = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptchaResponse}`;
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ recaptchaResponse }),
+  });
+
+  const result = await response.json();
+
+  if (result.success) {
+    res.status(200).json({ success: true });
+  } else {
+    res.status(400).json({ success: false, errorCodes: result["error-codes"] });
+  }
+});
 
 //routes for courses
 app.use("/courses", coursesRouter);
@@ -103,12 +119,7 @@ MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
   const db = client.db("users");
   const bucket = new mongodb.GridFSBucket(db);
   const storage = new multer.memoryStorage();
-  const upload = multer({
-    storage,
-    limits: {
-      fileSize: 50 * 1024 * 1024, // 50MB in bytes
-    },
-  });
+  const upload = multer({ storage });
 
   app.post("/upload", upload.array("files"), (req, res) => {
     console.log("courseContent", JSON.parse(req.body.courseContent));
@@ -365,29 +376,6 @@ app.put("/users/:userEmail/courses/:id", (req, res) => {
       console.log(err);
       res.status(500).json({ error: "Failed to update the course" });
     });
-});
-
-app.post("/validate-recaptcha", async (req, res) => {
-  console.log("accepted", req.body);
-  const { recaptchaResponse } = req.body;
-
-  const secretKey = "6LeJvIYlAAAAALC9M1krGZVvPHkk8zRjbhedmsr8";
-  const url = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptchaResponse}`;
-  const response = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ recaptchaResponse }),
-  });
-
-  const result = await response.json();
-
-  if (result.success) {
-    res.status(200).json({ success: true });
-  } else {
-    res.status(400).json({ success: false, errorCodes: result["error-codes"] });
-  }
 });
 
 app.listen(process.env.PORT || 8000, () => {
