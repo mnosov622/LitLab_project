@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useRef } from "react";
-import signature from "../../../src/assets/certificate-signature.png";
+
 import "./Certificate.scss";
-import congrats from "../../../src/assets/congrats.png";
 import { useParams } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 
@@ -100,7 +99,6 @@ const Certificate = () => {
         </p>
         <p className="text-center mt-3 fs-5">Date: {date}</p>
         <p className="text-center mt-3">
-          <img src={signature} alt="Signature" width={"12%"} />
           <br />
           <br />
           <p className="fs-5 fw-bold">
@@ -108,13 +106,6 @@ const Certificate = () => {
           </p>
           <p className="fs-5 text-primary">LitLab</p>
         </p>
-
-        <img
-          src={congrats}
-          alt="Congratulations"
-          width={"15%"}
-          className="congrats position-absolute"
-        />
       </div>
 
       <div className="button-wrapper text-center mb-5">

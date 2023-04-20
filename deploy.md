@@ -7,6 +7,11 @@ https://litlab-teracle.vercel.app
 deploy backend:
 vercel --prod
 
+HEROKU BACKEND
+
+IN ROOT Of projects
+git subtree push --prefix=backend heroku main
+
 ----Updated----
 Backend
 https://litlab-backend.vercel.app
