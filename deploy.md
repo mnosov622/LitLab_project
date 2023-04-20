@@ -11,5 +11,8 @@ vercel --prod
 Backend
 https://litlab-backend.vercel.app
 
+-------VERSION 2 -----
+https://litlab-backend-v2.vercel.app
+
 frontend
 https://lit-lab-project-ten.vercel.app

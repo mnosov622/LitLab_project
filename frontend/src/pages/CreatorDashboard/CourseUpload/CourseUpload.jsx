@@ -36,7 +36,7 @@ const CourseUpload = () => {
   const [pointsToLearn, setPointsToLearn] = useState([{ point: "" }, { point: "" }, { point: "" }]);
 
   useEffect(() => {
-    fetch(`https://litlab-backend-v2.vercel.app/users/${decoded.id}`)
+    fetch(`https://litlab-backend.vercel.app/users/${decoded.id}`)
       .then((res) => res.json())
       .then((data) => {
         setInstructorImage(data.profileImage);
@@ -219,7 +219,6 @@ const CourseUpload = () => {
 
   const [submitErrorMessage, setSubmitErrorMessage] = useState(false);
   const [validCorrectAnswer, setValidCorrectAnswer] = useState(true);
-  const pako = require("pako");
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -252,27 +251,21 @@ const CourseUpload = () => {
       );
       const questionsJSON = JSON.stringify(questions);
       setLoading(true);
-
-      const dataToCompress = {
-        files: [video, image],
-        email: decoded.email,
-        courseName: inputValues.name,
-        price: inputValues.price,
-        shortDescription: inputValues.shortDescription,
-        longDescription: inputValues.longDescription,
-        pointsToLearn: pointsToLearnJSON,
-        pointsSummary: summary,
-        courseContent: courseContentJSON,
-        test: questionsJSON,
-        enrollments: 0,
-      };
-
-      const compressedData = pako.gzip(JSON.stringify(dataToCompress));
-
       const formData = new FormData();
-      formData.append("data", compressedData, { filename: "data.gz" });
+      formData.append("files", video);
+      formData.append("files", image);
+      formData.append("email", decoded.email);
+      formData.append("courseName", inputValues.name);
+      formData.append("price", inputValues.price);
+      formData.append("shortDescription", inputValues.shortDescription);
+      formData.append("longDescription", inputValues.longDescription);
+      formData.append("pointsToLearn", pointsToLearnJSON);
+      formData.append("pointsSummary", summary);
+      formData.append("courseContent", courseContentJSON);
+      formData.append("test", questionsJSON);
+      formData.append("enrollments", 0);
 
-      const res = await fetch("https://litlab-backend-v2.vercel.app/upload", {
+      const res = await fetch("https://litlab-backend.vercel.app/upload", {
         method: "POST",
         body: formData,
       });
@@ -298,7 +291,7 @@ const CourseUpload = () => {
       };
       setLoading(false);
 
-      const response = await fetch("https://litlab-backend-v2.vercel.app/courses", {
+      const response = await fetch("https://litlab-backend.vercel.app/courses", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

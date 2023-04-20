@@ -126,6 +126,10 @@ MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
     console.log("pointsToLearn", JSON.parse(req.body.pointsToLearn));
     // console.log("test", JSON.parse(req.body.questions));
 
+    res.setHeader("Access-Control-Allow-Credentials", true);
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
+
     const videoFile = req.files.find((file) => file.mimetype.startsWith("video/"));
     const imageFile = req.files.find((file) => file.mimetype.startsWith("image/"));
 
