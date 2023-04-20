@@ -23,7 +23,7 @@ const AllCourses = () => {
   const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
-    fetch(`http:/localhost:8000/pagination?page=${page}&limit=${limit}`)
+    fetch(`http://localhost:8000/pagination?page=${page}&limit=${limit}`)
       .then((response) => response.json())
       .then((data) => {
         setCoursesPage(data.results);
@@ -31,7 +31,7 @@ const AllCourses = () => {
         setPrevPage(data.previous);
       });
 
-    fetch(`http:/localhost:8000/pagination?page=1&limit=1000`)
+    fetch(`http://localhost:8000/pagination?page=1&limit=1000`)
       .then((response) => response.json())
       .then((data) => {
         const totalResults = data.results.length;
@@ -59,7 +59,7 @@ const AllCourses = () => {
       const userId = decoded.id;
 
       setLoading(true);
-      fetch("http:/localhost:8000/courses")
+      fetch("http://localhost:8000/courses")
         .then((response) => response.json())
         .then((data) => {
           setCourses(data);
@@ -67,7 +67,7 @@ const AllCourses = () => {
         });
 
       if (userId) {
-        fetch(`http:/localhost:8000/users/${userId}`)
+        fetch(`http://localhost:8000/users/${userId}`)
           .then((response) => response.json())
           .then((data) => {
             setUserCourses(data.courses);
@@ -75,7 +75,7 @@ const AllCourses = () => {
       }
     } else {
       setLoading(true);
-      fetch("http:/localhost:8000/courses")
+      fetch("http://localhost:8000/courses")
         .then((response) => response.json())
         .then((data) => {
           setCourses(data);

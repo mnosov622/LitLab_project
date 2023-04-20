@@ -35,13 +35,13 @@ const Certificate = () => {
     let today = new Date();
     let date = today.getMonth() + 1 + "/" + today.getDate() + "/" + today.getFullYear();
     setDate(date);
-    fetch(`http:/localhost:8000/courses/${Number(id)}`)
+    fetch(`http://localhost:8000/courses/${Number(id)}`)
       .then((response) => response.json())
       .then((data) => {
         setCourseData(data.course);
       });
 
-    fetch(`http:/localhost:8000/users/${decoded.id}`)
+    fetch(`http://localhost:8000/users/${decoded.id}`)
       .then((response) => response.json())
       .then((data) => {
         setUserData(data);
