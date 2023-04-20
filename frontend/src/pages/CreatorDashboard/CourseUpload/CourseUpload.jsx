@@ -267,10 +267,8 @@ const CourseUpload = () => {
 
       const res = await fetch("https://litlab-backend.vercel.app/upload", {
         method: "POST",
-        mode: "no-cors",
         body: formData,
       });
-
       const data = await res.json();
 
       const courseData = {
