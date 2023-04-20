@@ -19,7 +19,7 @@ const LearnerCourses = () => {
   const [selectedCourse, setSelectedCourse] = useState(null);
 
   async function handleRemoveCourse(course) {
-    await fetch(`http://localhost:8000/users/${userId}/courses`, {
+    await fetch(`https://litlab-backend.vercel.app /users/${userId}/courses`, {
       method: "DELETE",
     }).then((res) => {});
     setSelectedCourse(null);
@@ -41,7 +41,7 @@ const LearnerCourses = () => {
     const visitorCount = parseInt(localStorage.getItem("learnerCount")) || 0;
     localStorage.setItem("learnerCount", visitorCount + 1);
     setLoader(true);
-    fetch(`http://localhost:8000/users/${userId}`)
+    fetch(`https://litlab-backend.vercel.app /users/${userId}`)
       .then((response) => response.json())
       .then((data) => setCourses(data.courses));
     setLoader(false);
