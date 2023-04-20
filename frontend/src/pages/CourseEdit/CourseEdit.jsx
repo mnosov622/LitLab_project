@@ -34,14 +34,14 @@ const CourseEdit = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:8000/users/${decoded.id}`)
+    fetch(`https://litlab-backend.vercel.app/users/${decoded.id}`)
       .then((response) => response.json())
       .then((data) => {
         setUserData(data.courses);
         setLoading(false);
       });
 
-    fetch(`http://localhost:8000/courses`)
+    fetch(`https://litlab-backend.vercel.app/courses`)
       .then((res) => res.json())
       .then((data) => {
         setCourses(data);
@@ -72,7 +72,7 @@ const CourseEdit = () => {
       longDescription: longDescription,
       price: price,
     };
-    fetch(`http://localhost:8000/creator-courses/${decoded.id}/courses/${courseId}`, {
+    fetch(`https://litlab-backend.vercel.app/creator-courses/${decoded.id}/courses/${courseId}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -87,7 +87,7 @@ const CourseEdit = () => {
         navigate("/");
       });
 
-    fetch(`http://localhost:8000/creator/${singleCourse.name}`, {
+    fetch(`https://litlab-backend.vercel.app/creator/${singleCourse.name}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -101,7 +101,7 @@ const CourseEdit = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        fetch(`http://localhost:8000/users/${decoded.id}`)
+        fetch(`https://litlab-backend.vercel.app/users/${decoded.id}`)
           .then((response) => response.json())
           .then((data) => {
             setCourses(data.courses);
@@ -192,7 +192,7 @@ const CourseEdit = () => {
               <p className="fs-4">Course Image</p>
               {singleCourse && singleCourse.courseImageURL && (
                 <img
-                  src={`http://localhost:8000/images/${singleCourse.courseImageURL}`}
+                  src={`https://litlab-backend.vercel.app/images/${singleCourse.courseImageURL}`}
                   width={"30%"}
                   alt="Course"
                   className="points-input"
@@ -204,7 +204,7 @@ const CourseEdit = () => {
               {singleCourse && (
                 <video
                   controls
-                  src={`http://localhost:8000/videos/${singleCourse.video}`}
+                  src={`https://litlab-backend.vercel.app/videos/${singleCourse.video}`}
                   width={"50%"}
                   className="points-input"
                 ></video>

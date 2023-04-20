@@ -17,7 +17,7 @@ const ContactUs = () => {
     const subject = subjectRef.current.value;
     const message = messageRef.current.value;
 
-    fetch("http://localhost:8000/contact-us", {
+    fetch("https://litlab-backend.vercel.app/contact-us", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
