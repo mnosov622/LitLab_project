@@ -19,14 +19,14 @@ const CreatorCourseCard = ({
     const decoded = jwtDecode(token);
     const userEmail = decoded.email;
 
-    fetch(`https://litlab-backend-v2.vercel.app/courses/${courseName}`, {
+    fetch(`http://localhost:8000/courses/${courseName}`, {
       method: "DELETE",
     })
       .then((response) => response.json())
       .then((data) => {})
       .catch((e) => {});
 
-    fetch(`https://litlab-backend-v2.vercel.app/users/${userEmail}/courses/${courseId}`, {
+    fetch(`http://localhost:8000/users/${userEmail}/courses/${courseId}`, {
       method: "DELETE",
     })
       .then((response) => response.json())
@@ -52,7 +52,7 @@ const CreatorCourseCard = ({
       <div className="w-25 mb-5 col-md-6 course-card">
         <div className="card-item border">
           <img
-            src={`https://litlab-backend-v2.vercel.app/images/${courseImage}`}
+            src={`http://localhost:8000/images/${courseImage}`}
             className="card-img-top img-fluid card-image"
             alt="Course"
           />

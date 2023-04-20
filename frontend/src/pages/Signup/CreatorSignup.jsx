@@ -142,7 +142,7 @@ const CreatorSignup = () => {
 
     const recaptchaResponse = captchaRef.current.getValue();
 
-    const url = "https://litlab-backend-v2.vercel.app/validate-recaptcha";
+    const url = "http://localhost:8000/validate-recaptcha";
     const response = await fetch(url, {
       method: "post",
       headers: { "Content-Type": "application/json" },
@@ -162,7 +162,7 @@ const CreatorSignup = () => {
       try {
         const fullName = `${firstName} ${lastName}`;
 
-        const response = await fetch("https://litlab-backend-v2.vercel.app/registerCreator", {
+        const response = await fetch("http://localhost:8000/registerCreator", {
           method: "POST",
           body: JSON.stringify({
             name: fullName,
