@@ -57,7 +57,7 @@ const ResetPassword = () => {
       setShortPassword(false);
       localStorage.removeItem("resettingPassword");
 
-      fetch("https://litlab-backend.vercel.app /reset-password", {
+      fetch("https://litlab-backend.vercel.app/reset-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token, password }),

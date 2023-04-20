@@ -192,7 +192,7 @@ const Test = () => {
     if (correctAnswers === totalQuestions) {
       const fetchData = async () => {
         const response = await fetch(
-          `https://litlab-backend.vercel.app /users/${userEmail}/courses/${id}`,
+          `https://litlab-backend.vercel.app/users/${userEmail}/courses/${id}`,
           {
             method: "PUT",
             headers: {
@@ -215,7 +215,7 @@ const Test = () => {
 
   useEffect(() => {
     if (question.length === 0) {
-      fetch(`https://litlab-backend.vercel.app /users/${userEmail}/courses/${id}`, {
+      fetch(`https://litlab-backend.vercel.app/users/${userEmail}/courses/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -233,7 +233,7 @@ const Test = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`https://litlab-backend.vercel.app /courses/${Number(id)}`)
+    fetch(`https://litlab-backend.vercel.app/courses/${Number(id)}`)
       .then((response) => response.json())
       .then((data) => {
         setQuestions(data.course.test);

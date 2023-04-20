@@ -124,7 +124,7 @@ const LearnerSignup = () => {
 
     const recaptchaResponse = captchaRef.current.getValue();
 
-    const url = "https://litlab-backend.vercel.app /validate-recaptcha";
+    const url = "https://litlab-backend.vercel.app/validate-recaptcha";
     const response = await fetch(url, {
       method: "post",
       headers: { "Content-Type": "application/json" },
@@ -142,7 +142,7 @@ const LearnerSignup = () => {
 
     if (result.success) {
       try {
-        const response = await fetch("https://litlab-backend.vercel.app /register-with-google", {
+        const response = await fetch("https://litlab-backend.vercel.app/register-with-google", {
           method: "POST",
           body: JSON.stringify({
             name,
@@ -172,7 +172,7 @@ const LearnerSignup = () => {
 
     const recaptchaResponse = captchaRef.current.getValue();
 
-    const url = "https://litlab-backend.vercel.app /validate-recaptcha";
+    const url = "https://litlab-backend.vercel.app/validate-recaptcha";
     const response = await fetch(url, {
       method: "post",
       headers: { "Content-Type": "application/json" },
@@ -191,7 +191,7 @@ const LearnerSignup = () => {
     if (passwordMatch && !passwordError && result.success) {
       try {
         const fullName = `${firstName} ${lastName}`;
-        const response = await fetch("https://litlab-backend.vercel.app /registerLearner", {
+        const response = await fetch("https://litlab-backend.vercel.app/registerLearner", {
           method: "POST",
           body: JSON.stringify({ name: fullName, email, password, isLearner: true }),
           headers: { "Content-Type": "application/json" },
