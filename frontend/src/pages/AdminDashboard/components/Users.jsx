@@ -234,7 +234,10 @@ const Users = () => {
     <div>
       <div className="">
         <h2 className="text-center mb-5 mt-5">Total Revenue</h2>
-        <div className="featuredItem text-center w-25 mx-auto" style={{ cursor: "default" }}>
+        <div
+          className="featuredItem text-center w-25 mx-auto"
+          style={{ cursor: "default", width: "auto" }}
+        >
           <span className="featuredMoney text-center">
             {/* {loading ? (
                 <ThreeDots
