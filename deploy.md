@@ -8,6 +8,7 @@ deploy backend:
 vercel --prod
 
 HEROKU BACKEND
+https://still-gorge-88233.herokuapp.com
 
 IN ROOT Of projects
 git subtree push --prefix=backend heroku main
