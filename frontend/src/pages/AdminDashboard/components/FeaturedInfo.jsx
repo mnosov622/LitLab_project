@@ -16,7 +16,7 @@ function FeaturedInfo() {
   useEffect(() => {
     //getting all users
     setLoading(true);
-    fetch("http://localhost:8000/users")
+    fetch("https://still-gorge-88233.herokuapp.com/users")
       .then((res) => res.json())
       .then((data) => {
         setUsersData(data);
@@ -39,7 +39,7 @@ function FeaturedInfo() {
       });
 
     //getting all courses
-    fetch("http://localhost:8000/courses")
+    fetch("https://still-gorge-88233.herokuapp.com/courses")
       .then((res) => res.json())
       .then((data) => {
         setCoursesData(data);

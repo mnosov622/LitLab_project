@@ -18,12 +18,13 @@ const LearnerSignup = () => {
   const navigate = useNavigate();
   const [showLoader, setShowLoader] = useState(false);
   const [userExists, setUserExists] = useState(false);
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [reEnterPassword, setReEnterPassword] = useState("");
   const [passwordMatch, setPasswordMatch] = useState(true);
+  const [captchaError, setCaptchaError] = useState(false);
 
   // Define state variables for the input values and validation errors
   const [fnameError, setFNameError] = useState(null);
@@ -98,13 +99,15 @@ const LearnerSignup = () => {
     if (password == null) {
       return setPasswordError("Password cannot be empty.");
     }
-    
+
     // Ensure the password has at least one capital letter, one number, and one special symbol
     const hasCapital = /[A-Z]/.test(password);
     const hasNumber = /[0-9]/.test(password);
     const hasSpecialSymbol = /[!@#$%^&*(),.?":{}|<>]/.test(password);
     if (!hasCapital || !hasNumber || !hasSpecialSymbol) {
-      return setPasswordError("Password must contain at least one capital letter, one number, and one special symbol.");
+      return setPasswordError(
+        "Password must contain at least one capital letter, one number, and one special symbol."
+      );
     }
 
     // Ensure the password is at least 8 characters long
@@ -119,24 +122,44 @@ const LearnerSignup = () => {
     // navigate("/");
     const { name, email } = res.profileObj;
 
-    try {
-      const response = await fetch("http://localhost:8000/register-with-google", {
-        method: "POST",
-        body: JSON.stringify({
-          name,
-          email,
-          token: res.accessToken,
-          isLearner: true,
-        }),
-        headers: { "Content-Type": "application/json" },
-      });
+    const recaptchaResponse = captchaRef.current.getValue();
 
-      if (response.status === 409) {
-        return setUserExists(true);
-      }
-      navigate("/login", { state: { success: true } });
-      setUserExists(false);
-    } catch (e) {}
+    const url = "https://still-gorge-88233.herokuapp.com/validate-recaptcha";
+    const response = await fetch(url, {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ recaptchaResponse }),
+    });
+    const result = await response.json();
+    if (!result.success) {
+      setCaptchaError(true);
+      setShowLoader(false);
+      captchaRef.current.reset();
+    } else {
+      setCaptchaError(false);
+      setShowLoader(false);
+    }
+
+    if (result.success) {
+      try {
+        const response = await fetch("https://still-gorge-88233.herokuapp.com/register-with-google", {
+          method: "POST",
+          body: JSON.stringify({
+            name,
+            email,
+            token: res.accessToken,
+            isLearner: true,
+          }),
+          headers: { "Content-Type": "application/json" },
+        });
+
+        if (response.status === 409) {
+          return setUserExists(true);
+        }
+        navigate("/login", { state: { success: true } });
+        setUserExists(false);
+      } catch (e) {}
+    }
   };
 
   const onFailure = (err) => {
@@ -147,10 +170,28 @@ const LearnerSignup = () => {
     setShowLoader(true);
     e.preventDefault();
 
-    if (passwordMatch && !passwordError) {
+    const recaptchaResponse = captchaRef.current.getValue();
+
+    const url = "https://still-gorge-88233.herokuapp.com/validate-recaptcha";
+    const response = await fetch(url, {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ recaptchaResponse }),
+    });
+    const result = await response.json();
+    if (!result.success) {
+      setCaptchaError(true);
+      setShowLoader(false);
+      captchaRef.current.reset();
+    } else {
+      setCaptchaError(false);
+      setShowLoader(false);
+    }
+
+    if (passwordMatch && !passwordError && result.success) {
       try {
         const fullName = `${firstName} ${lastName}`;
-        const response = await fetch("http://localhost:8000/registerLearner", {
+        const response = await fetch("https://still-gorge-88233.herokuapp.com/registerLearner", {
           method: "POST",
           body: JSON.stringify({ name: fullName, email, password, isLearner: true }),
           headers: { "Content-Type": "application/json" },
@@ -180,39 +221,39 @@ const LearnerSignup = () => {
               <h2 className="mb-3 fs-2">Create an account to get started</h2>
               <Form onSubmit={handleSignup}>
                 <Row className="justify-content-md-center">
-                <Col>
-                <div className="form-floating mb-3">
-                <input
-                  type="text"
-                  className="form-control"
-                  id="floatingFName"
-                  placeholder="Name"
-                  required
-                  autoFocus
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
-                  onKeyUp={handleFirstName}
-                />
-                <label htmlFor="floatingFName">First Name</label>
-                {fnameError && <div className="text-danger mt-2">{fnameError}</div>}
-                </div>
-                </Col>
-                <Col>
-                <div className="form-floating mb-3">
-                <input
-                  type="text"
-                  className="form-control"
-                  id="floatingLName"
-                  placeholder="Last Name"
-                  required
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  onKeyUp={handleLastName}
-                />
-                <label htmlFor="floatingLName">Last Name</label>
-                {lnameError && <div className="text-danger mt-2">{lnameError}</div>}
-                </div>
-                </Col>
+                  <Col>
+                    <div className="form-floating mb-3">
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="floatingFName"
+                        placeholder="Name"
+                        required
+                        autoFocus
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                        onKeyUp={handleFirstName}
+                      />
+                      <label htmlFor="floatingFName">First Name</label>
+                      {fnameError && <div className="text-danger mt-2">{fnameError}</div>}
+                    </div>
+                  </Col>
+                  <Col>
+                    <div className="form-floating mb-3">
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="floatingLName"
+                        placeholder="Last Name"
+                        required
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                        onKeyUp={handleLastName}
+                      />
+                      <label htmlFor="floatingLName">Last Name</label>
+                      {lnameError && <div className="text-danger mt-2">{lnameError}</div>}
+                    </div>
+                  </Col>
                 </Row>
                 <div className="form-floating mb-3">
                   <input
@@ -267,6 +308,7 @@ const LearnerSignup = () => {
                   sitekey={process.env.REACT_APP_CAPTCHA_SITE_KEY}
                   ref={captchaRef}
                 />
+                {captchaError && <p className="text-danger">Captcha validation failed</p>}
                 <Button
                   className="btn btn3 btn-primary btn-lg mb-3"
                   variant="primary"

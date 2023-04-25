@@ -60,7 +60,7 @@ const Payment = () => {
       const pricesTotal = prices.reduce((sum, item) => sum + item, 0);
       setTotalAmount(pricesTotal);
     }
-    fetch(`http://localhost:8000/users/${userId}`)
+    fetch(`https://still-gorge-88233.herokuapp.com/users/${userId}`)
       .then((res) => res.json())
       .then((data) => setUserData(data));
   }, []);
@@ -88,7 +88,7 @@ const Payment = () => {
           isCompleted: false,
         };
 
-        fetch("http://localhost:8000/courses/creator", {
+        fetch("https://still-gorge-88233.herokuapp.com/courses/creator", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -102,18 +102,18 @@ const Payment = () => {
           }),
         }).then((res) => {});
 
-        fetch("http://localhost:8000/courses/creator/enrollments", {
+        fetch("https://still-gorge-88233.herokuapp.com/courses/creator/enrollments", {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ email: item_to_buy.email }),
         }).then((res) => {});
-        fetch(`http://localhost:8000/courses/${item_to_buy.id}/increase-enrollments`, {
+        fetch(`https://still-gorge-88233.herokuapp.com/courses/${item_to_buy.id}/increase-enrollments`, {
           method: "PUT",
         });
 
-        await fetch("http://localhost:8000/buy-course", {
+        await fetch("https://still-gorge-88233.herokuapp.com/buy-course", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -130,7 +130,7 @@ const Payment = () => {
         formData.append("email", item_to_buy.email);
         formData.append("amount", creatorProfit);
 
-        await fetch("http://localhost:8000/creator/moneyEarned", {
+        await fetch("https://still-gorge-88233.herokuapp.com/creator/moneyEarned", {
           method: "PUT",
           headers: {
             "Content-Type": "application/x-www-form-urlencoded",
@@ -138,7 +138,7 @@ const Payment = () => {
           body: formData,
         });
 
-        fetch("http://localhost:8000/users/increment-revenue", {
+        fetch("https://still-gorge-88233.herokuapp.com/users/increment-revenue", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -165,7 +165,7 @@ const Payment = () => {
           });
         });
 
-        fetch("http://localhost:8000/buy-course", {
+        fetch("https://still-gorge-88233.herokuapp.com/buy-course", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

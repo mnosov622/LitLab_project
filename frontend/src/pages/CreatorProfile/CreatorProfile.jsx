@@ -27,7 +27,7 @@ const CreatorProfile = () => {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:8000/users/${decoded.id}`)
+    fetch(`https://still-gorge-88233.herokuapp.com/users/${decoded.id}`)
       .then((response) => response.json())
       .then((data) => {
         setProfileData(data);
@@ -50,7 +50,7 @@ const CreatorProfile = () => {
     formData.append("email", email);
     formData.append("education", education);
 
-    fetch(`http://localhost:8000/creator/${decoded.id}`, {
+    fetch(`https://still-gorge-88233.herokuapp.com/creator/${decoded.id}`, {
       method: "POST",
       body: formData,
     }).then((res) => {
@@ -62,7 +62,7 @@ const CreatorProfile = () => {
       }
     });
 
-    fetch(`http://localhost:8000/creator/courses/${profileData.email}`, {
+    fetch(`https://still-gorge-88233.herokuapp.com/creator/courses/${profileData.email}`, {
       method: "POST",
       body: formData,
     })
@@ -90,7 +90,7 @@ const CreatorProfile = () => {
             <>
               <img
                 className="profile-header__avatar rounded w-25"
-                src={`http://localhost:8000/images/${profileData.profileImage}`}
+                src={`https://still-gorge-88233.herokuapp.com/images/${profileData.profileImage}`}
                 alt="avatar"
               />
               {!imagePreview && (

@@ -48,20 +48,20 @@ const Users = () => {
   const token = localStorage.getItem("token");
   const decoded = jwtDecode(token);
   useEffect(() => {
-    fetch(`http://localhost:8000/users/${decoded.id}`)
+    fetch(`https://still-gorge-88233.herokuapp.com/users/${decoded.id}`)
       .then((res) => res.json())
       .then((data) => setAdminData(data));
   }, []);
 
   const handleConfirm = (name) => {
     // handle confirm action
-    fetch(`http://localhost:8000/courses/${name}`, {
+    fetch(`https://still-gorge-88233.herokuapp.com/courses/${name}`, {
       method: "DELETE",
     })
       .then((response) => {
         if (response.status === 200) {
           setShowDeleteUserModal(false);
-          fetch("http://localhost:8000/courses")
+          fetch("https://still-gorge-88233.herokuapp.com/courses")
             .then((res) => res.json())
             .then((data) => setCoursesData(data));
         }
@@ -72,13 +72,13 @@ const Users = () => {
   };
 
   const handleConfirmDeleteUser = (email) => {
-    fetch(`http://localhost:8000/users/${email}`, {
+    fetch(`https://still-gorge-88233.herokuapp.com/users/${email}`, {
       method: "DELETE",
     })
       .then((response) => {
         if (response.status === 200) {
           setShowDeleteUserModal(false);
-          fetch("http://localhost:8000/users")
+          fetch("https://still-gorge-88233.herokuapp.com/users")
             .then((res) => res.json())
             .then((data) => setUsersData(data));
         }
@@ -99,7 +99,7 @@ const Users = () => {
     setShowEditUserModal(true);
     setSelectedUser(email);
 
-    fetch(`http://localhost:8000/users/${id}`)
+    fetch(`https://still-gorge-88233.herokuapp.com/users/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setSingleUserData(data);
@@ -109,7 +109,7 @@ const Users = () => {
   const handleOpenEditCourseModal = (name, id) => {
     setShowEditCourseModal(true);
     setSelectedCourse(id);
-    fetch(`http://localhost:8000/users/${id}`)
+    fetch(`https://still-gorge-88233.herokuapp.com/users/${id}`)
       .then((res) => res.json())
       .then((data) => {
         setSingleUserData(data);
@@ -117,18 +117,18 @@ const Users = () => {
   };
 
   useEffect(() => {
-    fetch("http://localhost:8000/users")
+    fetch("https://still-gorge-88233.herokuapp.com/users")
       .then((res) => res.json())
       .then((data) => setUsersData(data));
 
-    fetch("http://localhost:8000/courses")
+    fetch("https://still-gorge-88233.herokuapp.com/courses")
       .then((res) => res.json())
       .then((data) => setCoursesData(data))
       .catch((e) => console.log(e));
   }, []);
 
   const handleApprove = (userEmail, amount) => {
-    fetch(`http://localhost:8000/users/moneyEarned/${userEmail}`, {
+    fetch(`https://still-gorge-88233.herokuapp.com/users/moneyEarned/${userEmail}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -138,14 +138,14 @@ const Users = () => {
       .then((data) => console.log(data))
       .catch((error) => console.error(error));
 
-    fetch(`http://localhost:8000/users/withdrawals/${userEmail}`, {
+    fetch(`https://still-gorge-88233.herokuapp.com/users/withdrawals/${userEmail}`, {
       method: "DELETE",
     })
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
-        fetch("http://localhost:8000/users/withdraw/notify", {
+        fetch("https://still-gorge-88233.herokuapp.com/users/withdraw/notify", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -174,7 +174,7 @@ const Users = () => {
           timeout: 2000,
         });
         setTimeout(() => {
-          fetch(`http://localhost:8000/users/${decoded.id}`)
+          fetch(`https://still-gorge-88233.herokuapp.com/users/${decoded.id}`)
             .then((res) => res.json())
             .then((data) => setAdminData(data));
         }, 2000);
@@ -186,7 +186,7 @@ const Users = () => {
   };
 
   const handleReject = (userEmail, amount) => {
-    fetch(`http://localhost:8000/users/withdrawals/${userEmail}`, {
+    fetch(`https://still-gorge-88233.herokuapp.com/users/withdrawals/${userEmail}`, {
       method: "DELETE",
     }).then((response) => {
       if (!response.ok) {
@@ -194,7 +194,7 @@ const Users = () => {
       }
     });
 
-    fetch("http://localhost:8000/users/withdraw/notify", {
+    fetch("https://still-gorge-88233.herokuapp.com/users/withdraw/notify", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -224,7 +224,7 @@ const Users = () => {
       timeout: 2000,
     });
     setTimeout(() => {
-      fetch(`http://localhost:8000/users/${decoded.id}`)
+      fetch(`https://still-gorge-88233.herokuapp.com/users/${decoded.id}`)
         .then((res) => res.json())
         .then((data) => setAdminData(data));
     }, 2000);
@@ -234,7 +234,7 @@ const Users = () => {
     <div>
       <div className="">
         <h2 className="text-center mb-5 mt-5">Total Revenue</h2>
-        <div className="featuredItem text-center w-25 mx-auto" style={{ cursor: "default" }}>
+        <div className="featuredItem text-center w-25 mx-auto w-auto" style={{ cursor: "default" }}>
           <span className="featuredMoney text-center">
             {/* {loading ? (
                 <ThreeDots

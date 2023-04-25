@@ -26,7 +26,7 @@ const Login = () => {
     const email = emailRef.current.value;
 
     e.preventDefault();
-    fetch("http://localhost:8000/forgot-password", {
+    fetch("https://still-gorge-88233.herokuapp.com/forgot-password", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

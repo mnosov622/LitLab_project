@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useRef } from "react";
-import signature from "../../../src/assets/certificate-signature.png";
+
 import "./Certificate.scss";
-import congrats from "../../../src/assets/congrats.png";
 import { useParams } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 
@@ -35,13 +34,13 @@ const Certificate = () => {
     let today = new Date();
     let date = today.getMonth() + 1 + "/" + today.getDate() + "/" + today.getFullYear();
     setDate(date);
-    fetch(`http://localhost:8000/courses/${Number(id)}`)
+    fetch(`https://still-gorge-88233.herokuapp.com/courses/${Number(id)}`)
       .then((response) => response.json())
       .then((data) => {
         setCourseData(data.course);
       });
 
-    fetch(`http://localhost:8000/users/${decoded.id}`)
+    fetch(`https://still-gorge-88233.herokuapp.com/users/${decoded.id}`)
       .then((response) => response.json())
       .then((data) => {
         setUserData(data);
@@ -50,7 +49,6 @@ const Certificate = () => {
 
   const handleDownload = () => {
     const element = elementRef.current;
-    const signatureImg = `<img src="${signature}" alt="Signature" width="12%"/>`;
 
     const content = `
       <!DOCTYPE html>
@@ -61,7 +59,6 @@ const Certificate = () => {
       </head>
       <body>
         ${element.innerHTML}
-        ${signatureImg}
       </body>
       </html>
     `;
@@ -100,7 +97,6 @@ const Certificate = () => {
         </p>
         <p className="text-center mt-3 fs-5">Date: {date}</p>
         <p className="text-center mt-3">
-          <img src={signature} alt="Signature" width={"12%"} />
           <br />
           <br />
           <p className="fs-5 fw-bold">
@@ -108,13 +104,6 @@ const Certificate = () => {
           </p>
           <p className="fs-5 text-primary">LitLab</p>
         </p>
-
-        <img
-          src={congrats}
-          alt="Congratulations"
-          width={"15%"}
-          className="congrats position-absolute"
-        />
       </div>
 
       <div className="button-wrapper text-center mb-5">

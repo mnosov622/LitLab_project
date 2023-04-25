@@ -12,7 +12,7 @@ function SearchResults(props) {
   const searchQuery = new URLSearchParams(location.search).get("q");
   useEffect(() => {
     setSearchValue(searchQuery);
-    fetch(`http://localhost:8000/search?q=${searchQuery}`)
+    fetch(`https://still-gorge-88233.herokuapp.com/search?q=${searchQuery}`)
       .then((res) => res.json())
       .then((data) => {
         setSearchResults(data);

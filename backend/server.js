@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt");
 const ObjectId = require("mongodb").ObjectId;
 const gridfs = require("gridfs-stream");
 const multer = require("multer");
+const fetch = require("node-fetch");
 
 //MongoDB
 const MongoClient = require("mongodb").MongoClient;
@@ -40,12 +41,35 @@ const url = "mongodb+srv://litlab200:litlab@cluster0.fbncwuq.mongodb.net";
 //update this line to handle cors issues
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://lit-lab-project-ten.vercel.app",
   })
 );
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
+app.post("/validate-recaptcha", async (req, res) => {
+  console.log("accepted", req.body);
+  const { recaptchaResponse } = req.body;
+
+  const secretKey = "6LeJvIYlAAAAALC9M1krGZVvPHkk8zRjbhedmsr8";
+  const url = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptchaResponse}`;
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ recaptchaResponse }),
+  });
+
+  const result = await response.json();
+
+  if (result.success) {
+    res.status(200).json({ success: true });
+  } else {
+    res.status(400).json({ success: false, errorCodes: result["error-codes"] });
+  }
+});
 
 //routes for courses
 app.use("/courses", coursesRouter);
@@ -101,6 +125,10 @@ MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
     console.log("courseContent", JSON.parse(req.body.courseContent));
     console.log("pointsToLearn", JSON.parse(req.body.pointsToLearn));
     // console.log("test", JSON.parse(req.body.questions));
+
+    res.setHeader("Access-Control-Allow-Credentials", true);
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
 
     const videoFile = req.files.find((file) => file.mimetype.startsWith("video/"));
     const imageFile = req.files.find((file) => file.mimetype.startsWith("image/"));

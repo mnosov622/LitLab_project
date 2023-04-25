@@ -87,7 +87,7 @@ const CourseView = () => {
   const userId = decoded.id;
 
   useEffect(() => {
-    fetch(`http://localhost:8000/users/${userId}`)
+    fetch(`https://still-gorge-88233.herokuapp.com/users/${userId}`)
       .then((res) => res.json())
       .then((data) => {
         setSavedNotes(data.notes);
@@ -149,14 +149,14 @@ const CourseView = () => {
 
   const handleNoteSave = (e) => {
     e.preventDefault();
-    fetch(`http://localhost:8000/users/notes/${userId}`, {
+    fetch(`https://still-gorge-88233.herokuapp.com/users/notes/${userId}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ notebody: noteBody }),
     }).then((res) => {
-      fetch(`http://localhost:8000/users/${userId}`)
+      fetch(`https://still-gorge-88233.herokuapp.com/users/${userId}`)
         .then((res) => res.json())
         .then((data) => {
           setSavedNotes(data.notes);
@@ -197,10 +197,10 @@ const CourseView = () => {
   };
 
   const handleDeleteNotes = () => {
-    fetch(`http://localhost:8000/users/notes/${userId}`, {
+    fetch(`https://still-gorge-88233.herokuapp.com/users/notes/${userId}`, {
       method: "DELETE",
     }).then((res) => {
-      fetch(`http://localhost:8000/users/${userId}`)
+      fetch(`https://still-gorge-88233.herokuapp.com/users/${userId}`)
         .then((res) => res.json())
         .then((data) => {
           setSavedNotes(data.notes);
@@ -215,10 +215,10 @@ const CourseView = () => {
   };
 
   const handleDeleteNote = (note) => {
-    fetch(`http://localhost:8000/users/notes/${userId}/${note.id}`, {
+    fetch(`https://still-gorge-88233.herokuapp.com/users/notes/${userId}/${note.id}`, {
       method: "DELETE",
     }).then((res) => {
-      fetch(`http://localhost:8000/users/${userId}`)
+      fetch(`https://still-gorge-88233.herokuapp.com/users/${userId}`)
         .then((res) => res.json())
         .then((data) => {
           setSavedNotes(data.notes);
@@ -229,7 +229,7 @@ const CourseView = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`http://localhost:8000/courses/${Number(id)}`)
+    fetch(`https://still-gorge-88233.herokuapp.com/courses/${Number(id)}`)
       .then((response) => response.json())
       .then((data) => {
         setCourseData(data.course);
@@ -245,7 +245,7 @@ const CourseView = () => {
       setUploadedVideo(true);
     }
     //   ? courseData
-    //   : `http://localhost:8000/images/${courseData.video}`;
+    //   : `https://still-gorge-88233.herokuapp.com/images/${courseData.video}`;
     // setVideoSource(videoSource);
   }, [courseData]);
 
@@ -340,7 +340,7 @@ const CourseView = () => {
       emailAddress.trim().length !== 0 &&
       feedback.trim().length !== 0
     ) {
-      fetch(`http://localhost:8000/courses/feedback`, {
+      fetch(`https://still-gorge-88233.herokuapp.com/courses/feedback`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -407,7 +407,7 @@ const CourseView = () => {
                 uploadedVideo &&
                 courseData?.video && (
                   <video
-                    src={`http://localhost:8000/videos/${courseData.video}`}
+                    src={`https://still-gorge-88233.herokuapp.com/videos/${courseData.video}`}
                     controls
                     width={"100%"}
                   />

@@ -28,7 +28,7 @@ const CreatorDashboard = () => {
     localStorage.setItem("creatorVisitorCount", creatorVisitorCount + 1);
     setVisitorCount(creatorVisitorCount + 1);
     setLoading(true);
-    fetch(`http://localhost:8000/users/${decoded.id}`)
+    fetch(`https://still-gorge-88233.herokuapp.com/users/${decoded.id}`)
       .then((response) => response.json())
       .then((data) => {
         setCourses(data.courses);

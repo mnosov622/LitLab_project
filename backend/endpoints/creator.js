@@ -54,6 +54,9 @@ router.post("/:id", upload.single("profileImage"), async (req, res) => {
 
 router.post("/courses/:email", upload.single("profileImage"), async (req, res) => {
   try {
+    res.setHeader("Access-Control-Allow-Credentials", true);
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.setHeader("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
     const db = client.db("courses");
     const bucket = new mongodb.GridFSBucket(db);
 
