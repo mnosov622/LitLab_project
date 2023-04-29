@@ -79,7 +79,7 @@ const Login = () => {
     setShowLoader(true);
 
     try {
-      const response = await fetch("https://still-gorge-88233.herokuapp.com/googleLogin", {
+      const response = await fetch("https://litlab-backend-v2.vercel.app/googleLogin", {
         method: "POST",
         body: JSON.stringify({
           email: res.profileObj.email,
@@ -125,7 +125,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("https://still-gorge-88233.herokuapp.com/login", {
+      const response = await fetch("https://litlab-backend-v2.vercel.app/login", {
         method: "POST",
         body: JSON.stringify({ email, password }),
         headers: { "Content-Type": "application/json" },

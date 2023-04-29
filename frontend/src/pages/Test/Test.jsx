@@ -192,7 +192,7 @@ const Test = () => {
     if (correctAnswers === totalQuestions) {
       const fetchData = async () => {
         const response = await fetch(
-          `https://still-gorge-88233.herokuapp.com/users/${userEmail}/courses/${id}`,
+          `https://litlab-backend-v2.vercel.app/users/${userEmail}/courses/${id}`,
           {
             method: "PUT",
             headers: {
@@ -215,7 +215,7 @@ const Test = () => {
 
   useEffect(() => {
     if (question.length === 0) {
-      fetch(`https://still-gorge-88233.herokuapp.com/users/${userEmail}/courses/${id}`, {
+      fetch(`https://litlab-backend-v2.vercel.app/users/${userEmail}/courses/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -233,7 +233,7 @@ const Test = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`https://still-gorge-88233.herokuapp.com/courses/${Number(id)}`)
+    fetch(`https://litlab-backend-v2.vercel.app/courses/${Number(id)}`)
       .then((response) => response.json())
       .then((data) => {
         setQuestions(data.course.test);

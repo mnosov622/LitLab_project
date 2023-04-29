@@ -65,7 +65,7 @@ const CourseDescription = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch(`https://still-gorge-88233.herokuapp.com/courses/${Number(id)}`)
+    fetch(`https://litlab-backend-v2.vercel.app/courses/${Number(id)}`)
       .then((response) => response.json())
       .then((data) => {
         setCourse(data.course);
@@ -81,7 +81,7 @@ const CourseDescription = () => {
     const token = localStorage.getItem("token");
     const decoded = jwtDecode(token);
 
-    fetch(`https://still-gorge-88233.herokuapp.com/users/${decoded.id}`)
+    fetch(`https://litlab-backend-v2.vercel.app/users/${decoded.id}`)
       .then((response) => response.json())
       .then((data) => {
         setLearnerCourses(data.courses);
@@ -96,14 +96,14 @@ const CourseDescription = () => {
   useEffect(() => {
     const imageSource = course?.courseImageURL?.startsWith("https")
       ? course?.courseImageURL
-      : `https://still-gorge-88233.herokuapp.com/images/${course.courseImageURL}`;
+      : `https://litlab-backend-v2.vercel.app/images/${course.courseImageURL}`;
     setImageSource(imageSource);
   }, [course, course?.coureseImageURL]);
 
   useEffect(() => {
     const instructorSource = course?.instructorImageURL?.startsWith("https")
       ? course?.instructorImageURL
-      : `https://still-gorge-88233.herokuapp.com/images/${course.instructorImageURL}`;
+      : `https://litlab-backend-v2.vercel.app/images/${course.instructorImageURL}`;
     setInstructorImageSource(instructorSource);
   }, [course, course?.instructorImageURL]);
 
@@ -184,7 +184,7 @@ const CourseDescription = () => {
       instructorName: course.instructor,
     };
 
-    fetch("https://still-gorge-88233.herokuapp.com/review/creator", {
+    fetch("https://litlab-backend-v2.vercel.app/review/creator", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -219,7 +219,7 @@ const CourseDescription = () => {
     }
     setError(false);
 
-    fetch(`https://still-gorge-88233.herokuapp.com/review/course/${Number(id)}`, {
+    fetch(`https://litlab-backend-v2.vercel.app/review/course/${Number(id)}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -232,7 +232,7 @@ const CourseDescription = () => {
           timeout: 2000,
         });
 
-        fetch(`https://still-gorge-88233.herokuapp.com/courses/${Number(id)}`)
+        fetch(`https://litlab-backend-v2.vercel.app/courses/${Number(id)}`)
           .then((response) => response.json())
           .then((data) => {
             setCourse(data.course);
